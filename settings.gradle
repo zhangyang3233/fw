@@ -1,2 +1,3 @@
 include ':common:imageblur'
+include ':common:utils'
 include ':package:demos'

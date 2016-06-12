@@ -118,9 +118,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // 编译依赖
     compile 'com.android.support:appcompat-v7:23.3.0'
-    // 编译extras目录下的ShimmerAndroid模块, 这里没有做个示例
-//    compile project(':extras:ShimmerAndroid')
+    // 编译extras目录下的ShimmerAndroid模块
     compile project(':common:imageblur')
+    compile project(':common:utils')
 }
 
 
