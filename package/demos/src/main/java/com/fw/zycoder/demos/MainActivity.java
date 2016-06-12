@@ -1,4 +1,4 @@
-package com.fw.zycoder.fw;
+package com.fw.zycoder.demos;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
