@@ -11,8 +11,7 @@ android {
     // build tools的版本
     buildToolsVersion "23.0.3"
     defaultConfig {
-        // 在BuildConfig生成一个名字叫 IS_DEBUG boolean类型的变量,值为true
-        buildConfigField "boolean", "IS_DEBUG", "true"
+        // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为true
         buildConfigField "boolean", "IS_SHOW_LOG", "true"
         // 应用的包名
         applicationId "com.fw.zycoder.demos"
@@ -51,8 +50,6 @@ android {
             debuggable false
             // 是否可以debug jni
             jniDebuggable false
-            // 在BuildConfig生成一个名字叫 IS_DEBUG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
-            buildConfigField "boolean", "IS_DEBUG", "false"
             // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
             buildConfigField "boolean", "IS_SHOW_LOG", "false"
             // 版本名称后缀
@@ -121,6 +118,7 @@ dependencies {
     // 编译extras目录下的ShimmerAndroid模块
     compile project(':common:imageblur')
     compile project(':common:utils')
+    compile project(':common:errorpage')
 }
 
 

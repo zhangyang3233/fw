@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fw.zycoder.errorpage">
+
+    <application>
+
+        <activity
+            android:name="com.fw.zycoder.errorpage.activity.DefaultErrorActivity"
+            android:process=":error_activity"
+            android:theme="@style/CustomActivityOnCrashTheme" />
+
+    </application>
+
+</manifest>

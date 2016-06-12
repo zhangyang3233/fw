@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="customactivityoncrash_primary">#3F51B5</color>
+    <color name="customactivityoncrash_primary_dark">#283593</color>
+    <color name="customactivityoncrash_accent">#FF4081</color>
+</resources>
