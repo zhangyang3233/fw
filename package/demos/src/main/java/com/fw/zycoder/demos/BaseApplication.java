@@ -3,6 +3,8 @@ package com.fw.zycoder.demos;
 import android.app.Application;
 
 import com.fw.zycoder.errorpage.CustomActivityOnCrash;
+import com.fw.zycoder.utils.GlobalConfig;
+import com.fw.zycoder.utils.Log;
 
 
 /**
@@ -14,6 +16,17 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
         initErrorPage();
+        initGlobalConfig();
+        initLog();
+    }
+
+    private void initLog() {
+        Log.setIsPrintLog(BuildConfig.IS_SHOW_LOG);
+    }
+
+    private void initGlobalConfig() {
+        GlobalConfig.setAppContext(this);
+        GlobalConfig.setDebug(BuildConfig.DEBUG);
     }
 
     private void initErrorPage() {
