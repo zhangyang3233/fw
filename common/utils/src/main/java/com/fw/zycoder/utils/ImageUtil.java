@@ -685,7 +685,6 @@ public class ImageUtil {
    * @param height
    * @param config
    * @return null if there is no memery for the bitmap
-   * @author liuxu34@wanda.cn (Liu Xu)
    */
   public static Bitmap creatBitmapSafty(int width, int height, Config config) {
     Bitmap output = null;

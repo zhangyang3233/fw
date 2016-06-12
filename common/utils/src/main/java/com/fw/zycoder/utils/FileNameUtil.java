@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 /**
  *
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class FileNameUtil {
 

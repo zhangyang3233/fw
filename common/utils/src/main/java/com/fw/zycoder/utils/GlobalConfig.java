@@ -4,7 +4,6 @@ import android.content.Context;
 
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class GlobalConfig {
   private static Context appContext;

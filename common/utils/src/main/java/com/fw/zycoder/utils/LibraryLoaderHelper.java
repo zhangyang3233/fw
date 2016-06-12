@@ -20,7 +20,6 @@ import java.util.zip.ZipFile;
  * <p/>
  * The class should be package-visible only, but made public for testing purpose.
  * 
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class LibraryLoaderHelper {
   private static final String TAG = "LibraryLoaderHelper";

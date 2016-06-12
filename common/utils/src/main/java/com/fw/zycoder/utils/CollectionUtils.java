@@ -7,8 +7,6 @@ import java.util.Map;
 
 /**
  * Usage: Util for collections.
- * 
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class CollectionUtils {
 

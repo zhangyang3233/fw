@@ -7,7 +7,6 @@ import android.widget.TextView;
 /**
  * 判断 TextView 的关键字段，如果关键字段为空，就会做相应的操作（ INVISIBLE 或者 GONE ）
  * 
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class TextViewUtils {
 

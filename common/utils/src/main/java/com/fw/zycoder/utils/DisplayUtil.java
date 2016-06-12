@@ -7,7 +7,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class DisplayUtil {
 

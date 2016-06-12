@@ -17,7 +17,6 @@ import java.io.Writer;
 /**
  * Utility class to handle I/O operations.
  * 
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class IOUtils {
 

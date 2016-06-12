@@ -3,7 +3,6 @@ package com.fw.zycoder.utils;
 import java.text.DecimalFormat;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class SizeConvertUtil {
 

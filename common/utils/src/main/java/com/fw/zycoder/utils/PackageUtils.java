@@ -15,7 +15,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class PackageUtils {
 

@@ -8,7 +8,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class SharePrefSubmitor {
   private static final ExecutorService pool = Executors

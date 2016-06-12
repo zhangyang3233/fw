@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * 
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class DigestUtils {
 

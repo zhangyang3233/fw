@@ -18,7 +18,6 @@ import android.widget.AbsListView;
 /**
  * Some useful methods for views.
  *
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class ViewUtils {
 

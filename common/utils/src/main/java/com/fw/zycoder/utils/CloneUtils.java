@@ -3,7 +3,6 @@ package com.fw.zycoder.utils;
 import com.google.gson.Gson;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class CloneUtils {
 

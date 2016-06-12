@@ -34,7 +34,6 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class SystemUtil {
   private static final String META_CHANNEL = "CHANNEL";

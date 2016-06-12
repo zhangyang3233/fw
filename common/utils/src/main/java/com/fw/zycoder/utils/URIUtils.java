@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import java.util.Map;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class URIUtils {
 

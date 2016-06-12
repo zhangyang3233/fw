@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class PathAdjustUtil {
 

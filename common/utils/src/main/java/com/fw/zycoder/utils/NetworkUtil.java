@@ -17,7 +17,6 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public final class NetworkUtil {
 
