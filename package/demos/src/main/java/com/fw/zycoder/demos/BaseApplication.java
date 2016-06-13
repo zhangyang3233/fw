@@ -20,15 +20,24 @@ public class BaseApplication extends Application{
         initLog();
     }
 
+    /**
+     * 初始化log类
+     */
     private void initLog() {
         Log.setIsPrintLog(BuildConfig.IS_SHOW_LOG);
     }
 
+    /**
+     * 初始化全局变量
+     */
     private void initGlobalConfig() {
         GlobalConfig.setAppContext(this);
         GlobalConfig.setDebug(BuildConfig.DEBUG);
     }
 
+    /**
+     * 初始化崩溃页面
+     */
     private void initErrorPage() {
         CustomActivityOnCrash.install(this);
         // 程序在后台崩溃是否显示错误页面
