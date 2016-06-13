@@ -7,7 +7,7 @@ gen/
 build/
 .DS_Store
 local.properties
-*.iml
+
 *.pyc
 .metadata
 .settings
