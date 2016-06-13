@@ -120,6 +120,8 @@ dependencies {
     compile project(':common:utils')
     compile project(':common:errorpage')
     compile project(':widget:sliding')
+    compile project(':framework:http')
+    compile project(':common:volley')
 }
 
 

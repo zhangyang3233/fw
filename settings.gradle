@@ -1,5 +1,7 @@
 include ':common:imageblur'
 include ':common:utils'
 include ':common:errorpage'
+include ':common:volley'
 include ':package:demos'
 include ':widget:sliding'
+include ':framework:http'
