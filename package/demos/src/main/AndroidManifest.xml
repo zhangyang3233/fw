@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DialogTestActivity"
+        <activity android:name=".demos.DialogTestActivity"
             android:label="视图/dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

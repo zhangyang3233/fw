@@ -1,9 +1,10 @@
-package com.fw.zycoder.demos;
+package com.fw.zycoder.demos.demos;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
+import com.fw.zycoder.demos.R;
 import com.fw.zycoder.demos.base.DemoActivity;
 
 /**
