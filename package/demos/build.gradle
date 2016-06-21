@@ -121,7 +121,7 @@ dependencies {
     compile project(':external:errorpage')
     compile project(':external:sliding')
     compile project(':framework:http')
-    compile project(':framework:dialoghelper')
+    compile project(':external:dialoghelper')
     compile 'io.reactivex:rxjava:1.0.9'
     compile 'io.reactivex:rxandroid:0.24.0'
 }

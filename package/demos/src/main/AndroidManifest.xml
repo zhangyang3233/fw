@@ -12,14 +12,12 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestActivity"
-            android:label="测试/哈哈">
-
+        <activity android:name=".DialogTestActivity"
+            android:label="视图/dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="activity_category" />
