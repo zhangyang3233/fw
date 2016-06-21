@@ -63,8 +63,8 @@ android {
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // 输出apk名称为zylist_v1.0_2015-01-15_wandoujia.apk
-                        def fileName = "zylist_${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        // 输出apk名称为demolist_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "demolist_${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
@@ -115,13 +115,15 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // 编译依赖
     compile 'com.android.support:appcompat-v7:23.3.0'
-    // 编译extras目录下的ShimmerAndroid模块
+    // 编译 external 目录下的 imageblur 模块
     compile project(':external:imageblur')
     compile project(':external:utils')
     compile project(':external:errorpage')
-    compile project(':widget:sliding')
+    compile project(':external:sliding')
     compile project(':framework:http')
-
+    compile project(':framework:dialoghelper')
+    compile 'io.reactivex:rxjava:1.0.9'
+    compile 'io.reactivex:rxandroid:0.24.0'
 }
 
 
