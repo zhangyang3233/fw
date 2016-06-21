@@ -1,18 +1,20 @@
-package com.fw.zycoder.demos;
+package com.fw.zycoder.demos.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.fw.zycoder.demos.base.DemoActivity;
-
 /**
  * Created by zhangyang131 on 16/6/21.
  */
-public class TestActivity extends DemoActivity {
-
+public class DemoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        resetTitle();
+    }
+
+    private void resetTitle() {
+        String[] s = getTitle().toString().split("/");
+        setTitle(s[s.length-1]);
     }
 }
