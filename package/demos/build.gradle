@@ -17,7 +17,6 @@ android {
         applicationId "com.fw.zycoder.demos"
         // 支持的最小的 Android 版本
         minSdkVersion 22
-        // 目标版本(期望运行的版本)
         targetSdkVersion 23
         // 程序内部版本号
         versionCode 1
@@ -116,10 +115,12 @@ dependencies {
     // 编译依赖
     compile 'com.android.support:appcompat-v7:23.3.0'
     // 编译 external 目录下的 imageblur 模块
-    compile project(':external:imageblur')
+    compile project(':external:image:imageblur')
+    compile project(':external:image:circleimageview')
     compile project(':external:utils')
     compile project(':external:errorpage')
     compile project(':external:sliding')
+    compile project(':external:customtoast')
     compile project(':framework:http')
     compile project(':external:dialoghelper')
     compile 'io.reactivex:rxjava:1.0.9'

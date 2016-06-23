@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".demos.DialogTestActivity"
+        <activity
+            android:name=".demos.DialogTestActivity"
             android:label="视图/dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +25,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".demos.ToastTestActivity"
+            android:label="视图/toast">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="activity_category" />
+            </intent-filter>
+        </activity>
 
 
     </application>
