@@ -45,175 +45,6 @@ public class SuperToast {
   private static final String ERROR_DURATIONTOOLONG =
       " - You should NEVER specify a duration greater than " +
           "four and a half seconds for a SuperToast.";
-
-  /**
-   * Custom OnClickListener to be used with SuperActivityToasts/SuperCardToasts. Note that
-   * SuperActivityToasts/SuperCardToasts must use this with an
-   */
-  public interface OnClickListener {
-
-    public void onClick(View view, Parcelable token);
-
-  }
-
-  /**
-   * Custom OnDismissListener to be used with any type of SuperToasts. Note that
-   * SuperActivityToasts/SuperCardToasts must use this with an
-   */
-  public interface OnDismissListener {
-
-    public void onDismiss(View view);
-
-  }
-
-  /**
-   * Backgrounds for all types of SuperToasts.
-   */
-  public static class Background {
-
-    public static final int BLACK = Style.getBackground(Style.BLACK);
-    public static final int BLUE = Style.getBackground(Style.BLUE);
-    public static final int GRAY = Style.getBackground(Style.GRAY);
-    public static final int GREEN = Style.getBackground(Style.GREEN);
-    public static final int ORANGE = Style.getBackground(Style.ORANGE);
-    public static final int PURPLE = Style.getBackground(Style.PURPLE);
-    public static final int RED = Style.getBackground(Style.RED);
-    public static final int WHITE = Style.getBackground(Style.WHITE);
-
-  }
-
-  /**
-   * Animations for all types of SuperToasts.
-   */
-  public enum Animations {
-
-    FADE,
-    FLYIN,
-    SCALE,
-    Animations, POPUP
-
-  }
-
-  /**
-   * Icons for all types of SuperToasts.
-   */
-  public static class Icon {
-
-    /**
-     * Icons for all types of SuperToasts with a dark background.
-     */
-    public static class Dark {
-
-      public static final int EDIT = (R.drawable.icon_dark_edit);
-      public static final int EXIT = (R.drawable.icon_dark_exit);
-      public static final int INFO = (R.drawable.icon_dark_info);
-      public static final int REDO = (R.drawable.icon_dark_redo);
-      public static final int REFRESH = (R.drawable.icon_dark_refresh);
-      public static final int SAVE = (R.drawable.icon_dark_save);
-      public static final int SHARE = (R.drawable.icon_dark_share);
-      public static final int UNDO = (R.drawable.icon_dark_undo);
-
-    }
-
-    /**
-     * Icons for all types of SuperToasts with a light background.
-     */
-    public static class Light {
-
-      public static final int EDIT = (R.drawable.icon_light_edit);
-      public static final int EXIT = (R.drawable.icon_light_exit);
-      public static final int INFO = (R.drawable.icon_light_info);
-      public static final int REDO = (R.drawable.icon_light_redo);
-      public static final int REFRESH = (R.drawable.icon_light_refresh);
-      public static final int SAVE = (R.drawable.icon_light_save);
-      public static final int SHARE = (R.drawable.icon_light_share);
-      public static final int UNDO = (R.drawable.icon_light_undo);
-
-    }
-
-  }
-
-  /**
-   * Durations for all types of SuperToasts.
-   */
-  public static class Duration {
-
-    public static final int VERY_SHORT = (1500);
-    public static final int SHORT = (2000);
-    public static final int MEDIUM = (2750);
-    public static final int LONG = (3500);
-    public static final int EXTRA_LONG = (4500);
-
-  }
-
-  /**
-   * Text sizes for all types of SuperToasts.
-   */
-  public static class TextSize {
-
-    public static final int EXTRA_SMALL = (12);
-    public static final int SMALL = (14);
-    public static final int MEDIUM = (16);
-    public static final int LARGE = (18);
-
-  }
-
-  /**
-   * Types for SuperActivityToasts and SuperCardToasts.
-   */
-  public enum Type {
-
-    /**
-     * Standard type used for displaying messages.
-     */
-    STANDARD,
-
-    /**
-     * Progress type used for showing progress.
-     */
-    PROGRESS,
-
-    /**
-     * Progress type used for showing progress.
-     */
-    PROGRESS_HORIZONTAL,
-
-    Type,
-    /**
-     * Button type used for receiving click actions.
-     */
-    BUTTON
-
-  }
-
-  /**
-   * Positions for icons used in all types of SuperToasts.
-   */
-  public enum IconPosition {
-
-    /**
-     * Set the icon to the left of the text.
-     */
-    LEFT,
-
-    /**
-     * Set the icon to the right of the text.
-     */
-    RIGHT,
-
-    /**
-     * Set the icon on top of the text.
-     */
-    TOP,
-
-    IconPosition,
-    /**
-     * Set the icon on the bottom of the text.
-     */
-    BOTTOM
-
-  }
-
   private Animations mAnimations = Animations.FADE;
   private Context mContext;
   private int mGravity = Gravity.BOTTOM | Gravity.CENTER;
@@ -228,7 +59,6 @@ public class SuperToast {
   private View mToastView;
   private WindowManager mWindowManager;
   private WindowManager.LayoutParams mWindowManagerParams;
-
   /**
    * Instantiates a new {@value #TAG}.
    *
@@ -260,7 +90,6 @@ public class SuperToast {
     mMessageTextView = (TextView) mToastView.findViewById(R.id.message_textview);
 
   }
-
   /**
    * Instantiates a new {@value #TAG} with a specified style.
    *
@@ -296,6 +125,74 @@ public class SuperToast {
   }
 
   /**
+   * Returns a standard {@value #TAG}.
+   *
+   * @param context {@link Context}
+   * @param textCharSequence {@link CharSequence}
+   *
+   * @return {@link SuperToast}
+   */
+  public static SuperToast create(Context context, CharSequence textCharSequence,
+      int durationInteger) {
+
+    SuperToast superToast = new SuperToast(context);
+    superToast.setText(textCharSequence);
+    superToast.setDuration(durationInteger);
+
+    return superToast;
+
+  }
+
+  /**
+   * Returns a standard {@value #TAG} with specified animations.
+   *
+   * @param context {@link Context}
+   * @param textCharSequence {@link CharSequence}
+   *
+   * @return {@link SuperToast}
+   */
+  public static SuperToast create(Context context, CharSequence textCharSequence,
+      int durationInteger, Animations animations) {
+
+    final SuperToast superToast = new SuperToast(context);
+    superToast.setText(textCharSequence);
+    superToast.setDuration(durationInteger);
+    superToast.setAnimations(animations);
+
+    return superToast;
+
+  }
+
+  /**
+   * Returns a {@value #TAG} with a specified style.
+   *
+   * @param context {@link Context}
+   * @param textCharSequence {@link CharSequence}
+   *
+   * @return SuperCardToast
+   */
+  public static SuperToast create(Context context, CharSequence textCharSequence,
+      int durationInteger, Style style) {
+
+    final SuperToast superToast = new SuperToast(context);
+    superToast.setText(textCharSequence);
+    superToast.setDuration(durationInteger);
+    superToast.setStyle(style);
+
+    return superToast;
+
+  }
+
+  /**
+   * Dismisses and removes all showing/pending {@value #TAG}.
+   */
+  public static void cancelAllSuperToasts() {
+
+    ManagerSuperToast.getInstance().cancelAllSuperToasts();
+
+  }
+
+  /**
    * Shows the {@value #TAG}. If another {@value #TAG} is showing than
    * this one will be added to a queue and shown when the previous {@value #TAG}
    * is dismissed.
@@ -321,6 +218,17 @@ public class SuperToast {
   }
 
   /**
+   * Returns the message text of the {@value #TAG}.
+   *
+   * @return {@link CharSequence}
+   */
+  public CharSequence getText() {
+
+    return mMessageTextView.getText();
+
+  }
+
+  /**
    * Sets the message text of the {@value #TAG}.
    *
    * @param text {@link CharSequence}
@@ -332,13 +240,13 @@ public class SuperToast {
   }
 
   /**
-   * Returns the message text of the {@value #TAG}.
+   * Returns the message typeface style of the {@value #TAG}.
    *
-   * @return {@link CharSequence}
+   * @return {@link android.graphics.Typeface} int
    */
-  public CharSequence getText() {
+  public int getTypefaceStyle() {
 
-    return mMessageTextView.getText();
+    return mTypefaceStyle;
 
   }
 
@@ -356,13 +264,13 @@ public class SuperToast {
   }
 
   /**
-   * Returns the message typeface style of the {@value #TAG}.
+   * Returns the message text color of the {@value #TAG}.
    *
-   * @return {@link android.graphics.Typeface} int
+   * @return int
    */
-  public int getTypefaceStyle() {
+  public int getTextColor() {
 
-    return mTypefaceStyle;
+    return mMessageTextView.getCurrentTextColor();
 
   }
 
@@ -378,13 +286,13 @@ public class SuperToast {
   }
 
   /**
-   * Returns the message text color of the {@value #TAG}.
+   * Returns the text size of the {@value #TAG} message in pixels.
    *
-   * @return int
+   * @return float
    */
-  public int getTextColor() {
+  public float getTextSize() {
 
-    return mMessageTextView.getCurrentTextColor();
+    return mMessageTextView.getTextSize();
 
   }
 
@@ -400,13 +308,13 @@ public class SuperToast {
   }
 
   /**
-   * Returns the text size of the {@value #TAG} message in pixels.
+   * Returns the duration of the {@value #TAG}.
    *
-   * @return float
+   * @return int
    */
-  public float getTextSize() {
+  public int getDuration() {
 
-    return mMessageTextView.getTextSize();
+    return this.mDuration;
 
   }
 
@@ -427,17 +335,6 @@ public class SuperToast {
       this.mDuration = duration;
 
     }
-
-  }
-
-  /**
-   * Returns the duration of the {@value #TAG}.
-   *
-   * @return int
-   */
-  public int getDuration() {
-
-    return this.mDuration;
 
   }
 
@@ -472,6 +369,17 @@ public class SuperToast {
   }
 
   /**
+   * Returns the background resource of the {@value #TAG}.
+   *
+   * @return int
+   */
+  public int getBackground() {
+
+    return this.mBackground;
+
+  }
+
+  /**
    * Sets the background resource of the {@value #TAG}.
    *
    */
@@ -480,17 +388,6 @@ public class SuperToast {
     this.mBackground = background;
 
     mRootLayout.setBackgroundResource(background);
-
-  }
-
-  /**
-   * Returns the background resource of the {@value #TAG}.
-   *
-   * @return int
-   */
-  public int getBackground() {
-
-    return this.mBackground;
 
   }
 
@@ -510,6 +407,16 @@ public class SuperToast {
   }
 
   /**
+   * Returns the show/hide animations of the {@value #TAG}.
+   *
+   */
+  public Animations getAnimations() {
+
+    return this.mAnimations;
+
+  }
+
+  /**
    * Sets the show/hide animations of the {@value #TAG}.
    *
    */
@@ -520,12 +427,12 @@ public class SuperToast {
   }
 
   /**
-   * Returns the show/hide animations of the {@value #TAG}.
+   * Returns the OnDismissListener set to the {@value #TAG}.
    *
    */
-  public Animations getAnimations() {
+  public OnDismissListener getOnDismissListener() {
 
-    return this.mAnimations;
+    return mOnDismissListener;
 
   }
 
@@ -537,16 +444,6 @@ public class SuperToast {
   public void setOnDismissListener(OnDismissListener onDismissListener) {
 
     this.mOnDismissListener = onDismissListener;
-
-  }
-
-  /**
-   * Returns the OnDismissListener set to the {@value #TAG}.
-   *
-   */
-  public OnDismissListener getOnDismissListener() {
-
-    return mOnDismissListener;
 
   }
 
@@ -652,70 +549,170 @@ public class SuperToast {
   }
 
   /**
-   * Returns a standard {@value #TAG}.
-   *
-   * @param context {@link Context}
-   * @param textCharSequence {@link CharSequence}
-   *
-   * @return {@link SuperToast}
+   * Animations for all types of SuperToasts.
    */
-  public static SuperToast create(Context context, CharSequence textCharSequence,
-      int durationInteger) {
+  public enum Animations {
 
-    SuperToast superToast = new SuperToast(context);
-    superToast.setText(textCharSequence);
-    superToast.setDuration(durationInteger);
-
-    return superToast;
+    FADE,
+    FLYIN,
+    SCALE,
+    Animations, POPUP
 
   }
 
   /**
-   * Returns a standard {@value #TAG} with specified animations.
-   *
-   * @param context {@link Context}
-   * @param textCharSequence {@link CharSequence}
-   *
-   * @return {@link SuperToast}
+   * Types for SuperActivityToasts and SuperCardToasts.
    */
-  public static SuperToast create(Context context, CharSequence textCharSequence,
-      int durationInteger, Animations animations) {
+  public enum Type {
 
-    final SuperToast superToast = new SuperToast(context);
-    superToast.setText(textCharSequence);
-    superToast.setDuration(durationInteger);
-    superToast.setAnimations(animations);
+    /**
+     * Standard type used for displaying messages.
+     */
+    STANDARD,
 
-    return superToast;
+    /**
+     * Progress type used for showing progress.
+     */
+    PROGRESS,
+
+    /**
+     * Progress type used for showing progress.
+     */
+    PROGRESS_HORIZONTAL,
+
+    Type,
+    /**
+     * Button type used for receiving click actions.
+     */
+    BUTTON
 
   }
 
   /**
-   * Returns a {@value #TAG} with a specified style.
-   *
-   * @param context {@link Context}
-   * @param textCharSequence {@link CharSequence}
-   *
-   * @return SuperCardToast
+   * Positions for icons used in all types of SuperToasts.
    */
-  public static SuperToast create(Context context, CharSequence textCharSequence,
-      int durationInteger, Style style) {
+  public enum IconPosition {
 
-    final SuperToast superToast = new SuperToast(context);
-    superToast.setText(textCharSequence);
-    superToast.setDuration(durationInteger);
-    superToast.setStyle(style);
+    /**
+     * Set the icon to the left of the text.
+     */
+    LEFT,
 
-    return superToast;
+    /**
+     * Set the icon to the right of the text.
+     */
+    RIGHT,
+
+    /**
+     * Set the icon on top of the text.
+     */
+    TOP,
+
+    IconPosition,
+    /**
+     * Set the icon on the bottom of the text.
+     */
+    BOTTOM
 
   }
 
   /**
-   * Dismisses and removes all showing/pending {@value #TAG}.
+   * Custom OnClickListener to be used with SuperActivityToasts/SuperCardToasts. Note that
+   * SuperActivityToasts/SuperCardToasts must use this with an
    */
-  public static void cancelAllSuperToasts() {
+  public interface OnClickListener {
 
-    ManagerSuperToast.getInstance().cancelAllSuperToasts();
+    public void onClick(View view, Parcelable token);
+
+  }
+
+  /**
+   * Custom OnDismissListener to be used with any type of SuperToasts. Note that
+   * SuperActivityToasts/SuperCardToasts must use this with an
+   */
+  public interface OnDismissListener {
+
+    public void onDismiss(View view);
+
+  }
+
+  /**
+   * Backgrounds for all types of SuperToasts.
+   */
+  public static class Background {
+
+    public static final int BLACK = Style.getBackground(Style.BLACK);
+    public static final int BLUE = Style.getBackground(Style.BLUE);
+    public static final int GRAY = Style.getBackground(Style.GRAY);
+    public static final int GREEN = Style.getBackground(Style.GREEN);
+    public static final int ORANGE = Style.getBackground(Style.ORANGE);
+    public static final int PURPLE = Style.getBackground(Style.PURPLE);
+    public static final int RED = Style.getBackground(Style.RED);
+    public static final int WHITE = Style.getBackground(Style.WHITE);
+
+  }
+
+  /**
+   * Icons for all types of SuperToasts.
+   */
+  public static class Icon {
+
+    /**
+     * Icons for all types of SuperToasts with a dark background.
+     */
+    public static class Dark {
+
+      public static final int EDIT = (R.drawable.icon_dark_edit);
+      public static final int EXIT = (R.drawable.icon_dark_exit);
+      public static final int INFO = (R.drawable.icon_dark_info);
+      public static final int REDO = (R.drawable.icon_dark_redo);
+      public static final int REFRESH = (R.drawable.icon_dark_refresh);
+      public static final int SAVE = (R.drawable.icon_dark_save);
+      public static final int SHARE = (R.drawable.icon_dark_share);
+      public static final int UNDO = (R.drawable.icon_dark_undo);
+
+    }
+
+    /**
+     * Icons for all types of SuperToasts with a light background.
+     */
+    public static class Light {
+
+      public static final int EDIT = (R.drawable.icon_light_edit);
+      public static final int EXIT = (R.drawable.icon_light_exit);
+      public static final int INFO = (R.drawable.icon_light_info);
+      public static final int REDO = (R.drawable.icon_light_redo);
+      public static final int REFRESH = (R.drawable.icon_light_refresh);
+      public static final int SAVE = (R.drawable.icon_light_save);
+      public static final int SHARE = (R.drawable.icon_light_share);
+      public static final int UNDO = (R.drawable.icon_light_undo);
+
+    }
+
+  }
+
+  /**
+   * Durations for all types of SuperToasts.
+   */
+  public static class Duration {
+
+    public static final int VERY_SHORT = (1500);
+    public static final int SHORT = (2000);
+    public static final int MEDIUM = (2750);
+    public static final int LONG = (3500);
+    public static final int EXTRA_LONG = (4500);
+
+  }
+
+  /**
+   * Text sizes for all types of SuperToasts.
+   */
+  public static class TextSize {
+
+    public static final int EXTRA_SMALL = (12);
+    public static final int SMALL = (14);
+    public static final int MEDIUM = (16);
+    public static final int LARGE = (18);
 
   }
 

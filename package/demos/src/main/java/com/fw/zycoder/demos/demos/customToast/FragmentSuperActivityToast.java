@@ -49,7 +49,37 @@ public class FragmentSuperActivityToast extends Fragment {
   CheckBox mDismissCheckBox;
 
   DummyOperation mDummyOperation;
+  private OnClickWrapper onClickWrapper =
+      new OnClickWrapper("onclickwrapper_one", new SuperToast.OnClickListener() {
 
+        @Override
+        public void onClick(View v, Parcelable token) {
+
+          SuperToast superToast = new SuperToast(v.getContext());
+          superToast.setText("onClick!");
+          superToast.setDuration(SuperToast.Duration.VERY_SHORT);
+          superToast.setBackground(SuperToast.Background.BLUE);
+          superToast.setTextColor(Color.WHITE);
+          superToast.show();
+
+        }
+
+      });
+  private OnDismissWrapper onDismissWrapper =
+      new OnDismissWrapper("ondismisswrapper_one", new SuperToast.OnDismissListener() {
+
+        @Override
+        public void onDismiss(View view) {
+
+          SuperToast superToast = new SuperToast(view.getContext());
+          superToast.setText("onDismiss!");
+          superToast.setDuration(SuperToast.Duration.VERY_SHORT);
+          superToast.setBackground(SuperToast.Background.RED);
+          superToast.setTextColor(Color.WHITE);
+          superToast.show();
+
+        }
+      });
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -319,39 +349,6 @@ public class FragmentSuperActivityToast extends Fragment {
     superActivityToast.show();
 
   }
-
-  private OnClickWrapper onClickWrapper =
-      new OnClickWrapper("onclickwrapper_one", new SuperToast.OnClickListener() {
-
-        @Override
-        public void onClick(View v, Parcelable token) {
-
-          SuperToast superToast = new SuperToast(v.getContext());
-          superToast.setText("onClick!");
-          superToast.setDuration(SuperToast.Duration.VERY_SHORT);
-          superToast.setBackground(SuperToast.Background.BLUE);
-          superToast.setTextColor(Color.WHITE);
-          superToast.show();
-
-        }
-
-      });
-
-  private OnDismissWrapper onDismissWrapper =
-      new OnDismissWrapper("ondismisswrapper_one", new SuperToast.OnDismissListener() {
-
-        @Override
-        public void onDismiss(View view) {
-
-          SuperToast superToast = new SuperToast(view.getContext());
-          superToast.setText("onDismiss!");
-          superToast.setDuration(SuperToast.Duration.VERY_SHORT);
-          superToast.setBackground(SuperToast.Background.RED);
-          superToast.setTextColor(Color.WHITE);
-          superToast.show();
-
-        }
-      });
 
   private class DummyOperation extends AsyncTask<Void, Integer, Void> {
 

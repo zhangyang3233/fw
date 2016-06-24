@@ -41,6 +41,10 @@ public class PageTransaction {
     return mAnimEnable;
   }
 
+  public void setAnimEnable(boolean isEnable) {
+    mAnimEnable = isEnable;
+  }
+
   public boolean isEnterAnimSchedule() {
     return mIsEnterAnimSchedule;
   }
@@ -53,10 +57,6 @@ public class PageTransaction {
   public boolean needDoEnterAnim() {
     return (!mIsPerformedEnterAnim) && (!mIsPerformedExitAnim)
         && (!mEndEnterTransaction) && (!mEndExitTransaction);
-  }
-
-  public void setAnimEnable(boolean isEnable) {
-    mAnimEnable = isEnable;
   }
 
   public void scheduleEnterAnimSchedule() {

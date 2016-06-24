@@ -10,8 +10,19 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DigestUtils {
 
+  /**
+   * '0'-'9' and 'A'-'F'
+   */
+  private static final byte[] HEX_BYTES = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
+      69, 70};
   private static boolean hasMd5 = true;
   private static MessageDigest messageDigest = null;
+  private static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7',
+      '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+  };
+
+  // private static MessageDigest md5 = null;
+
   static {
     try {
       messageDigest = MessageDigest.getInstance("MD5");
@@ -68,13 +79,6 @@ public class DigestUtils {
     return hexValue.toString();
   }
 
-  // private static MessageDigest md5 = null;
-  /**
-   * '0'-'9' and 'A'-'F'
-   */
-  private static final byte[] HEX_BYTES = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
-      69, 70};
-
   public static synchronized String computeMd5forPkg(byte[] hex) {
     // convert input String to a char[]
     // convert that char[] to byte[]
@@ -110,10 +114,6 @@ public class DigestUtils {
     }
     return hexValue.toString();
   }
-
-  private static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7',
-      '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-  };
 
   public static synchronized String getStringMD5(String source) {
     if (TextUtils.isEmpty(source)) {

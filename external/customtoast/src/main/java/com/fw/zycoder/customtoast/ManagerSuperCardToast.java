@@ -1,17 +1,17 @@
 /**
- *  Copyright 2014 John Persano
+ * Copyright 2014 John Persano
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *	you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *	Unless required by applicable law or agreed to in writing, software
- *	distributed under the License is distributed on an "AS IS" BASIS,
- *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *	See the License for the specific language governing permissions and
- *	limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  */
 
@@ -24,86 +24,86 @@ import java.util.LinkedList;
  */
 class ManagerSuperCardToast {
 
-    @SuppressWarnings("UnusedDeclaration")
-    private static final String TAG = "Manager SuperCardToast";
+  @SuppressWarnings("UnusedDeclaration")
+  private static final String TAG = "Manager SuperCardToast";
 
-    private static ManagerSuperCardToast mManagerSuperCardToast;
+  private static ManagerSuperCardToast mManagerSuperCardToast;
 
-    private final LinkedList<SuperCardToast> mList;
+  private final LinkedList<SuperCardToast> mList;
 
-    private ManagerSuperCardToast() {
+  private ManagerSuperCardToast() {
 
-        mList = new LinkedList<SuperCardToast>();
+    mList = new LinkedList<SuperCardToast>();
 
-    }
+  }
 
-    /**
-     * Singleton method to ensure all SuperCardToasts are passed through the same manager.
-     */
-    protected static synchronized ManagerSuperCardToast getInstance() {
+  /**
+   * Singleton method to ensure all SuperCardToasts are passed through the same manager.
+   */
+  protected static synchronized ManagerSuperCardToast getInstance() {
 
-        if (mManagerSuperCardToast != null) {
+    if (mManagerSuperCardToast != null) {
 
-            return mManagerSuperCardToast;
+      return mManagerSuperCardToast;
 
-        } else {
+    } else {
 
-            mManagerSuperCardToast = new ManagerSuperCardToast();
+      mManagerSuperCardToast = new ManagerSuperCardToast();
 
-            return mManagerSuperCardToast;
-
-        }
+      return mManagerSuperCardToast;
 
     }
 
-    /**
-     * Add a SuperCardToast to the list.
-     */
-    void add(SuperCardToast superCardToast) {
+  }
 
-        mList.add(superCardToast);
+  /**
+   * Add a SuperCardToast to the list.
+   */
+  void add(SuperCardToast superCardToast) {
 
-    }
+    mList.add(superCardToast);
 
-    /**
-     * Removes a SuperCardToast from the list.
-     */
-    void remove(SuperCardToast superCardToast) {
+  }
 
-        mList.remove(superCardToast);
+  /**
+   * Removes a SuperCardToast from the list.
+   */
+  void remove(SuperCardToast superCardToast) {
 
-    }
+    mList.remove(superCardToast);
 
-    /**
-     * Removes all SuperCardToasts and clears the list
-     */
-    void cancelAllSuperActivityToasts() {
+  }
 
-        for (SuperCardToast superCardToast : mList) {
+  /**
+   * Removes all SuperCardToasts and clears the list
+   */
+  void cancelAllSuperActivityToasts() {
 
-            if (superCardToast.isShowing()) {
+    for (SuperCardToast superCardToast : mList) {
 
-                superCardToast.getViewGroup().removeView(
-                        superCardToast.getView());
+      if (superCardToast.isShowing()) {
 
-                superCardToast.getViewGroup().invalidate();
+        superCardToast.getViewGroup().removeView(
+            superCardToast.getView());
 
-            }
+        superCardToast.getViewGroup().invalidate();
 
-        }
-
-        mList.clear();
+      }
 
     }
 
-    /**
-     * Used in SuperCardToast saveState().
-     */
-    LinkedList<SuperCardToast> getList() {
+    mList.clear();
 
-        return mList;
+  }
 
-    }
+  /**
+   * Used in SuperCardToast saveState().
+   */
+  LinkedList<SuperCardToast> getList() {
+
+    return mList;
+
+  }
 
 
 }

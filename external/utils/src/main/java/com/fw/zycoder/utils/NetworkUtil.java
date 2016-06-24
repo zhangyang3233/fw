@@ -23,11 +23,10 @@ public final class NetworkUtil {
   public static final int NETWORK_TYPE_NONE = -1;
   public static final int NETWORK_TYPE_MOBILE = ConnectivityManager.TYPE_MOBILE;
   public static final int NETWORK_TYPE_WIFI = ConnectivityManager.TYPE_WIFI;
-  private static boolean reverseProxyOn = false;
   public static final String INTERFACE_WLAN0 = "wlan0";
-
   private static final String ANDROID_HOTSPOT_IP_ADDRESS = "192.168.43.1";
   private static final String IOS_HOTSPOT_IP_ADDRESS = "172.20.10.1";
+  private static boolean reverseProxyOn = false;
 
   private NetworkUtil() {}
 

@@ -13,10 +13,6 @@ import java.util.List;
 public class UIUtil {
   private static Handler sHandler;
 
-  public static interface Method<T> {
-    T call();
-  }
-
   /**
    * Retrieve the sHandler.
    *
@@ -77,6 +73,10 @@ public class UIUtil {
       }
     }
     return "";
+  }
+
+  public static interface Method<T> {
+    T call();
   }
 
 }

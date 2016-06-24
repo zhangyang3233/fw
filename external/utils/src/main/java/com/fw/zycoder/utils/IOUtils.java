@@ -20,9 +20,8 @@ import java.io.Writer;
  */
 public class IOUtils {
 
-  private static final int BUFFER_SIZE = 8 * 1024;
-
   public static final String DEFAULT_ENCODING = "utf-8";
+  private static final int BUFFER_SIZE = 8 * 1024;
 
   private IOUtils() {}
 

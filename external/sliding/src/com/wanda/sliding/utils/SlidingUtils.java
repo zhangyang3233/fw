@@ -19,7 +19,7 @@ public class SlidingUtils {
    * @param interceptor
    */
   public static void findAndRegisterRightFlingInterceptor(View view,
-                                                          SlidingLayout.RightFlingInterceptor interceptor) {
+      SlidingLayout.RightFlingInterceptor interceptor) {
     if (view == null) {
       return;
     }
@@ -42,7 +42,7 @@ public class SlidingUtils {
   /**
    * get coordinate in parent's coordinate system
    *
-   * @param view     target view
+   * @param view target view
    * @param location an array of two integers in which to hold the coordinates
    */
   public static void getCoordinateInParent(View view, MotionEvent event, int[] location) {
@@ -59,7 +59,8 @@ public class SlidingUtils {
 
 
   public static ViewGroup getSlidingRoot(View view) {
-    ViewGroup rootView = (ViewGroup) ((ViewGroup) (ActivityUtils.findActivity(view).getWindow().getDecorView().findViewById(android.R.id.content))).getChildAt(0);
+    ViewGroup rootView = (ViewGroup) ((ViewGroup) (ActivityUtils.findActivity(view).getWindow()
+        .getDecorView().findViewById(android.R.id.content))).getChildAt(0);
     if (rootView instanceof SlidingLayout) {
       rootView = (ViewGroup) rootView.getChildAt(0);
     }

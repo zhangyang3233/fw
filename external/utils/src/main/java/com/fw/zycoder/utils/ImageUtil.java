@@ -34,10 +34,9 @@ import java.io.InputStream;
 
 public class ImageUtil {
 
-  public static class ImageSize {
-    public int width;
-    public int height;
-  }
+  private static final String TAG = "db.Util";
+  private static final String MAPS_PACKAGE_NAME = "com.google.android.apps.maps";
+  private static final String MAPS_CLASS_NAME = "com.google.android.maps.MapsActivity";
 
   /**
    * Converts drawable to bitmap. if drawable is {@link BitmapDrawable}
@@ -47,8 +46,8 @@ public class ImageUtil {
    * instead
    *
    * @param drawable drawable
-   * @param config   optional field, if provided, convert bitmap according to it; otherwise, using
-   *                 Config.RGB_565 by default
+   * @param config optional field, if provided, convert bitmap according to it; otherwise, using
+   *          Config.RGB_565 by default
    * @return bitmap
    */
   public static Bitmap drawableToBitmap(Drawable drawable, Config... config) {
@@ -140,10 +139,6 @@ public class ImageUtil {
       return null;
     }
   }
-
-  private static final String TAG = "db.Util";
-  private static final String MAPS_PACKAGE_NAME = "com.google.android.apps.maps";
-  private static final String MAPS_CLASS_NAME = "com.google.android.maps.MapsActivity";
 
   // Rotates the bitmap by the specified degree.
   // If a new bitmap is created, the original bitmap is recycled.
@@ -295,7 +290,8 @@ public class ImageUtil {
         options.inSampleSize = computeSampleSize(bufferedInput, maxResolutionX, maxResolutionY);
 
         bufferedInput =
-            new BufferedInputStream(context.getContentResolver().openInputStream(contentUri), 16384);
+            new BufferedInputStream(context.getContentResolver().openInputStream(contentUri),
+                16384);
         if (bufferedInput != null) {
           options.inDither = false;
           options.inJustDecodeBounds = false;
@@ -359,11 +355,11 @@ public class ImageUtil {
   /**
    * Generate bitmap.
    *
-   * @param data      byte array data
-   * @param maxWidth  max width
+   * @param data byte array data
+   * @param maxWidth max width
    * @param maxHeight max height
-   * @param config    optional field, if provided, convert bitmap according to it; otherwise, using
-   *                  Config.RGB_565 by default
+   * @param config optional field, if provided, convert bitmap according to it; otherwise, using
+   *          Config.RGB_565 by default
    * @return bitmap
    */
   public static Bitmap decodeBitmap(byte[] data, final int maxWidth, final int maxHeight,
@@ -403,11 +399,11 @@ public class ImageUtil {
   /**
    * Generate bitmap.
    *
-   * @param filePath  source image file path
-   * @param maxWidth  max width
+   * @param filePath source image file path
+   * @param maxWidth max width
    * @param maxHeight max height
-   * @param config    optional field, if provided, convert bitmap according to it; otherwise, using
-   *                  Config.RGB_565 by default
+   * @param config optional field, if provided, convert bitmap according to it; otherwise, using
+   *          Config.RGB_565 by default
    * @return bitmap
    */
   public static Bitmap decodeBitmap(String filePath, final int maxWidth, final int maxHeight,
@@ -445,12 +441,12 @@ public class ImageUtil {
   /**
    * Scales one side of a rectangle to fit aspect ratio.
    *
-   * @param maxPrimary      Maximum size of the primary dimension (i.e. width for
-   *                        max width), or zero to maintain aspect ratio with secondary
-   *                        dimension
-   * @param maxSecondary    Maximum size of the secondary dimension, or zero to
-   *                        maintain aspect ratio with primary dimension
-   * @param actualPrimary   Actual size of the primary dimension
+   * @param maxPrimary Maximum size of the primary dimension (i.e. width for
+   *          max width), or zero to maintain aspect ratio with secondary
+   *          dimension
+   * @param maxSecondary Maximum size of the secondary dimension, or zero to
+   *          maintain aspect ratio with primary dimension
+   * @param actualPrimary Actual size of the primary dimension
    * @param actualSecondary Actual size of the secondary dimension
    */
   private static int getResizedDimension(int maxPrimary, int maxSecondary, int actualPrimary,
@@ -482,9 +478,9 @@ public class ImageUtil {
    * Returns the largest power-of-two divisor for use in downscaling a bitmap
    * that will not result in the scaling past the desired dimensions.
    *
-   * @param actualWidth   Actual width of the bitmap
-   * @param actualHeight  Actual height of the bitmap
-   * @param desiredWidth  Desired width of the bitmap
+   * @param actualWidth Actual width of the bitmap
+   * @param actualHeight Actual height of the bitmap
+   * @param desiredWidth Desired width of the bitmap
    * @param desiredHeight Desired height of the bitmap
    */
   // Visible for testing.
@@ -505,8 +501,8 @@ public class ImageUtil {
     BitmapFactory.Options options = new BitmapFactory.Options();
     Context appContext = GlobalConfig.getAppContext();
     if (appContext != null) {
-      int memoryClass = ((ActivityManager)
-          appContext.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+      int memoryClass = ((ActivityManager) appContext.getSystemService(Context.ACTIVITY_SERVICE))
+          .getMemoryClass();
       // Set memory class threshold as 64M
       if (memoryClass >= 64) {
         options.inPreferredConfig = Config.ARGB_8888;
@@ -558,13 +554,13 @@ public class ImageUtil {
     paint.setAntiAlias(true);
     paint.setFilterBitmap(true);
     paint.setDither(true);
-    //画实心圆
+    // 画实心圆
     paint.setStyle(Paint.Style.FILL);
     paint.setColor(inSideBorderColor == 0 ? color : inSideBorderColor);
     canvas.drawCircle(width / 2, height / 2, width / 2 - borderWidth, paint);
-    //画图片
+    // 画图片
     canvas.drawBitmap(b, (width - w) / 2, (height - h) / 2, null);
-    //画空心圆
+    // 画空心圆
     paint.setStyle(Paint.Style.STROKE);
     paint.setColor(outSideBorderColor == 0 ? color : outSideBorderColor);
     paint.setStrokeWidth(borderWidth);
@@ -696,5 +692,10 @@ public class ImageUtil {
       }
     }
     return output;
+  }
+
+  public static class ImageSize {
+    public int width;
+    public int height;
   }
 }

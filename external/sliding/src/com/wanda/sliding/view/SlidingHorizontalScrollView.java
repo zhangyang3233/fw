@@ -12,7 +12,8 @@ import com.wanda.sliding.utils.SlidingUtils;
  *
  */
 public class SlidingHorizontalScrollView extends HorizontalScrollView
-    implements SlidingLayout.RightFlingInterceptor {
+    implements
+      SlidingLayout.RightFlingInterceptor {
 
   private boolean mCanSlide = true;
 

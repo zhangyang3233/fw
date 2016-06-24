@@ -10,10 +10,6 @@ import android.widget.TextView;
  */
 public class TextViewUtils {
 
-  private enum Action {
-    GONE, INVISIBLE
-  }
-
   public static void setTextGoneWhenNull(TextView textView, String text) {
     setTextGoneWhenNull(textView, text, text);
   }
@@ -29,7 +25,6 @@ public class TextViewUtils {
   public static void setTextInvisibleWhenNull(TextView textView, String text, String... keyValue) {
     setText(Action.INVISIBLE, textView, text, keyValue);
   }
-
 
   private static void setText(Action action, TextView textView, String text, String... keyValue) {
     if (textView == null) {
@@ -55,6 +50,10 @@ public class TextViewUtils {
     } else {
       textView.setVisibility(View.INVISIBLE);
     }
+  }
+
+  private enum Action {
+    GONE, INVISIBLE
   }
 
 }

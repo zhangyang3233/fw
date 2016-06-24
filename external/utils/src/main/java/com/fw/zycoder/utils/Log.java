@@ -6,13 +6,12 @@ package com.fw.zycoder.utils;
  */
 public class Log {
 
+  private static final String TAG = "log";
+  private static boolean isPrintLog = true;// 是否需要打印bug，可以在application的onCreate函数里面初始化
   private Log() {
     /* cannot be instantiated */
     throw new UnsupportedOperationException("cannot be instantiated");
   }
-
-  private static boolean isPrintLog = true;// 是否需要打印bug，可以在application的onCreate函数里面初始化
-  private static final String TAG = "log";
 
   public static void setIsPrintLog(boolean isPrintLog) {
     Log.isPrintLog = isPrintLog;

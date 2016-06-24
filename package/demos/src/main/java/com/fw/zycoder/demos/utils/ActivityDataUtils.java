@@ -21,6 +21,15 @@ import java.util.Map;
  * Created by zhangyang131 on 16/6/21.
  */
 public class ActivityDataUtils {
+  private final static Comparator<Map<String, Object>> sDisplayNameComparator =
+      new Comparator<Map<String, Object>>() {
+        private final Collator collator = Collator.getInstance();
+
+        public int compare(Map<String, Object> map1, Map<String, Object> map2) {
+          return collator.compare(map1.get("title"), map2.get("title"));
+        }
+      };
+
   public static List<Map<String, Object>> getData(Activity context) {
     Intent intent = context.getIntent();
     String prefix = intent.getStringExtra(Consts.ACTIVITY_INFO);
@@ -85,7 +94,6 @@ public class ActivityDataUtils {
     return myData;
   }
 
-
   protected static void addItem(List<Map<String, Object>> data, String name, Intent intent) {
     Map<String, Object> temp = new HashMap<>();
     temp.put("title", name);
@@ -105,14 +113,4 @@ public class ActivityDataUtils {
     result.putExtra(Consts.ACTIVITY_INFO, path);
     return result;
   }
-
-
-  private final static Comparator<Map<String, Object>> sDisplayNameComparator =
-      new Comparator<Map<String, Object>>() {
-        private final Collator collator = Collator.getInstance();
-
-        public int compare(Map<String, Object> map1, Map<String, Object> map2) {
-          return collator.compare(map1.get("title"), map2.get("title"));
-        }
-      };
 }

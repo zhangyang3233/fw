@@ -112,9 +112,109 @@ public class SuperCardToast {
   private TextView mMessageTextView;
   private SuperToast.Type mType = SuperToast.Type.STANDARD;
   private ViewGroup mViewGroup;
-  private View mToastView;
-  private View mDividerView;
+  /**
+   * Runnable to invalidate the layout containing the {@value #TAG}.
+   */
+  private final Runnable mInvalidateRunnable = new Runnable() {
 
+    @Override
+    public void run() {
+
+      if (mViewGroup != null) {
+
+        mViewGroup.postInvalidate();
+
+      }
+
+    }
+
+  };
+  private View mToastView;
+  /**
+   * Runnable to dismiss the {@value #TAG} with layout animation.
+   */
+  private final Runnable mHideWithAnimationRunnable = new Runnable() {
+
+    @Override
+    public void run() {
+
+      dismissWithLayoutAnimation();
+
+    }
+
+  };
+  /**
+   * Runnable to dismiss the {@value #TAG} without animation.
+   */
+  private final Runnable mHideImmediateRunnable = new Runnable() {
+
+    @Override
+    public void run() {
+
+      dismissImmediately();
+
+    }
+
+  };
+  /**
+   * Runnable to dismiss the {@value #TAG} with animation.
+   */
+  private final Runnable mHideRunnable = new Runnable() {
+
+    @Override
+    public void run() {
+
+      dismiss();
+
+    }
+
+  };
+  private View mDividerView;
+  /* This OnTouchListener handles the setTouchToDismiss() function */
+  private OnTouchListener mTouchDismissListener = new OnTouchListener() {
+
+    int timesTouched;
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+      /* Hack to prevent repeat touch events causing erratic behavior */
+      if (timesTouched == 0) {
+
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+          dismiss();
+
+        }
+
+      }
+
+      timesTouched++;
+
+      return false;
+
+    }
+
+  };
+  /* This OnClickListener handles the button click event */
+  private View.OnClickListener mButtonListener = new View.OnClickListener() {
+
+    @Override
+    public void onClick(View view) {
+
+      if (mOnClickWrapper != null) {
+
+        mOnClickWrapper.onClick(view, mToken);
+
+      }
+
+      dismiss();
+
+      /* Make sure the button cannot be clicked multiple times */
+      mButton.setClickable(false);
+
+    }
+  };
 
   /**
    * Instantiates a new {@value #TAG}.
@@ -332,6 +432,266 @@ public class SuperCardToast {
   }
 
   /**
+   * Method used to recreate {@value #TAG} after orientation change
+   */
+  private SuperCardToast(Activity activity, ReferenceHolder referenceHolder, Wrappers wrappers,
+      int position) {
+
+    SuperCardToast superCardToast;
+
+    if (referenceHolder.mType == SuperToast.Type.BUTTON) {
+
+      superCardToast = new SuperCardToast(activity, SuperToast.Type.BUTTON);
+      superCardToast.setButtonText(referenceHolder.mButtonText);
+      superCardToast.setButtonTextSizeFloat(referenceHolder.mButtonTextSize);
+      superCardToast.setButtonTextColor(referenceHolder.mButtonTextColor);
+      superCardToast.setButtonIcon(referenceHolder.mButtonIcon);
+      superCardToast.setDividerColor(referenceHolder.mButtonDivider);
+      superCardToast.setButtonTypefaceStyle(referenceHolder.mButtonTypefaceStyle);
+
+      if (wrappers != null) {
+
+        for (OnClickWrapper onClickWrapper : wrappers.getOnClickWrappers()) {
+
+          if (onClickWrapper.getTag().equalsIgnoreCase(referenceHolder.mClickListenerTag)) {
+
+            superCardToast.setOnClickWrapper(onClickWrapper, referenceHolder.mToken);
+
+          }
+
+        }
+      }
+
+    } else if (referenceHolder.mType == SuperToast.Type.PROGRESS) {
+
+      /* PROGRESS style SuperCardToasts should be managed by the developer */
+
+      return;
+
+    } else if (referenceHolder.mType == SuperToast.Type.PROGRESS_HORIZONTAL) {
+
+      /* PROGRESS_HORIZONTAL style SuperCardToasts should be managed by the developer */
+
+      return;
+
+    } else {
+
+      superCardToast = new SuperCardToast(activity);
+
+    }
+
+    if (wrappers != null) {
+
+      for (OnDismissWrapper onDismissListenerWrapper : wrappers.getOnDismissWrappers()) {
+
+        if (onDismissListenerWrapper.getTag()
+            .equalsIgnoreCase(referenceHolder.mDismissListenerTag)) {
+
+          superCardToast.setOnDismissWrapper(onDismissListenerWrapper);
+
+        }
+
+      }
+    }
+
+    superCardToast.setAnimations(referenceHolder.mAnimations);
+    superCardToast.setText(referenceHolder.mText);
+    superCardToast.setTypefaceStyle(referenceHolder.mTypefaceStyle);
+    superCardToast.setDuration(referenceHolder.mDuration);
+    superCardToast.setTextColor(referenceHolder.mTextColor);
+    superCardToast.setTextSizeFloat(referenceHolder.mTextSize);
+    superCardToast.setIndeterminate(referenceHolder.mIsIndeterminate);
+    superCardToast.setIcon(referenceHolder.mIcon, referenceHolder.mIconPosition);
+    superCardToast.setBackground(referenceHolder.mBackground);
+
+    /* Must use if else statements here to prevent erratic behavior */
+    if (referenceHolder.mIsTouchDismissible) {
+
+      superCardToast.setTouchToDismiss(true);
+
+    } else if (referenceHolder.mIsSwipeDismissible) {
+
+      superCardToast.setSwipeToDismiss(true);
+
+    }
+
+    superCardToast.setShowImmediate(true);
+    superCardToast.show();
+
+  }
+
+  /**
+   * Returns a standard {@value #TAG}.
+   * <br>
+   * IMPORTANT: Activity layout should contain a linear layout
+   * with the id card_container
+   * <br>
+   *
+   * @param activity {@link Activity}
+   * @param textCharSequence {@link CharSequence}
+   *
+   * @return SuperCardToast
+   */
+  public static SuperCardToast create(Activity activity, CharSequence textCharSequence,
+      int durationInteger) {
+
+    SuperCardToast superCardToast = new SuperCardToast(activity);
+    superCardToast.setText(textCharSequence);
+    superCardToast.setDuration(durationInteger);
+
+    return superCardToast;
+
+  }
+
+  /**
+   * Returns a standard {@value #TAG} with specified animations.
+   * <br>
+   * IMPORTANT: Activity layout should contain a linear layout
+   * with the id card_container
+   * <br>
+   *
+   * @param activity {@link Activity}
+   * @param textCharSequence {@link CharSequence}
+   *
+   * @return SuperCardToast
+   */
+  public static SuperCardToast create(Activity activity, CharSequence textCharSequence,
+      int durationInteger, SuperToast.Animations animations) {
+
+    SuperCardToast superCardToast = new SuperCardToast(activity);
+    superCardToast.setText(textCharSequence);
+    superCardToast.setDuration(durationInteger);
+    superCardToast.setAnimations(animations);
+
+    return superCardToast;
+
+  }
+
+  /**
+   * Returns a {@value #TAG} with a specified style.
+   * <br>
+   * IMPORTANT: Activity layout should contain a linear layout
+   * with the id card_container
+   * <br>
+   *
+   * @param activity {@link Activity}
+   * @param textCharSequence {@link CharSequence}
+   * @param durationInteger {@link SuperToast.Duration}
+   * @param style {@link Style}
+   *
+   * @return SuperCardToast
+   */
+  public static SuperCardToast create(Activity activity, CharSequence textCharSequence,
+      int durationInteger, Style style) {
+
+    SuperCardToast superCardToast = new SuperCardToast(activity);
+    superCardToast.setText(textCharSequence);
+    superCardToast.setDuration(durationInteger);
+    superCardToast.setStyle(style);
+
+    return superCardToast;
+
+  }
+
+  /**
+   * Dismisses and removes all showing/pending SuperCardToasts.
+   */
+  public static void cancelAllSuperCardToasts() {
+
+    ManagerSuperCardToast.getInstance().cancelAllSuperActivityToasts();
+
+  }
+
+  /**
+   * Saves pending/shown SuperCardToasts to a bundle.
+   *
+   * @param bundle Use onSaveInstanceState() bundle
+   */
+  public static void onSaveState(Bundle bundle) {
+
+    ReferenceHolder[] list = new ReferenceHolder[ManagerSuperCardToast
+        .getInstance().getList().size()];
+
+    LinkedList<SuperCardToast> lister = ManagerSuperCardToast
+        .getInstance().getList();
+
+    for (int i = 0; i < list.length; i++) {
+
+      list[i] = new ReferenceHolder(lister.get(i));
+
+    }
+
+    bundle.putParcelableArray(BUNDLE_TAG, list);
+
+    SuperCardToast.cancelAllSuperCardToasts();
+
+  }
+
+  /**
+   * Returns and shows pending/shown SuperCardToasts from orientation change.
+   *
+   * @param bundle Use onCreate() bundle
+   * @param activity The current activity
+   */
+  public static void onRestoreState(Bundle bundle, Activity activity) {
+
+    if (bundle == null) {
+
+      return;
+    }
+
+    Parcelable[] savedArray = bundle.getParcelableArray(BUNDLE_TAG);
+
+    int i = 0;
+
+    if (savedArray != null) {
+
+      for (Parcelable parcelable : savedArray) {
+
+        i++;
+
+        new SuperCardToast(activity, (ReferenceHolder) parcelable, null, i);
+
+      }
+
+    }
+
+  }
+
+  /**
+   * Returns and shows pending/shown {@value #TAG} from orientation change and
+   * reattaches any OnClickWrappers/OnDismissWrappers.
+   *
+   * @param bundle Use onCreate() bundle
+   * @param activity The current activity
+   * @param wrappers {@link Wrappers}
+   */
+  public static void onRestoreState(Bundle bundle, Activity activity, Wrappers wrappers) {
+
+    if (bundle == null) {
+
+      return;
+    }
+
+    Parcelable[] savedArray = bundle.getParcelableArray(BUNDLE_TAG);
+
+    int i = 0;
+
+    if (savedArray != null) {
+
+      for (Parcelable parcelable : savedArray) {
+
+        i++;
+
+        new SuperCardToast(activity, (ReferenceHolder) parcelable, wrappers, i);
+
+      }
+
+    }
+
+  }
+
+  /**
    * Shows the {@value #TAG}. If another {@value #TAG} is showing than
    * this one will be added underneath.
    */
@@ -396,6 +756,17 @@ public class SuperCardToast {
   }
 
   /**
+   * Returns the message text of the {@value #TAG}.
+   *
+   * @return {@link CharSequence}
+   */
+  public CharSequence getText() {
+
+    return mMessageTextView.getText();
+
+  }
+
+  /**
    * Sets the message text of the {@value #TAG}.
    *
    * @param text {@link CharSequence}
@@ -407,13 +778,13 @@ public class SuperCardToast {
   }
 
   /**
-   * Returns the message text of the {@value #TAG}.
+   * Returns the message {@link Typeface} style of the {@value #TAG}.
    *
-   * @return {@link CharSequence}
+   * @return int
    */
-  public CharSequence getText() {
+  public int getTypefaceStyle() {
 
-    return mMessageTextView.getText();
+    return mTypeface;
 
   }
 
@@ -431,28 +802,6 @@ public class SuperCardToast {
   }
 
   /**
-   * Returns the message {@link Typeface} style of the {@value #TAG}.
-   *
-   * @return int
-   */
-  public int getTypefaceStyle() {
-
-    return mTypeface;
-
-  }
-
-  /**
-   * Sets the message text color of the {@value #TAG}.
-   *
-   * @param textColor {@link Color}
-   */
-  public void setTextColor(int textColor) {
-
-    mMessageTextView.setTextColor(textColor);
-
-  }
-
-  /**
    * Returns the message text color of the {@value #TAG}.
    *
    * @return int
@@ -464,13 +813,13 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the text size of the {@value #TAG} message.
+   * Sets the message text color of the {@value #TAG}.
    *
-   * @param textSize int
+   * @param textColor {@link Color}
    */
-  public void setTextSize(int textSize) {
+  public void setTextColor(int textColor) {
 
-    mMessageTextView.setTextSize(textSize);
+    mMessageTextView.setTextColor(textColor);
 
   }
 
@@ -495,12 +844,13 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the duration that the {@value #TAG} will show.
+   * Sets the text size of the {@value #TAG} message.
    *
+   * @param textSize int
    */
-  public void setDuration(int duration) {
+  public void setTextSize(int textSize) {
 
-    this.mDuration = duration;
+    mMessageTextView.setTextSize(textSize);
 
   }
 
@@ -516,14 +866,12 @@ public class SuperCardToast {
   }
 
   /**
-   * If true will show the {@value #TAG} for an indeterminate time period and ignore any set
-   * duration.
+   * Sets the duration that the {@value #TAG} will show.
    *
-   * @param isIndeterminate boolean
    */
-  public void setIndeterminate(boolean isIndeterminate) {
+  public void setDuration(int duration) {
 
-    this.mIsIndeterminate = isIndeterminate;
+    this.mDuration = duration;
 
   }
 
@@ -535,6 +883,18 @@ public class SuperCardToast {
   public boolean isIndeterminate() {
 
     return this.mIsIndeterminate;
+
+  }
+
+  /**
+   * If true will show the {@value #TAG} for an indeterminate time period and ignore any set
+   * duration.
+   *
+   * @param isIndeterminate boolean
+   */
+  public void setIndeterminate(boolean isIndeterminate) {
+
+    this.mIsIndeterminate = isIndeterminate;
 
   }
 
@@ -664,16 +1024,6 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the show/hide animations of the {@value #TAG}.
-   *
-   */
-  public void setAnimations(SuperToast.Animations animations) {
-
-    this.mAnimations = animations;
-
-  }
-
-  /**
    * Returns the show/hide animations of the {@value #TAG}.
    *
    */
@@ -684,13 +1034,13 @@ public class SuperCardToast {
   }
 
   /**
-   * If true will show the {@value #TAG} without animation.
+   * Sets the show/hide animations of the {@value #TAG}.
    *
-   * @param showImmediate boolean
    */
-  public void setShowImmediate(boolean showImmediate) {
+  public void setAnimations(SuperToast.Animations animations) {
 
-    this.showImmediate = showImmediate;
+    this.mAnimations = animations;
+
   }
 
   /**
@@ -702,6 +1052,16 @@ public class SuperCardToast {
 
     return this.showImmediate;
 
+  }
+
+  /**
+   * If true will show the {@value #TAG} without animation.
+   *
+   * @param showImmediate boolean
+   */
+  public void setShowImmediate(boolean showImmediate) {
+
+    this.showImmediate = showImmediate;
   }
 
   /**
@@ -789,6 +1149,15 @@ public class SuperCardToast {
   }
 
   /**
+   * Used in {@value #MANAGER_TAG}.
+   */
+  protected OnDismissWrapper getOnDismissWrapper() {
+
+    return this.mOnDismissWrapper;
+
+  }
+
+  /**
    * Sets an OnDismissWrapper defined in this library
    * to the {@value #TAG}.
    *
@@ -797,15 +1166,6 @@ public class SuperCardToast {
 
     this.mOnDismissWrapper = onDismissWrapper;
     this.mOnDismissWrapperTag = onDismissWrapper.getTag();
-
-  }
-
-  /**
-   * Used in {@value #MANAGER_TAG}.
-   */
-  protected OnDismissWrapper getOnDismissWrapper() {
-
-    return this.mOnDismissWrapper;
 
   }
 
@@ -1040,31 +1400,6 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the icon resource of the button in
-   * a BUTTON {@link SuperToast.Type} {@value #TAG}.
-   *
-   * @param buttonIcon {@link SuperToast.Icon}
-   */
-  public void setButtonIcon(int buttonIcon) {
-
-    if (mType != SuperToast.Type.BUTTON) {
-
-      Log.w(TAG, "setButtonIcon()" + ERROR_NOTBUTTONTYPE);
-
-    }
-
-    this.mButtonIcon = buttonIcon;
-
-    if (mButton != null) {
-
-      mButton.setCompoundDrawablesWithIntrinsicBounds(mActivity
-          .getResources().getDrawable(buttonIcon), null, null, null);
-
-    }
-
-  }
-
-  /**
    * Sets the icon resource and text of the button in
    * a BUTTON {@link SuperToast.Type} {@value #TAG}.
    *
@@ -1105,24 +1440,25 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the divider color of a BUTTON
-   * {@link SuperToast.Type} {@value #TAG}.
+   * Sets the icon resource of the button in
+   * a BUTTON {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param dividerColor int
+   * @param buttonIcon {@link SuperToast.Icon}
    */
-  public void setDividerColor(int dividerColor) {
+  public void setButtonIcon(int buttonIcon) {
 
     if (mType != SuperToast.Type.BUTTON) {
 
-      Log.w(TAG, "setDivider()" + ERROR_NOTBUTTONTYPE);
+      Log.w(TAG, "setButtonIcon()" + ERROR_NOTBUTTONTYPE);
 
     }
 
-    this.mDividerColor = dividerColor;
+    this.mButtonIcon = buttonIcon;
 
-    if (mDividerView != null) {
+    if (mButton != null) {
 
-      mDividerView.setBackgroundColor(dividerColor);
+      mButton.setCompoundDrawablesWithIntrinsicBounds(mActivity
+          .getResources().getDrawable(buttonIcon), null, null, null);
 
     }
 
@@ -1141,22 +1477,24 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the button text of a BUTTON
+   * Sets the divider color of a BUTTON
    * {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param buttonText {@link CharSequence}
+   * @param dividerColor int
    */
-  public void setButtonText(CharSequence buttonText) {
+  public void setDividerColor(int dividerColor) {
 
     if (mType != SuperToast.Type.BUTTON) {
 
-      Log.w(TAG, "setButtonText()" + ERROR_NOTBUTTONTYPE);
+      Log.w(TAG, "setDivider()" + ERROR_NOTBUTTONTYPE);
 
     }
 
-    if (mButton != null) {
+    this.mDividerColor = dividerColor;
 
-      mButton.setText(buttonText);
+    if (mDividerView != null) {
+
+      mDividerView.setBackgroundColor(dividerColor);
 
     }
 
@@ -1185,24 +1523,22 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the typeface style of the button in a BUTTON
+   * Sets the button text of a BUTTON
    * {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param typefaceStyle {@link Typeface}
+   * @param buttonText {@link CharSequence}
    */
-  public void setButtonTypefaceStyle(int typefaceStyle) {
+  public void setButtonText(CharSequence buttonText) {
 
     if (mType != SuperToast.Type.BUTTON) {
 
-      Log.w(TAG, "setButtonTypefaceStyle()" + ERROR_NOTBUTTONTYPE);
+      Log.w(TAG, "setButtonText()" + ERROR_NOTBUTTONTYPE);
 
     }
 
     if (mButton != null) {
 
-      mButtonTypefaceStyle = typefaceStyle;
-
-      mButton.setTypeface(mButton.getTypeface(), typefaceStyle);
+      mButton.setText(buttonText);
 
     }
 
@@ -1221,22 +1557,24 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the button text color of a BUTTON
+   * Sets the typeface style of the button in a BUTTON
    * {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param buttonTextColor {@link Color}
+   * @param typefaceStyle {@link Typeface}
    */
-  public void setButtonTextColor(int buttonTextColor) {
+  public void setButtonTypefaceStyle(int typefaceStyle) {
 
     if (mType != SuperToast.Type.BUTTON) {
 
-      Log.w(TAG, "setButtonTextColor()" + ERROR_NOTBUTTONTYPE);
+      Log.w(TAG, "setButtonTypefaceStyle()" + ERROR_NOTBUTTONTYPE);
 
     }
 
     if (mButton != null) {
 
-      mButton.setTextColor(buttonTextColor);
+      mButtonTypefaceStyle = typefaceStyle;
+
+      mButton.setTypeface(mButton.getTypeface(), typefaceStyle);
 
     }
 
@@ -1265,22 +1603,22 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the button text size of a BUTTON
+   * Sets the button text color of a BUTTON
    * {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param buttonTextSize int
+   * @param buttonTextColor {@link Color}
    */
-  public void setButtonTextSize(int buttonTextSize) {
+  public void setButtonTextColor(int buttonTextColor) {
 
     if (mType != SuperToast.Type.BUTTON) {
 
-      Log.w(TAG, "setButtonTextSize()" + ERROR_NOTBUTTONTYPE);
+      Log.w(TAG, "setButtonTextColor()" + ERROR_NOTBUTTONTYPE);
 
     }
 
     if (mButton != null) {
 
-      mButton.setTextSize(buttonTextSize);
+      mButton.setTextColor(buttonTextColor);
 
     }
 
@@ -1318,22 +1656,22 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the progress of the progressbar in a PROGRESS_HORIZONTAL
+   * Sets the button text size of a BUTTON
    * {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param progress int
+   * @param buttonTextSize int
    */
-  public void setProgress(int progress) {
+  public void setButtonTextSize(int buttonTextSize) {
 
-    if (mType != SuperToast.Type.PROGRESS_HORIZONTAL) {
+    if (mType != SuperToast.Type.BUTTON) {
 
-      Log.w(TAG, "setProgress()" + ERROR_NOTPROGRESSHORIZONTALTYPE);
+      Log.w(TAG, "setButtonTextSize()" + ERROR_NOTBUTTONTYPE);
 
     }
 
-    if (mProgressBar != null) {
+    if (mButton != null) {
 
-      mProgressBar.setProgress(progress);
+      mButton.setTextSize(buttonTextSize);
 
     }
 
@@ -1362,22 +1700,22 @@ public class SuperCardToast {
   }
 
   /**
-   * Sets the maximum value of the progressbar in a PROGRESS_HORIZONTAL
+   * Sets the progress of the progressbar in a PROGRESS_HORIZONTAL
    * {@link SuperToast.Type} {@value #TAG}.
    *
-   * @param maxProgress int
+   * @param progress int
    */
-  public void setMaxProgress(int maxProgress) {
+  public void setProgress(int progress) {
 
     if (mType != SuperToast.Type.PROGRESS_HORIZONTAL) {
 
-      Log.e(TAG, "setMaxProgress()" + ERROR_NOTPROGRESSHORIZONTALTYPE);
+      Log.w(TAG, "setProgress()" + ERROR_NOTPROGRESSHORIZONTALTYPE);
 
     }
 
     if (mProgressBar != null) {
 
-      mProgressBar.setMax(maxProgress);
+      mProgressBar.setProgress(progress);
 
     }
 
@@ -1406,6 +1744,40 @@ public class SuperCardToast {
   }
 
   /**
+   * Sets the maximum value of the progressbar in a PROGRESS_HORIZONTAL
+   * {@link SuperToast.Type} {@value #TAG}.
+   *
+   * @param maxProgress int
+   */
+  public void setMaxProgress(int maxProgress) {
+
+    if (mType != SuperToast.Type.PROGRESS_HORIZONTAL) {
+
+      Log.e(TAG, "setMaxProgress()" + ERROR_NOTPROGRESSHORIZONTALTYPE);
+
+    }
+
+    if (mProgressBar != null) {
+
+      mProgressBar.setMax(maxProgress);
+
+    }
+
+  }
+
+  /**
+   * Returns an indeterminate value to the progressbar of a PROGRESS
+   * {@link SuperToast.Type} {@value #TAG}.
+   *
+   * @return boolean
+   */
+  public boolean getProgressIndeterminate() {
+
+    return this.isProgressIndeterminate;
+
+  }
+
+  /**
    * Sets an indeterminate value to the progressbar of a PROGRESS
    * {@link SuperToast.Type} {@value #TAG}.
    *
@@ -1426,18 +1798,6 @@ public class SuperCardToast {
       mProgressBar.setIndeterminate(isIndeterminate);
 
     }
-
-  }
-
-  /**
-   * Returns an indeterminate value to the progressbar of a PROGRESS
-   * {@link SuperToast.Type} {@value #TAG}.
-   *
-   * @return boolean
-   */
-  public boolean getProgressIndeterminate() {
-
-    return this.isProgressIndeterminate;
 
   }
 
@@ -1514,66 +1874,6 @@ public class SuperCardToast {
     }
 
   }
-
-  /**
-   * Runnable to dismiss the {@value #TAG} with animation.
-   */
-  private final Runnable mHideRunnable = new Runnable() {
-
-    @Override
-    public void run() {
-
-      dismiss();
-
-    }
-
-  };
-
-  /**
-   * Runnable to dismiss the {@value #TAG} without animation.
-   */
-  private final Runnable mHideImmediateRunnable = new Runnable() {
-
-    @Override
-    public void run() {
-
-      dismissImmediately();
-
-    }
-
-  };
-
-  /**
-   * Runnable to dismiss the {@value #TAG} with layout animation.
-   */
-  private final Runnable mHideWithAnimationRunnable = new Runnable() {
-
-    @Override
-    public void run() {
-
-      dismissWithLayoutAnimation();
-
-    }
-
-  };
-
-  /**
-   * Runnable to invalidate the layout containing the {@value #TAG}.
-   */
-  private final Runnable mInvalidateRunnable = new Runnable() {
-
-    @Override
-    public void run() {
-
-      if (mViewGroup != null) {
-
-        mViewGroup.postInvalidate();
-
-      }
-
-    }
-
-  };
 
   private Animation getShowAnimation() {
 
@@ -1699,320 +1999,25 @@ public class SuperCardToast {
   }
 
   /**
-   * Returns a standard {@value #TAG}.
-   * <br>
-   * IMPORTANT: Activity layout should contain a linear layout
-   * with the id card_container
-   * <br>
-   *
-   * @param activity {@link Activity}
-   * @param textCharSequence {@link CharSequence}
-   *
-   * @return SuperCardToast
-   */
-  public static SuperCardToast create(Activity activity, CharSequence textCharSequence,
-      int durationInteger) {
-
-    SuperCardToast superCardToast = new SuperCardToast(activity);
-    superCardToast.setText(textCharSequence);
-    superCardToast.setDuration(durationInteger);
-
-    return superCardToast;
-
-  }
-
-  /**
-   * Returns a standard {@value #TAG} with specified animations.
-   * <br>
-   * IMPORTANT: Activity layout should contain a linear layout
-   * with the id card_container
-   * <br>
-   *
-   * @param activity {@link Activity}
-   * @param textCharSequence {@link CharSequence}
-   *
-   * @return SuperCardToast
-   */
-  public static SuperCardToast create(Activity activity, CharSequence textCharSequence,
-      int durationInteger, SuperToast.Animations animations) {
-
-    SuperCardToast superCardToast = new SuperCardToast(activity);
-    superCardToast.setText(textCharSequence);
-    superCardToast.setDuration(durationInteger);
-    superCardToast.setAnimations(animations);
-
-    return superCardToast;
-
-  }
-
-  /**
-   * Returns a {@value #TAG} with a specified style.
-   * <br>
-   * IMPORTANT: Activity layout should contain a linear layout
-   * with the id card_container
-   * <br>
-   *
-   * @param activity {@link Activity}
-   * @param textCharSequence {@link CharSequence}
-   * @param durationInteger {@link SuperToast.Duration}
-   * @param style {@link Style}
-   *
-   * @return SuperCardToast
-   */
-  public static SuperCardToast create(Activity activity, CharSequence textCharSequence,
-      int durationInteger, Style style) {
-
-    SuperCardToast superCardToast = new SuperCardToast(activity);
-    superCardToast.setText(textCharSequence);
-    superCardToast.setDuration(durationInteger);
-    superCardToast.setStyle(style);
-
-    return superCardToast;
-
-  }
-
-
-
-  /**
-   * Dismisses and removes all showing/pending SuperCardToasts.
-   */
-  public static void cancelAllSuperCardToasts() {
-
-    ManagerSuperCardToast.getInstance().cancelAllSuperActivityToasts();
-
-  }
-
-  /**
-   * Saves pending/shown SuperCardToasts to a bundle.
-   *
-   * @param bundle Use onSaveInstanceState() bundle
-   */
-  public static void onSaveState(Bundle bundle) {
-
-    ReferenceHolder[] list = new ReferenceHolder[ManagerSuperCardToast
-        .getInstance().getList().size()];
-
-    LinkedList<SuperCardToast> lister = ManagerSuperCardToast
-        .getInstance().getList();
-
-    for (int i = 0; i < list.length; i++) {
-
-      list[i] = new ReferenceHolder(lister.get(i));
-
-    }
-
-    bundle.putParcelableArray(BUNDLE_TAG, list);
-
-    SuperCardToast.cancelAllSuperCardToasts();
-
-  }
-
-  /**
-   * Returns and shows pending/shown SuperCardToasts from orientation change.
-   *
-   * @param bundle Use onCreate() bundle
-   * @param activity The current activity
-   */
-  public static void onRestoreState(Bundle bundle, Activity activity) {
-
-    if (bundle == null) {
-
-      return;
-    }
-
-    Parcelable[] savedArray = bundle.getParcelableArray(BUNDLE_TAG);
-
-    int i = 0;
-
-    if (savedArray != null) {
-
-      for (Parcelable parcelable : savedArray) {
-
-        i++;
-
-        new SuperCardToast(activity, (ReferenceHolder) parcelable, null, i);
-
-      }
-
-    }
-
-  }
-
-  /**
-   * Returns and shows pending/shown {@value #TAG} from orientation change and
-   * reattaches any OnClickWrappers/OnDismissWrappers.
-   *
-   * @param bundle Use onCreate() bundle
-   * @param activity The current activity
-   * @param wrappers {@link Wrappers}
-   */
-  public static void onRestoreState(Bundle bundle, Activity activity, Wrappers wrappers) {
-
-    if (bundle == null) {
-
-      return;
-    }
-
-    Parcelable[] savedArray = bundle.getParcelableArray(BUNDLE_TAG);
-
-    int i = 0;
-
-    if (savedArray != null) {
-
-      for (Parcelable parcelable : savedArray) {
-
-        i++;
-
-        new SuperCardToast(activity, (ReferenceHolder) parcelable, wrappers, i);
-
-      }
-
-    }
-
-  }
-
-  /**
-   * Method used to recreate {@value #TAG} after orientation change
-   */
-  private SuperCardToast(Activity activity, ReferenceHolder referenceHolder, Wrappers wrappers,
-      int position) {
-
-    SuperCardToast superCardToast;
-
-    if (referenceHolder.mType == SuperToast.Type.BUTTON) {
-
-      superCardToast = new SuperCardToast(activity, SuperToast.Type.BUTTON);
-      superCardToast.setButtonText(referenceHolder.mButtonText);
-      superCardToast.setButtonTextSizeFloat(referenceHolder.mButtonTextSize);
-      superCardToast.setButtonTextColor(referenceHolder.mButtonTextColor);
-      superCardToast.setButtonIcon(referenceHolder.mButtonIcon);
-      superCardToast.setDividerColor(referenceHolder.mButtonDivider);
-      superCardToast.setButtonTypefaceStyle(referenceHolder.mButtonTypefaceStyle);
-
-      if (wrappers != null) {
-
-        for (OnClickWrapper onClickWrapper : wrappers.getOnClickWrappers()) {
-
-          if (onClickWrapper.getTag().equalsIgnoreCase(referenceHolder.mClickListenerTag)) {
-
-            superCardToast.setOnClickWrapper(onClickWrapper, referenceHolder.mToken);
-
-          }
-
-        }
-      }
-
-    } else if (referenceHolder.mType == SuperToast.Type.PROGRESS) {
-
-      /* PROGRESS style SuperCardToasts should be managed by the developer */
-
-      return;
-
-    } else if (referenceHolder.mType == SuperToast.Type.PROGRESS_HORIZONTAL) {
-
-      /* PROGRESS_HORIZONTAL style SuperCardToasts should be managed by the developer */
-
-      return;
-
-    } else {
-
-      superCardToast = new SuperCardToast(activity);
-
-    }
-
-    if (wrappers != null) {
-
-      for (OnDismissWrapper onDismissListenerWrapper : wrappers.getOnDismissWrappers()) {
-
-        if (onDismissListenerWrapper.getTag()
-            .equalsIgnoreCase(referenceHolder.mDismissListenerTag)) {
-
-          superCardToast.setOnDismissWrapper(onDismissListenerWrapper);
-
-        }
-
-      }
-    }
-
-    superCardToast.setAnimations(referenceHolder.mAnimations);
-    superCardToast.setText(referenceHolder.mText);
-    superCardToast.setTypefaceStyle(referenceHolder.mTypefaceStyle);
-    superCardToast.setDuration(referenceHolder.mDuration);
-    superCardToast.setTextColor(referenceHolder.mTextColor);
-    superCardToast.setTextSizeFloat(referenceHolder.mTextSize);
-    superCardToast.setIndeterminate(referenceHolder.mIsIndeterminate);
-    superCardToast.setIcon(referenceHolder.mIcon, referenceHolder.mIconPosition);
-    superCardToast.setBackground(referenceHolder.mBackground);
-
-    /* Must use if else statements here to prevent erratic behavior */
-    if (referenceHolder.mIsTouchDismissible) {
-
-      superCardToast.setTouchToDismiss(true);
-
-    } else if (referenceHolder.mIsSwipeDismissible) {
-
-      superCardToast.setSwipeToDismiss(true);
-
-    }
-
-    superCardToast.setShowImmediate(true);
-    superCardToast.show();
-
-  }
-
-  /* This OnTouchListener handles the setTouchToDismiss() function */
-  private OnTouchListener mTouchDismissListener = new OnTouchListener() {
-
-    int timesTouched;
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-      /* Hack to prevent repeat touch events causing erratic behavior */
-      if (timesTouched == 0) {
-
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-
-          dismiss();
-
-        }
-
-      }
-
-      timesTouched++;
-
-      return false;
-
-    }
-
-  };
-
-  /* This OnClickListener handles the button click event */
-  private View.OnClickListener mButtonListener = new View.OnClickListener() {
-
-    @Override
-    public void onClick(View view) {
-
-      if (mOnClickWrapper != null) {
-
-        mOnClickWrapper.onClick(view, mToken);
-
-      }
-
-      dismiss();
-
-      /* Make sure the button cannot be clicked multiple times */
-      mButton.setClickable(false);
-
-    }
-  };
-
-
-  /**
    * Parcelable class that saves all data on orientation change
    */
   private static class ReferenceHolder implements Parcelable {
 
+    public static final Creator CREATOR = new Creator() {
+
+      public ReferenceHolder createFromParcel(Parcel parcel) {
+
+        return new ReferenceHolder(parcel);
+
+      }
+
+      public ReferenceHolder[] newArray(int size) {
+
+        return new ReferenceHolder[size];
+
+      }
+
+    };
     SuperToast.Animations mAnimations;
     boolean mIsIndeterminate;
     boolean mIsTouchDismissible;
@@ -2074,6 +2079,7 @@ public class SuperCardToast {
 
     }
 
+
     public ReferenceHolder(Parcel parcel) {
 
       mType = SuperToast.Type.values()[parcel.readInt()];
@@ -2113,7 +2119,6 @@ public class SuperCardToast {
       mIsSwipeDismissible = parcel.readByte() != 0;
 
     }
-
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
@@ -2166,22 +2171,6 @@ public class SuperCardToast {
       return 0;
 
     }
-
-    public static final Creator CREATOR = new Creator() {
-
-      public ReferenceHolder createFromParcel(Parcel parcel) {
-
-        return new ReferenceHolder(parcel);
-
-      }
-
-      public ReferenceHolder[] newArray(int size) {
-
-        return new ReferenceHolder[size];
-
-      }
-
-    };
 
   }
 

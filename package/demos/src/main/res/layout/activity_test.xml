@@ -3,43 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.fw.zycoder.demos.MainActivity"
-    android:orientation="vertical">
+    tools:context="com.fw.zycoder.demos.MainActivity">
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:typeface="monospace"
         android:padding="20dp"
-        android:text="8888 8888 none" />
+        android:text="8888 8888 none"
+        android:typeface="monospace" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:typeface="monospace"
         android:padding="20dp"
-        android:text="8888 8888 monospace" />
+        android:text="8888 8888 monospace"
+        android:typeface="monospace" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:typeface="serif"
         android:padding="20dp"
-        android:text="8888 8888 serif" />
+        android:text="8888 8888 serif"
+        android:typeface="serif" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:typeface="sans"
         android:padding="20dp"
-        android:text="8888 8888 sans" />
+        android:text="8888 8888 sans"
+        android:typeface="sans" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:typeface="normal"
         android:padding="20dp"
-        android:text="8888 8888 normal" />
+        android:text="8888 8888 normal"
+        android:typeface="normal" />
 </LinearLayout>

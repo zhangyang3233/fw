@@ -27,14 +27,13 @@ public class ViewUtils {
   private static final int TOAST_LENGTH = 25;
   private static final long TOAST_TIME = 500L;
 
-  private ViewUtils() {
-  }
+  private ViewUtils() {}
 
   /**
    * Changes the size of a view.
    *
-   * @param view   the view to change size
-   * @param width  the new width
+   * @param view the view to change size
+   * @param width the new width
    * @param height the new height
    */
   public static void setViewSize(View view, int width, int height) {
@@ -48,7 +47,7 @@ public class ViewUtils {
   /**
    * Sets the background of view.
    *
-   * @param view       view
+   * @param view view
    * @param background background drawable
    */
   @SuppressWarnings("deprecation")
@@ -65,7 +64,7 @@ public class ViewUtils {
    * Creates a view.
    *
    * @param parent parent view
-   * @param resId  resource id
+   * @param resId resource id
    * @return view
    */
   public static View newInstance(ViewGroup parent, int resId) {
@@ -76,7 +75,7 @@ public class ViewUtils {
    * Creates a view.
    *
    * @param context context
-   * @param resId   resource id
+   * @param resId resource id
    * @return view
    */
   public static View newInstance(Context context, int resId) {
@@ -88,12 +87,12 @@ public class ViewUtils {
    * get a String of which with a Drawable in front.
    *
    * @param textSize the size of text
-   * @param text     the content of text
+   * @param text the content of text
    * @param drawable the drawable you want to put in front of text
    * @return String with drawable
    */
   public static CharSequence getDrawableTextSpan(final int textSize,
-                                                 String text, final Drawable drawable) {
+      String text, final Drawable drawable) {
     SpannableStringBuilder sb = new SpannableStringBuilder(" ");
     sb.append(text);
     DynamicDrawableSpan drawableSpan = new DynamicDrawableSpan() {
@@ -101,7 +100,7 @@ public class ViewUtils {
       public Drawable getDrawable() {
         float height = textSize;
         float width =
-                drawable.getIntrinsicWidth() * height / drawable.getIntrinsicHeight();
+            drawable.getIntrinsicWidth() * height / drawable.getIntrinsicHeight();
         drawable.setBounds(0, 0, (int) width, (int) height);
         return drawable;
       }
@@ -200,7 +199,7 @@ public class ViewUtils {
         isChild = true;
         break;
       }
-      if (parent.getParent() instanceof View){
+      if (parent.getParent() instanceof View) {
         parent = (View) parent.getParent();
       } else {
         isChild = false;

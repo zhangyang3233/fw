@@ -1,12 +1,9 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,46 +17,42 @@ import com.android.volley.Cache;
 
 public class MockCache implements Cache {
 
-    public boolean clearCalled = false;
-    @Override
-    public void clear() {
-        clearCalled = true;
-    }
+  public boolean clearCalled = false;
+  public boolean getCalled = false;
+  public boolean putCalled = false;
+  public String keyPut = null;
+  public Entry entryPut = null;
+  private Entry mFakeEntry = null;
 
-    public boolean getCalled = false;
-    private Entry mFakeEntry = null;
+  @Override
+  public void clear() {
+    clearCalled = true;
+  }
 
-    public void setEntryToReturn(Entry entry) {
-        mFakeEntry = entry;
-    }
+  public void setEntryToReturn(Entry entry) {
+    mFakeEntry = entry;
+  }
 
-    @Override
-    public Entry get(String key) {
-        getCalled = true;
-        return mFakeEntry;
-    }
+  @Override
+  public Entry get(String key) {
+    getCalled = true;
+    return mFakeEntry;
+  }
 
-    public boolean putCalled = false;
-    public String keyPut = null;
-    public Entry entryPut = null;
+  @Override
+  public void put(String key, Entry entry) {
+    putCalled = true;
+    keyPut = key;
+    entryPut = entry;
+  }
 
-    @Override
-    public void put(String key, Entry entry) {
-        putCalled = true;
-        keyPut = key;
-        entryPut = entry;
-    }
+  @Override
+  public void invalidate(String key, boolean fullExpire) {}
 
-    @Override
-    public void invalidate(String key, boolean fullExpire) {
-    }
+  @Override
+  public void remove(String key) {}
 
-    @Override
-    public void remove(String key) {
-    }
-
-	@Override
-	public void initialize() {
-	}
+  @Override
+  public void initialize() {}
 
 }

@@ -640,8 +640,7 @@ public class FileUtil {
       return false;
     }
     boolean result = true;
-    try
-    {
+    try {
       File file = new File(path);
       file.setWritable(true, false);
       FileOutputStream fs = new FileOutputStream(file);

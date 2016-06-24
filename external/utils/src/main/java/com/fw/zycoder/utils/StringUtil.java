@@ -91,7 +91,8 @@ public class StringUtil {
   }
 
   public static SpannableString appendBitmapToEnd(String s, int resId) {
-    Bitmap bitmap = BitmapFactory.decodeResource(GlobalConfig.getAppContext().getResources(), resId);
+    Bitmap bitmap =
+        BitmapFactory.decodeResource(GlobalConfig.getAppContext().getResources(), resId);
     ImageSpan imgSpan = new ImageSpan(GlobalConfig.getAppContext(), bitmap);
     SpannableString spanString = new SpannableString(s);
     spanString.setSpan(imgSpan, s.length() - 1, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

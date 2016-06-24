@@ -115,7 +115,8 @@ public class LibraryLoaderHelper {
         jniNameInApk =
             "lib/"
                 + Build.CPU_ABI.substring(0,
-                    lineCharIndex > 0 ? lineCharIndex : Build.CPU_ABI.length()) + "/"
+                    lineCharIndex > 0 ? lineCharIndex : Build.CPU_ABI.length())
+                + "/"
                 + System.mapLibraryName(libName);
 
         entry = file.getEntry(jniNameInApk);
@@ -142,7 +143,7 @@ public class LibraryLoaderHelper {
         os.write(buffer, 0, count);
       }
       // Change permission to rwxr-xr-x
-//      FileUtil.setPermissions(outputFile.getAbsolutePath(), 0755);
+      // FileUtil.setPermissions(outputFile.getAbsolutePath(), 0755);
       return true;
     } catch (IOException e) {
       Log.e(TAG, "Failed to unpack native libraries", e);

@@ -12,7 +12,8 @@ import com.wanda.sliding.utils.SlidingUtils;
  *
  */
 public class SlidingViewPager extends ViewPager
-    implements SlidingLayout.RightFlingInterceptor {
+    implements
+      SlidingLayout.RightFlingInterceptor {
 
   private boolean mCanSlide = true;
 

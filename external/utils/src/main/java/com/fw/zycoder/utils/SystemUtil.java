@@ -23,7 +23,6 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -527,13 +526,9 @@ public class SystemUtil {
     return false;
   }
 
-  public static enum InstallOption {
-    AUTO, EXTERNAL, INTERNAL, ERROR
-  }
-
   /**
    * check if the mobile has been rooted
-   * 
+   *
    * @exception IOException
    * @return the mobile has been rooted
    * @author TQS
@@ -674,6 +669,10 @@ public class SystemUtil {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public static enum InstallOption {
+    AUTO, EXTERNAL, INTERNAL, ERROR
   }
 
 

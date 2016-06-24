@@ -49,9 +49,9 @@ public class KeyBoardUtils {
   @TargetApi(Build.VERSION_CODES.CUPCAKE)
   public static void hideSoftInputMode(Context context, View windowToken) {
     ((InputMethodManager) context
-            .getSystemService(Context.INPUT_METHOD_SERVICE))
+        .getSystemService(Context.INPUT_METHOD_SERVICE))
             .hideSoftInputFromWindow(windowToken.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+                InputMethodManager.HIDE_NOT_ALWAYS);
   }
 
   @TargetApi(Build.VERSION_CODES.CUPCAKE)
@@ -60,7 +60,7 @@ public class KeyBoardUtils {
     editText.setFocusableInTouchMode(true);
     editText.requestFocus();
     InputMethodManager inputManager = (InputMethodManager) editText
-            .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     inputManager.showSoftInput(editText, 0);
   }
 }

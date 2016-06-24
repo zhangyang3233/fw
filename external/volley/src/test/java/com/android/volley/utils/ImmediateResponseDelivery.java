@@ -12,12 +12,12 @@ import java.util.concurrent.Executor;
  */
 public class ImmediateResponseDelivery extends ExecutorDelivery {
 
-    public ImmediateResponseDelivery() {
-        super(new Executor() {
-            @Override
-            public void execute(Runnable command) {
-                command.run();
-            }
-        });
-    }
+  public ImmediateResponseDelivery() {
+    super(new Executor() {
+      @Override
+      public void execute(Runnable command) {
+        command.run();
+      }
+    });
+  }
 }

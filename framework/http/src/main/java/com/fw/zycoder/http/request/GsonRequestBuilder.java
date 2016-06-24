@@ -56,7 +56,7 @@ public abstract class GsonRequestBuilder<T> implements VolleyRequestBuilder {
       if (isLogEnable) {
         if (error != null && error.networkResponse != null) {
           Log.d(TAG, "error status code is " + error.networkResponse.statusCode
-                  + ", url is " + requestUrl + " , error message is " + error.getMessage());
+              + ", url is " + requestUrl + " , error message is " + error.getMessage());
         } else {
           Log.d(TAG, "error url is " + requestUrl);
         }

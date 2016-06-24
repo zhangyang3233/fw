@@ -46,7 +46,7 @@ public abstract class ApiRequest<T> extends Request<T> {
   private long fakeCacheTime = 0;
 
   public ApiRequest(int method, String url, Map<String, String> params, ApiContext apiContext,
-                    Response.Listener<T> listener, Response.ErrorListener errorListener) {
+      Response.Listener<T> listener, Response.ErrorListener errorListener) {
     super(method, buildUrl(url, params, method), errorListener);
     this.mParams = params;
     this.mApiContext = apiContext;
@@ -59,9 +59,9 @@ public abstract class ApiRequest<T> extends Request<T> {
   }
 
   public ApiRequest(int method, String url, Map<String, String> params, ApiContext apiContext,
-                    DataFuture<T> dataFuture) {
+      DataFuture<T> dataFuture) {
     this(method, url, params, apiContext, dataFuture.getRequestFuture(), dataFuture
-            .getRequestFuture());
+        .getRequestFuture());
     this.mDataFuture = dataFuture;
   }
 
@@ -116,7 +116,7 @@ public abstract class ApiRequest<T> extends Request<T> {
   @Override
   protected final Response<T> parseNetworkResponse(NetworkResponse response) {
     try {
-//      saveCookie(response);
+      // saveCookie(response);
       T result = parseResponse(response);
       if (result == null) {
         return null;
@@ -162,7 +162,7 @@ public abstract class ApiRequest<T> extends Request<T> {
     if (mExtraHeaders != null) {
       headers.putAll(mExtraHeaders);
     }
-//    putCookie(headers);
+    // putCookie(headers);
     return headers;
   }
 
@@ -189,7 +189,7 @@ public abstract class ApiRequest<T> extends Request<T> {
       /**
        * FakeHttpHeaderParser 解决服务端返回 header 不规范的问题
        */
-//      return FakeHttpHeaderParser.parseCacheHeaders(response, fakeCacheTime);
+      // return FakeHttpHeaderParser.parseCacheHeaders(response, fakeCacheTime);
       return HttpHeaderParser.parseCacheHeaders(response);
     } else {
       /**

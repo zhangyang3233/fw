@@ -51,24 +51,16 @@ import java.util.List;
  */
 public class SlidingLayout extends ViewGroup {
 
+  static final SlidingPanelLayoutImpl IMPL;
   private static final String TAG = "SlidingPaneLayout";
-
-
   /**
    * Default shadow width
    */
   private static final int DEFAULT_SHADOW_WIDTH = 15; // dp;
-
   /**
    * If no fade color is given by default it will fade to 80% gray.
    */
   private static final int DEFAULT_FADE_COLOR = 0xcccccccc;
-
-  /**
-   * The fade color used for the sliding panel. 0 = no fading.
-   */
-  private int mSliderFadeColor = 0;
-
   /**
    * Minimum velocity that will be detected as a fling
    */
@@ -76,71 +68,75 @@ public class SlidingLayout extends ViewGroup {
                                                                                              // per
                                                                                              // second
 
+  static {
+    final int deviceVersion = Build.VERSION.SDK_INT;
+    if (deviceVersion >= 17) {
+      IMPL = new SlidingPanelLayoutImplJBMR1();
+    } else if (deviceVersion >= 16) {
+      IMPL = new SlidingPanelLayoutImplJB();
+    } else {
+      IMPL = new SlidingPanelLayoutImplBase();
+    }
+  }
+
+  private final ViewDragHelper mDragHelper;
+  /**
+   * 当存在右划手势冲突的子 view ，向父 view 注册拦截器。不允许父 view 直接拦截事件。
+   */
+  private final List<WeakReference<RightFlingInterceptor>> mInterceptorList = new ArrayList<>();
+  private final Rect mTmpRect = new Rect();
+  private final ArrayList<DisableLayerRunnable> mPostedRunnables =
+      new ArrayList<DisableLayerRunnable>();
+  /**
+   * The fade color used for the sliding panel. 0 = no fading.
+   */
+  private int mSliderFadeColor = 0;
   /**
    * The fade color used for the panel covered by the slider. 0 = no fading.
    */
   private int mCoveredFadeColor;
-
   /**
    * Drawable used to draw the shadow between panes by default.
    */
   private Drawable mShadowDrawableLeft;
-
   /**
    * Drawable used to draw the shadow between panes to support RTL (right to left language).
    */
   private Drawable mShadowDrawableRight;
-
   /**
    * shadow cast by sliding view
    */
   private boolean mNeedShadow = true;
-
   /**
    * True if a panel can slide with the current measurements
    */
   private boolean mCanSlide = true;
-
   /**
    * The child view that can slide, if any.
    */
   private View mSlideableView;
-
   /**
    * How far the panel is offset from its closed position.
    * range [0, 1] where 0 = closed, 1 = open.
    */
   private float mSlideOffset;
-
   /**
    * How far in pixels the slideable panel may move.
    */
   private int mSlideRange;
-
   /**
    * A panel view is locked into internal scrolling or another condition that
    * is preventing a drag.
    */
   private boolean mIsUnableToDrag;
-
   private float mInitialMotionX;
   private float mInitialMotionY;
-
   private SlidingListener mSlidingListener;
-
-  private final ViewDragHelper mDragHelper;
-
   private boolean mFirstLayout = true;
-
   /**
    * 是否是一次不 callback 的滚动.
    */
   private boolean mIsSlientScroll = false;
-
-  /**
-   * 当存在右划手势冲突的子 view ，向父 view 注册拦截器。不允许父 view 直接拦截事件。
-   */
-  private final List<WeakReference<RightFlingInterceptor>> mInterceptorList = new ArrayList<>();
   /**
    * 确定是否是一次滑动操作，一旦确定方向不可改变
    */
@@ -153,26 +149,7 @@ public class SlidingLayout extends ViewGroup {
    * 计算滑动速度
    */
   private VelocityTracker mVelocityTracker;
-
   private float mDensity;
-
-  private final Rect mTmpRect = new Rect();
-
-  private final ArrayList<DisableLayerRunnable> mPostedRunnables =
-      new ArrayList<DisableLayerRunnable>();
-
-  static final SlidingPanelLayoutImpl IMPL;
-
-  static {
-    final int deviceVersion = Build.VERSION.SDK_INT;
-    if (deviceVersion >= 17) {
-      IMPL = new SlidingPanelLayoutImplJBMR1();
-    } else if (deviceVersion >= 16) {
-      IMPL = new SlidingPanelLayoutImplJB();
-    } else {
-      IMPL = new SlidingPanelLayoutImplBase();
-    }
-  }
 
   public SlidingLayout(Context context) {
     this(context, null);
@@ -196,6 +173,27 @@ public class SlidingLayout extends ViewGroup {
     mDragHelper.setMinVelocity(MIN_FLING_VELOCITY * mDensity);
   }
 
+  private static boolean viewIsOpaque(View v) {
+    if (ViewCompat.isOpaque(v)) return true;
+
+    // View#isOpaque didn't take all valid opaque scrollbar modes into account
+    // before API 18 (JB-MR2). On newer devices rely solely on isOpaque above and return false
+    // here. On older devices, check the view's background drawable directly as a fallback.
+    if (Build.VERSION.SDK_INT >= 18) return false;
+
+    final Drawable bg = v.getBackground();
+    if (bg != null) {
+      return bg.getOpacity() == PixelFormat.OPAQUE;
+    }
+    return false;
+  }
+
+  /**
+   * @return The ARGB-packed color value used to fade the sliding pane
+   */
+  public int getSliderFadeColor() {
+    return mSliderFadeColor;
+  }
 
   /**
    * Set the color used to fade the sliding pane out when it is slid most of the way offscreen.
@@ -207,10 +205,10 @@ public class SlidingLayout extends ViewGroup {
   }
 
   /**
-   * @return The ARGB-packed color value used to fade the sliding pane
+   * @return The ARGB-packed color value used to fade the fixed pane
    */
-  public int getSliderFadeColor() {
-    return mSliderFadeColor;
+  public int getCoveredFadeColor() {
+    return mCoveredFadeColor;
   }
 
   /**
@@ -221,13 +219,6 @@ public class SlidingLayout extends ViewGroup {
    */
   public void setCoveredFadeColor(int color) {
     mCoveredFadeColor = color;
-  }
-
-  /**
-   * @return The ARGB-packed color value used to fade the fixed pane
-   */
-  public int getCoveredFadeColor() {
-    return mCoveredFadeColor;
   }
 
   public void setSlidingListener(SlidingListener listener) {
@@ -256,10 +247,8 @@ public class SlidingLayout extends ViewGroup {
 
   void updateObscuredViewsVisibility(View panel) {
     final boolean isLayoutRtl = isLayoutRtlSupport();
-    final int startBound = isLayoutRtl ? (getWidth() - getPaddingRight()) :
-        getPaddingLeft();
-    final int endBound = isLayoutRtl ? getPaddingLeft() :
-        (getWidth() - getPaddingRight());
+    final int startBound = isLayoutRtl ? (getWidth() - getPaddingRight()) : getPaddingLeft();
+    final int endBound = isLayoutRtl ? getPaddingLeft() : (getWidth() - getPaddingRight());
     final int topBound = getPaddingTop();
     final int bottomBound = getHeight() - getPaddingBottom();
     final int left;
@@ -283,11 +272,10 @@ public class SlidingLayout extends ViewGroup {
         break;
       }
 
-      final int clampedChildLeft = Math.max((isLayoutRtl ? endBound :
-          startBound), child.getLeft());
+      final int clampedChildLeft = Math.max((isLayoutRtl ? endBound : startBound), child.getLeft());
       final int clampedChildTop = Math.max(topBound, child.getTop());
-      final int clampedChildRight = Math.min((isLayoutRtl ? startBound :
-          endBound), child.getRight());
+      final int clampedChildRight =
+          Math.min((isLayoutRtl ? startBound : endBound), child.getRight());
       final int clampedChildBottom = Math.min(bottomBound, child.getBottom());
       final int vis;
       if (clampedChildLeft >= left && clampedChildTop >= top &&
@@ -307,21 +295,6 @@ public class SlidingLayout extends ViewGroup {
         child.setVisibility(VISIBLE);
       }
     }
-  }
-
-  private static boolean viewIsOpaque(View v) {
-    if (ViewCompat.isOpaque(v)) return true;
-
-    // View#isOpaque didn't take all valid opaque scrollbar modes into account
-    // before API 18 (JB-MR2). On newer devices rely solely on isOpaque above and return false
-    // here. On older devices, check the view's background drawable directly as a fallback.
-    if (Build.VERSION.SDK_INT >= 18) return false;
-
-    final Drawable bg = v.getBackground();
-    if (bg != null) {
-      return bg.getOpacity() == PixelFormat.OPAQUE;
-    }
-    return false;
   }
 
   @Override
@@ -427,8 +400,7 @@ public class SlidingLayout extends ViewGroup {
     final int range = getMeasuredWidth() - xStart - margin;
     mSlideRange = range;
     final int lpMargin = isLayoutRtl ? lp.rightMargin : lp.leftMargin;
-    lp.dimWhenOffset = xStart + lpMargin + range + childWidth / 2 >
-        width - paddingEnd;
+    lp.dimWhenOffset = xStart + lpMargin + range + childWidth / 2 > width - paddingEnd;
     final int pos = (int) (range * mSlideOffset);
     xStart += pos + lpMargin;
     mSlideOffset = (float) pos / mSlideRange;
@@ -625,7 +597,7 @@ public class SlidingLayout extends ViewGroup {
    * @param offset range [0, 1] where 0 = closed, 1 = open.
    */
   public void setXOffset(float offset) {
-    if(mSlideableView == null){
+    if (mSlideableView == null) {
       return;
     }
     int left = (int) (mSlideRange * offset);
@@ -1041,6 +1013,246 @@ public class SlidingLayout extends ViewGroup {
     }
   }
 
+  private boolean isLayoutRtlSupport() {
+    return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
+  }
+
+  public synchronized void addInterceptor(RightFlingInterceptor interceptor) {
+    if (!(interceptor instanceof View)) {
+      throw new IllegalStateException(TAG + " must use view implement interceptor");
+    }
+    mInterceptorList.add(new WeakReference<>(interceptor));
+  }
+
+  /**
+   * 检查子 View 是否允许父 View 拦截右划手势。
+   *
+   * @return true 允许拦截，false 不允许拦截
+   */
+  private boolean canInterceptorRightFling(MotionEvent ev) {
+    Iterator<WeakReference<RightFlingInterceptor>> iterator = mInterceptorList.iterator();
+
+    while (iterator.hasNext()) {
+      WeakReference<RightFlingInterceptor> weakReference = iterator.next();
+      RightFlingInterceptor interceptor = weakReference.get();
+      if (interceptor != null) {
+        /**
+         * 只要有一个子 View 不允许拦截，则不再询问后续.
+         * 不予许拦截的子 View 需要处于点击位置
+         */
+        if (!interceptor.isAllowedRightFlingBack(ev) && isViewUnder((View) interceptor, ev)) {
+          return false;
+        }
+      } else {
+        iterator.remove();
+      }
+    }
+    return true;
+  }
+
+  private boolean isViewUnder(View view, MotionEvent event) {
+    Rect rect = new Rect();
+    view.getHitRect(rect);
+    View p = (View) view.getParent();
+    if (p != null) {
+      int parentGlobalPosition[] = new int[2];
+      p.getLocationOnScreen(parentGlobalPosition);
+      rect.offset(parentGlobalPosition[0], parentGlobalPosition[1]);
+    }
+    return rect.contains((int) event.getRawX(), (int) event.getRawY());
+  }
+
+  /**
+   * 检测是否满足滑动的最小速度
+   *
+   * @param ev
+   */
+  private void detectorFling(MotionEvent ev) {
+    if (mFlingFlag && ev.getAction() != MotionEvent.ACTION_DOWN) {
+      return;
+    }
+    if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+      mFlingFlag = false;
+    }
+
+    if (mVelocityTracker == null) {
+      mVelocityTracker = VelocityTracker.obtain();
+    }
+    mVelocityTracker.addMovement(ev);
+
+    mVelocityTracker.computeCurrentVelocity(1000, ViewConfiguration.getMaximumFlingVelocity());
+
+    if (mVelocityTracker.getXVelocity() >= mDragHelper.getTouchSlop()) {
+      mRightFlingFlag = true;
+      mFlingFlag = true;
+    } else {
+      mRightFlingFlag = false;
+    }
+  }
+
+  private boolean isRightFling() {
+    return mFlingFlag && mRightFlingFlag;
+  }
+
+  interface SlidingPanelLayoutImpl {
+    void invalidateChildRegion(SlidingLayout parent, View child);
+  }
+
+  /**
+   * 右划拦截器，用于右划手势冲突时的阻止父 view (SlidingLayout)，直接拦截右划手势.
+   * 必须使用 view 实现，因为需要判断响应的拦截器是否是当前 view.
+   */
+  public interface RightFlingInterceptor {
+    /**
+     * 是否允许父 view (SlidingLayout)，拦截右划手势
+     *
+     * @return true 允许拦截，false 不允许拦截
+     * @param ev
+     */
+    boolean isAllowedRightFlingBack(MotionEvent ev);
+  }
+
+  public static class LayoutParams extends ViewGroup.MarginLayoutParams {
+    private static final int[] ATTRS = new int[] {
+        android.R.attr.layout_weight
+    };
+
+    /**
+     * The weighted proportion of how much of the leftover space
+     * this child should consume after measurement.
+     */
+    public float weight = 0;
+
+    /**
+     * True if this pane is the slideable pane in the layout.
+     */
+    boolean slideable;
+
+    /**
+     * True if this view should be drawn dimmed
+     * when it's been offset from its default position.
+     */
+    boolean dimWhenOffset;
+
+    Paint dimPaint;
+
+    public LayoutParams() {
+      super(FILL_PARENT, FILL_PARENT);
+    }
+
+    public LayoutParams(int width, int height) {
+      super(width, height);
+    }
+
+    public LayoutParams(android.view.ViewGroup.LayoutParams source) {
+      super(source);
+    }
+
+    public LayoutParams(MarginLayoutParams source) {
+      super(source);
+    }
+
+    public LayoutParams(LayoutParams source) {
+      super(source);
+      this.weight = source.weight;
+    }
+
+    public LayoutParams(Context c, AttributeSet attrs) {
+      super(c, attrs);
+
+      final TypedArray a = c.obtainStyledAttributes(attrs, ATTRS);
+      this.weight = a.getFloat(0, 0);
+      a.recycle();
+    }
+
+  }
+
+  static class SavedState extends BaseSavedState {
+    public static final Parcelable.Creator<SavedState> CREATOR =
+        new Parcelable.Creator<SavedState>() {
+          public SavedState createFromParcel(Parcel in) {
+            return new SavedState(in);
+          }
+
+          public SavedState[] newArray(int size) {
+            return new SavedState[size];
+          }
+        };
+    boolean isOpen;
+
+    SavedState(Parcelable superState) {
+      super(superState);
+    }
+
+    private SavedState(Parcel in) {
+      super(in);
+      isOpen = in.readInt() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+      super.writeToParcel(out, flags);
+      out.writeInt(isOpen ? 1 : 0);
+    }
+  }
+
+  static class SlidingPanelLayoutImplBase implements SlidingPanelLayoutImpl {
+    public void invalidateChildRegion(SlidingLayout parent, View child) {
+      ViewCompat.postInvalidateOnAnimation(parent, child.getLeft(), child.getTop(),
+          child.getRight(), child.getBottom());
+    }
+  }
+
+  static class SlidingPanelLayoutImplJB extends SlidingPanelLayoutImplBase {
+    /*
+     * Private API hacks! Nasty! Bad!
+     * In Jellybean, some optimizations in the hardware UI renderer
+     * prevent a changed Paint on a View using a hardware layer from having
+     * the intended effect. This twiddles some internal bits on the view to force
+     * it to recreate the display list.
+     */
+    private Method mGetDisplayList;
+    private Field mRecreateDisplayList;
+
+    SlidingPanelLayoutImplJB() {
+      try {
+        mGetDisplayList = View.class.getDeclaredMethod("getDisplayList", (Class[]) null);
+      } catch (NoSuchMethodException e) {
+        Log.e(TAG, "Couldn't fetch getDisplayList method; dimming won't work right.", e);
+      }
+      try {
+        mRecreateDisplayList = View.class.getDeclaredField("mRecreateDisplayList");
+        mRecreateDisplayList.setAccessible(true);
+      } catch (NoSuchFieldException e) {
+        Log.e(TAG, "Couldn't fetch mRecreateDisplayList field; dimming will be slow.", e);
+      }
+    }
+
+    @Override
+    public void invalidateChildRegion(SlidingLayout parent, View child) {
+      if (mGetDisplayList != null && mRecreateDisplayList != null) {
+        try {
+          mRecreateDisplayList.setBoolean(child, true);
+          mGetDisplayList.invoke(child, (Object[]) null);
+        } catch (Exception e) {
+          Log.e(TAG, "Error refreshing display list state", e);
+        }
+      } else {
+        // Slow path. REALLY slow path. Let's hope we don't get here.
+        child.invalidate();
+        return;
+      }
+      super.invalidateChildRegion(parent, child);
+    }
+  }
+
+  static class SlidingPanelLayoutImplJBMR1 extends SlidingPanelLayoutImplBase {
+    @Override
+    public void invalidateChildRegion(SlidingLayout parent, View child) {
+      ViewCompat.setLayerPaint(child, ((LayoutParams) child.getLayoutParams()).dimPaint);
+    }
+  }
+
   private class DragHelperCallback extends ViewDragHelper.Callback {
 
     @Override
@@ -1133,152 +1345,6 @@ public class SlidingLayout extends ViewGroup {
     @Override
     public void onEdgeDragStarted(int edgeFlags, int pointerId) {
       mDragHelper.captureChildView(mSlideableView, pointerId);
-    }
-  }
-
-  public static class LayoutParams extends ViewGroup.MarginLayoutParams {
-    private static final int[] ATTRS = new int[] {
-        android.R.attr.layout_weight
-    };
-
-    /**
-     * The weighted proportion of how much of the leftover space
-     * this child should consume after measurement.
-     */
-    public float weight = 0;
-
-    /**
-     * True if this pane is the slideable pane in the layout.
-     */
-    boolean slideable;
-
-    /**
-     * True if this view should be drawn dimmed
-     * when it's been offset from its default position.
-     */
-    boolean dimWhenOffset;
-
-    Paint dimPaint;
-
-    public LayoutParams() {
-      super(FILL_PARENT, FILL_PARENT);
-    }
-
-    public LayoutParams(int width, int height) {
-      super(width, height);
-    }
-
-    public LayoutParams(android.view.ViewGroup.LayoutParams source) {
-      super(source);
-    }
-
-    public LayoutParams(MarginLayoutParams source) {
-      super(source);
-    }
-
-    public LayoutParams(LayoutParams source) {
-      super(source);
-      this.weight = source.weight;
-    }
-
-    public LayoutParams(Context c, AttributeSet attrs) {
-      super(c, attrs);
-
-      final TypedArray a = c.obtainStyledAttributes(attrs, ATTRS);
-      this.weight = a.getFloat(0, 0);
-      a.recycle();
-    }
-
-  }
-
-  static class SavedState extends BaseSavedState {
-    boolean isOpen;
-
-    SavedState(Parcelable superState) {
-      super(superState);
-    }
-
-    private SavedState(Parcel in) {
-      super(in);
-      isOpen = in.readInt() != 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-      super.writeToParcel(out, flags);
-      out.writeInt(isOpen ? 1 : 0);
-    }
-
-    public static final Parcelable.Creator<SavedState> CREATOR =
-        new Parcelable.Creator<SavedState>() {
-          public SavedState createFromParcel(Parcel in) {
-            return new SavedState(in);
-          }
-
-          public SavedState[] newArray(int size) {
-            return new SavedState[size];
-          }
-        };
-  }
-
-  interface SlidingPanelLayoutImpl {
-    void invalidateChildRegion(SlidingLayout parent, View child);
-  }
-
-  static class SlidingPanelLayoutImplBase implements SlidingPanelLayoutImpl {
-    public void invalidateChildRegion(SlidingLayout parent, View child) {
-      ViewCompat.postInvalidateOnAnimation(parent, child.getLeft(), child.getTop(),
-        child.getRight(), child.getBottom());
-    }
-  }
-
-  static class SlidingPanelLayoutImplJB extends SlidingPanelLayoutImplBase {
-    /*
-     * Private API hacks! Nasty! Bad!
-     * In Jellybean, some optimizations in the hardware UI renderer
-     * prevent a changed Paint on a View using a hardware layer from having
-     * the intended effect. This twiddles some internal bits on the view to force
-     * it to recreate the display list.
-     */
-    private Method mGetDisplayList;
-    private Field mRecreateDisplayList;
-
-    SlidingPanelLayoutImplJB() {
-      try {
-        mGetDisplayList = View.class.getDeclaredMethod("getDisplayList", (Class[]) null);
-      } catch (NoSuchMethodException e) {
-        Log.e(TAG, "Couldn't fetch getDisplayList method; dimming won't work right.", e);
-      }
-      try {
-        mRecreateDisplayList = View.class.getDeclaredField("mRecreateDisplayList");
-        mRecreateDisplayList.setAccessible(true);
-      } catch (NoSuchFieldException e) {
-        Log.e(TAG, "Couldn't fetch mRecreateDisplayList field; dimming will be slow.", e);
-      }
-    }
-
-    @Override
-    public void invalidateChildRegion(SlidingLayout parent, View child) {
-      if (mGetDisplayList != null && mRecreateDisplayList != null) {
-        try {
-          mRecreateDisplayList.setBoolean(child, true);
-          mGetDisplayList.invoke(child, (Object[]) null);
-        } catch (Exception e) {
-          Log.e(TAG, "Error refreshing display list state", e);
-        }
-      } else {
-        // Slow path. REALLY slow path. Let's hope we don't get here.
-        child.invalidate();
-        return;
-      }
-      super.invalidateChildRegion(parent, child);
-    }
-  }
-
-  static class SlidingPanelLayoutImplJBMR1 extends SlidingPanelLayoutImplBase {
-    @Override
-    public void invalidateChildRegion(SlidingLayout parent, View child) {
-      ViewCompat.setLayerPaint(child, ((LayoutParams) child.getLayoutParams()).dimPaint);
     }
   }
 
@@ -1383,102 +1449,6 @@ public class SlidingLayout extends ViewGroup {
       }
       mPostedRunnables.remove(this);
     }
-  }
-
-  private boolean isLayoutRtlSupport() {
-    return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
-  }
-
-
-  /**
-   * 右划拦截器，用于右划手势冲突时的阻止父 view (SlidingLayout)，直接拦截右划手势.
-   * 必须使用 view 实现，因为需要判断响应的拦截器是否是当前 view.
-   */
-  public interface RightFlingInterceptor {
-    /**
-     * 是否允许父 view (SlidingLayout)，拦截右划手势
-     * 
-     * @return true 允许拦截，false 不允许拦截
-     * @param ev
-     */
-    boolean isAllowedRightFlingBack(MotionEvent ev);
-  }
-
-  public synchronized void addInterceptor(RightFlingInterceptor interceptor) {
-    if (!(interceptor instanceof View)) {
-      throw new IllegalStateException(TAG + " must use view implement interceptor");
-    }
-    mInterceptorList.add(new WeakReference<>(interceptor));
-  }
-
-  /**
-   * 检查子 View 是否允许父 View 拦截右划手势。
-   * 
-   * @return true 允许拦截，false 不允许拦截
-   */
-  private boolean canInterceptorRightFling(MotionEvent ev) {
-    Iterator<WeakReference<RightFlingInterceptor>> iterator = mInterceptorList.iterator();
-
-    while (iterator.hasNext()) {
-      WeakReference<RightFlingInterceptor> weakReference = iterator.next();
-      RightFlingInterceptor interceptor = weakReference.get();
-      if (interceptor != null) {
-        /**
-         * 只要有一个子 View 不允许拦截，则不再询问后续.
-         * 不予许拦截的子 View 需要处于点击位置
-         */
-        if (!interceptor.isAllowedRightFlingBack(ev) && isViewUnder((View) interceptor, ev)) {
-          return false;
-        }
-      } else {
-        iterator.remove();
-      }
-    }
-    return true;
-  }
-
-  private boolean isViewUnder(View view, MotionEvent event) {
-    Rect rect = new Rect();
-    view.getHitRect(rect);
-    View p = (View) view.getParent();
-    if (p != null) {
-      int parentGlobalPosition[] = new int[2];
-      p.getLocationOnScreen(parentGlobalPosition);
-      rect.offset(parentGlobalPosition[0], parentGlobalPosition[1]);
-    }
-    return rect.contains((int) event.getRawX(), (int) event.getRawY());
-  }
-
-  /**
-   * 检测是否满足滑动的最小速度
-   * 
-   * @param ev
-   */
-  private void detectorFling(MotionEvent ev) {
-    if (mFlingFlag && ev.getAction() != MotionEvent.ACTION_DOWN) {
-      return;
-    }
-    if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-      mFlingFlag = false;
-    }
-
-    if (mVelocityTracker == null) {
-      mVelocityTracker = VelocityTracker.obtain();
-    }
-    mVelocityTracker.addMovement(ev);
-
-    mVelocityTracker.computeCurrentVelocity(1000, ViewConfiguration.getMaximumFlingVelocity());
-
-    if (mVelocityTracker.getXVelocity() >= mDragHelper.getTouchSlop()) {
-      mRightFlingFlag = true;
-      mFlingFlag = true;
-    } else {
-      mRightFlingFlag = false;
-    }
-  }
-
-  private boolean isRightFling() {
-    return mFlingFlag && mRightFlingFlag;
   }
 
 }

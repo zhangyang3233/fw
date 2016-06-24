@@ -1,18 +1,15 @@
 /*
-* Copyright (C) 2015 Vincent Mi
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2015 Vincent Mi
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.fw.zycoder.circleimageview;
 
@@ -57,15 +54,12 @@ public class RoundedCornerDrawable extends Drawable {
   private final Paint mBorderPaint;
   private final Matrix mShaderMatrix = new Matrix();
   private final RectF mSquareCornersRect = new RectF();
-
+  private final boolean[] mCornersRounded = new boolean[] {true, true, true, true};
   private Shader.TileMode mTileModeX = Shader.TileMode.CLAMP;
   private Shader.TileMode mTileModeY = Shader.TileMode.CLAMP;
   private boolean mRebuildShader = true;
-
   // [ topLeft, topRight, bottomLeft, bottomRight ]
   private float mCornerRadius = 0f;
-  private final boolean[] mCornersRounded = new boolean[] { true, true, true, true };
-
   private boolean mOval = false;
   private float mBorderWidth = 0;
   private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
@@ -143,6 +137,33 @@ public class RoundedCornerDrawable extends Drawable {
     }
 
     return bitmap;
+  }
+
+  private static boolean only(int index, boolean[] booleans) {
+    for (int i = 0, len = booleans.length; i < len; i++) {
+      if (booleans[i] != (i == index)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private static boolean any(boolean[] booleans) {
+    for (boolean b : booleans) {
+      if (b) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean all(boolean[] booleans) {
+    for (boolean b : booleans) {
+      if (b) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public Bitmap getSourceBitmap() {
@@ -440,14 +461,6 @@ public class RoundedCornerDrawable extends Drawable {
   }
 
   /**
-   * @param corner the specific corner to get radius of.
-   * @return the corner radius of the specified corner.
-   */
-  public float getCornerRadius(@Corner int corner) {
-    return mCornersRounded[corner] ? mCornerRadius : 0f;
-  }
-
-  /**
    * Sets all corners to the specified radius.
    *
    * @param radius the radius.
@@ -456,6 +469,14 @@ public class RoundedCornerDrawable extends Drawable {
   public RoundedCornerDrawable setCornerRadius(float radius) {
     setCornerRadius(radius, radius, radius, radius);
     return this;
+  }
+
+  /**
+   * @param corner the specific corner to get radius of.
+   * @return the corner radius of the specified corner.
+   */
+  public float getCornerRadius(@Corner int corner) {
+    return mCornersRounded[corner] ? mCornerRadius : 0f;
   }
 
   /**
@@ -539,18 +560,18 @@ public class RoundedCornerDrawable extends Drawable {
     return mBorderColor.getDefaultColor();
   }
 
+  public RoundedCornerDrawable setBorderColor(ColorStateList colors) {
+    mBorderColor = colors != null ? colors : ColorStateList.valueOf(0);
+    mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
+    return this;
+  }
+
   public RoundedCornerDrawable setBorderColor(@ColorInt int color) {
     return setBorderColor(ColorStateList.valueOf(color));
   }
 
   public ColorStateList getBorderColors() {
     return mBorderColor;
-  }
-
-  public RoundedCornerDrawable setBorderColor(ColorStateList colors) {
-    mBorderColor = colors != null ? colors : ColorStateList.valueOf(0);
-    mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
-    return this;
   }
 
   public boolean isOval() {
@@ -601,29 +622,6 @@ public class RoundedCornerDrawable extends Drawable {
       invalidateSelf();
     }
     return this;
-  }
-
-  private static boolean only(int index, boolean[] booleans) {
-    for (int i = 0, len = booleans.length; i < len; i++) {
-      if (booleans[i] != (i == index)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private static boolean any(boolean[] booleans) {
-    for (boolean b : booleans) {
-      if (b) { return true; }
-    }
-    return false;
-  }
-
-  private static boolean all(boolean[] booleans) {
-    for (boolean b : booleans) {
-      if (b) { return false; }
-    }
-    return true;
   }
 
   public Bitmap toBitmap() {

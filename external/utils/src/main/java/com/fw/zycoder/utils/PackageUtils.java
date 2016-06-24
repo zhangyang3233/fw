@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -66,20 +65,13 @@ public class PackageUtils {
     return "";
   }
 
-  public static class ApkPackageInfo {
-    public String name;
-    public String packageName;
-    public int versionCode = -1;
-    public String versionName;
-  }
-
   public static String getVersion(Context context) {
     String version = "1.0.0";
 
     PackageManager packageManager = context.getPackageManager();
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo(
-              context.getPackageName(), 0);
+          context.getPackageName(), 0);
       version = packageInfo.versionName;
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
@@ -117,8 +109,7 @@ public class PackageUtils {
     try {
       PackageManager pm = context.getPackageManager();
       return pm.getPackageInfo(context.getPackageName(), 0);
-    } catch (Exception e) {
-    }
+    } catch (Exception e) {}
 
     return null;
   }
@@ -142,6 +133,13 @@ public class PackageUtils {
       }
     }
     return false;
+  }
+
+  public static class ApkPackageInfo {
+    public String name;
+    public String packageName;
+    public int versionCode = -1;
+    public String versionName;
   }
 
 }

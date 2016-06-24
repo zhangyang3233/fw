@@ -10,29 +10,27 @@ public class GlobalConfig {
   private static String rootDir = "rootDir";
   private static boolean debug = true;
 
-  public static void setAppContext(Context context) {
-    appContext = context;
-  }
-
   public static Context getAppContext() {
     return appContext;
   }
 
-  public static void setAppRootDir(String dir) {
-    rootDir = dir;
+  public static void setAppContext(Context context) {
+    appContext = context;
   }
 
   public static String getAppRootDir() {
     return rootDir;
   }
 
-
-  public static void setDebug(boolean debug) {
-    GlobalConfig.debug = debug;
+  public static void setAppRootDir(String dir) {
+    rootDir = dir;
   }
-
 
   public static boolean isDebug() {
     return debug;
+  }
+
+  public static void setDebug(boolean debug) {
+    GlobalConfig.debug = debug;
   }
 }

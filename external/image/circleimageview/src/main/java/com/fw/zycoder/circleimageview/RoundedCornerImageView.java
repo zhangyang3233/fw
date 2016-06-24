@@ -1,18 +1,15 @@
 /*
-* Copyright (C) 2015 Vincent Mi
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2015 Vincent Mi
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.fw.zycoder.circleimageview;
 
@@ -36,16 +33,15 @@ import android.widget.ImageView;
 @SuppressWarnings("UnusedDeclaration")
 public class RoundedCornerImageView extends ImageView {
 
+  public static final String TAG = "RoundedImageView";
+  public static final float DEFAULT_RADIUS = 0f;
+  public static final float DEFAULT_BORDER_WIDTH = 0f;
+  public static final Shader.TileMode DEFAULT_TILE_MODE = Shader.TileMode.CLAMP;
   // Constants for tile mode attributes
   private static final int TILE_MODE_UNDEFINED = -2;
   private static final int TILE_MODE_CLAMP = 0;
   private static final int TILE_MODE_REPEAT = 1;
   private static final int TILE_MODE_MIRROR = 2;
-
-  public static final String TAG = "RoundedImageView";
-  public static final float DEFAULT_RADIUS = 0f;
-  public static final float DEFAULT_BORDER_WIDTH = 0f;
-  public static final Shader.TileMode DEFAULT_TILE_MODE = Shader.TileMode.CLAMP;
   private static final ImageView.ScaleType[] SCALE_TYPES = {
       ImageView.ScaleType.MATRIX,
       ImageView.ScaleType.FIT_XY,
@@ -58,7 +54,7 @@ public class RoundedCornerImageView extends ImageView {
   };
 
   private final float[] mCornerRadii =
-      new float[] { DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS };
+      new float[] {DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS};
 
   private Drawable mBackgroundDrawable;
   private ColorStateList mBorderColor =
@@ -86,7 +82,8 @@ public class RoundedCornerImageView extends ImageView {
   public RoundedCornerImageView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
 
-    TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundedCornerImageView, defStyle, 0);
+    TypedArray a =
+        context.obtainStyledAttributes(attrs, R.styleable.RoundedCornerImageView, defStyle, 0);
 
     int index = a.getInt(R.styleable.RoundedCornerImageView_android_scaleType, -1);
     if (index >= 0) {
@@ -104,9 +101,11 @@ public class RoundedCornerImageView extends ImageView {
     mCornerRadii[Corner.TOP_RIGHT] =
         a.getDimensionPixelSize(R.styleable.RoundedCornerImageView_riv_corner_radius_top_right, -1);
     mCornerRadii[Corner.BOTTOM_RIGHT] =
-        a.getDimensionPixelSize(R.styleable.RoundedCornerImageView_riv_corner_radius_bottom_right, -1);
+        a.getDimensionPixelSize(R.styleable.RoundedCornerImageView_riv_corner_radius_bottom_right,
+            -1);
     mCornerRadii[Corner.BOTTOM_LEFT] =
-        a.getDimensionPixelSize(R.styleable.RoundedCornerImageView_riv_corner_radius_bottom_left, -1);
+        a.getDimensionPixelSize(R.styleable.RoundedCornerImageView_riv_corner_radius_bottom_left,
+            -1);
 
     boolean any = false;
     for (int i = 0, len = mCornerRadii.length; i < len; i++) {
@@ -136,10 +135,12 @@ public class RoundedCornerImageView extends ImageView {
       mBorderColor = ColorStateList.valueOf(RoundedCornerDrawable.DEFAULT_BORDER_COLOR);
     }
 
-    mMutateBackground = a.getBoolean(R.styleable.RoundedCornerImageView_riv_mutate_background, false);
+    mMutateBackground =
+        a.getBoolean(R.styleable.RoundedCornerImageView_riv_mutate_background, false);
     mIsOval = a.getBoolean(R.styleable.RoundedCornerImageView_riv_oval, false);
 
-    final int tileMode = a.getInt(R.styleable.RoundedCornerImageView_riv_tile_mode, TILE_MODE_UNDEFINED);
+    final int tileMode =
+        a.getInt(R.styleable.RoundedCornerImageView_riv_tile_mode, TILE_MODE_UNDEFINED);
     if (tileMode != TILE_MODE_UNDEFINED) {
       setTileModeX(parseTileMode(tileMode));
       setTileModeY(parseTileMode(tileMode));
@@ -241,14 +242,17 @@ public class RoundedCornerImageView extends ImageView {
     }
   }
 
-  @Override public void setImageURI(Uri uri) {
+  @Override
+  public void setImageURI(Uri uri) {
     super.setImageURI(uri);
     setImageDrawable(getDrawable());
   }
 
   private Drawable resolveResource() {
     Resources rsrc = getResources();
-    if (rsrc == null) { return null; }
+    if (rsrc == null) {
+      return null;
+    }
 
     Drawable d = null;
 
@@ -282,7 +286,8 @@ public class RoundedCornerImageView extends ImageView {
     }
   }
 
-  @Override public void setColorFilter(ColorFilter cf) {
+  @Override
+  public void setColorFilter(ColorFilter cf) {
     if (mColorFilter != cf) {
       mColorFilter = cf;
       mHasColorFilter = true;
@@ -302,13 +307,15 @@ public class RoundedCornerImageView extends ImageView {
         mDrawable.setColorFilter(mColorFilter);
       }
       // TODO: support, eventually...
-      //mDrawable.setXfermode(mXfermode);
-      //mDrawable.setAlpha(mAlpha * mViewAlphaScale >> 8);
+      // mDrawable.setXfermode(mXfermode);
+      // mDrawable.setAlpha(mAlpha * mViewAlphaScale >> 8);
     }
   }
 
   private void updateAttrs(Drawable drawable) {
-    if (drawable == null) { return; }
+    if (drawable == null) {
+      return;
+    }
 
     if (drawable instanceof RoundedCornerDrawable) {
       ((RoundedCornerDrawable) drawable)
@@ -353,6 +360,15 @@ public class RoundedCornerImageView extends ImageView {
   }
 
   /**
+   * Set the corner radii of all corners in px.
+   *
+   * @param radius the radius to set.
+   */
+  public void setCornerRadius(float radius) {
+    setCornerRadius(radius, radius, radius, radius);
+  }
+
+  /**
    * @return the largest corner radius.
    */
   public float getMaxCornerRadius() {
@@ -391,15 +407,6 @@ public class RoundedCornerImageView extends ImageView {
    */
   public void setCornerRadiusDimen(@Corner int corner, @DimenRes int resId) {
     setCornerRadius(corner, getResources().getDimensionPixelSize(resId));
-  }
-
-  /**
-   * Set the corner radii of all corners in px.
-   *
-   * @param radius the radius to set.
-   */
-  public void setCornerRadius(float radius) {
-    setCornerRadius(radius, radius, radius, radius);
   }
 
   /**
@@ -450,12 +457,10 @@ public class RoundedCornerImageView extends ImageView {
     return mBorderWidth;
   }
 
-  public void setBorderWidth(@DimenRes int resId) {
-    setBorderWidth(getResources().getDimension(resId));
-  }
-
   public void setBorderWidth(float width) {
-    if (mBorderWidth == width) { return; }
+    if (mBorderWidth == width) {
+      return;
+    }
 
     mBorderWidth = width;
     updateDrawableAttrs();
@@ -463,9 +468,29 @@ public class RoundedCornerImageView extends ImageView {
     invalidate();
   }
 
+  public void setBorderWidth(@DimenRes int resId) {
+    setBorderWidth(getResources().getDimension(resId));
+  }
+
   @ColorInt
   public int getBorderColor() {
     return mBorderColor.getDefaultColor();
+  }
+
+  public void setBorderColor(ColorStateList colors) {
+    if (mBorderColor.equals(colors)) {
+      return;
+    }
+
+    mBorderColor =
+        (colors != null)
+            ? colors
+            : ColorStateList.valueOf(RoundedCornerDrawable.DEFAULT_BORDER_COLOR);
+    updateDrawableAttrs();
+    updateBackgroundDrawableAttrs(false);
+    if (mBorderWidth > 0) {
+      invalidate();
+    }
   }
 
   public void setBorderColor(@ColorInt int color) {
@@ -474,18 +499,6 @@ public class RoundedCornerImageView extends ImageView {
 
   public ColorStateList getBorderColors() {
     return mBorderColor;
-  }
-
-  public void setBorderColor(ColorStateList colors) {
-    if (mBorderColor.equals(colors)) { return; }
-
-    mBorderColor =
-        (colors != null) ? colors : ColorStateList.valueOf(RoundedCornerDrawable.DEFAULT_BORDER_COLOR);
-    updateDrawableAttrs();
-    updateBackgroundDrawableAttrs(false);
-    if (mBorderWidth > 0) {
-      invalidate();
-    }
   }
 
   public boolean isOval() {
@@ -504,7 +517,9 @@ public class RoundedCornerImageView extends ImageView {
   }
 
   public void setTileModeX(Shader.TileMode tileModeX) {
-    if (this.mTileModeX == tileModeX) { return; }
+    if (this.mTileModeX == tileModeX) {
+      return;
+    }
 
     this.mTileModeX = tileModeX;
     updateDrawableAttrs();
@@ -517,7 +532,9 @@ public class RoundedCornerImageView extends ImageView {
   }
 
   public void setTileModeY(Shader.TileMode tileModeY) {
-    if (this.mTileModeY == tileModeY) { return; }
+    if (this.mTileModeY == tileModeY) {
+      return;
+    }
 
     this.mTileModeY = tileModeY;
     updateDrawableAttrs();
@@ -530,7 +547,9 @@ public class RoundedCornerImageView extends ImageView {
   }
 
   public void mutateBackground(boolean mutate) {
-    if (mMutateBackground == mutate) { return; }
+    if (mMutateBackground == mutate) {
+      return;
+    }
 
     mMutateBackground = mutate;
     updateBackgroundDrawableAttrs(true);

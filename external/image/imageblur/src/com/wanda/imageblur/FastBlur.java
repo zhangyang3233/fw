@@ -1,8 +1,8 @@
 package com.wanda.imageblur;
 
-import com.wanda.imageblur.jni.ImageBlur;
-
 import android.graphics.Bitmap;
+
+import com.wanda.imageblur.jni.ImageBlur;
 
 public class FastBlur {
   public static Bitmap doBlurJniArray(Bitmap sentBitmap, int radius, boolean canReuseInBitmap) {
@@ -22,7 +22,7 @@ public class FastBlur {
 
     int[] pix = new int[w * h];
     bitmap.getPixels(pix, 0, w, 0, 0, w, h);
-    //Jni 数组计算
+    // Jni 数组计算
 
     ImageBlur.nativeBlurIntArray(pix, w, h, radius);
 
@@ -41,7 +41,7 @@ public class FastBlur {
     if (radius < 1) {
       return null;
     }
-    //Jni BitMap
+    // Jni BitMap
     ImageBlur.nativeBlurBitMap(bitmap, radius);
 
     return (bitmap);

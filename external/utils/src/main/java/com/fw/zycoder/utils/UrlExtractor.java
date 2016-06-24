@@ -23,6 +23,22 @@ public class UrlExtractor {
     this.url = url;
   }
 
+  private static Map<String, String> splitUrlQuery(String query) {
+    Map<String, String> result = new HashMap<String, String>();
+
+    String[] pairs = query.split("&");
+    if (pairs != null && pairs.length > 0) {
+      for (String pair : pairs) {
+        String[] param = pair.split("=", 2);
+        if (param != null && param.length == 2) {
+          result.put(param[0], param[1]);
+        }
+      }
+    }
+
+    return result;
+  }
+
   /**
    * if URL is construct fail return false;
    */
@@ -85,22 +101,6 @@ public class UrlExtractor {
     } else {
       return null;
     }
-  }
-
-  private static Map<String, String> splitUrlQuery(String query) {
-    Map<String, String> result = new HashMap<String, String>();
-
-    String[] pairs = query.split("&");
-    if (pairs != null && pairs.length > 0) {
-      for (String pair : pairs) {
-        String[] param = pair.split("=", 2);
-        if (param != null && param.length == 2) {
-          result.put(param[0], param[1]);
-        }
-      }
-    }
-
-    return result;
   }
 
 }
