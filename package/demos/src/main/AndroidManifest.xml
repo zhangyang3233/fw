@@ -9,6 +9,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- mian for demo list -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +18,7 @@
             </intent-filter>
         </activity>
 
+        <!-- demos -->
         <activity
             android:name=".demos.customToast.ToastTestActivity"
             android:label="视图/toast">
@@ -23,6 +26,32 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="activity_category" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".demos.dialog.DialogActivity"
+            android:label="视图/dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="activity_category" />
+            </intent-filter>
+        </activity>
+
+        <!-- others -->
+        <activity
+            android:name=".demos.customToast.ActivityTwo"
+            android:label="ActivityTwo">
+        </activity>
+        <activity
+            android:name=".demos.customToast.examples.ExampleStyle"
+            android:label="ExampleStyle">
+        </activity>
+        <activity
+            android:name=".demos.customToast.examples.ExampleSuperActivityToast"
+            android:label="ExampleSuperActivityToast">
+        </activity>
+        <activity
+            android:name=".demos.customToast.examples.ExampleUndoBar"
+            android:label="ExampleUndoBar">
         </activity>
 
 
