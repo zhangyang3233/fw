@@ -20,7 +20,7 @@ import android.content.Intent;
 import android.nfc.NfcAdapter;
 
 import com.fw.zycoder.nfc.R;
-import com.fw.zycoder.nfc.App;
+import com.fw.zycoder.nfc.NfcContextTools;
 
 import static android.provider.Settings.ACTION_SETTINGS;
 
@@ -39,7 +39,7 @@ public final class MainPage {
 		else
 			resid = R.string.info_nfc_nocard;
 
-		String tip = App.getStringResource(resid);
+		String tip = NfcContextTools.getStringResource(resid);
 
 		return new SpanFormatter(new Handler(activity)).toSpanned(tip);
 	}

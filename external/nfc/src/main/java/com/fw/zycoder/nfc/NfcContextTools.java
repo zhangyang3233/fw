@@ -23,9 +23,8 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 
-public final class App {
+public final class NfcContextTools {
 	public static Application instance;
-
 
 	public static String name() {
 		return getStringResource(R.string.app_name);

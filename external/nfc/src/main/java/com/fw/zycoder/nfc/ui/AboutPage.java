@@ -19,7 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.fw.zycoder.nfc.R;
-import com.fw.zycoder.nfc.App;
+import com.fw.zycoder.nfc.NfcContextTools;
 
 
 public final class AboutPage {
@@ -27,10 +27,10 @@ public final class AboutPage {
 
 	public static CharSequence getContent(Activity activity) {
 
-		String tip = App
+		String tip = NfcContextTools
 				.getStringResource(R.string.info_main_about);
-		tip = tip.replace("<app />", App.name());
-		tip = tip.replace("<version />", App.version());
+		tip = tip.replace("<app />", NfcContextTools.name());
+		tip = tip.replace("<version />", NfcContextTools.version());
 
 		return new SpanFormatter(null).toSpanned(tip);
 	}

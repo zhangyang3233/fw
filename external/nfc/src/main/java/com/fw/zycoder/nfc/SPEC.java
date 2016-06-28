@@ -42,7 +42,7 @@ public final class SPEC {
 		EXCEPTION(R.string.spec_prop_exception);
 
 		public String toString() {
-			return App.getStringResource(resId);
+			return NfcContextTools.getStringResource(resId);
 		}
 
 		private final int resId;
@@ -70,7 +70,7 @@ public final class SPEC {
 		CITYUNION(R.string.spec_app_cityunion);
 
 		public String toString() {
-			return App.getStringResource(resId);
+			return NfcContextTools.getStringResource(resId);
 		}
 
 		private final int resId;
@@ -87,7 +87,7 @@ public final class SPEC {
 		HKD(R.string.spec_cur_hkd);
 
 		public String toString() {
-			return App.getStringResource(resId);
+			return NfcContextTools.getStringResource(resId);
 		}
 
 		private final int resId;
@@ -112,7 +112,7 @@ public final class SPEC {
 	public static String getCityUnionCardNameByZipcode(String zip) {
 		byte[] tree = zip2CityName;
 		if (tree == null) {
-			tree = App.loadRawResource(R.raw.zip);
+			tree = NfcContextTools.loadRawResource(R.raw.zip);
 			zip2CityName = tree;
 		}
 		

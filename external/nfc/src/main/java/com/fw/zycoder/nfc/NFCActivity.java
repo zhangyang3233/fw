@@ -42,7 +42,7 @@ public class NFCActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_nfc);
-    App.instance = getApplication();
+    NfcContextTools.instance = getApplication();
     initViews();
     nfc = new NfcManager(this);
     onNewIntent(getIntent());
@@ -193,11 +193,11 @@ public class NFCActivity extends AppCompatActivity {
   private void initViews() {
     board = (ViewSwitcher) findViewById(R.id.nfc_switcher);
 
-    Typeface tf = App.getFontResource(R.string.font_oem1);
+    Typeface tf = NfcContextTools.getFontResource(R.string.font_oem1);
     TextView tv = (TextView) findViewById(R.id.txtAppName);
     tv.setTypeface(tf);
 
-    tf = App.getFontResource(R.string.font_oem2);
+    tf = NfcContextTools.getFontResource(R.string.font_oem2);
 
     tv = getFrontPage();
     tv.setMovementMethod(LinkMovementMethod.getInstance());

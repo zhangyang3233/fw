@@ -21,7 +21,7 @@ import android.content.Intent;
 
 import com.fw.zycoder.nfc.R;
 import com.fw.zycoder.nfc.SPEC;
-import com.fw.zycoder.nfc.App;
+import com.fw.zycoder.nfc.NfcContextTools;
 import com.fw.zycoder.nfc.nfc.bean.Card;
 import com.fw.zycoder.nfc.nfc.reader.ReaderListener;
 
@@ -76,7 +76,7 @@ public final class NfcPage implements ReaderListener {
 
 		if (card != null && !card.hasReadingException()) {
 			if (card.isUnknownCard()) {
-				ret.putExtra(RET, App
+				ret.putExtra(RET, NfcContextTools
 						.getStringResource(R.string.info_nfc_unknown));
 			} else {
 				ret.putExtra(RET, card.toHtml());
@@ -84,7 +84,7 @@ public final class NfcPage implements ReaderListener {
 			}
 		} else {
 			ret.putExtra(RET,
-					App.getStringResource(R.string.info_nfc_error));
+					NfcContextTools.getStringResource(R.string.info_nfc_error));
 		}
 
 		return ret;

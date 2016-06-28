@@ -37,7 +37,7 @@ import android.view.View;
 
 import com.fw.zycoder.nfc.R;
 import com.fw.zycoder.nfc.SPEC;
-import com.fw.zycoder.nfc.App;
+import com.fw.zycoder.nfc.NfcContextTools;
 
 import org.xml.sax.XMLReader;
 
@@ -258,9 +258,9 @@ public final class SpanFormatter implements Html.TagHandler {
 	}
 
 	private static void markSpliterSpan(Editable out, int pos, int colorId, int heightId) {
-		DisplayMetrics dm = App.getDisplayMetrics();
-		int color = App.getColorResource(colorId);
-		int height = App.getDimensionResourcePixelSize(heightId);
+		DisplayMetrics dm = NfcContextTools.getDisplayMetrics();
+		int color = NfcContextTools.getColorResource(colorId);
+		int height = NfcContextTools.getDimensionResourcePixelSize(heightId);
 		int width = dm.heightPixels > dm.widthPixels ? dm.heightPixels : dm.widthPixels;
 
 		out.append("-------------------").setSpan(new SplitterSpan(color, width, height), pos,
@@ -268,20 +268,20 @@ public final class SpanFormatter implements Html.TagHandler {
 	}
 
 	private static void markFontSpan(Editable out, int pos, int colorId, int sizeId, Typeface face) {
-		int color = App.getColorResource(colorId);
-		float size = App.getDimensionResourcePixelSize(sizeId);
+		int color = NfcContextTools.getColorResource(colorId);
+		float size = NfcContextTools.getDimensionResourcePixelSize(sizeId);
 		FontSpan span = new FontSpan(color, size, face);
 		out.setSpan(span, pos, pos, Spannable.SPAN_MARK_MARK);
 	}
 
 	private static void markParagSpan(Editable out, int pos, int linespaceId) {
-		int linespace = App.getDimensionResourcePixelSize(linespaceId);
+		int linespace = NfcContextTools.getDimensionResourcePixelSize(linespaceId);
 		ParagSpan span = new ParagSpan(linespace);
 		out.setSpan(span, pos, pos, Spannable.SPAN_MARK_MARK);
 	}
 
 	private void markActionSpan(Editable out, int pos, String tag, int colorId) {
-		int color = App.getColorResource(colorId);
+		int color = NfcContextTools.getColorResource(colorId);
 		out.setSpan(new ActionSpan(tag, handler, color), pos, pos, Spannable.SPAN_MARK_MARK);
 	}
 
@@ -309,7 +309,7 @@ public final class SpanFormatter implements Html.TagHandler {
 			ret = wr.get();
 
 		if (ret == null) {
-			ret = App.getFontResource(R.string.font_oem3);
+			ret = NfcContextTools.getFontResource(R.string.font_oem3);
 			TIPFONT = new WeakReference<Typeface>(ret);
 		}
 
