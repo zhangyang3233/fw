@@ -38,8 +38,9 @@ public final class NfcContextTools {
 		}
 	}
 
-	public static void showMessage(int fmt, CharSequence... msgs) {
-		String msg = String.format(getStringResource(fmt), msgs);
+	public static void showMessage(int fmt, Object... msgs) {
+		String msg = getStringResource(fmt);
+		msg = String.format(msg, msgs);
 		Toast.makeText(instance, msg, Toast.LENGTH_LONG).show();
 	}
 

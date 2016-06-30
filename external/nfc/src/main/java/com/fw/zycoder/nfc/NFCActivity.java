@@ -14,10 +14,10 @@
 
 package com.fw.zycoder.nfc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.View;
@@ -32,7 +32,7 @@ import com.fw.zycoder.nfc.ui.NfcPage;
 import com.fw.zycoder.nfc.ui.Toolbar;
 
 
-public class NFCActivity extends AppCompatActivity {
+public class NFCActivity extends Activity {
   private ViewSwitcher board;
   private Toolbar toolbar;
   private NfcManager nfc;
