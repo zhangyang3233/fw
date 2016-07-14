@@ -1,4 +1,4 @@
-package com.wanda.sliding.utils;
+package com.zycoder.sliding.utils;
 
 import android.app.Activity;
 import android.content.Context;

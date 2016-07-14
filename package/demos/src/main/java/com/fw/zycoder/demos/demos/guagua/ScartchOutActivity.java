@@ -9,7 +9,7 @@ import com.fw.zycoder.demos.R;
 import com.fw.zycoder.demos.base.DemoActivity;
 
 /**
- * Created by zhangyang131 on 16/7/14.
+ * Created by zhangyang on 16/7/14.
  */
 public class ScartchOutActivity extends DemoActivity {
     Button btn;

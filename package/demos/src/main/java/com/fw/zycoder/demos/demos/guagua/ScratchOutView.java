@@ -20,7 +20,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import com.fw.zycoder.demos.R;
 import com.fw.zycoder.utils.DensityUtils;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by wangdaxiong on 16/5/19.
+ * Created by zhangyang
  */
 public class ScratchOutView extends SurfaceView
     implements
@@ -380,7 +379,6 @@ public class ScratchOutView extends SurfaceView
     }
   }
 
-  @SuppressLint("WrongCall")
   private void invalidSurfaceView() {
     Canvas canvas = null;
     SurfaceHolder mSurfaceHolder = getHolder();
@@ -388,7 +386,7 @@ public class ScratchOutView extends SurfaceView
       canvas = mSurfaceHolder.lockCanvas(null);
       synchronized (mSurfaceHolder) {
         if (canvas != null) {
-          onDraw(canvas);
+          draw(canvas);
         }
       }
     } catch (Exception ex) {
@@ -413,21 +411,16 @@ public class ScratchOutView extends SurfaceView
   }
 
   public void resetView() {
-    if (getVisibility() == GONE || getVisibility() == INVISIBLE) {
-      setVisibility(View.VISIBLE);
-      mIsFirstTouchDown = true;
-    }
+    mIsFirstTouchDown = true;
     mIsScratchable = true;
     isShow = true;
-
+    mPathList.clear();
     if (mThread == null) {
       mThread = new WScratchViewThread(getHolder());
       mThread.setRunning(true);
       mThread.start();
-
       recycle();
     }
-
   }
 
   // 底部全部显现出来

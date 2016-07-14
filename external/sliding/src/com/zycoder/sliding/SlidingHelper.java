@@ -1,12 +1,15 @@
-package com.wanda.sliding;
+package com.zycoder.sliding;
 
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 
-import com.wanda.sliding.component.SlideActivity;
-import com.wanda.sliding.listener.SlidingListener;
-import com.wanda.sliding.utils.ActivityUtils;
+import com.zycoder.sliding.PageTransaction;
+import com.zycoder.sliding.SlidingLayout;
+import com.zycoder.sliding.SlidingPager;
+import com.zycoder.sliding.component.SlideActivity;
+import com.zycoder.sliding.listener.SlidingListener;
+import com.zycoder.sliding.utils.ActivityUtils;
 
 import java.util.Stack;
 
@@ -234,13 +237,13 @@ public class SlidingHelper {
       throw new IllegalArgumentException("it must be a activity to implements SlideActivity");
     }
     SlidingLayout mSlidingLayout =
-        (SlidingLayout) ((Activity) slideActivity).findViewById(R.id.sliding_pane_layout);
+        (SlidingLayout) ((Activity) slideActivity).findViewById(com.zycoder.sliding.R.id.sliding_pane_layout);
     if (mSlidingLayout == null) {
       Log.w("SlidingHelper", "there is no sliding layout , this activity can not sliding");
       return null;
     }
     mSlidingLayout.setSlideable(slideActivity.getCanFlingBack());
-    mSlidingLayout.setShadowResourceLeft(R.drawable.sliding_shadow);
+    mSlidingLayout.setShadowResourceLeft(com.zycoder.sliding.R.drawable.sliding_shadow);
     if (slideActivity.getCanFlingBack()) {
       mSlidingLayout.setSlidingListener(new SlidingListenerDelegate());
     }

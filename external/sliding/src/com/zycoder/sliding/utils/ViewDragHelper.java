@@ -1,4 +1,4 @@
-package com.wanda.sliding.utils;
+package com.zycoder.sliding.utils;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;

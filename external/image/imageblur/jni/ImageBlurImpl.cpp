@@ -82,7 +82,7 @@ static int registerNativeMethods(JNIEnv* env, const char* className,
 
 int registerImageBlur(JNIEnv* env)
 {
-    if (!registerNativeMethods(env, "com/wanda/imageblur/jni/ImageBlur", gJavaImageBlur,
+    if (!registerNativeMethods(env, "com/zycoder/imageblur/jni/ImageBlur", gJavaImageBlur,
         sizeof(gJavaImageBlur) / sizeof(gJavaImageBlur[0])))
         return JNI_FALSE;
 

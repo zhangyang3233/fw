@@ -9,7 +9,7 @@ import com.android.volley.DefaultRetryPolicy;
 public class ApiRetryPolicy extends DefaultRetryPolicy {
 
   /**
-   * wanda timeout 60s
+   * timeout 60s
    * 30s connect timeout , 30s transfer timeout
    */
   public static final int DEFAULT_TIMEOUT_MS = 30000;

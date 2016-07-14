@@ -3,7 +3,7 @@ package com.fw.zycoder.http.volley;
 /**
  * 用于拦截解析后的数据，可用于数据校验以及数据补充。
  * 
- * @see com.wanda.rpc.http.volley.ApiRequest#addInterceptor(Interceptor)
+ * @see com.zycoder.rpc.http.volley.ApiRequest#addInterceptor(Interceptor)
  * 
  *
  */

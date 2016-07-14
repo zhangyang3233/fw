@@ -1,6 +1,6 @@
-package com.wanda.sliding;
+package com.zycoder.sliding;
 
-import com.wanda.sliding.component.SlideActivity;
+import com.zycoder.sliding.component.SlideActivity;
 
 /**
  *

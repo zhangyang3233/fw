@@ -1,4 +1,4 @@
-package com.wanda.sliding.component;
+package com.zycoder.sliding.component;
 
 
 /**

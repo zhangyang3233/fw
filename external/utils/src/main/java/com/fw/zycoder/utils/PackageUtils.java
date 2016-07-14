@@ -93,7 +93,7 @@ public class PackageUtils {
   }
 
   public static String getPackageName(Context context) {
-    String packageName = "com.wanda.sdk";
+    String packageName = "com.zycoder.sdk";
     PackageManager packageManager = context.getPackageManager();
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo(

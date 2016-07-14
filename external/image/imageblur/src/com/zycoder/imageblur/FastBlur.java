@@ -1,8 +1,8 @@
-package com.wanda.imageblur;
+package com.zycoder.imageblur;
 
 import android.graphics.Bitmap;
 
-import com.wanda.imageblur.jni.ImageBlur;
+import com.zycoder.imageblur.jni.ImageBlur;
 
 public class FastBlur {
   public static Bitmap doBlurJniArray(Bitmap sentBitmap, int radius, boolean canReuseInBitmap) {

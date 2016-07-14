@@ -1,4 +1,4 @@
-package com.wanda.imageblur;
+package com.zycoder.imageblur;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

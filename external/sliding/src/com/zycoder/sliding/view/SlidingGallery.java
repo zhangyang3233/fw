@@ -1,12 +1,12 @@
-package com.wanda.sliding.view;
+package com.zycoder.sliding.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.Gallery;
 
-import com.wanda.sliding.SlidingLayout;
-import com.wanda.sliding.utils.SlidingUtils;
+import com.zycoder.sliding.SlidingLayout;
+import com.zycoder.sliding.utils.SlidingUtils;
 
 /**
  *

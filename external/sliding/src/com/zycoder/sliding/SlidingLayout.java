@@ -1,4 +1,4 @@
-package com.wanda.sliding;
+package com.zycoder.sliding;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -29,8 +29,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.wanda.sliding.listener.SlidingListener;
-import com.wanda.sliding.utils.ViewDragHelper;
+import com.zycoder.sliding.listener.SlidingListener;
+import com.zycoder.sliding.utils.ViewDragHelper;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
