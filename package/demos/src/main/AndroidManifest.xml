@@ -35,6 +35,14 @@
                 <category android:name="activity_category" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".demos.guagua.ScartchOutActivity"
+            android:label="视图/刮刮卡">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="activity_category" />
+            </intent-filter>
+        </activity>
 
         <!-- others -->
         <activity

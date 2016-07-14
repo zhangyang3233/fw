@@ -6,4 +6,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="textview_medium_padding">8dp</dimen>
     <dimen name="layout_medium_padding">8dp</dimen>
+
 </resources>

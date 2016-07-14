@@ -20,7 +20,6 @@ public class MainActivity extends ListActivity {
         android.R.layout.simple_list_item_1,
         new String[] {"title"}, new int[] {android.R.id.text1}));
     getListView().setTextFilterEnabled(true);
-
   }
 
   @Override
@@ -30,7 +29,5 @@ public class MainActivity extends ListActivity {
     Intent intent = (Intent) map.get("intent");
     startActivity(intent);
   }
-
-
 
 }
