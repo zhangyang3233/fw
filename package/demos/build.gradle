@@ -81,7 +81,6 @@ android {
             zipAlignEnabled false
             shrinkResources false
         }
-
     }
 
     // 多渠道打包
@@ -123,6 +122,7 @@ dependencies {
     compile project(':external:sliding')
     compile project(':external:customtoast')
     compile project(':framework:http')
+    compile project(':framework:appbase')
     compile project(':external:dialoghelper')
     compile 'io.reactivex:rxjava:1.0.9'
     compile 'io.reactivex:rxandroid:0.24.0'

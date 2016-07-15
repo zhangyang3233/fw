@@ -2,11 +2,6 @@
     package="com.fw.zycoder.utils">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <application
-        android:allowBackup="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true">
-
-    </application>
+    <application />
 
 </manifest>

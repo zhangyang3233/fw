@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AppBase</string>
+    <string name="base_default_loading">努力加载中&#8230;</string>
+</resources>

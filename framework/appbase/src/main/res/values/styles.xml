@@ -1,0 +1,17 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 黑投影文字 -->
+    <style name="BlackShadowTextStyle">
+        <item name="android:shadowColor">@color/upgrade_gray</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <!-- 白投影文字 -->
+    <style name="WhiteShadowTextStyle">
+        <item name="android:shadowColor">@android:color/white</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+</resources>
