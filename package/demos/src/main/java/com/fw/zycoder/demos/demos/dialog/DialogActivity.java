@@ -14,10 +14,11 @@ public class DialogActivity extends DemoActivity  {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DialogFragment fragment =
-            (DialogFragment) Fragment.instantiate(this, DialogFragment.class.getName(), null);
-    replaceFragment(fragment);
   }
 
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return DialogFragment.class;
+  }
 
 }

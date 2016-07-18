@@ -15,7 +15,6 @@ import com.fw.zycoder.appbase.R;
 import com.fw.zycoder.appbase.adapter.DataAdapter;
 import com.fw.zycoder.appbase.fetcher.BaseFetcher;
 import com.fw.zycoder.appbase.fetcher.FetchHelper;
-import com.fw.zycoder.appbase.model.BaseModel;
 import com.fw.zycoder.appbase.utils.EmptyTipsUtil;
 import com.fw.zycoder.appbase.utils.TipsViewUtil;
 import com.fw.zycoder.appbase.utils.TipsViewUtil.TipsType;
@@ -37,7 +36,7 @@ import java.util.List;
 
 
 
-public abstract class AsyncLoadListFragment<M extends BaseModel> extends AsyncLoadFragment {
+public abstract class AsyncLoadListFragment<M extends Object> extends AsyncLoadFragment {
 
     private static final int DEFAULT_PAGE_SIZE = 20;
     private static final int DEFAULT_START_PAGE = 0;

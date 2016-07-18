@@ -59,6 +59,11 @@ public class ToastTestActivity extends DemoActivity {
 
   }
 
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return null;
+  }
+
 
   @Override
   protected void onSaveInstanceState(Bundle outState) {
