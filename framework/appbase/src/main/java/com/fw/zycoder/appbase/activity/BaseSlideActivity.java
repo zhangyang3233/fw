@@ -62,7 +62,7 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
    * notice: id : fragment_container , sliding_pane_layout is need in layout
    */
   protected int getLayoutId() {
-    return R.layout.base_fragment_activity;
+    return R.layout.sample_layout;
   }
 
   /**
