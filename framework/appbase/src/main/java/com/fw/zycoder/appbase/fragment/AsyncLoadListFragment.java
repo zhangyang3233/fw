@@ -44,7 +44,7 @@ public abstract class AsyncLoadListFragment<M extends BaseModel> extends AsyncLo
     private static final int DEFAULT_PRE_LOAD_GAP_SIZE = 15;
     private static final boolean DEFAULT_HAS_FILTER = false;
     private static final boolean DEFAULT_NEED_RESTORE_SCROLL_STATE = false;
-    private static final String EXTRA_LIST_STATE = "wanda.feifan.intent.extra.LIST_STATE";
+    private static final String EXTRA_LIST_STATE = "zycoder.feifan.intent.extra.LIST_STATE";
 
     private List<M> mNewData;
     protected DataAdapter<M> mContentAdapter;

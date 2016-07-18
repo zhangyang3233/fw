@@ -2,6 +2,8 @@ package com.fw.zycoder.appbase.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.fw.zycoder.appbase.R;
@@ -12,6 +14,7 @@ import com.zycoder.sliding.component.SlideActivity;
  * @author zhangyang
  */
 public class BaseSlideActivity extends AppCompatActivity implements SlideActivity {
+  private boolean mIsDestroyed = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +35,18 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     SlidingHelper.onNewIntent(this);
   }
 
+  public boolean isDestroyed() {
+    try {
+      return super.isDestroyed();
+    } catch (NoSuchMethodError e) {
+      return mIsDestroyed;
+    }
+  }
+
   @Override
   protected void onDestroy() {
     super.onDestroy();
+    mIsDestroyed = true;
     SlidingHelper.onDestroy(this);
   }
 
@@ -67,6 +79,27 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
   @Override
   public boolean getCanRelativeMove() {
     return false;
+  }
+
+  protected void replaceFragment(Fragment newFragment) {
+    replaceFragment(newFragment, null, false);
+  }
+
+  protected void replaceFragment(Fragment newFragment, Bundle arguments, boolean isAddStack) {
+    if (isFinishing()) {
+      return;
+    }
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    if (arguments != null) {
+      newFragment.setArguments(arguments);
+    }
+    transaction.replace(R.id.fragment_container, newFragment);
+    if (isAddStack) {
+      transaction.addToBackStack(null);
+    }
+    if (!isDestroyed()) {
+      transaction.commitAllowingStateLoss();
+    }
   }
 
 }

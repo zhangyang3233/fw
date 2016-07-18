@@ -26,7 +26,7 @@ import com.zycoder.uicomp.R;
  * android:layout_height="wrap_content" android:orientation="horizontal"
  * android:weightSum="3"> <!-- The HEIGHT will be dynamic, because the width
  * will have a value greater than 0, because of the layout_weight. -->
- * <com.wanda.uicomp.fixratio.FixedAspectRatioFrameLayout
+ * <com.zycoder.uicomp.fixratio.FixedAspectRatioFrameLayout
  * android:layout_height="0px" android:layout_width="0px"
  * android:layout_weight="2"
  * YOUR_APP:aspectRatio="@dimen/top_image_aspect_ratio"> </LinearLayout>
@@ -35,7 +35,7 @@ import com.zycoder.uicomp.R;
  * <RelativeLayout android:layout_width="match_parent"
  * android:layout_height="match_parent"> <!-- The HEIGHT will be dynamic,
  * because layout_height is 0px. -->
- * <com.wanda.uicomp.fixratio.FixedAspectRatioFrameLayout
+ * <com.zycoder.uicomp.fixratio.FixedAspectRatioFrameLayout
  * android:layout_width="match_parent" android:layout_height="0px"
  * YOUR_APP:aspectRatio="@dimen/top_image_aspect_ratio"> </RelativeLayout>
  * 
