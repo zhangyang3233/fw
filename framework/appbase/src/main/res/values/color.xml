@@ -4,6 +4,8 @@
     <color name="theme_gray">#E1E2E3</color>
     <color name="theme_gray_dark">#cccccc</color>
     <color name="dark_blue">#0F82C4</color>
+    <color name="common_blue_title_color">#0F82C4</color>
+
 
     <color name="default_background">#ffeaeaea</color>
     <color name="loading_view_background">#30000000</color>

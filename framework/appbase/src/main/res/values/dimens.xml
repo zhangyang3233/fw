@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_big">32dp</dimen>
+    <dimen name="h_big">36dp</dimen>
+    <!-- h1用于上导航文字 -->
+    <dimen name="h1">20sp</dimen>
+    <!-- h2用于按钮文字 -->
+    <dimen name="h2">18sp</dimen>
+    <!-- h3主要用于栏目标题 -->
+    <dimen name="h3">16sp</dimen>
+    <!-- h4主要用于副标题 -->
+    <dimen name="h4">14sp</dimen>
+    <!-- h5主要用于正文 -->
+    <dimen name="h5">13sp</dimen>
+    <!-- h6用于提示信息 -->
+    <dimen name="h6">12sp</dimen>
+    <!-- h7用于提示小信息 -->
+    <dimen name="h7">11sp</dimen>
+    <dimen name="h7_1">10sp</dimen>
+    <dimen name="h8">9sp</dimen>
+</resources>

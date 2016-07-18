@@ -19,8 +19,5 @@ public class DialogActivity extends DemoActivity  {
     replaceFragment(fragment);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
+
 }

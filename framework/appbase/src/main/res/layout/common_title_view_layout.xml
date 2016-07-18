@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fw.zycoder.appbase.activity.title.CommonTitleView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
+    android:theme="@style/AppTheme.Detail">
+
+    <TextView
+        android:id="@+id/common_title_view_layout_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxEms="9"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h1"/>
+
+    <LinearLayout
+        android:id="@+id/common_title_view_layout_left_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:id="@+id/common_title_view_layout_left_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/base_title_back"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/common_title_view_layout_right_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"/>
+
+</com.fw.zycoder.appbase.activity.title.CommonTitleView>
+

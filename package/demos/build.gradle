@@ -16,7 +16,7 @@ android {
         // 应用的包名
         applicationId "com.fw.zycoder.demos"
         // 支持的最小的 Android 版本
-        minSdkVersion 22
+        minSdkVersion 16
         targetSdkVersion 23
         // 程序内部版本号
         versionCode 1

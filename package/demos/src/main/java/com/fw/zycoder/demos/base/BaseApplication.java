@@ -45,5 +45,7 @@ public class BaseApplication extends Application {
     CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(false);
     // 是否显示错误详细信息
     CustomActivityOnCrash.setShowErrorDetails(BuildConfig.DEBUG);
+    // 是否打印log日志
+    CustomActivityOnCrash.setShowErrorLog(BuildConfig.DEBUG);
   }
 }

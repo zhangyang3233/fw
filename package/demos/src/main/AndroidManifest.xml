@@ -21,6 +21,7 @@
         <!-- demos -->
         <activity
             android:name=".demos.customToast.ToastTestActivity"
+            android:theme="@style/AppTheme.Detail"
             android:label="视图/toast">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +30,7 @@
         </activity>
         <activity
             android:name=".demos.dialog.DialogActivity"
+            android:theme="@style/AppTheme.Detail"
             android:label="视图/dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +39,7 @@
         </activity>
         <activity
             android:name=".demos.guagua.ScartchOutActivity"
+            android:theme="@style/AppTheme.Detail"
             android:label="视图/刮刮卡">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,18 +50,22 @@
         <!-- others -->
         <activity
             android:name=".demos.customToast.ActivityTwo"
+            android:theme="@style/AppTheme.Detail"
             android:label="ActivityTwo">
         </activity>
         <activity
             android:name=".demos.customToast.examples.ExampleStyle"
+            android:theme="@style/AppTheme.Detail"
             android:label="ExampleStyle">
         </activity>
         <activity
             android:name=".demos.customToast.examples.ExampleSuperActivityToast"
+            android:theme="@style/AppTheme.Detail"
             android:label="ExampleSuperActivityToast">
         </activity>
         <activity
             android:name=".demos.customToast.examples.ExampleUndoBar"
+            android:theme="@style/AppTheme.Detail"
             android:label="ExampleUndoBar">
         </activity>
 

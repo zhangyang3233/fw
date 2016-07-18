@@ -10,11 +10,17 @@ public class DemoActivity extends BaseActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    resetTitle();
   }
 
-  private void resetTitle() {
+  @Override
+  protected String getTitleText() {
     String[] s = getTitle().toString().split("/");
-    setTitle(s[s.length - 1]);
+    return s[s.length - 1];
   }
+
+  @Override
+  public boolean getCanFlingBack() {
+    return true;
+  }
+
 }

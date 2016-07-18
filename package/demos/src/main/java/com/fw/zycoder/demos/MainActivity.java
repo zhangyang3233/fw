@@ -20,6 +20,7 @@ public class MainActivity extends ListActivity {
         android.R.layout.simple_list_item_1,
         new String[] {"title"}, new int[] {android.R.id.text1}));
     getListView().setTextFilterEnabled(true);
+    getListView().setBackgroundColor(getResources().getColor(R.color.default_background));
   }
 
   @Override

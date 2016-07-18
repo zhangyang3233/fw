@@ -66,6 +66,7 @@ public final class CustomActivityOnCrash {
   private static boolean launchErrorActivityWhenInBackground = true;
   private static boolean showErrorDetails = true;
   private static boolean enableAppRestart = true;
+  private static boolean showErrorLog = true;
   private static int defaultErrorActivityDrawableId = R.drawable.customactivityoncrash_error_image;
   private static Class<? extends Activity> errorActivityClass = null;
   private static Class<? extends Activity> restartActivityClass = null;
@@ -163,7 +164,9 @@ public final class CustomActivityOnCrash {
                     // In case someone sets the activity and then decides to not restart
                     restartActivityClass = null;
                   }
-
+                  if(showErrorLog){
+                    Log.e("Crash error", stackTraceString);
+                  }
                   intent.putExtra(EXTRA_STACK_TRACE, stackTraceString);
                   intent.putExtra(EXTRA_RESTART_ACTIVITY_CLASS, restartActivityClass);
                   intent.putExtra(EXTRA_SHOW_ERROR_DETAILS, showErrorDetails);
@@ -498,6 +501,14 @@ public final class CustomActivityOnCrash {
    */
   public static void setEnableAppRestart(boolean enableAppRestart) {
     CustomActivityOnCrash.enableAppRestart = enableAppRestart;
+  }
+
+  public static boolean isShowErrorLog() {
+    return showErrorLog;
+  }
+
+  public static void setShowErrorLog(boolean showErrorLog) {
+    CustomActivityOnCrash.showErrorLog = showErrorLog;
   }
 
   /**
