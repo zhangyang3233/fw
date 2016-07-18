@@ -46,13 +46,13 @@
         android:paddingRight="12dip"
         android:paddingTop="4dip">
 
-        <com.wanda.uicomp.widget.datepicker.WheelView
+        <com.zycoder.uicomp.widget.datepicker.WheelView
             android:id="@+id/wheelView_view1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <com.wanda.uicomp.widget.datepicker.WheelView
+        <com.zycoder.uicomp.widget.datepicker.WheelView
             android:id="@+id/wheelView_view2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

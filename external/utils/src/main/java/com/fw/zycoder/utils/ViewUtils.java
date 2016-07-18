@@ -15,7 +15,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.widget.AbsListView;
 
-import com.wanda.uicomp.multicolumn.InternalListView;
+import com.zycoder.uicomp.multicolumn.InternalListView;
 
 /**
  * Some useful methods for views.

@@ -29,12 +29,12 @@ import com.fw.zycoder.utils.StringUtil;
 import com.fw.zycoder.utils.ViewUtils;
 import com.handmark.pulltorefresh.library.HeaderAndFooterGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.wanda.uicomp.draglayout.TouchHelper;
-import com.wanda.uicomp.multicolumn.InternalAbsListView;
-import com.wanda.uicomp.multicolumn.InternalListView;
-import com.wanda.uicomp.multicolumn.MultiColumnListView;
+import com.zycoder.uicomp.multicolumn.InternalAbsListView;
+import com.zycoder.uicomp.multicolumn.InternalListView;
+import com.zycoder.uicomp.multicolumn.MultiColumnListView;
 
 import java.util.List;
+
 
 
 public abstract class AsyncLoadListFragment<M extends BaseModel> extends AsyncLoadFragment {
@@ -551,12 +551,12 @@ public abstract class AsyncLoadListFragment<M extends BaseModel> extends AsyncLo
 
     /**
      *
-     *在用{@link com.wanda.uicomp.draglayout.DragFullViewLayout},检测listview是否能下拉
+     *在用{@link com.zycoder.uicomp.draglayout.DragFullViewLayout},检测listview是否能下拉
      * @return
      */
     public boolean needPullDown(){
         if (getListView() != null) {
-            return TouchHelper.isListViewNeedPullDown(getListView());
+            return com.zycoder.uicomp.draglayout.TouchHelper.isListViewNeedPullDown(getListView());
         }
         return false;
     }
