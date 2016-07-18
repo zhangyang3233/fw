@@ -22,7 +22,6 @@ import android.widget.ScrollView;
 /**
  * Description:
  *
- * @author lizhenhua9@wanda.cn (Lzh)
  * @date 15/8/20 11:27
  */
 

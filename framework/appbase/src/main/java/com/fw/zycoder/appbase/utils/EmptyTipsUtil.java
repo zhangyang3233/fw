@@ -6,9 +6,6 @@ import com.fw.zycoder.appbase.utils.TipsViewUtil.TipsType;
 import com.fw.zycoder.appbase.view.AppEmptyView;
 import com.fw.zycoder.appbase.view.AppEmptyView.OnEmptyRefreshListener;
 
-/**
- * @author liuxu34@wanda.cn (Liu Xu)
- */
 public class EmptyTipsUtil {
 
   public static void showEmptyTips(View targetView, OnEmptyRefreshListener refreshListener) {

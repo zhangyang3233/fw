@@ -24,7 +24,6 @@ import com.fw.zycoder.utils.ViewUtils;
  * 
  * 2.强烈建议配合 {@link com.fw.zycoder.appbase.utils.EmptyTipsUtil} 使用
  *
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class AppEmptyView extends LinearLayout {
 

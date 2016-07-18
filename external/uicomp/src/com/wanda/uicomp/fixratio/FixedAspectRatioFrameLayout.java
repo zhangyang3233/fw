@@ -99,8 +99,5 @@ public class FixedAspectRatioFrameLayout extends FrameLayout {
           .makeMeasureSpec(h, MeasureSpec.EXACTLY);
     }
     super.onMeasure(measuredWidth, measuredHeight);
-
-
-
   }
 }

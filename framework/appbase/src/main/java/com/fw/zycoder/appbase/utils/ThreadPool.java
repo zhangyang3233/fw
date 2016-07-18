@@ -8,8 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Thread pool.
- *
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class ThreadPool {
 

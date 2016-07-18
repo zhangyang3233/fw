@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 /**
  * Description:
  *
- * @author lizhenhua9@wanda.cn (Lzh)
  * @date 15/7/8 16:32
  */
 public class PropertyAnimationLoadingLayoutAbs extends PropertyLoadingLayout {

@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
 
-/**
- * @author heqinglong@wanda.cn (He QingLong)
- */
 public abstract class DragLayout extends ViewGroup {
 
   protected WeakReference<TouchInterceptor> mInterceptorRef;

@@ -21,7 +21,6 @@ import com.nineoldandroids.animation.ValueAnimator;
 /**
  * Description:
  *
- * @author lizhenhua9@wanda.cn (Lzh)
  * @date 15/8/7 16:55
  */
 public class WhaleSpringAnimationView extends View {

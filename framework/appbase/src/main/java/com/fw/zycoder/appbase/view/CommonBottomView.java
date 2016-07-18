@@ -8,9 +8,6 @@ import android.widget.FrameLayout;
 import com.fw.zycoder.appbase.R;
 import com.fw.zycoder.utils.ViewUtils;
 
-/**
- * @author liuxu34@wanda.cn (Liu Xu)
- */
 public class CommonBottomView extends CoverViewContainer {
 
   private FrameLayout mBottomView;

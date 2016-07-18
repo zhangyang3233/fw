@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-/**
- * @author liuxu34@wanda.cn (Liu Xu)
- */
 public class CoverViewContainer extends FrameLayout {
 
   public CoverViewContainer(Context context, AttributeSet attrs, int defStyle) {

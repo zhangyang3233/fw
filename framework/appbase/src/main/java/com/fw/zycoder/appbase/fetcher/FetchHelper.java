@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * Usage: Helps ui to show fetch data.
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public class FetchHelper<T> {
   private static final int DEFAULT_PAGE_SIZE = 20;

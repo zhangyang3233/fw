@@ -21,7 +21,6 @@ import com.nineoldandroids.animation.ValueAnimator;
 /**
  * Description:下拉刷新动画
  *
- * @author lizhenhua9@wanda.cn (Lzh)
  * @date 15/7/2 10:57
  */
 public class RefreshAnimationHeaderView extends View {

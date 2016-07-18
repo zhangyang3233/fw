@@ -8,9 +8,6 @@ import com.fw.zycoder.appbase.R;
 import com.fw.zycoder.appbase.view.AppEmptyView;
 import com.fw.zycoder.appbase.view.CoverViewContainer;
 
-/**
- * @author liuxu34@wanda.cn (Liu Xu)
- */
 public class TipsViewUtil {
 
   /**

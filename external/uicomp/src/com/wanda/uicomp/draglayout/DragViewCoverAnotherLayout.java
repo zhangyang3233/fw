@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.fw.zycoder.appbase.R;
+import com.wanda.uicomp.R;
 
 import java.lang.ref.WeakReference;
 

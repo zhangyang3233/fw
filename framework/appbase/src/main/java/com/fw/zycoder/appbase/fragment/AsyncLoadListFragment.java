@@ -21,7 +21,6 @@ import com.fw.zycoder.appbase.utils.TipsViewUtil;
 import com.fw.zycoder.appbase.utils.TipsViewUtil.TipsType;
 import com.fw.zycoder.appbase.view.AppEmptyView;
 import com.fw.zycoder.appbase.view.CommonBottomView;
-import com.fw.zycoder.appbase.view.draglayout.TouchHelper;
 import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.MainThreadPostUtils;
@@ -30,6 +29,7 @@ import com.fw.zycoder.utils.StringUtil;
 import com.fw.zycoder.utils.ViewUtils;
 import com.handmark.pulltorefresh.library.HeaderAndFooterGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.wanda.uicomp.draglayout.TouchHelper;
 import com.wanda.uicomp.multicolumn.InternalAbsListView;
 import com.wanda.uicomp.multicolumn.InternalListView;
 import com.wanda.uicomp.multicolumn.MultiColumnListView;
@@ -37,9 +37,6 @@ import com.wanda.uicomp.multicolumn.MultiColumnListView;
 import java.util.List;
 
 
-/**
- * @author liuxu34@wanda.cn (Liu Xu)
- */
 public abstract class AsyncLoadListFragment<M extends BaseModel> extends AsyncLoadFragment {
 
     private static final int DEFAULT_PAGE_SIZE = 20;
@@ -554,7 +551,7 @@ public abstract class AsyncLoadListFragment<M extends BaseModel> extends AsyncLo
 
     /**
      *
-     *在用{@link com.fw.zycoder.appbase.view.draglayout.DragFullViewLayout},检测listview是否能下拉
+     *在用{@link com.wanda.uicomp.draglayout.DragFullViewLayout},检测listview是否能下拉
      * @return
      */
     public boolean needPullDown(){

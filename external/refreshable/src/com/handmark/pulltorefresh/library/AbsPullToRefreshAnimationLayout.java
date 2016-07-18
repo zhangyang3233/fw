@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 /**
  * Description:下拉刷新动画抽象类
  *
- * @author lizhenhua9@wanda.cn (Lzh)
  * @date 15/7/21 09:23
  */
 public abstract class AbsPullToRefreshAnimationLayout extends LinearLayout {

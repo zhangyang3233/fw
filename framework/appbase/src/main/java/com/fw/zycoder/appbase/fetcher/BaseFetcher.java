@@ -10,7 +10,6 @@ import java.util.Set;
 /**
  * A helper class to make getting content from network more convenient.
  *
- * @author liuxu34@wanda.cn (Liu Xu)
  */
 public abstract class BaseFetcher<T> {
 

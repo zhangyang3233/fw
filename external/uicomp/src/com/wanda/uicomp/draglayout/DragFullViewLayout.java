@@ -12,9 +12,6 @@ import com.wanda.uicomp.R;
 
 import java.lang.ref.WeakReference;
 
-/**
- * @author heqinglong@wanda.cn (He QingLong)
- */
 public class DragFullViewLayout extends DragLayout {
 
   private ViewDragHelper mDragHelper;

@@ -5,7 +5,6 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 /**
- * @author liuxu34@wanda.cn (Liu Xu)
  *
  * @param <T>
  */
