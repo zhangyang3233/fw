@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="showcase_view_bgcolor">#80505050</color>
+    <color name="showcase_view_default_bgcolor">#3333B5E5</color>
+    <color name="showcase_view_title">#49C0EC</color>
+    <color name="alert_dialog_menu_white">@color/white</color>
+    <color name="alert_dialog_menu_black">@color/black</color>
+    <color name="progressive_dialog_bgcolor">#cc000000</color>
+    <color name="customprogressbar_color">#ff000000</color>
+    <color name="progress_default_circle_color">#80ffffff</color>
+    <color name="progress_default_progress_color">#33b5e5</color>
+</resources>

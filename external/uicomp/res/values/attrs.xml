@@ -1,0 +1,168 @@
+<resources>
+
+    <attr name="textSize" format="reference|dimension"/>
+    <attr name="textColor" format="reference|color"/>
+    <attr name="max" format="integer"/>
+    <attr name="expand_gravity">
+        <flag name="left" value="0x03"/>
+        <flag name="right" value="0x05"/>
+    </attr>
+    <attr name="drawableWidth" format="reference|dimension"/>
+    <attr name="drawableHeight" format="reference|dimension"/>
+    <attr name="drawablePadding" format="reference|dimension"/>
+    <attr name="span" format="reference|dimension"/>
+    <attr name="fixedAlong">
+        <enum name="width" value="0"/>
+        <enum name="height" value="1"/>
+    </attr>
+
+    <declare-styleable name="SlidingMenu">
+        <attr name="mode">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="viewAbove" format="reference"/>
+        <attr name="viewBehind" format="reference"/>
+        <attr name="behindOffset" format="dimension"/>
+        <attr name="behindWidth" format="dimension"/>
+        <attr name="behindSecondaryWidth" format="dimension"/>
+        <attr name="behindScrollScale" format="float"/>
+        <attr name="touchModeAbove">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+        </attr>
+        <attr name="touchModeBehind">
+            <enum name="margin" value="0"/>
+            <enum name="fullscreen" value="1"/>
+        </attr>
+        <attr name="shadowDrawable" format="reference"/>
+        <attr name="shadowWidth" format="dimension"/>
+        <attr name="fadeEnabled" format="boolean"/>
+        <attr name="fadeDegree" format="float"/>
+        <attr name="selectorEnabled" format="boolean"/>
+        <attr name="selectorDrawable" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="ArcMenu">
+        <attr name="fromDegrees" format="float"/>
+        <attr name="toDegrees" format="float"/>
+        <attr name="childSize" format="dimension"/>
+        <attr name="hitDrawable" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="RayMenu">
+        <attr name="leftHolderWidth" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="RectangleImage">
+        <attr name="widthScale" format="float"/>
+        <attr name="fixedAlong"/>
+    </declare-styleable>
+    <declare-styleable name="SquareImage">
+        <attr name="fixedAlong"/>
+    </declare-styleable>
+    <declare-styleable name="IconCompoundWidget">
+        <attr name="drawableLeft" format="reference"/>
+        <attr name="drawableRight" format="reference"/>
+        <attr name="drawableTop" format="reference"/>
+        <attr name="drawableBottom" format="reference"/>
+        <attr name="drawablePadding"/>
+        <attr name="drawableWidth"/>
+        <attr name="drawableHeight"/>
+        <attr name="drawableMode">
+            <enum name="center" value="0"/>
+            <enum name="text_center" value="1"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="IconMenuWidget">
+        <attr name="drawable" format="reference"/>
+        <attr name="drawableRelativeTopPosition" format="float"/>
+        <attr name="drawableRelativeCenterPosition" format="float"/>
+        <attr name="textRelativePosition" format="float"/>
+        <attr name="isSquare" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="AutoFitImageWidget">
+        <attr name="imageScale" format="float"/>
+    </declare-styleable>
+
+    <attr name="progressButtonStyle" format="reference"/>
+
+    <declare-styleable name="FixedAspectRatioFrameLayout">
+        <attr name="aspectRatio" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="MyRedEnvelopItemView">
+        <attr name="redenvelopAspect" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="mySwitchTextAppearanceAttrib">
+
+        <!-- Text color. -->
+        <attr name="switchTextColor" format="color"/>
+        <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+        <attr name="switchTextSize" format="dimension"/>
+        <!-- Style (bold, italic, bolditalic) for the text. -->
+        <attr name="textStyle">
+            <flag name="normal" value="0"/>
+            <flag name="bold" value="1"/>
+            <flag name="italic" value="2"/>
+        </attr>
+
+        <!-- Typeface (normal, sans, serif, monospace) for the text. -->
+        <attr name="typeface" format="reference">
+            <enum name="normal" value="0"/>
+            <enum name="sans" value="1"/>
+            <enum name="serif" value="2"/>
+            <enum name="monospace" value="3"/>
+        </attr>
+        <!-- Color of the text selection highlight. -->
+        <attr name="textColorHighlight" format="color"/>
+        <!-- Color of the hint text. -->
+        <attr name="textColorHint" format="color"/>
+        <!-- Color of the links. -->
+        <attr name="textColorLink" format="color"/>
+    </declare-styleable>
+    <!-- Default style for the Switch widget. -->
+    <attr name="mySwitchStyleAttr" format="reference"/>
+
+    <declare-styleable name="calendar_cell">
+        <attr name="state_selectable" format="boolean"/>
+        <attr name="state_current_month" format="boolean"/>
+        <attr name="state_today" format="boolean"/>
+        <attr name="state_range_first" format="boolean"/>
+        <attr name="state_range_middle" format="boolean"/>
+        <attr name="state_range_last" format="boolean"/>
+    </declare-styleable>
+
+    <attr name="tile_repeat_orientation">
+        <enum name="horizontal" value="0"/>
+        <enum name="vertical" value="1"/>
+    </attr>
+    <attr name="tile_repeat_gravity">
+        <enum name="left" value="0"/>
+        <enum name="top" value="1"/>
+        <enum name="right" value="2"/>
+        <enum name="bottom" value="3"/>
+    </attr>
+
+    <declare-styleable name="WDRatingBar">
+        <attr name="total_width" format="dimension"/>
+        <attr name="total_height" format="dimension"/>
+        <attr name="star_number" format="integer"/>
+
+        <!-- Class number -->
+        <attr name="rating" format="integer"></attr>
+
+        <!-- Class pictures -->
+        <attr name="rating_in_bg" format="reference"></attr>
+
+        <!-- Grade picture -->
+        <attr name="rating_out_bg" format="reference"></attr>
+        <attr name="canclick" format="boolean"></attr>
+    </declare-styleable>
+    <declare-styleable name="ExpandableTextView">
+        <attr name="maxCollapsedLines" format="integer"/>
+        <attr name="animDuration" format="integer"/>
+        <attr name="animAlphaStart" format="float"/>
+        <attr name="arrowDownDrawable" format="reference"/>
+        <attr name="arrowUpDrawable" format="reference"/>
+    </declare-styleable>
+
+</resources>

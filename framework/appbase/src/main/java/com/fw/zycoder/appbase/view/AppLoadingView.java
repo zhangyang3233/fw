@@ -62,7 +62,7 @@ public class AppLoadingView extends FrameLayout {
     }
 
     AppLoadingView loadingView =
-        (AppLoadingView) ViewUtils.newInstance(decorView, R.layout.feifan_loading_view);
+        (AppLoadingView) ViewUtils.newInstance(decorView, R.layout.app_loading_view);
 
     decorView.addView(loadingView, new ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,

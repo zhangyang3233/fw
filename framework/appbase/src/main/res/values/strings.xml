@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">AppBase</string>
     <string name="base_default_loading">努力加载中&#8230;</string>
+    <string name="base_default_empty_message">加载失败,请点击重试</string>
+    <string name="loading_more_tips">正在加载中…</string>
+    <string name="loading_more_error">加载更多失败</string>
+    <string name="base_default_empty_data_message">没有数据,可点击重试</string>
+    <string name="app_wifi_isopen">无法连接到服务器，请检查您的网络连接</string>
+    <string name="retry">重试</string>
 </resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <com.wanda.uicomp.widget.datepicker.WheelView
+            android:id="@+id/year"
+            android:layout_width="0.0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_weight="5.0"/>
+
+        <com.wanda.uicomp.widget.datepicker.WheelView
+            android:id="@+id/month"
+            android:layout_width="0.0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_weight="3.0"/>
+
+        <com.wanda.uicomp.widget.datepicker.WheelView
+            android:id="@+id/day"
+            android:layout_width="0.0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="5.0dip"
+            android:layout_weight="3.0"/>
+    </LinearLayout>
+
+</LinearLayout>

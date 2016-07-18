@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_description">Image</string>
+
+    <string name="loading">请稍候..</string>
+    <string name="default_expand_text">更多</string>
+    <string name="default_collapse_text">收起</string>
+    <string name="photo_index_hint">%1$s / %2$s</string>
+    <string name="videoView_error_text_invalid_progressive_playback">This video isn\'t valid for streaming to this device.</string>
+    <string name="videoView_error_text_unknown">Can\'t play this video.</string>
+    <string name="sns_share_by_sms">短信</string>
+    <string name="sns_share_by_sina_weibo">新浪微博</string>
+    <string name="sns_share_by_qq">QQ好友</string>
+    <string name="sns_share_by_qqzone">QQ空间</string>
+    <string name="sns_share_by_wechat">微信好友</string>
+    <string name="sns_share_by_wechat_timeline">微信朋友圈</string>
+</resources>

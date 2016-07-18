@@ -3,4 +3,5 @@
     <color name="default_background">#ffeaeaea</color>
     <color name="loading_view_background">#30000000</color>
     <color name="upgrade_gray">#333333</color>
+    <color name="app_background_color">#ffefefef</color>
 </resources>

@@ -15,6 +15,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.widget.AbsListView;
 
+import com.wanda.uicomp.multicolumn.InternalListView;
+
 /**
  * Some useful methods for views.
  *
@@ -225,5 +227,26 @@ public class ViewUtils {
     }
     return null;
   }
+
+    /**
+     * Scroll the specific AbsListView to top.
+     *
+     * @param listView the specific list view
+     * @return true if scrollToTop is handled, false otherwise
+     */
+    @TargetApi(Build.VERSION_CODES.FROYO)
+    public static boolean scrollToTop(InternalListView listView) {
+        if (listView.getFirstVisiblePosition() == 0) {
+            View firstChild = listView.getChildAt(0);
+            if (firstChild == null) {
+                return false;
+            }
+            if (firstChild.getTop() == listView.getPaddingTop()) {
+                return false;
+            }
+        }
+        listView.scrollBackTop();
+        return true;
+    }
 
 }
