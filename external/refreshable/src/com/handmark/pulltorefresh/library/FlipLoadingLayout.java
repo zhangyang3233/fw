@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
-import com.handmark.pulltorefresh.library.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 
 @SuppressLint("ViewConstructor")

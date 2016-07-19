@@ -1111,9 +1111,9 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
       switch (modeInt) {
         case 0x0:
         default:
-          return PROPERTY;
-        case 0x1:
           return ROTATE;
+        case 0x1:
+          return PROPERTY;
         case 0x2:
           return FLIP;
       }
@@ -1123,12 +1123,12 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
         TypedArray attrs) {
       switch (this) {
         case PROPERTY:
-        default:
           return new WhaleSpringLoadingLayout(context, mode, attrs);
-        case ROTATE:
-          return new RotateLoadingLayout(context, mode, attrs);
         case FLIP:
           return new FlipLoadingLayout(context, mode, attrs);
+        case ROTATE:
+        default:
+          return new RotateLoadingLayout(context, mode, attrs);
       }
     }
   }
