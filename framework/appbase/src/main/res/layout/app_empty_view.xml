@@ -8,7 +8,7 @@
     android:visibility="invisible"
     android:padding="10dp"
     android:gravity="center_horizontal|center_vertical"
-    android:background="@color/app_background_color">
+    android:background="@color/appbase_app_background_color">
 
 
     <ImageView

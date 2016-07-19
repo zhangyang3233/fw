@@ -1,7 +1,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 黑投影文字 -->
     <style name="BlackShadowTextStyle">
-        <item name="android:shadowColor">@color/upgrade_gray</item>
+        <item name="android:shadowColor">@color/appbase_upgrade_gray</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">2</item>
         <item name="android:shadowRadius">1</item>
@@ -16,7 +16,7 @@
     </style>
 
 
-    <style name="Animation.Activity" parent="@android:style/Animation.Activity">
+    <style name="Animation.Activity" parent="@android:style/Animation.Translucent">
         <item name="android:activityOpenEnterAnimation">@anim/activity_slide_in_from_right</item>
         <item name="android:activityCloseExitAnimation">@anim/activity_slide_out_to_right</item>
         <item name="android:activityOpenExitAnimation">@anim/activity_slide_out_to_left</item>

@@ -174,7 +174,7 @@ public abstract class BaseTitleActivity extends BaseSlideActivity {
       SystemBarTintManager tintManager = new SystemBarTintManager(this);
       tintManager.setStatusBarTintEnabled(true);
       tintManager.setNavigationBarTintEnabled(true);
-      tintManager.setTintColor(getResources().getColor(R.color.dark_blue));
+      tintManager.setTintColor(getResources().getColor(R.color.appbase_dark_blue));
     }
   }
 }

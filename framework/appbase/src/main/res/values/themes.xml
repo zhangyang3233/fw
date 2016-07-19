@@ -5,8 +5,8 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="colorPrimary">@color/theme_blue</item>
-        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorPrimary">@color/appbase_theme_blue</item>
+        <item name="colorPrimaryDark">@color/appbase_dark_blue</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:typeface">normal</item>
@@ -27,6 +27,11 @@
     <style name="AppTheme.Detail" parent="AppTheme.Main">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/Animation.Activity.SlidingBack</item>
+    </style>
+
+    <style name="AppTheme.NoAnimation" parent="AppTheme.Main">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
     <style name="AppTheme.Detail.NoSlide" parent="AppTheme.Detail">
@@ -74,19 +79,19 @@
 
 
     <style name="Theme.NoTitleBar" parent="@android:style/Theme.NoTitleBar">
-        <item name="android:windowBackground">@color/app_background_color</item>
+        <item name="android:windowBackground">@color/appbase_app_background_color</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowAnimationStyle">@style/Animation.Activity.Push</item>
     </style>
 
     <style name="Theme.NoTitleBar.Popup" parent="@android:style/Theme.NoTitleBar">
-        <item name="android:windowBackground">@color/app_background_color</item>
+        <item name="android:windowBackground">@color/appbase_app_background_color</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowAnimationStyle">@style/Animation.Activity.Popup</item>
     </style>
 
     <style name="Theme.NoTitleBar.NoAnimation" parent="@android:style/Theme.NoTitleBar">
-        <item name="android:windowBackground">@color/app_background_color</item>
+        <item name="android:windowBackground">@color/appbase_app_background_color</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowAnimationStyle">@null</item>
     </style>

@@ -124,7 +124,7 @@ public class CommonTitleView extends RelativeLayout implements TitleContainer {
 
   protected void setTitleStyle() {
     setBackgroundColor(GlobalConfig.getAppContext().getResources()
-        .getColor(R.color.common_blue_title_color));
+        .getColor(R.color.appbase_common_blue_title_color));
     if (mTitle != null) {
       mTitle.setTextColor(Color.WHITE);
     }
