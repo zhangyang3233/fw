@@ -25,10 +25,10 @@ public class ThreadPool {
   static {
     MIN_PRIOR_EXECUTOR = new ThreadPoolExecutor(1, Integer.MAX_VALUE,
         KEEP_ALIVE_TIME, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(true),
-        new FeifanThreadFactory(Thread.MIN_PRIORITY));
+        new AppThreadFactory(Thread.MIN_PRIORITY));
     NORMAL_PRIOR_EXECUTOR = new ThreadPoolExecutor(CORE_THREAD_NUM, Integer.MAX_VALUE,
         KEEP_ALIVE_TIME, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(true),
-        new FeifanThreadFactory(Thread.NORM_PRIORITY));
+        new AppThreadFactory(Thread.NORM_PRIORITY));
   }
 
   /**
@@ -67,14 +67,14 @@ public class ThreadPool {
     NORMAL_PRIOR_EXECUTOR.remove(runnable);
   }
 
-  private static class FeifanThreadFactory implements ThreadFactory {
+  private static class AppThreadFactory implements ThreadFactory {
     private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
     private final ThreadGroup group;
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private final String namePrefix;
     private final int priority;
 
-    FeifanThreadFactory(int priority) {
+    AppThreadFactory(int priority) {
       this.priority = priority;
       group = Thread.currentThread().getThreadGroup();
       namePrefix = "pool-" + priority + "-" + POOL_NUMBER.getAndIncrement() + "-thread-";

@@ -17,7 +17,7 @@ import com.fw.zycoder.utils.ViewUtils;
  * App统一的 EmptyView
  *
  * 使用方法
- * 1.在 xml 中 include feifan_empty_view 并设置高宽。例子在 sample_network_fragment.xml
+ * 1.在 xml 中 include app_empty_view 并设置高宽。例子在 sample_network_fragment.xml
  *
  * 设置 OnEmptyRefreshListener 后，点击 EmptyView 会消失。OnEmptyRefreshListener 会接收到回调。
  * 不设置 OnEmptyRefreshListener 点击将不会消失。

@@ -21,7 +21,7 @@ import com.fw.zycoder.utils.ViewUtils;
  *
  * 可以有两种方式使用
  * 1.（建议）使用 newInstanceOnDecorView 传入 DecorView 动态构建。
- * feifan_loading_view ,注意给予 match_parent 的高宽。
+ * app_loading_view ,注意给予 match_parent 的高宽。
  *
  * LoadingView 的 cancel 策略是：
  * 1.back 按键

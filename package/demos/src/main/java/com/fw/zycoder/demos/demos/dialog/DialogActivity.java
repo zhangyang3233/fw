@@ -11,6 +11,7 @@ import com.fw.zycoder.demos.base.DemoActivity;
  */
 public class DialogActivity extends DemoActivity  {
 
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -21,4 +22,8 @@ public class DialogActivity extends DemoActivity  {
     return DialogFragment.class;
   }
 
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+  }
 }

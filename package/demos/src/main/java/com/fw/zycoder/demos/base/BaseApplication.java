@@ -6,7 +6,7 @@ import com.fw.zycoder.demos.BuildConfig;
 import com.fw.zycoder.errorpage.CustomActivityOnCrash;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
-
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by zhangyang131 on 16/6/12.
@@ -16,10 +16,16 @@ public class BaseApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
+    initLeakCanary();
     initErrorPage();
     initGlobalConfig();
     initLog();
   }
+
+  private void initLeakCanary() {
+    LeakCanary.install(this);
+  }
+
 
   /**
    * 初始化log类

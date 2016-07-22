@@ -1,9 +1,5 @@
 package com.fw.zycoder.appbase.fragment;
 
-/**
- * Created by zhangyang131 on 16/7/14.
- */
-
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -43,7 +39,7 @@ public abstract class AsyncLoadListFragment<M extends Object> extends AsyncLoadF
     private static final int DEFAULT_PRE_LOAD_GAP_SIZE = 15;
     private static final boolean DEFAULT_HAS_FILTER = false;
     private static final boolean DEFAULT_NEED_RESTORE_SCROLL_STATE = false;
-    private static final String EXTRA_LIST_STATE = "zycoder.feifan.intent.extra.LIST_STATE";
+    private static final String EXTRA_LIST_STATE = "zycoder.fw.intent.extra.LIST_STATE";
 
     private List<M> mNewData;
     protected DataAdapter<M> mContentAdapter;

@@ -58,16 +58,16 @@ android {
             // 去除没有用到的资源文件
             shrinkResources true
             // 重命名 apk
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // 输出apk名称为demolist_v1.0_2015-01-15_wandoujia.apk
-                        def fileName = "demolist_${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // 输出apk名称为demolist_v1.0_2015-01-15_wandoujia.apk
+//                        def fileName = "demolist_${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
         }
 
         debug {
@@ -106,8 +106,6 @@ tasks.whenTaskAdded { task ->
     }
 }
 
-
-
 dependencies {
     // 编译libs目录下所有的jar包
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -126,6 +124,8 @@ dependencies {
     compile project(':external:dialoghelper')
     compile 'io.reactivex:rxjava:1.0.9'
     compile 'io.reactivex:rxandroid:0.24.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }
 
 

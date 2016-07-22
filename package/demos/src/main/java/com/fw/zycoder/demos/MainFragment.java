@@ -44,7 +44,7 @@ public class MainFragment extends AsyncLoadListFragment<Map<String, Object>> {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Map<String, Object> map = (Map<String, Object>) mData.get(position);
+                    Map<String, Object> map = mData.get(position);
                     Intent intent = (Intent) map.get("intent");
                     startActivity(intent);
                 }
