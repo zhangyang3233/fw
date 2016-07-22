@@ -30,6 +30,7 @@ public class ToastTestActivity extends DemoActivity {
     arrayAdapter.setDropDownViewResource(R.layout.spinner_item);
     actionBar.setListNavigationCallbacks(arrayAdapter, new ActionBar.OnNavigationListener() {
       Fragment fragment;
+
       @Override
       public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         switch (itemPosition) {

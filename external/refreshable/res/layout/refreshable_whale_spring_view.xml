@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    android:id="@+id/refresh_header"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_header">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,14 +9,14 @@
         <com.handmark.pulltorefresh.library.WhaleSpringAnimationView
             android:id="@+id/refresh_header_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
+
         <ImageView
             android:id="@+id/refresh_image_view"
             android:layout_width="@dimen/refreshable_widget_imageview_height"
             android:layout_height="@dimen/refreshable_widget_imageview_height"
             android:layout_centerInParent="true"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
     </RelativeLayout>
 
 </merge>

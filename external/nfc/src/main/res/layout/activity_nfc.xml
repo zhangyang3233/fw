@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/window"
-    android:padding="@dimen/padding_window" >
+    android:padding="@dimen/padding_window">
 
     <TextView
         android:id="@+id/txtAppName"
@@ -30,7 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="@dimen/padding_default"
-        android:layout_marginLeft="@dimen/padding_default" >
+        android:layout_marginLeft="@dimen/padding_default">
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -47,7 +47,7 @@
             android:contentDescription="@null"
             android:onClick="onCopyPageContent"
             android:src="@drawable/copy" />
-        
+
         <ImageButton
             android:id="@+id/btnShare"
             style="@style/toolButton"
@@ -75,14 +75,14 @@
         android:animateFirstView="true"
         android:background="@null"
         android:inAnimation="@anim/fade_in"
-        android:outAnimation="@anim/fade_out" >
+        android:outAnimation="@anim/fade_out">
 
-        <ScrollView style="@style/textBoard" >
+        <ScrollView style="@style/textBoard">
 
             <TextView style="@style/textArea" />
         </ScrollView>
 
-        <ScrollView style="@style/textBoard" >
+        <ScrollView style="@style/textBoard">
 
             <TextView style="@style/textArea" />
         </ScrollView>

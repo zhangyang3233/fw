@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="refreshable_widget_gridview" type="id"/>
-    <item name="refreshable_widget_scrollview" type="id"/>
-    <item name="refreshable_widget_webview" type="id"/>
+    <item name="refreshable_widget_gridview" type="id" />
+    <item name="refreshable_widget_scrollview" type="id" />
+    <item name="refreshable_widget_webview" type="id" />
 </resources>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/content"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:layout_gravity="bottom"
-              android:background="@drawable/dialog2_background"
-              android:orientation="vertical">
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="bottom"
+    android:background="@drawable/dialog2_background"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -23,7 +23,7 @@
             android:layout_marginTop="8dip"
             android:background="@drawable/button_normal"
             android:text="@string/datepicker_string_cancel"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/wheel_button_ok"
@@ -34,7 +34,7 @@
             android:layout_marginTop="8dip"
             android:background="@drawable/button_normal"
             android:text="@string/datepicker_string_sure"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -50,13 +50,13 @@
             android:id="@+id/wheelView_view1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <com.zycoder.uicomp.widget.datepicker.WheelView
             android:id="@+id/wheelView_view2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>

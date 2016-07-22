@@ -131,14 +131,14 @@ public class SuperCardToast {
   };
   private View mToastView;
   /**
-   * Runnable to dismiss the {@value #TAG} with layout animation.
+   * Runnable to dismiss the {@value #TAG} with animation.
    */
-  private final Runnable mHideWithAnimationRunnable = new Runnable() {
+  private final Runnable mHideRunnable = new Runnable() {
 
     @Override
     public void run() {
 
-      dismissWithLayoutAnimation();
+      dismiss();
 
     }
 
@@ -157,14 +157,14 @@ public class SuperCardToast {
 
   };
   /**
-   * Runnable to dismiss the {@value #TAG} with animation.
+   * Runnable to dismiss the {@value #TAG} with layout animation.
    */
-  private final Runnable mHideRunnable = new Runnable() {
+  private final Runnable mHideWithAnimationRunnable = new Runnable() {
 
     @Override
     public void run() {
 
-      dismiss();
+      dismissWithLayoutAnimation();
 
     }
 

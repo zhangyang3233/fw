@@ -55,6 +55,9 @@ public class ScratchOutView extends SurfaceView
   private BitmapFactory.Options op;
 
   private Random mRandom;
+  private Canvas computeCanvas;
+  private Bitmap canvasBitmap;
+  private IScratchView touchCallBack;
 
   public ScratchOutView(Context context) {
     this(context, null);
@@ -116,9 +119,6 @@ public class ScratchOutView extends SurfaceView
     holder.addCallback(this);
     holder.setFormat(PixelFormat.TRANSPARENT);
   }
-
-  private Canvas computeCanvas;
-  private Bitmap canvasBitmap;
 
   private void setOverlayBitmap(Canvas canvas, Resources mResources) {
     if (null == computeOverlayPaint) {
@@ -307,78 +307,6 @@ public class ScratchOutView extends SurfaceView
     }
   }
 
-  private class WScratchViewThread extends Thread {
-    private SurfaceHolder mSurfaceHolder;
-    private ScratchOutView mView;
-    private boolean mRun = false;
-
-    public WScratchViewThread(SurfaceHolder surfaceHolder) {
-      mSurfaceHolder = surfaceHolder;
-    }
-
-    public void setRunning(boolean run) {
-      mRun = run;
-    }
-
-    public SurfaceHolder getSurfaceHolder() {
-      return mSurfaceHolder;
-    }
-
-    @SuppressLint("WrongCall")
-    @Override
-    public void run() {
-      Canvas canvas;
-      long currentTimeMillis;
-      while (mRun) {
-        canvas = null;
-        currentTimeMillis = System.currentTimeMillis();
-        try {
-          canvas = mSurfaceHolder.lockCanvas(null);
-          synchronized (mSurfaceHolder) {
-            if (canvas != null) {
-              draw(canvas);
-            }
-          }
-          Thread.sleep(Math.max(0, 33 - (System.currentTimeMillis() - currentTimeMillis)));// 每秒30帧
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        } finally {
-          if (canvas != null) {
-            mSurfaceHolder.unlockCanvasAndPost(canvas);
-          }
-        }
-
-      }
-    }
-
-    private void draw(Canvas canvas) {
-      if (!isShow) {
-        // 清除刮奖蒙层
-        canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-        recycle();
-        return;
-      }
-
-      if (computeCanvas == null) {
-        canvasBitmap = Bitmap.createBitmap(getWidth(), getHeight(),
-            Config.ARGB_8888);
-        computeCanvas = new Canvas(canvasBitmap);
-      }
-      Resources mResources = getContext().getResources();
-      // 绘制遮盖层
-      if (mOverlayImageResource != -1 && mOverlayColor == -1) {
-        setOverlayBitmap(canvas, mResources);
-      } else if (mOverlayColor != -1 && mOverlayImageResource == -1) {
-        canvas.drawColor(mOverlayColor);
-      }
-      computeCanvas.drawColor(mResources.getColor(R.color.white));
-      for (Path path : mPathList) {
-        canvas.drawPath(path, mOverlayPaint);
-        computeCanvas.drawPath(path, mOverlayPaint);
-      }
-    }
-  }
-
   private void invalidSurfaceView() {
     Canvas canvas = null;
     SurfaceHolder mSurfaceHolder = getHolder();
@@ -474,8 +402,6 @@ public class ScratchOutView extends SurfaceView
     this.autoScratchOutPercent = autoScratchOutPercent;
   }
 
-  private IScratchView touchCallBack;
-
   public IScratchView getTouchCallBack() {
     return touchCallBack;
   }
@@ -492,5 +418,77 @@ public class ScratchOutView extends SurfaceView
 
     // 完全显示出来
     void onAutoScratchOut(ScratchOutView sv);
+  }
+
+  private class WScratchViewThread extends Thread {
+    private SurfaceHolder mSurfaceHolder;
+    private ScratchOutView mView;
+    private boolean mRun = false;
+
+    public WScratchViewThread(SurfaceHolder surfaceHolder) {
+      mSurfaceHolder = surfaceHolder;
+    }
+
+    public void setRunning(boolean run) {
+      mRun = run;
+    }
+
+    public SurfaceHolder getSurfaceHolder() {
+      return mSurfaceHolder;
+    }
+
+    @SuppressLint("WrongCall")
+    @Override
+    public void run() {
+      Canvas canvas;
+      long currentTimeMillis;
+      while (mRun) {
+        canvas = null;
+        currentTimeMillis = System.currentTimeMillis();
+        try {
+          canvas = mSurfaceHolder.lockCanvas(null);
+          synchronized (mSurfaceHolder) {
+            if (canvas != null) {
+              draw(canvas);
+            }
+          }
+          Thread.sleep(Math.max(0, 33 - (System.currentTimeMillis() - currentTimeMillis)));// 每秒30帧
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        } finally {
+          if (canvas != null) {
+            mSurfaceHolder.unlockCanvasAndPost(canvas);
+          }
+        }
+
+      }
+    }
+
+    private void draw(Canvas canvas) {
+      if (!isShow) {
+        // 清除刮奖蒙层
+        canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+        recycle();
+        return;
+      }
+
+      if (computeCanvas == null) {
+        canvasBitmap = Bitmap.createBitmap(getWidth(), getHeight(),
+            Config.ARGB_8888);
+        computeCanvas = new Canvas(canvasBitmap);
+      }
+      Resources mResources = getContext().getResources();
+      // 绘制遮盖层
+      if (mOverlayImageResource != -1 && mOverlayColor == -1) {
+        setOverlayBitmap(canvas, mResources);
+      } else if (mOverlayColor != -1 && mOverlayImageResource == -1) {
+        canvas.drawColor(mOverlayColor);
+      }
+      computeCanvas.drawColor(mResources.getColor(R.color.white));
+      for (Path path : mPathList) {
+        canvas.drawPath(path, mOverlayPaint);
+        computeCanvas.drawPath(path, mOverlayPaint);
+      }
+    }
   }
 }

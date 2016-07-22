@@ -12,32 +12,32 @@ import com.fw.zycoder.demos.R;
  */
 public class ScartchFragment extends AsyncLoadFragment {
 
-    @Override
-    protected void onStartLoading() {
+  Button btn;
+  ScratchOutView mScratchOutView;
 
-    }
+  @Override
+  protected void onStartLoading() {
 
-    @Override
-    protected void onInflated(View contentView, Bundle savedInstanceState) {
-        initView();
-    }
+  }
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_scartchout;
-    }
+  @Override
+  protected void onInflated(View contentView, Bundle savedInstanceState) {
+    initView();
+  }
 
-    private void initView() {
-        btn = (Button) mContentView.findViewById(R.id.btn);
-        mScratchOutView = (ScratchOutView) mContentView.findViewById(R.id.scratch_out_view);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mScratchOutView.resetView();
-            }
-        });
-    }
+  @Override
+  protected int getLayoutResId() {
+    return R.layout.activity_scartchout;
+  }
 
-    Button btn;
-    ScratchOutView mScratchOutView;
+  private void initView() {
+    btn = (Button) mContentView.findViewById(R.id.btn);
+    mScratchOutView = (ScratchOutView) mContentView.findViewById(R.id.scratch_out_view);
+    btn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mScratchOutView.resetView();
+      }
+    });
+  }
 }

@@ -59,6 +59,7 @@ public class SuperToast {
   private View mToastView;
   private WindowManager mWindowManager;
   private WindowManager.LayoutParams mWindowManagerParams;
+
   /**
    * Instantiates a new {@value #TAG}.
    *
@@ -90,6 +91,7 @@ public class SuperToast {
     mMessageTextView = (TextView) mToastView.findViewById(R.id.message_textview);
 
   }
+
   /**
    * Instantiates a new {@value #TAG} with a specified style.
    *

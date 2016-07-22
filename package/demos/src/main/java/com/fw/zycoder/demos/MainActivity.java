@@ -26,11 +26,11 @@ public class MainActivity extends DemoActivity {
     return mCanFlingBack;
   }
 
-  private void initFlingBack(){
+  private void initFlingBack() {
     String prefix = getIntent().getStringExtra(Consts.ACTIVITY_INFO);
-    if(prefix == null || prefix.equals("")){
+    if (prefix == null || prefix.equals("")) {
       mCanFlingBack = false;
-    }else{
+    } else {
       mCanFlingBack = true;
     }
   }

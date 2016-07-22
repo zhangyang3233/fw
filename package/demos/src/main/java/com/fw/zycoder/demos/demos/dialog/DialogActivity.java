@@ -9,7 +9,7 @@ import com.fw.zycoder.demos.base.DemoActivity;
 /**
  * Created by zhangyang131 on 16/6/27.
  */
-public class DialogActivity extends DemoActivity  {
+public class DialogActivity extends DemoActivity {
 
 
   @Override

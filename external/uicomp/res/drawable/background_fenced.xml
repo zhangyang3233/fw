@@ -7,18 +7,17 @@
         android:right="1dp"
         android:top="0dp">
         >
-        <shape
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="rectangle">
-            <corners android:radius="6dp"/>
+            <corners android:radius="6dp" />
 
-            <solid android:color="#33000000"/>
+            <solid android:color="#33000000" />
 
             <stroke
                 android:width="1dp"
-                android:color="#aaaaaaaa"/>
+                android:color="#aaaaaaaa" />
 
-            <padding android:padding="19dp"/>
+            <padding android:padding="19dp" />
         </shape>
     </item>
     <item
@@ -27,15 +26,15 @@
         android:right="0dp"
         android:top="1dp">
         <shape android:shape="rectangle">
-            <corners android:radius="6dp"/>
+            <corners android:radius="6dp" />
 
-            <solid android:color="#33000000"/>
+            <solid android:color="#33000000" />
 
             <stroke
                 android:width="1dp"
-                android:color="#aa111111"/>
+                android:color="#aa111111" />
 
-            <padding android:padding="19dp"/>
+            <padding android:padding="19dp" />
         </shape>
     </item>
 

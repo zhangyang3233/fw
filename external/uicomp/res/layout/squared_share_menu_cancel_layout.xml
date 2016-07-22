@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="15dp">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp">
 
     <TextView
         android:id="@android:id/text1"
@@ -13,6 +13,6 @@
         android:gravity="center"
         android:text="@android:string/cancel"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/alert_dialog_menu_white"/>
+        android:textColor="@color/alert_dialog_menu_white" />
 
 </LinearLayout>

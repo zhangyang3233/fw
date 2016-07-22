@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 
-import com.zycoder.sliding.PageTransaction;
-import com.zycoder.sliding.SlidingLayout;
-import com.zycoder.sliding.SlidingPager;
 import com.zycoder.sliding.component.SlideActivity;
 import com.zycoder.sliding.listener.SlidingListener;
 import com.zycoder.sliding.utils.ActivityUtils;
@@ -237,7 +234,8 @@ public class SlidingHelper {
       throw new IllegalArgumentException("it must be a activity to implements SlideActivity");
     }
     SlidingLayout mSlidingLayout =
-        (SlidingLayout) ((Activity) slideActivity).findViewById(com.zycoder.sliding.R.id.sliding_pane_layout);
+        (SlidingLayout) ((Activity) slideActivity)
+            .findViewById(com.zycoder.sliding.R.id.sliding_pane_layout);
     if (mSlidingLayout == null) {
       Log.w("SlidingHelper", "there is no sliding layout , this activity can not sliding");
       return null;

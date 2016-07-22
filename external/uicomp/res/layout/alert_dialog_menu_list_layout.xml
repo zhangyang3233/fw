@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:paddingBottom="4dp"
-              android:paddingTop="6dp">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingTop="6dp">
 
     <TextView
         android:id="@android:id/text1"
@@ -13,6 +13,6 @@
         android:background="@drawable/btn_style_alert_dialog_button"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/alert_dialog_menu_black"/>
+        android:textColor="@color/alert_dialog_menu_black" />
 
 </LinearLayout>

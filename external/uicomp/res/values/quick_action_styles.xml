@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Animations"/>
+    <style name="Animations" />
 
     <!-- PopDownMenu -->
-    <style name="Animations.PopDownMenu"/>
+    <style name="Animations.PopDownMenu" />
 
     <style name="Animations.PopDownMenu.Center">
         <item name="@android:windowEnterAnimation">@anim/grow_from_top</item>
@@ -27,7 +27,7 @@
     </style>
 
     <!-- PopUpMenu -->
-    <style name="Animations.PopUpMenu"/>
+    <style name="Animations.PopUpMenu" />
 
     <style name="Animations.PopUpMenu.Center">
         <item name="@android:windowEnterAnimation">@anim/grow_from_bottom</item>

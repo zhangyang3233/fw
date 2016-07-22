@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="match_parent"
-              android:layout_gravity="center"
-              android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@android:id/progress"
@@ -14,7 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:indeterminateDrawable="@anim/image_progress"/>
+        android:indeterminateDrawable="@anim/image_progress" />
 
     <TextView
         android:id="@android:id/text1"
@@ -29,6 +29,6 @@
         android:maxWidth="160dp"
         android:singleLine="true"
         android:textColor="#ffffff"
-        android:textSize="13sp"/>
+        android:textSize="13sp" />
 
 </LinearLayout>

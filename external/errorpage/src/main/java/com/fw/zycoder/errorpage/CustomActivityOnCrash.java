@@ -164,7 +164,7 @@ public final class CustomActivityOnCrash {
                     // In case someone sets the activity and then decides to not restart
                     restartActivityClass = null;
                   }
-                  if(showErrorLog){
+                  if (showErrorLog) {
                     Log.e("Crash error", stackTraceString);
                   }
                   intent.putExtra(EXTRA_STACK_TRACE, stackTraceString);

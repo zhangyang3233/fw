@@ -10,13 +10,13 @@ import com.fw.zycoder.demos.base.DemoActivity;
 public class ScartchOutActivity extends DemoActivity {
 
 
-    @Override
-    public boolean getCanFlingBack() {
-        return false;
-    }
+  @Override
+  public boolean getCanFlingBack() {
+    return false;
+  }
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return ScartchFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return ScartchFragment.class;
+  }
 }
