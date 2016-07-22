@@ -26,36 +26,30 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
   // Constants
   // ===========================================================
 
-  static final float FRICTION = 2.0f;
-  private static final int MIN_REFRESH_ANIMATION_TIME = 1000;
-
   public static final int SMOOTH_SCROLL_DURATION_MS = 200;
   public static final int SMOOTH_SCROLL_LONG_DURATION_MS = 325;
-
+  static final float FRICTION = 2.0f;
   static final Mode DEFAULT_MODE = Mode.PULL_DOWN_TO_REFRESH;
-
   static final String STATE_STATE = "ptr_state";
   static final String STATE_MODE = "ptr_mode";
   static final String STATE_CURRENT_MODE = "ptr_current_mode";
   static final String STATE_DISABLE_SCROLLING_REFRESHING = "ptr_disable_scrolling";
   static final String STATE_SHOW_REFRESHING_VIEW = "ptr_show_refreshing_view";
   static final String STATE_SUPER = "ptr_super";
+  private static final int MIN_REFRESH_ANIMATION_TIME = 1000;
 
   // ===========================================================
   // Fields
   // ===========================================================
-
+  protected T mRefreshableView;
   private int mTouchSlop;
   private float mLastMotionX;
   private float mLastMotionY;
   private float mInitialMotionY;
-
   private boolean mIsBeingDragged = false;
   private State mState = State.RESET;
   private Mode mMode = DEFAULT_MODE;
-
   private Mode mCurrentMode;
-  protected T mRefreshableView;
   private FrameLayout mRefreshableViewWrapper;
 
   private boolean mShowViewWhileRefreshing = true;
@@ -138,8 +132,21 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
   }
 
   @Override
+  public final void setFilterTouchEvents(boolean filterEvents) {
+    mFilterTouchEvents = filterEvents;
+  }
+
+  @Override
   public final Mode getMode() {
     return mMode;
+  }
+
+  @Override
+  public final void setMode(Mode mode) {
+    if (mode != mMode) {
+      mMode = mode;
+      updateUIForMode();
+    }
   }
 
   @Override
@@ -150,6 +157,11 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
   @Override
   public final boolean getShowViewWhileRefreshing() {
     return mShowViewWhileRefreshing;
+  }
+
+  @Override
+  public final void setShowViewWhileRefreshing(boolean showView) {
+    mShowViewWhileRefreshing = showView;
   }
 
   @Override
@@ -171,8 +183,23 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
   }
 
   @Override
+  public final void setDisableScrollingWhileRefreshing(
+      boolean disableScrollingWhileRefreshing) {
+    mDisableScrollingWhileRefreshing = disableScrollingWhileRefreshing;
+  }
+
+  @Override
   public final boolean isPullToRefreshEnabled() {
     return mMode != Mode.DISABLED;
+  }
+
+  /**
+   * @param enable Whether Pull-To-Refresh should be used
+   * @deprecated This simple calls setMode with an appropriate mode based on
+   *             the passed value.
+   */
+  public final void setPullToRefreshEnabled(boolean enable) {
+    setMode(enable ? DEFAULT_MODE : Mode.DISABLED);
   }
 
   @Override
@@ -184,8 +211,20 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
   }
 
   @Override
+  public final void setPullToRefreshOverScrollEnabled(boolean enabled) {
+    mOverScrollEnabled = enabled;
+  }
+
+  @Override
   public final boolean isRefreshing() {
     return mState == State.REFRESHING || mState == State.MANUAL_REFRESHING;
+  }
+
+  @Override
+  public final void setRefreshing(boolean doScroll) {
+    if (!isRefreshing()) {
+      setState(State.MANUAL_REFRESHING, doScroll);
+    }
   }
 
   @Override
@@ -331,17 +370,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
   }
 
   @Override
-  public final void setDisableScrollingWhileRefreshing(
-      boolean disableScrollingWhileRefreshing) {
-    mDisableScrollingWhileRefreshing = disableScrollingWhileRefreshing;
-  }
-
-  @Override
-  public final void setFilterTouchEvents(boolean filterEvents) {
-    mFilterTouchEvents = filterEvents;
-  }
-
-  @Override
   public void setLastUpdatedLabel(CharSequence label) {
     setLastUpdatedLabel(label, true);
   }
@@ -383,14 +411,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
     getRefreshableView().setLongClickable(longClickable);
   }
 
-  @Override
-  public final void setMode(Mode mode) {
-    if (mode != mMode) {
-      mMode = mode;
-      updateUIForMode();
-    }
-  }
-
   public void setOnPullEventListener(OnPullEventListener<T> listener) {
     mOnPullEventListener = listener;
   }
@@ -422,30 +442,9 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
     }
   }
 
-  /**
-   * @param enable Whether Pull-To-Refresh should be used
-   * @deprecated This simple calls setMode with an appropriate mode based on
-   *             the passed value.
-   */
-  public final void setPullToRefreshEnabled(boolean enable) {
-    setMode(enable ? DEFAULT_MODE : Mode.DISABLED);
-  }
-
-  @Override
-  public final void setPullToRefreshOverScrollEnabled(boolean enabled) {
-    mOverScrollEnabled = enabled;
-  }
-
   @Override
   public final void setRefreshing() {
     setRefreshing(true);
-  }
-
-  @Override
-  public final void setRefreshing(boolean doScroll) {
-    if (!isRefreshing()) {
-      setState(State.MANUAL_REFRESHING, doScroll);
-    }
   }
 
   @Override
@@ -480,11 +479,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 
   public void setScrollAnimationInterpolator(Interpolator interpolator) {
     mScrollAnimationInterpolator = interpolator;
-  }
-
-  @Override
-  public final void setShowViewWhileRefreshing(boolean showView) {
-    mShowViewWhileRefreshing = showView;
   }
 
   /**
@@ -1156,6 +1150,13 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
      */
     BOTH(0x3);
 
+    private int mIntValue;
+
+    // The modeInt values need to match those from attrs.xml
+    Mode(int modeInt) {
+      mIntValue = modeInt;
+    }
+
     /**
      * Maps an int to a specific mode. This is needed when saving state, or
      * inflating the view from XML where the mode is given through a attr
@@ -1179,13 +1180,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
       }
     }
 
-    private int mIntValue;
-
-    // The modeInt values need to match those from attrs.xml
-    Mode(int modeInt) {
-      mIntValue = modeInt;
-    }
-
     /**
      * @return true if this mode permits Pulling Down from the top
      */
@@ -1206,6 +1200,74 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 
   }
 
+  public static enum State {
+
+    /**
+     * When the UI is in a state which means that user is not interacting
+     * with the Pull-to-Refresh function.
+     */
+    RESET(0x0),
+
+    /**
+     * When the UI is being pulled by the user, but has not been pulled far
+     * enough so that it refreshes when released.
+     */
+    PULL_TO_REFRESH(0x1),
+
+    /**
+     * When the UI is being pulled by the user, and <strong>has</strong>
+     * been pulled far enough so that it will refresh when released.
+     */
+    RELEASE_TO_REFRESH(0x2),
+
+    /**
+     * When the UI is currently refreshing, caused by a pull gesture.
+     */
+    REFRESHING(0x8),
+
+    /**
+     * When the UI is currently refreshing, caused by a call to
+     * {@link PullToRefreshBase#setRefreshing() setRefreshing()}.
+     */
+    MANUAL_REFRESHING(0x9);
+
+    private int mIntValue;
+
+    State(int intValue) {
+      mIntValue = intValue;
+    }
+
+    /**
+     * Maps an int to a specific state. This is needed when saving state.
+     *
+     * @param stateInt - int to map a State to
+     * @return State that stateInt maps to
+     */
+    public static State mapIntToValue(int stateInt) {
+      switch (stateInt) {
+        default:
+        case 0x0:
+          return RESET;
+        case 0x1:
+          return PULL_TO_REFRESH;
+        case 0x2:
+          return RELEASE_TO_REFRESH;
+        case 0x8:
+          return REFRESHING;
+        case 0x9:
+          return MANUAL_REFRESHING;
+      }
+    }
+
+    int getIntValue() {
+      return mIntValue;
+    }
+  }
+
+  // ===========================================================
+  // Inner and Anonymous Classes
+  // ===========================================================
+
   /**
    * Simple Listener that allows you to be notified when the user has scrolled
    * to the end of the AdapterView. See (
@@ -1219,10 +1281,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
     public void onLastItemVisible();
 
   }
-
-  // ===========================================================
-  // Inner and Anonymous Classes
-  // ===========================================================
 
   /**
    * Listener that allows you to be notified when the user has started or
@@ -1280,70 +1338,6 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
      */
     public void onPullUpToRefresh(final PullToRefreshBase<V> refreshView);
 
-  }
-
-  public static enum State {
-
-    /**
-     * When the UI is in a state which means that user is not interacting
-     * with the Pull-to-Refresh function.
-     */
-    RESET(0x0),
-
-    /**
-     * When the UI is being pulled by the user, but has not been pulled far
-     * enough so that it refreshes when released.
-     */
-    PULL_TO_REFRESH(0x1),
-
-    /**
-     * When the UI is being pulled by the user, and <strong>has</strong>
-     * been pulled far enough so that it will refresh when released.
-     */
-    RELEASE_TO_REFRESH(0x2),
-
-    /**
-     * When the UI is currently refreshing, caused by a pull gesture.
-     */
-    REFRESHING(0x8),
-
-    /**
-     * When the UI is currently refreshing, caused by a call to
-     * {@link PullToRefreshBase#setRefreshing() setRefreshing()}.
-     */
-    MANUAL_REFRESHING(0x9);
-
-    /**
-     * Maps an int to a specific state. This is needed when saving state.
-     *
-     * @param stateInt - int to map a State to
-     * @return State that stateInt maps to
-     */
-    public static State mapIntToValue(int stateInt) {
-      switch (stateInt) {
-        default:
-        case 0x0:
-          return RESET;
-        case 0x1:
-          return PULL_TO_REFRESH;
-        case 0x2:
-          return RELEASE_TO_REFRESH;
-        case 0x8:
-          return REFRESHING;
-        case 0x9:
-          return MANUAL_REFRESHING;
-      }
-    }
-
-    private int mIntValue;
-
-    State(int intValue) {
-      mIntValue = intValue;
-    }
-
-    int getIntValue() {
-      return mIntValue;
-    }
   }
 
   final class SmoothScrollRunnable implements Runnable {

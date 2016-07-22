@@ -9,8 +9,6 @@ import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.handmark.pulltorefresh.library.R;
-
 @SuppressWarnings("deprecation")
 public class RefreshableWebView extends PullToRefreshBase<WebView> {
 

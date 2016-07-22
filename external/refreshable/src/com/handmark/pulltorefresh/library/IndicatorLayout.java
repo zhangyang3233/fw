@@ -12,17 +12,13 @@ import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.handmark.pulltorefresh.library.R;
-
 @SuppressLint("ViewConstructor")
 public class IndicatorLayout extends FrameLayout implements AnimationListener {
 
   static final int DEFAULT_ROTATION_ANIMATION_DURATION = 150;
-
+  private final Animation mRotateAnimation, mResetRotateAnimation;
   private Animation mInAnim, mOutAnim;
   private ImageView mArrowImageView;
-
-  private final Animation mRotateAnimation, mResetRotateAnimation;
 
   public IndicatorLayout(Context context, PullToRefreshBase.Mode mode) {
     super(context);

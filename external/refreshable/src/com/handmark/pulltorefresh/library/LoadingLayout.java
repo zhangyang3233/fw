@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.R;
 
 @SuppressLint("ViewConstructor")
 public abstract class LoadingLayout extends LinearLayout {
@@ -29,12 +28,9 @@ public abstract class LoadingLayout extends LinearLayout {
 
   protected final ImageView mHeaderImage;
   protected final ProgressBar mHeaderProgress;
-
-  private boolean mUseIntrinisicAnimation;
-
   private final TextView mHeaderText;
   private final TextView mSubHeaderText;
-
+  private boolean mUseIntrinisicAnimation;
   private CharSequence mPullLabel;
   private CharSequence mRefreshingLabel;
   private CharSequence mReleaseLabel;

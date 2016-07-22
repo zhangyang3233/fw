@@ -34,7 +34,7 @@ public class RefreshableGridView extends PullToRefreshAdapterViewBase<HeaderGrid
 
   @Override
   public final HeaderGridView createRefreshableView(Context context,
-                                                       AttributeSet attrs) {
+      AttributeSet attrs) {
     final HeaderGridView gv;
     if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
       gv = new InternalGridViewSDK9(context, attrs);

@@ -33,7 +33,7 @@ public class RefreshableHeaderAndFooterGridView extends
 
   @Override
   public final HeaderAndFooterGridView createRefreshableView(Context context,
-                                                       AttributeSet attrs) {
+      AttributeSet attrs) {
     final HeaderAndFooterGridView gv;
     if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
       gv = new InternalGridViewSDK9GridView(context, attrs);
@@ -48,7 +48,9 @@ public class RefreshableHeaderAndFooterGridView extends
     return gv;
   }
 
-  class InternalGridViewGridView extends HeaderAndFooterGridView implements EmptyViewMethodAccessor {
+  class InternalGridViewGridView extends HeaderAndFooterGridView
+      implements
+        EmptyViewMethodAccessor {
 
     public InternalGridViewGridView(Context context, AttributeSet attrs) {
       super(context, attrs);

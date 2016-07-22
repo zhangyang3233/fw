@@ -8,8 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.handmark.pulltorefresh.library.R;
-
 public class RefreshableVerticalLinearLayout extends PullToRefreshBase<LinearLayout> {
 
   public RefreshableVerticalLinearLayout(Context context, AttributeSet attrs) {

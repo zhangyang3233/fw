@@ -48,8 +48,9 @@ public class RefreshableExpandableListView extends
     return lv;
   }
 
-  class InternalExpandableListView extends ExpandableListView implements
-      EmptyViewMethodAccessor {
+  class InternalExpandableListView extends ExpandableListView
+      implements
+        EmptyViewMethodAccessor {
 
     public InternalExpandableListView(Context context, AttributeSet attrs) {
       super(context, attrs);

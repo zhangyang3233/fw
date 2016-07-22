@@ -56,7 +56,7 @@ public final class OverscrollHelper {
    *          event, passed through from from overScrollBy call
    */
   public static void overScrollBy(final PullToRefreshBase<?> view, final int deltaY,
-                                  final int scrollY, final int scrollRange, final boolean isTouchEvent) {
+      final int scrollY, final int scrollRange, final boolean isTouchEvent) {
     overScrollBy(view, deltaY, scrollY, scrollRange, 0,
         DEFAULT_OVERSCROLL_SCALE, isTouchEvent);
   }

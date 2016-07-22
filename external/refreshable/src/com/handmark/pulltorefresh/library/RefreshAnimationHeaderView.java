@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -54,22 +53,26 @@ public class RefreshAnimationHeaderView extends View {
 
   // 移动动画
   private int mLocation = 0;
+  // 动画监听器
+  ValueAnimator.AnimatorUpdateListener updateReleaseListener =
+      new ValueAnimator.AnimatorUpdateListener() {
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+          if (mAnimationState == AnimationState.RELEASE) {
+            mLocation = (Integer) animation.getAnimatedValue();
+          }
+          postInvalidate();
+        }
+      };
   private float mLoopLocation = 0;
   private int mMaxLocation = DEFAULT_MAX_LOCATION;
   private int mStartAngle = DEFAULT_START_ANGLE;
-
   // 中心点
   private float mCenterX;
   private float mCenterY;
-
   // 两个圆球的颜色
   private int mRightBallColor = Color.argb(255, 37, 119, 229);
   private int mLeftBallColor = Color.argb(255, 242, 70, 154);
-
-  // 普通下拉，下拉释放，动画循环
-  enum AnimationState {
-    NORMAL, RELEASE, REFRESHING
-  }
 
   public RefreshAnimationHeaderView(Context context) {
     this(context, null);
@@ -280,18 +283,6 @@ public class RefreshAnimationHeaderView extends View {
     invalidate();
   }
 
-  // 动画监听器
-  ValueAnimator.AnimatorUpdateListener updateReleaseListener =
-      new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-          if (mAnimationState == AnimationState.RELEASE) {
-            mLocation = (Integer) animation.getAnimatedValue();
-          }
-          postInvalidate();
-        }
-      };
-
   // 重置状态，重新开始
   private void reset() {
     initAnimation();
@@ -316,5 +307,10 @@ public class RefreshAnimationHeaderView extends View {
       mAnimationState = AnimationState.REFRESHING;
       startRefreshingAnimation();
     }
+  }
+
+  // 普通下拉，下拉释放，动画循环
+  enum AnimationState {
+    NORMAL, RELEASE, REFRESHING
   }
 }

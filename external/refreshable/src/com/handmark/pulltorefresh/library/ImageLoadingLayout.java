@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.R;
-
 /**
  * 图片动画layout
  */
@@ -31,12 +29,9 @@ public abstract class ImageLoadingLayout extends
 
   protected final ImageView mHeaderImage;
   protected final ProgressBar mHeaderProgress;
-
-  private boolean mUseIntrinisicAnimation;
-
   private final TextView mHeaderText;
   private final TextView mSubHeaderText;
-
+  private boolean mUseIntrinisicAnimation;
   private CharSequence mPullLabel;
   private CharSequence mRefreshingLabel;
   private CharSequence mReleaseLabel;

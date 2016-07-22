@@ -9,8 +9,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 
 import java.util.HashMap;
 
-public class SoundPullEventListener<V extends View> implements
-    PullToRefreshBase.OnPullEventListener<V> {
+public class SoundPullEventListener<V extends View>
+    implements
+      PullToRefreshBase.OnPullEventListener<V> {
 
   private final Context mContext;
   private final HashMap<State, Integer> mSoundMap;

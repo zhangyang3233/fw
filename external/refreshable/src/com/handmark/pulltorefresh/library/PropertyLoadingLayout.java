@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.handmark.pulltorefresh.library.R;
-
 /**
  * 属性动画Layout
  */
@@ -20,12 +18,11 @@ import com.handmark.pulltorefresh.library.R;
 public abstract class PropertyLoadingLayout extends AbsPullToRefreshAnimationLayout {
 
   static final Interpolator ANIMATION_INTERPOLATOR = new LinearInterpolator();
-
+  protected final RefreshAnimationHeaderView mAnimationHeaderView;
   private boolean mUseIntrinisicAnimation;
 
-  protected final RefreshAnimationHeaderView mAnimationHeaderView;
-
-  public PropertyLoadingLayout(Context context, final PullToRefreshBase.Mode mode, TypedArray attrs) {
+  public PropertyLoadingLayout(Context context, final PullToRefreshBase.Mode mode,
+      TypedArray attrs) {
     super(context);
 
     setGravity(Gravity.CENTER_VERTICAL);

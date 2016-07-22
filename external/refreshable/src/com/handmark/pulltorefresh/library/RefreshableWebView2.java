@@ -15,7 +15,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <li>{@link RefreshableWebView} doesn't work correctly because you're using
  * <code>overflow:scroll</code> or something else which means {@link WebView#getScrollY()} doesn't
  * return correct values.</li>
- * <li>You control the web content being displayed, as you need to write some Javascript callbacks.</li>
+ * <li>You control the web content being displayed, as you need to write some Javascript callbacks.
+ * </li>
  * </ul>
  * <p />
  * 
@@ -43,22 +44,19 @@ public class RefreshableWebView2 extends RefreshableWebView {
   static final String JS_INTERFACE_PKG = "ptr";
   static final String DEF_JS_READY_PULL_DOWN_CALL = "javascript:isReadyForPullDown();";
   static final String DEF_JS_READY_PULL_UP_CALL = "javascript:isReadyForPullUp();";
+  private final AtomicBoolean mIsReadyForPullDown = new AtomicBoolean(false);
+  private final AtomicBoolean mIsReadyForPullUp = new AtomicBoolean(false);
+  private JsValueCallback mJsCallback;
 
   public RefreshableWebView2(Context context) {
     super(context);
   }
-
   public RefreshableWebView2(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
-
   public RefreshableWebView2(Context context, Mode mode) {
     super(context, mode);
   }
-
-  private JsValueCallback mJsCallback;
-  private final AtomicBoolean mIsReadyForPullDown = new AtomicBoolean(false);
-  private final AtomicBoolean mIsReadyForPullUp = new AtomicBoolean(false);
 
   @Override
   protected WebView createRefreshableView(Context context, AttributeSet attrs) {

@@ -9,15 +9,8 @@ import android.os.Build.VERSION_CODES;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
-import android.widget.ScrollView;
 
 /**
  * Description:
@@ -58,13 +51,13 @@ public class RefreshableRecyclerView extends PullToRefreshBase<RecyclerView> {
 
   @Override
   protected boolean isReadyForPullDown() {
-      LinearLayoutManager linearLayoutManager =
-              (LinearLayoutManager) mRefreshableView.getLayoutManager();
-      if(linearLayoutManager != null){
-          return linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0;
-      }else {
-          return false;
-      }
+    LinearLayoutManager linearLayoutManager =
+        (LinearLayoutManager) mRefreshableView.getLayoutManager();
+    if (linearLayoutManager != null) {
+      return linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0;
+    } else {
+      return false;
+    }
   }
 
   @Override

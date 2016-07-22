@@ -8,8 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
-import com.handmark.pulltorefresh.library.R;
-
 public class RefreshableScrollView extends PullToRefreshBase<ScrollView> {
 
   public RefreshableScrollView(Context context, AttributeSet attrs) {

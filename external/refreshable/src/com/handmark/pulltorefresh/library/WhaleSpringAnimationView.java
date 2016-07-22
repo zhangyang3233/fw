@@ -52,10 +52,6 @@ public class WhaleSpringAnimationView extends View {
   private ValueAnimator valueRefreshAnimator = null;
 
 
-  enum AnimationState {
-    NORMAL, RELEASE, REFRESHING
-  }
-
   public WhaleSpringAnimationView(Context context) {
     this(context, null);
   }
@@ -168,7 +164,6 @@ public class WhaleSpringAnimationView extends View {
 
   }
 
-
   private void drawRelease(Canvas canvas) {}
 
   private void drawRefresh(Canvas canvas, float loopLocation) {
@@ -197,5 +192,9 @@ public class WhaleSpringAnimationView extends View {
   public void setPullY(float pullY) {
     mPullY = Math.min(pullY, 150);
     invalidate();
+  }
+
+  enum AnimationState {
+    NORMAL, RELEASE, REFRESHING
   }
 }

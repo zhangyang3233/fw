@@ -10,7 +10,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView.ScaleType;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.R;
 
 @SuppressLint("ViewConstructor")
 public class RotateLoadingLayout extends ImageLoadingLayout {
