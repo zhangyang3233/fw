@@ -1,8 +1,7 @@
-package com.fw.zycoder.demos.base;
+package com.fw.zycoder.myapplication;
 
 import android.app.Application;
 
-import com.fw.zycoder.demos.BuildConfig;
 import com.fw.zycoder.errorpage.CustomActivityOnCrash;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
@@ -20,7 +19,7 @@ public class BaseApplication extends Application {
     initLeakCanary();
     initErrorPage();
     initGlobalConfig();
-    initLog();
+//    initLog();
     Log.i("time:"+(System.currentTimeMillis() - t1));
   }
 
@@ -32,9 +31,9 @@ public class BaseApplication extends Application {
   /**
    * 初始化log类
    */
-  private void initLog() {
-    Log.setIsPrintLog(BuildConfig.IS_SHOW_LOG);
-  }
+//  private void initLog() {
+//    Log.setIsPrintLog(BuildConfig.IS_SHOW_LOG);
+//  }
 
   /**
    * 初始化全局变量

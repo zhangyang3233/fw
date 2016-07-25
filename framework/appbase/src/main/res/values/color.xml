@@ -10,4 +10,5 @@
     <color name="appbase_loading_view_background">#30000000</color>
     <color name="appbase_upgrade_gray">#333333</color>
     <color name="appbase_app_background_color">#ffefefef</color>
+    <color name="splash_gb_color">#ffcccc</color>
 </resources>

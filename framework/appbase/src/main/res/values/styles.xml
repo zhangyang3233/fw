@@ -19,8 +19,8 @@
     <style name="Animation.Activity" parent="@android:style/Animation.Translucent">
         <item name="android:activityOpenEnterAnimation">@anim/activity_slide_in_from_right</item>
         <item name="android:activityCloseExitAnimation">@anim/activity_slide_out_to_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_slide_out_to_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/activity_slide_in_from_left</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
     </style>
 
     <style name="Animation.Activity.SlidingBack" parent="@style/Animation.Activity">

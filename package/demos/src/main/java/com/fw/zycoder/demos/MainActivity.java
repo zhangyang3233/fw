@@ -1,5 +1,7 @@
 package com.fw.zycoder.demos;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,11 @@ import com.fw.zycoder.demos.config.Consts;
 
 public class MainActivity extends DemoActivity {
   private boolean mCanFlingBack;
+
+  public static void luanch(Context context){
+    Intent i = new Intent(context, MainActivity.class);
+    context.startActivity(i);
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {

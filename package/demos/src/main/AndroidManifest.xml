@@ -8,12 +8,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.Detail">
+        android:theme="@style/AppTheme.Main">
 
         <!-- main for demo list -->
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoAnimation">
+            android:theme="@style/AppTheme.Main"></activity>
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.SplashPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,7 +27,8 @@
         <!-- demos -->
         <activity
             android:name=".demos.customToast.ToastTestActivity"
-            android:label="视图/toast">
+            android:label="视图/toast"
+            android:theme="@style/AppTheme.Detail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="activity_category" />
@@ -31,7 +36,8 @@
         </activity>
         <activity
             android:name=".demos.dialog.DialogActivity"
-            android:label="视图/dialog">
+            android:label="视图/dialog"
+            android:theme="@style/AppTheme.Detail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="activity_category" />
@@ -39,7 +45,17 @@
         </activity>
         <activity
             android:name=".demos.guagua.ScartchOutActivity"
-            android:label="视图/刮刮卡">
+            android:label="视图/刮刮卡"
+            android:theme="@style/AppTheme.Detail">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="activity_category" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".demos.recyclerview.RecyclerViewActivity"
+            android:label="视图/RecyclerView探究"
+            android:theme="@style/AppTheme.Detail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="activity_category" />
