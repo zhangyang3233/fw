@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextImageView">
+        <attr name="src" format="color|reference"/>
+        <attr name="drawable_width" format="dimension|reference"/>
+        <attr name="drawable_height" format="dimension|reference"/>
+        <attr name="text" format="string"/>
+        <attr name="paddingBetween" format="reference|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="BottomView">
+        <attr name="bottom_text" format="string"/>
+        <attr name="bottom_src" format="color|reference"/>
+        <attr name="bottom_paddingBetween" format="reference|dimension"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:top="http://schemas.android.com/apk/res-auto">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ll_top_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:src="@drawable/classic_bg_top"/>-->
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/classic_bg_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <vip.help.gbb.widget.BottomView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            top:bottom_paddingBetween="3dp"
+            top:bottom_src="@drawable/classic_selector_tab5"
+            top:bottom_text="@string/classic_tab1"/>
+
+        <vip.help.gbb.widget.BottomView
+            android:id="@+id/smartlife_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            top:bottom_paddingBetween="3dp"
+            top:bottom_src="@drawable/classic_selector_tab5"
+            top:bottom_text="@string/classic_tab2"/>
+
+        <!--<android.support.v4.widget.Space-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_weight="1"/>-->
+
+        <vip.help.gbb.widget.BottomView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            top:bottom_paddingBetween="3dp"
+            top:bottom_src="@drawable/classic_selector_tab5"
+            top:bottom_text="@string/classic_tab3"/>
+
+        <vip.help.gbb.widget.BottomView
+            android:id="@+id/mine_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            top:bottom_paddingBetween="3dp"
+            top:bottom_src="@drawable/classic_selector_tab5"
+            top:bottom_text="@string/classic_tab4"/>
+
+    </LinearLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_center_tab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:src="@drawable/classic_icon_tab3_n"/>-->
+    <!--</RelativeLayout>-->
+
+</merge>
+

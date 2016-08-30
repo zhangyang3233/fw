@@ -1,0 +1,131 @@
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24"
+    defaultConfig {
+        // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为true
+        buildConfigField "boolean", "IS_SHOW_LOG", "true"
+        // 应用的包名
+        applicationId "vip.help.gbb"
+        // 支持的最小的 Android 版本
+        minSdkVersion 16
+        targetSdkVersion 24
+        // 程序内部版本号
+        versionCode 1
+        // 对外版本名称
+        versionName "1.0"
+        // dex突破65535的限制
+        multiDexEnabled true
+        // 默认是self的渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "self"]
+    }
+
+    // 签名配置
+    signingConfigs {
+        // 配置的名字(可以自己定义)
+        debugAndRelease {
+            keyAlias 'zhangyang'
+            keyPassword 'zhangyang'
+            storeFile file('zy.jks')
+            storePassword 'zhangyang'
+        }
+    }
+
+    buildTypes { // 构建类型,一般有release 和 debug. 有些公司会用 release 和 dev,不过都是一个意思
+        release {
+            // 签名配置, 这里引用 debugAndRelease
+            signingConfig signingConfigs.debugAndRelease
+            // 支持混淆
+            minifyEnabled true
+            // 混淆文件的位置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 是否可以debug
+            debuggable false
+            // 是否可以debug jni
+            jniDebuggable false
+            // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
+            buildConfigField "boolean", "IS_SHOW_LOG", "false"
+            // 版本名称后缀
+            versionNameSuffix "-release"
+            // 使用zipAlign优化压缩包
+            zipAlignEnabled true
+            // 去除没有用到的资源文件
+            shrinkResources true
+            // 重命名 apk
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // 输出apk名称为demolist_v1.0_2015-01-15_wandoujia.apk
+//                        def fileName = "demolist_${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
+        }
+
+        debug {
+            // debug也用release版本的签名,因为有时候调用微信支付宝什么要用
+            signingConfig signingConfigs.debugAndRelease
+            // debug 版本就不用支持混淆了
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled false
+            shrinkResources false
+        }
+    }
+
+    // 多渠道打包
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    // 移除lint检查的error
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    // 构建变体
+    productFlavors {
+        personal {}
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.contains('AndroidTest')) {
+        task.enabled = false
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:24.0.0-beta1'
+    compile project(':external:image:imageblur')
+    compile project(':external:image:circleimageview')
+    compile project(':external:utils')
+    compile project(':external:errorpage')
+    compile project(':external:sliding')
+    compile project(':external:customtoast')
+    compile project(':framework:http')
+    compile project(':framework:appbase')
+    compile project(':external:dialoghelper')
+    compile 'io.reactivex:rxjava:1.0.9'
+    compile 'io.reactivex:rxandroid:0.24.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+}
+
+
+
+
+

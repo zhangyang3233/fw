@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/id_drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="53dp"/>
+
+        <include
+            android:id="@+id/bottom_bar"
+            layout="@layout/classic_activity_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/city_list_menu_view"
+        layout="@layout/city_list_menu_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_marginRight="30dp"/>
+</android.support.v4.widget.DrawerLayout>
