@@ -14,9 +14,6 @@ import com.fw.zycoder.utils.ViewUtils;
 import vip.help.gbb.R;
 
 
-/**
- * Created by yangnaochun on 16/7/14.
- */
 public class BottomView extends RelativeLayout {
 
   private TextView title;

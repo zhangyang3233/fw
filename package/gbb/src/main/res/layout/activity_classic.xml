@@ -31,7 +31,7 @@
 
     <include
         android:id="@+id/city_list_menu_view"
-        layout="@layout/city_list_menu_view"
+        layout="@layout/slide_side_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

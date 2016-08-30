@@ -1,16 +1,15 @@
-package vip.help.gbb.host.fragment;
+package vip.help.gbb;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.fw.zycoder.appbase.fragment.BaseFragment;
 
-import vip.help.gbb.R;
-
 /**
- * Created by zhangyang131 on 16/8/30.
+ * Created by zhangyang131 on 16/7/22.
  */
-public class Tab3Fragment extends BaseFragment {
+public class SplashFragment extends BaseFragment{
+
     @Override
     protected void onInflated(View contentView, Bundle savedInstanceState) {
 
@@ -18,6 +17,6 @@ public class Tab3Fragment extends BaseFragment {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_tab3;
+        return R.layout.fragment_splash_layout;
     }
 }

@@ -12,9 +12,6 @@ import com.fw.zycoder.utils.ViewUtils;
 
 import vip.help.gbb.R;
 
-/**
- * @author zhangyuwen 2016-04-09
- */
 public class BottomBar extends RelativeLayout {
   private LinearLayout mBottomBar;
 //  private ImageView mCenterTab;

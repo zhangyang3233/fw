@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-/**
- * Created by zhangyang131 on 16/8/30.
- */
 public class NetImageView extends ImageView {
 
     public NetImageView(Context context) {

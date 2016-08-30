@@ -15,9 +15,6 @@ import com.fw.zycoder.utils.ViewUtils;
 
 import vip.help.gbb.R;
 
-/**
- * @author zhangyuwen 2016-03-13
- */
 public class TopImageView extends FrameLayout {
   private LinearLayout mContent;
   private NetImageView mImageView;
