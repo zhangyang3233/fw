@@ -59,7 +59,6 @@ public class BottomView extends RelativeLayout {
     title = (TextView) findViewById(R.id.bottom_text);
     dotImg = (ImageView) findViewById(R.id.bottom_img);
     imageView = (ImageView) findViewById(R.id.top_img);
-
     imageView.setImageResource(mDrawable);
     title.setText(mTitle);
 

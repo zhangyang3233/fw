@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <com.fw.zycoder.circleimageview.RoundedCornerImageView
+        <vip.help.gbb.widget.RoundImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/ic_launcher"
