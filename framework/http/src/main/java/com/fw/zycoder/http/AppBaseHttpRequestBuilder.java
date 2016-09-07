@@ -20,7 +20,7 @@ public abstract class AppBaseHttpRequestBuilder<T> extends GsonRequestBuilder<T>
     /**
      * 使用内建 map 构建 json 字符串参数
      *
-     * @param key
+     *  @param key
      * @param value
      */
     protected void jsonParamsPut(String key, Object value) {

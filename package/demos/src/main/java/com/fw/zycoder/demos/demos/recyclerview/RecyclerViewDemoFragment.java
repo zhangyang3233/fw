@@ -27,7 +27,7 @@ public class RecyclerViewDemoFragment extends BaseFragment {
     mRecyclerView = (RecyclerView) mContentView.findViewById(R.id.recyclerView);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
-    mRecyclerView.addItemDecoration(new MyItemDecoration());
+    mRecyclerView.addItemDecoration(new MyItemDecoration(getActivity()));
   }
 
   @Override

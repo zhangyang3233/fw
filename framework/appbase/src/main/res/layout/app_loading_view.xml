@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fw.zycoder.appbase.view.AppLoadingView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/appbase_loading_view_background"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:visibility="gone">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@mipmap/page_loading_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dip">
 
-    <LinearLayout
-        android:id="@+id/loading_layout"
+    <include layout="@layout/whale_spring_loading_view" />
+
+    <TextView
+        android:id="@+id/loading_text"
+        style="@style/BlackShadowTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@mipmap/page_loading_background"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dip">
-
-        <include layout="@layout/whale_spring_loading_view" />
-
-        <TextView
-            android:id="@+id/loading_text"
-            style="@style/BlackShadowTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dip"
-            android:paddingTop="5dip"
-            android:singleLine="true"
-            android:text="@string/base_default_loading"
-            android:textColor="@android:color/white"
-            android:textSize="13sp" />
-    </LinearLayout>
-
-</com.fw.zycoder.appbase.view.AppLoadingView>
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip"
+        android:singleLine="true"
+        android:text="@string/base_default_loading"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
+</LinearLayout>

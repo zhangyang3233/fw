@@ -14,7 +14,7 @@ android {
         // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为true
         buildConfigField "boolean", "IS_SHOW_LOG", "true"
         // 应用的包名
-        applicationId "com.fw.zycoder.demos"
+        applicationId "com.hongyu.reward"
         // 支持的最小的 Android 版本
         minSdkVersion 16
         targetSdkVersion 23
@@ -127,7 +127,3 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }
-
-
-
-

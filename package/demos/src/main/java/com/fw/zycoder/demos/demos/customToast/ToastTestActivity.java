@@ -17,8 +17,6 @@ public class ToastTestActivity extends DemoActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_custom_toast);
-
     final ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowTitleEnabled(false);
     actionBar.setDisplayShowHomeEnabled(false);

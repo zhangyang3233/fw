@@ -2,49 +2,41 @@ package com.fw.zycoder.appbase.activity;
 
 import android.os.Bundle;
 
-import com.fw.zycoder.appbase.view.AppLoadingView;
+import com.fw.zycoder.appbase.widget.AppLoadingView;
 
 /**
  *
  * @author zhangyang
  */
 public abstract class BaseAsyncActivity extends BaseTitleActivity {
-
-    private AppLoadingView mLoadingView;
+    private AppLoadingView appLoadingView;
 
     @Override
     protected void onCreate(Bundle onSaveInstanceState) {
         super.onCreate(onSaveInstanceState);
-        mLoadingView =
-                AppLoadingView.newInstanceOnDecorView((android.view.ViewGroup) getWindow()
-                        .getDecorView());
-        mLoadingView.setCancelable(true);
+        initAppLoadingView();
+    }
+
+    private void initAppLoadingView() {
+        appLoadingView = new AppLoadingView(this);
     }
 
 
     public void setCancelable(boolean cancelable) {
-        if (mLoadingView != null) {
-            mLoadingView.setCancelable(cancelable);
-        }
+        appLoadingView.setCancelable(cancelable);
     }
 
 
     public void showLoadingView() {
-        if (mLoadingView != null && !mLoadingView.isShown()) {
-            mLoadingView.show();
-        }
+        appLoadingView.show();
     }
 
     public void showLoadingView(String content) {
-        if (mLoadingView != null && !mLoadingView.isShown()) {
-            mLoadingView.show(content);
-        }
+        appLoadingView.setLoadingText(content);
     }
 
     public void dissmissLoadingView() {
-        if (mLoadingView != null && mLoadingView.isShown()) {
-            mLoadingView.dismiss();
-        }
+        appLoadingView.dismiss();
     }
 
 }
