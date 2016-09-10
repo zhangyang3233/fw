@@ -33,7 +33,7 @@ import java.util.Set;
 public abstract class GsonRequestBuilder<T> implements VolleyRequestBuilder {
 
   private static final String TAG = "VOLLEY_REQUEST_TAG";
-  private int mMethod = Request.Method.GET;
+  private int mMethod = Request.Method.POST;
   private Interceptor<T> mInterceptor;
   private DataCallback<T> mCallback;
   private Map<String, String> extraHeaders;
@@ -42,7 +42,7 @@ public abstract class GsonRequestBuilder<T> implements VolleyRequestBuilder {
   private boolean isNeedFakeHeader = true;
   private long cacheTime = 0;
   private boolean needInvalidateCache = false;
-  private boolean needToastError = true;
+  private boolean needToastError = false;
   private String requestUrl = null;
 
   /**

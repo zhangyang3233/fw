@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
  * @author zhangyang
  */
 public abstract class BaseFragment extends Fragment {
-
+  public static final int GUIDE_VERSION = 1;
   protected View mContentView;
   protected boolean mIsInflated;
 

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_bg_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View style="@style/divider_theme_gray" />
+
+        <View
+            style="@style/divider_theme_gray"
+            android:layout_marginTop="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="手机号"
+                android:textColor="@color/text_gray_dark"
+                android:textSize="@dimen/text_h2" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/login_phone_hint"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColor="@color/text_gray_dark"
+                android:textColorHint="@color/text_gray_lightest"
+                android:textSize="@dimen/text_h2" />
+        </LinearLayout>
+
+        <View style="@style/divider_theme_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="密码"
+                android:textColor="@color/text_gray_dark"
+                android:textSize="@dimen/text_h2" />
+
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/login_pwd_hint"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:textColor="@color/text_gray_dark"
+                android:textColorHint="@color/text_gray_lightest"
+                android:textSize="@dimen/text_h2" />
+        </LinearLayout>
+
+        <View style="@style/divider_theme_gray" />
+
+        <Button
+            android:id="@+id/login"
+            style="@style/App.Comm.Button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:text="登录" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/forgetpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:clickable="true"
+            android:text="@string/login_pwd_forget" />
+    </RelativeLayout>
+</LinearLayout>

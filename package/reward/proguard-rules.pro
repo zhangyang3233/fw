@@ -252,3 +252,5 @@
 -keep class com.squareup.okhttp.** { *; }
 -keep interface com.squareup.okhttp.** { *; }
 -dontwarn com.squareup.okhttp.**
+-keep class com.hongyu.reward.model.**{*;}
+-keepclassmembers class com.hongyu.reward.model.** { public * ;protected * ; private *;}

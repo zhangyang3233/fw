@@ -1,5 +1,7 @@
 package com.fw.zycoder.http.request;
 
+import android.util.Log;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
@@ -36,6 +38,7 @@ public class GsonRequest<T> extends ApiRequest<T> {
   protected T parseResponse(NetworkResponse response) throws IOException {
     String jsonString =
         new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+    Log.w("json", jsonString);
     return GsonUtils.getGson().fromJson(jsonString, responseClass);
   }
 }

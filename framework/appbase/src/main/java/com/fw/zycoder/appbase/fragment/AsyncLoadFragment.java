@@ -13,134 +13,135 @@ import com.fw.zycoder.appbase.activity.BaseAsyncActivity;
  * @author zhangyang
  */
 public abstract class AsyncLoadFragment extends BaseFragment {
-    private boolean allowLoading = true;
-    private boolean pendingToLoad = false;
+  private boolean allowLoading = true;
+  private boolean pendingToLoad = false;
 
-    @Override
-    public final void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (!needToLoadData()) {
-            return;
-        }
-        onPrepareLoading();
-        // We need to post it to make sure scroll state of ViewPager is changed before requestLoad,
-        // so we can check the param allowLoading
-        mContentView.post(new Runnable() {
-            @Override
-            public void run() {
-                // Because we post this, so we need to check if this fragment is not attached
-                if (!isAdded()) {
-                    return;
-                }
-                if (allowLoading) {
-                    onStartLoading();
-                } else {
-                    pendingToLoad = true;
-                }
-            }
-        });
+  @Override
+  public final void onActivityCreated(Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    if (!needToLoadData()) {
+      return;
     }
-
-    /**
-     * Called before loading, subclass should override this if sometimes it needn't to load
-     * data. For example, if the network is disconnected and you need network to load data,
-     * then you should show network disconnect tip here and return false.
-     *
-     * @return true if need to load, false otherwise
-     */
-    protected boolean needToLoadData() {
-        return mIsInflated;
-    }
-
-    /**
-     * Called before loading, you should show loading tips here.
-     * <p>
-     * <b>Do not launch to load data here.</b>
-     * </p>
-     */
-    protected void onPrepareLoading() {}
-
-    /**
-     * Called after onPrepareLoading, you should do actual loading here, like starting the fetcher.
-     */
-    protected abstract void onStartLoading();
-
-    /**
-     * This will request loading data, and needToLoadData will not being checked.
-     * Normally you don't need to call this, unless you need to manually refresh your UI.
-     */
-    protected final void requestLoad() {
-        if (!needToLoadData()) {
-            return;
+    onPrepareLoading();
+    // We need to post it to make sure scroll state of ViewPager is changed before requestLoad,
+    // so we can check the param allowLoading
+    mContentView.post(new Runnable() {
+      @Override
+      public void run() {
+        // Because we post this, so we need to check if this fragment is not attached
+        if (!isAdded()) {
+          return;
         }
-        onPrepareLoading();
         if (allowLoading) {
-            onStartLoading();
+          onStartLoading();
         } else {
-            pendingToLoad = true;
+          pendingToLoad = true;
         }
-    }
+      }
+    });
+  }
 
-    /**
-     * This is used to notify the fragment that if it should load data.
-     *
-     * @param allowLoading whether the fragment should launch loading
-     */
-    public final void setAllowLoading(boolean allowLoading) {
-        this.allowLoading = allowLoading;
-        if (allowLoading && pendingToLoad) {
-            pendingToLoad = false;
-            requestLoad();
-        }
-    }
+  /**
+   * Called before loading, subclass should override this if sometimes it needn't to load
+   * data. For example, if the network is disconnected and you need network to load data,
+   * then you should show network disconnect tip here and return false.
+   *
+   * @return true if need to load, false otherwise
+   */
+  protected boolean needToLoadData() {
+    return mIsInflated;
+  }
 
-    /**
-     * get is allow load data
-     * @return
-     */
-    public final boolean isAllowLoading() {
-        return allowLoading;
-    }
+  /**
+   * Called before loading, you should show loading tips here.
+   * <p>
+   * <b>Do not launch to load data here.</b>
+   * </p>
+   */
+  protected void onPrepareLoading() {}
 
-    /**
-     * show default loading view
-     */
-    public void showLoadingView() {
-        if (getActivity() instanceof BaseAsyncActivity) {
-            ((BaseAsyncActivity) getActivity()).showLoadingView();
-        }
-    }
+  /**
+   * Called after onPrepareLoading, you should do actual loading here, like starting the fetcher.
+   */
+  protected abstract void onStartLoading();
 
-    /**
-     * show loading view with user define text
-     *
-     * @param loadingPrompt if is empty or null, will hide loading text view
-     */
-    public void showLoadingView(String loadingPrompt) {
-        if (getActivity() instanceof BaseAsyncActivity) {
-            ((BaseAsyncActivity) getActivity()).showLoadingView(loadingPrompt);
-        }
+  /**
+   * This will request loading data, and needToLoadData will not being checked.
+   * Normally you don't need to call this, unless you need to manually refresh your UI.
+   */
+  protected final void requestLoad() {
+    if (!needToLoadData()) {
+      return;
     }
+    onPrepareLoading();
+    if (allowLoading) {
+      onStartLoading();
+    } else {
+      pendingToLoad = true;
+    }
+  }
 
-    /**
-     * dismiss default loading view
-     */
-    public void dismissLoadingView() {
-        if (getActivity() instanceof BaseAsyncActivity) {
-            ((BaseAsyncActivity) getActivity()).dissmissLoadingView();
-        }
+  /**
+   * This is used to notify the fragment that if it should load data.
+   *
+   * @param allowLoading whether the fragment should launch loading
+   */
+  public final void setAllowLoading(boolean allowLoading) {
+    this.allowLoading = allowLoading;
+    if (allowLoading && pendingToLoad) {
+      pendingToLoad = false;
+      requestLoad();
     }
+  }
 
-    public void setLoadingViewCancelable(boolean cancelable) {
-        Activity activity = getActivity();
-        if (activity != null && activity instanceof BaseAsyncActivity) {
-            ((BaseAsyncActivity) activity).setCancelable(cancelable);
-        }
-    }
+  /**
+   * get is allow load data
+   * 
+   * @return
+   */
+  public final boolean isAllowLoading() {
+    return allowLoading;
+  }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        dismissLoadingView();
+  /**
+   * show default loading view
+   */
+  public void showLoadingView() {
+    if (getActivity() instanceof BaseAsyncActivity) {
+      ((BaseAsyncActivity) getActivity()).showLoadingView();
     }
+  }
+
+  /**
+   * show loading view with user define text
+   *
+   * @param loadingPrompt if is empty or null, will hide loading text view
+   */
+  public void showLoadingView(String loadingPrompt) {
+    if (getActivity() != null && getActivity() instanceof BaseAsyncActivity) {
+      ((BaseAsyncActivity) getActivity()).showLoadingView(loadingPrompt);
+    }
+  }
+
+  /**
+   * dismiss default loading view
+   */
+  public void dismissLoadingView() {
+    if (getActivity() != null && getActivity() instanceof BaseAsyncActivity) {
+      ((BaseAsyncActivity) getActivity()).dissmissLoadingView();
+    }
+  }
+
+  public void setLoadingViewCancelable(boolean cancelable) {
+    Activity activity = getActivity();
+    if (activity != null && activity instanceof BaseAsyncActivity) {
+      ((BaseAsyncActivity) activity).setCancelable(cancelable);
+    }
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    dismissLoadingView();
+  }
 }

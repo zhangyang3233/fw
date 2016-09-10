@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 
 import com.fw.zycoder.appbase.R;
+import com.fw.zycoder.appbase.fragment.BaseFragment;
 import com.zycoder.sliding.SlidingHelper;
 import com.zycoder.sliding.component.SlideActivity;
 
@@ -15,6 +17,7 @@ import com.zycoder.sliding.component.SlideActivity;
  */
 public class BaseSlideActivity extends AppCompatActivity implements SlideActivity {
   private boolean mIsDestroyed = false;
+  protected BaseFragment mFragment;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     SlidingHelper.onNewIntent(this);
+    if (this.mFragment != null) {
+      this.mFragment.onNewIntent(intent);
+    }
   }
 
   public boolean isDestroyed() {
@@ -100,6 +106,12 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     if (!isDestroyed()) {
       transaction.commitAllowingStateLoss();
     }
+  }
+
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    return this.mFragment != null && this.mFragment.onKeyDown(keyCode, event)
+        ? true
+        : super.onKeyDown(keyCode, event);
   }
 
 }

@@ -2,4 +2,45 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="text_size_big">32dp</dimen>
+    <dimen name="h_big">36dp</dimen>
+    <!-- h1用于上导航文字 -->
+    <dimen name="h1">20sp</dimen>
+    <!-- h2用于按钮文字 -->
+    <dimen name="h2">18sp</dimen>
+    <!-- h3主要用于栏目标题 -->
+    <dimen name="h3">16sp</dimen>
+    <!-- h4主要用于副标题 -->
+    <dimen name="h4">14sp</dimen>
+    <!-- h5主要用于正文 -->
+    <dimen name="h5">13sp</dimen>
+    <!-- h6用于提示信息 -->
+    <dimen name="h6">12sp</dimen>
+    <!-- h7用于提示小信息 -->
+    <dimen name="h7">11sp</dimen>
+    <dimen name="h7_1">10sp</dimen>
+    <dimen name="h8">9sp</dimen>
+
+    <dimen name="navbar_height">48dp</dimen>
+    <dimen name="actionbar_height">44dp</dimen>
+    <dimen name="action_bar_text_size">14dp</dimen>
+    <dimen name="switch_width">45dp</dimen>
+    <dimen name="switch_height">27dp</dimen>
+    <dimen name="menu_text">16dp</dimen>
+    <dimen name="bottombar_height">76dp</dimen>
+    <dimen name="welcome_padding">32dp</dimen>
+    <dimen name="icon_more_arrow_height">18dp</dimen>
+    <dimen name="icon_more_arrow_width">10dp</dimen>
+    <dimen name="red_envelop_date">10sp</dimen>
+
+    <!-- 字体尺寸定义 -->
+    <dimen name="nav_bar_text_size">20dp</dimen>
+    <dimen name="text_h0">20dp</dimen>
+    <dimen name="text_h1">18dp</dimen>
+    <dimen name="text_h2">16dp</dimen>
+    <dimen name="text_h3">14dp</dimen>
+    <dimen name="text_h4">12dp</dimen>
+    <dimen name="text_h5">10dp</dimen>
+    <dimen name="text_h6">8dp</dimen>
 </resources>

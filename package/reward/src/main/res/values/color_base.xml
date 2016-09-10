@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appbase_theme_blue">#37c7fd</color>
+    <color name="appbase_theme_gray">#E1E2E3</color>
+    <color name="appbase_theme_gray_dark">#cccccc</color>
+    <color name="appbase_dark_blue">#0F82C4</color>
+    <color name="appbase_common_blue_title_color">#0F82C4</color>
+
+    <color name="appbase_default_background">#ffeaeaea</color>
+    <color name="appbase_loading_view_background">#30000000</color>
+    <color name="appbase_upgrade_gray">#333333</color>
+    <color name="appbase_app_background_color">#ffefefef</color>
+    <color name="splash_gb_color">#ffcccc</color>
+</resources>

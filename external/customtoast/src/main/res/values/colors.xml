@@ -4,4 +4,8 @@
     <color name="white">#FFFFFF</color>
     <color name="dark_gray">#333333</color>
     <color name="light_gray">#AFFFFFFF</color>
+    <color name="orange">#FFF49410</color>
+    <color name="stroke">#FF744400</color>
+
+
 </resources>
