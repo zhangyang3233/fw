@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.main.fragment;
+package com.hongyu.reward.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

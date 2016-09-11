@@ -20,7 +20,7 @@ import com.hongyu.reward.request.GetTokenRequestBuilder;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.request.SetPwdRequestBuilder;
-import com.hongyu.reward.ui.welcome.WelcomeFragment;
+import com.hongyu.reward.ui.fragment.WelcomeFragment;
 import com.hongyu.reward.utils.T;
 
 

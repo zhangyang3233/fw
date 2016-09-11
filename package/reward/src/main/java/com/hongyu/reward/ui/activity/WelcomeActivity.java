@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.welcome;
+package com.hongyu.reward.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseFragment;
 import com.hongyu.reward.appbase.BaseSlideActivity;
+import com.hongyu.reward.ui.fragment.WelcomeFragment;
 
 
 /**

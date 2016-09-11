@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.login;
+package com.hongyu.reward.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +11,7 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.request.CommonCallback;
+import com.hongyu.reward.ui.activity.RePwdAuthActivity;
 import com.hongyu.reward.utils.InputUtil;
 import com.hongyu.reward.utils.T;
 

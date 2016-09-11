@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.login;
+package com.hongyu.reward.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,20 +12,20 @@ import com.fw.zycoder.utils.PhoneNumberUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.manager.AccountManager;
-import com.hongyu.reward.request.CommonCallback;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
-import com.hongyu.reward.utils.InputUtil;
+import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.utils.T;
 
 /**
  * Created by zhangyang131 on 16/9/10.
  */
-public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickListener {
-  public static final String TIME = "time";
-  public static final String MAX = "60";
+public class RegisterFragment extends BaseLoadFragment implements View.OnClickListener {
+  public static final int max_second = 60;
   private EditText mPhone;
+  private EditText mPwd;
+  private EditText mRepwd;
   private EditText mCode;
-  private Button mBtnNext;
+  private Button mBtnRegister;
   private TextView mBtnGetCode;
 
   @Override
@@ -36,22 +36,25 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
   private void initView() {
     mPhone = (EditText) mContentView.findViewById(R.id.phone);
     mCode = (EditText) mContentView.findViewById(R.id.code);
+    mPwd = (EditText) mContentView.findViewById(R.id.pwd);
+    mRepwd = (EditText) mContentView.findViewById(R.id.repwd);
     mBtnGetCode = (TextView) mContentView.findViewById(R.id.get_code);
-    mBtnNext = (Button) mContentView.findViewById(R.id.next);
-    mBtnNext.setOnClickListener(this);
+
+    mBtnRegister = (Button) mContentView.findViewById(R.id.register);
+    mBtnRegister.setOnClickListener(this);
     mBtnGetCode.setOnClickListener(this);
   }
 
   @Override
   protected int getLayoutResId() {
-    return R.layout.activity_repwd_auth_layout;
+    return R.layout.activity_app_register_layout;
   }
 
   @Override
   public void onClick(View v) {
     switch (v.getId()) {
-      case R.id.next:
-        next();
+      case R.id.register:
+        register();
         break;
       case R.id.get_code:
         sendCode();
@@ -59,11 +62,26 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
     }
   }
 
-  private void next() {
-    final String phone = mPhone.getText().toString().trim();
+  private void register() {
+    String phone = mPhone.getText().toString().trim();
     String code = mCode.getText().toString().trim();
+    String pwd = mPwd.getText().toString().trim();
+    String repwd = mRepwd.getText().toString().trim();
+    // PhoneNumberUtils
     if (TextUtils.isEmpty(phone)) {
       mPhone.setError(getString(R.string.login_phone_must_be_not_empty));
+      return;
+    }
+    if (TextUtils.isEmpty(code)) {
+      mCode.setError(getString(R.string.please_input_auth));
+      return;
+    }
+    if (TextUtils.isEmpty(pwd)) {
+      mPwd.setError(getString(R.string.login_pwd_must_be_not_empty));
+      return;
+    }
+    if (TextUtils.isEmpty(repwd)) {
+      mRepwd.setError(getString(R.string.login_pwd_must_be_not_empty));
       return;
     }
 
@@ -71,32 +89,34 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
       mPhone.setError(getString(R.string.login_phone_not_match));
       return;
     }
-    if (TextUtils.isEmpty(code)) {
-      mCode.setError(getString(R.string.please_input_auth));
-      return;
-    }
 
-    showLoadingView();
-    AccountManager.getInstance().findPwdVerfiy(phone, code, new CommonCallback() {
-      @Override
-      public void success() {
-        dismissLoadingView();
-        RePwdAuthActivity.launch(getActivity(), phone);
-        getActivity().finish();
-      }
 
-      @Override
-      public void failed(String msg) {
-        dismissLoadingView();
-        T.show(msg);
-      }
-    });
+    AccountManager.getInstance().register(phone, repwd, code,
+        new RegisterRequestBuilder.CallBack() {
+
+          @Override
+          public void success() {
+            T.show(getString(R.string.register_success));
+            getActivity().finish();
+          }
+
+          @Override
+          public void failed(String error) {
+            T.show(error);
+          }
+        });
   }
+
 
   private void sendCode() {
     String phone = mPhone.getText().toString().trim();
-    String code = mCode.getText().toString().trim();
-    if (!InputUtil.checkPhoneNum(mPhone)) {
+    if (TextUtils.isEmpty(phone)) {
+      mPhone.setError(getString(R.string.login_phone_must_be_not_empty));
+      return;
+    }
+
+    if (!PhoneNumberUtils.isPhoneNum(phone)) {
+      mPhone.setError(getString(R.string.login_phone_not_match));
       return;
     }
 
@@ -117,13 +137,13 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
   }
 
   private void startTiming() {
-    mBtnGetCode.setText(getString(R.string.login_second, MAX));
+    mBtnGetCode.setText(getString(R.string.login_second, String.valueOf(max_second)));
     mBtnGetCode.setClickable(false);
     new Thread() {
       public void run() {
-        int s = 60;
-        while (s >= 0 && isAdded()) {
-          resetSendBtnText(s);
+        int s = max_second;
+        while (s >= 0 || isAdded()) {
+          resetCodeTextOnMainThread(s);
           try {
             sleep(1000);
             s--;
@@ -135,16 +155,19 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
     }.start();
   }
 
-  private void resetSendBtnText(final int s) {
+  private void resetCodeTextOnMainThread(final int time) {
+    if (!isAdded()) {
+      return;
+    }
     MainThreadPostUtils.post(new Runnable() {
       @Override
       public void run() {
-        if(s>0){
-          mBtnGetCode.setText(getString(R.string.login_second, String.valueOf(s)));
-          mBtnGetCode.setClickable(false);
-        }else{
+        if (time == 0) {
           mBtnGetCode.setText(R.string.login_get_auth);
           mBtnGetCode.setClickable(true);
+        } else {
+          mBtnGetCode.setText(getString(R.string.login_second, String.valueOf(time)));
+          mBtnGetCode.setClickable(false);
         }
       }
     });

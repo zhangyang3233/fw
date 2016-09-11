@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.launch;
+package com.hongyu.reward.ui.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Handler;
 
 import com.hongyu.reward.appbase.BaseSlideActivity;
 import com.hongyu.reward.manager.AccountManager;
-import com.hongyu.reward.ui.welcome.WelcomeActivity;
 
 /**
  * Created by zhangyang131 on 16/7/22.

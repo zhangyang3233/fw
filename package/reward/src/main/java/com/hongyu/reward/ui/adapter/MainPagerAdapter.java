@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.main;
+package com.hongyu.reward.ui.adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 
 import com.hongyu.reward.appbase.BaseFragmentPagerAdapter;
-import com.hongyu.reward.ui.main.fragment.EmptyFragment;
-import com.hongyu.reward.ui.main.fragment.FragmentMainTabHome;
-import com.hongyu.reward.ui.main.fragment.FragmentMainTabMy;
-import com.hongyu.reward.ui.main.fragment.FragmentMainTabReceive;
+import com.hongyu.reward.ui.fragment.EmptyFragment;
+import com.hongyu.reward.ui.fragment.FragmentMainTabHome;
+import com.hongyu.reward.ui.fragment.FragmentMainTabMy;
+import com.hongyu.reward.ui.fragment.FragmentMainTabReceive;
 
 public class MainPagerAdapter extends BaseFragmentPagerAdapter {
   private Bundle mExtras;

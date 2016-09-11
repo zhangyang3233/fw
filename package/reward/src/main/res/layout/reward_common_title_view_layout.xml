@@ -32,7 +32,7 @@
             android:id="@+id/common_title_view_layout_left_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/base_title_back"/>
+            android:src="@mipmap/comm_icon_back_yellow"/>
     </LinearLayout>
 
 

@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.login;
+package com.hongyu.reward.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.ui.fragment.LoginFragment;
 
 
 /**

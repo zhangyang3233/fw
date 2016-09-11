@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.welcome;
+package com.hongyu.reward.ui.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;

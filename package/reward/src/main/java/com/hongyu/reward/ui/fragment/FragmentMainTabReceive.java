@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.main.fragment;
+package com.hongyu.reward.ui.fragment;
 
 import android.view.View;
 import android.view.ViewGroup;

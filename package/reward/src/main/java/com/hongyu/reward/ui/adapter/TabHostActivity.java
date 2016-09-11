@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.main;
+package com.hongyu.reward.ui.adapter;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -106,5 +106,9 @@ public class TabHostActivity extends FragmentActivity {
       tintManager.setNavigationBarTintEnabled(true);
       tintManager.setTintColor(getResources().getColor(R.color.colorPrimary));
     }
+  }
+
+  public void switchPage(int index){
+    mViewPager.setCurrentItem(index, false);
   }
 }

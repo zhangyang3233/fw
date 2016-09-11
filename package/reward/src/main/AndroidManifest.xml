@@ -62,7 +62,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Main">
         <activity
-            android:name="com.hongyu.reward.ui.launch.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:theme="@style/AppTheme.SplashPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,22 +71,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hongyu.reward.ui.welcome.WelcomeActivity"
+            android:name=".ui.activity.WelcomeActivity"
             android:theme="@style/AppTheme"></activity>
         <activity
-            android:name="com.hongyu.reward.ui.login.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name="com.hongyu.reward.ui.login.RePwdAuthActivity"
+            android:name=".ui.activity.RePwdAuthActivity"
             android:theme="@style/AppTheme.Detail"></activity>
          <activity
-            android:name="com.hongyu.reward.ui.login.ForgetPwdActivity"
+            android:name=".ui.activity.ForgetPwdActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name="com.hongyu.reward.ui.login.RegisterActivity"
+            android:name=".ui.activity.RegisterActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name="com.hongyu.reward.ui.main.TabHostActivity"
+            android:name=".ui.activity.BrowserActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.adapter.TabHostActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main"

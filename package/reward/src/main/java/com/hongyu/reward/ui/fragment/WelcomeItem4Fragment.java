@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.welcome;
+package com.hongyu.reward.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseFragment;
-import com.hongyu.reward.ui.login.LoginActivity;
+import com.hongyu.reward.ui.activity.LoginActivity;
 
 
 /**

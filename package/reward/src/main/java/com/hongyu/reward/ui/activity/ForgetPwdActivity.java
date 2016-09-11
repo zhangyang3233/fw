@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.login;
+package com.hongyu.reward.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.ui.fragment.ForgetPwdFragment;
 
 /**
  * Created by zhangyang131 on 16/9/10.
