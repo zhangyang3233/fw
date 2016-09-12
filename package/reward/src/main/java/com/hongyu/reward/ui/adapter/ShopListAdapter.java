@@ -18,7 +18,7 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder = null;
+        Holder holder;
         if (convertView == null) {
             holder = new Holder();
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listview_shop, null);
