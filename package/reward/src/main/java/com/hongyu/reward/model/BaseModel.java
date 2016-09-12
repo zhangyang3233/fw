@@ -3,7 +3,7 @@ package com.hongyu.reward.model;
 /**
  * Created by zhangyang131 on 16/9/8.
  */
-public class BaseModel {
+public class BaseModel implements BaseDataModel{
     private int code;
     private String message;
 

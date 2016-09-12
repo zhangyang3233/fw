@@ -1,0 +1,35 @@
+package com.hongyu.reward.http;
+
+import android.os.Looper;
+
+import com.fw.zycoder.http.callback.DataFuture;
+import com.hongyu.reward.model.ShopListMode;
+import com.hongyu.reward.request.GetShopListRequestBuilder;
+
+/**
+ * Created by zhangyang131 on 16/9/12.
+ */
+public class HttpHelper {
+    public static void checkNonUIThread() {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            throw new IllegalStateException("Cannot call in UI thread.");
+        }
+    }
+
+    /**
+     * 获取悬赏商家列表
+     * @param page
+     * @param location
+     * @param key
+     * @return
+     */
+    public static ShopListMode getShopList(String page, String location, String key){
+        checkNonUIThread();
+        GetShopListRequestBuilder builder = new GetShopListRequestBuilder(page,location,key);
+        DataFuture<ShopListMode> future = builder.build().submitSync();
+        if (future == null) {
+            return null;
+        }
+        return future.get();
+    }
+}

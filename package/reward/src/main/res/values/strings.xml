@@ -65,5 +65,9 @@
     <!-- 选择商家悬赏 -->
     <string name="title_select_reward">选择商家悬赏</string>
     <string name="title_get_award">选择领赏商家</string>
+    <string name="reward_count">悬赏人数：%1$s人</string>
+    <string name="shop_distance">距离您：%1$s米内</string>
+    <string name="save_time">平均节省：%1$s分钟</string>
+
 
 </resources>

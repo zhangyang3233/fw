@@ -4,10 +4,6 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-/**
- *
- * @param <T>
- */
 public abstract class DataAdapter<T> extends BaseAdapter {
 
   protected List<T> mData;
@@ -16,7 +12,6 @@ public abstract class DataAdapter<T> extends BaseAdapter {
     this.mData = data;
     notifyDataSetChanged();
   }
-
 
   public List<T> getData() {
     return mData;
@@ -47,4 +42,5 @@ public abstract class DataAdapter<T> extends BaseAdapter {
     }
     notifyDataSetChanged();
   }
+
 }
