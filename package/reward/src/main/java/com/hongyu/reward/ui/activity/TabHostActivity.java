@@ -1,4 +1,4 @@
-package com.hongyu.reward.ui.adapter;
+package com.hongyu.reward.ui.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.hongyu.reward.R;
+import com.hongyu.reward.ui.adapter.MainPagerAdapter;
 import com.hongyu.reward.widget.BottomBar;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 

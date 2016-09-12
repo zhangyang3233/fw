@@ -62,4 +62,8 @@
     <string name="please_input_pwd">请输入密码</string>
     <string name="please_reinput_pwd">确认密码</string>
 
+    <!-- 选择商家悬赏 -->
+    <string name="title_select_reward">选择商家悬赏</string>
+    <string name="title_get_award">选择领赏商家</string>
+
 </resources>

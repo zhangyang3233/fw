@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hongyu.reward.widget.CommonTitleView
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
-    android:theme="@style/AppTheme.Detail">
+    android:background="?attr/colorPrimary">
 
     <TextView
-        android:id="@+id/common_title_view_layout_title"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -19,7 +18,7 @@
         android:textSize="@dimen/h1"/>
 
     <LinearLayout
-        android:id="@+id/common_title_view_layout_left_container"
+        android:id="@+id/left_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -29,16 +28,11 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
 
-        <ImageView
-            android:id="@+id/common_title_view_layout_left_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/comm_icon_back_yellow"/>
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/common_title_view_layout_right_container"
+        android:id="@+id/right_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -46,5 +40,5 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"/>
 
-</com.hongyu.reward.widget.CommonTitleView>
+</merge>
 

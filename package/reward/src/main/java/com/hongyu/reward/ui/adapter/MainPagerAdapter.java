@@ -9,6 +9,7 @@ import com.hongyu.reward.appbase.BaseFragmentPagerAdapter;
 import com.hongyu.reward.ui.fragment.EmptyFragment;
 import com.hongyu.reward.ui.fragment.FragmentMainTabHome;
 import com.hongyu.reward.ui.fragment.FragmentMainTabMy;
+import com.hongyu.reward.ui.fragment.FragmentMainTabPublish;
 import com.hongyu.reward.ui.fragment.FragmentMainTabReceive;
 
 public class MainPagerAdapter extends BaseFragmentPagerAdapter {
@@ -31,7 +32,7 @@ public class MainPagerAdapter extends BaseFragmentPagerAdapter {
         fragment = new FragmentMainTabHome();
         break;
       case 1:
-        fragment = new FragmentMainTabMy();
+        fragment = new FragmentMainTabPublish();
         break;
       case 2:
         fragment = new FragmentMainTabReceive();

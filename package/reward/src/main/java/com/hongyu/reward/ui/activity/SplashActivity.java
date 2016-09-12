@@ -12,59 +12,57 @@ import com.hongyu.reward.manager.AccountManager;
  */
 public class SplashActivity extends BaseSlideActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        delayedLuanch();
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    delayedLuanch();
+  }
 
-    private void delayedLuanch() {
-        new Handler()
-                .postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isFinishing()) {
-                            return;
-                        }
+  private void delayedLuanch() {
+    new Handler()
+        .postDelayed(new Runnable() {
+          @Override
+          public void run() {
+            if (isFinishing()) {
+              return;
+            }
 
-                        if (isDestroyed()) {
-                            return;
-                        }
-                        jumpToNextActivity();
-                        finish();
-                    }
-                }, getDelayedTime());
-    }
-
-    private void jumpToNextActivity() {
-        if(AccountManager.getInstance().needToShowWelcome()){
-            WelcomeActivity.launch(this);
+            if (isDestroyed()) {
+              return;
+            }
+            jumpToNextActivity();
             finish();
-        }else if(AccountManager.getInstance().isLogin()){
+          }
+        }, getDelayedTime());
+  }
 
-        }else{
-
-        }
-
-
+  private void jumpToNextActivity() {
+    if (AccountManager.getInstance().needToShowWelcome()) {
+      WelcomeActivity.launch(this);
+    } else if (AccountManager.getInstance().isLogin()) {
+      TabHostActivity.launch(this);
+    } else {
+      LoginActivity.launch(this);
     }
+    finish();
+  }
 
-    @Override
-    public boolean getCanFlingBack() {
-        return false;
+  @Override
+  public boolean getCanFlingBack() {
+    return false;
+  }
+
+  public long getDelayedTime() {
+    SharedPreferences sp = getPreferences(MODE_PRIVATE);
+    boolean isFirstLuanch = sp.getBoolean(IS_FIRST_LAUNCH, true);
+    if (isFirstLuanch) {
+      SharedPreferences.Editor ed = sp.edit();
+      ed.putBoolean(IS_FIRST_LAUNCH, false);
+      ed.commit();
+      return 0;
     }
+    return 2000;
+  }
 
-    public long getDelayedTime() {
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
-        boolean isFirstLuanch = sp.getBoolean(IS_FIRST_LAUNCH, true);
-        if (isFirstLuanch) {
-            SharedPreferences.Editor ed = sp.edit();
-            ed.putBoolean(IS_FIRST_LAUNCH, false);
-            ed.commit();
-            return 0;
-        }
-        return 2000;
-    }
-
-    private static final String IS_FIRST_LAUNCH = "is first launch";
+  private static final String IS_FIRST_LAUNCH = "is first launch";
 }

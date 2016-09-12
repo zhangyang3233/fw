@@ -13,7 +13,7 @@ import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.ui.activity.ForgetPwdActivity;
-import com.hongyu.reward.ui.adapter.TabHostActivity;
+import com.hongyu.reward.ui.activity.TabHostActivity;
 import com.hongyu.reward.utils.InputUtil;
 import com.hongyu.reward.utils.T;
 

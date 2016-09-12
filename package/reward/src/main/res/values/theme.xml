@@ -22,6 +22,7 @@
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@mipmap/app_entry</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Activity</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 

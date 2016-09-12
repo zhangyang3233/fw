@@ -72,7 +72,7 @@ public abstract class AppTitleActivity extends BaseSlideActivity {
     customizeToolbar(toolbar);
     setSupportActionBar(toolbar);
     mActionBar = getSupportActionBar();
-    mActionBar.setHomeAsUpIndicator(R.mipmap.base_title_back);
+    mActionBar.setHomeAsUpIndicator(R.mipmap.comm_icon_back_yellow);
     mActionBar.setDisplayHomeAsUpEnabled(true);
     setTitle(getTitleText());
   }

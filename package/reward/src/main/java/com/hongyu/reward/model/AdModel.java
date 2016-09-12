@@ -13,40 +13,40 @@ package com.hongyu.reward.model;
  *
  */
 public class AdModel extends BaseModel {
-  public int id;
-  public String image;
-  public String brief;
-  public String url;
+  public int position_id;
+  public String position_img;
+  public String position_text;
+  public String position_url;
 
-  public int getId() {
-    return id;
+  public int getPosition_id() {
+    return position_id;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setPosition_id(int position_id) {
+    this.position_id = position_id;
   }
 
-  public String getImage() {
-    return image;
+  public String getPosition_img() {
+    return position_img;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setPosition_img(String position_img) {
+    this.position_img = position_img;
   }
 
-  public String getBrief() {
-    return brief;
+  public String getPosition_text() {
+    return position_text;
   }
 
-  public void setBrief(String brief) {
-    this.brief = brief;
+  public void setPosition_text(String position_text) {
+    this.position_text = position_text;
   }
 
-  public String getUrl() {
-    return url;
+  public String getPosition_url() {
+    return position_url;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setPosition_url(String position_url) {
+    this.position_url = position_url;
   }
 }

@@ -15,14 +15,13 @@ public class LoginModel extends BaseModel {
   }
 
   public static class UserInfo implements BaseDataModel {
-    public String username;
-    public String phone;
-    public String avatar;
+    String username;
+    String phone;
+    String avatar;
     // score
-    public float score;
-    public float cash;
-    public float lock_cash;
-
+    float score;
+    float cash;
+    float lock_cash;
 
     int gender;
     String head_img;

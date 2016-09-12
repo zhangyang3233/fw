@@ -30,11 +30,13 @@ import com.hongyu.reward.utils.T;
 public class AccountManager {
   private static AccountManager instance;
   private String mtoken;
+  private LoginModel.UserInfo user;
 
   public static AccountManager getInstance() {
     if (instance == null) {
       instance = new AccountManager();
     }
+    instance.initUser();
     return instance;
   }
 
@@ -42,13 +44,13 @@ public class AccountManager {
     if (GlobalConfig.getAppContext() == null) {
       GlobalConfig.setAppContext(context);
     }
-    if (instance == null) {
-      instance = new AccountManager();
-    }
-    return instance;
+    return getInstance();
   }
 
   public boolean isLogin() {
+    if(user != null && !TextUtils.isEmpty(user.getUser_id())){
+      return true;
+    }
     return false;
   }
 
@@ -58,7 +60,7 @@ public class AccountManager {
       SPUtil.putInt(Constants.Pref.GUIDE_KEY, WelcomeFragment.GUIDE_VERSION);
       return true;
     }
-    return true;
+    return false;
   }
 
   public void login(String account, String pwd, final LoginRequestBuilder.LoginCallback callback) {
@@ -204,5 +206,20 @@ public class AccountManager {
     editor.commit();
   }
 
+  private void initUser() {
+    if(user == null){
+      user = new LoginModel.UserInfo();
+      SharedPreferences pref = GlobalConfig.getAppContext().getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
+      String userId = pref.getString(Constants.App.APP_USERID, "");
+      user.setUser_id(userId);
+      user.setUsername(pref.getString("username", ""));
+      user.setAvatar(pref.getString("avatar", ""));
+      user.setPhone(pref.getString("phone", ""));
+      user.setGender(pref.getInt("gender", 0));
+      user.setScore(pref.getFloat("score", 0));
+      user.setCash(pref.getFloat("cash", 0));
+      user.setLock_cash(pref.getFloat("lock_cash", 0));
+    }
+  }
 
 }

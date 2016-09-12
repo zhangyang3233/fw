@@ -49,11 +49,14 @@ public class BannerPagerAdapter extends PagerAdapter {
 
   @Override
   public int getCount() {
-    if (adsList.size() < 1) {
-      return adsList.size();
+    if (adsList == null || adsList.size() == 0) {
+      return 0;
+    } else if (adsList.size() == 1) {
+      return 1;
     } else {
       return adsList.size() + 2;
     }
+
   }
 
   public void update(ArrayList<AdModel> dataList) {
@@ -79,13 +82,13 @@ public class BannerPagerAdapter extends PagerAdapter {
 
     image.setScaleType(ScaleType.FIT_XY);
 
-    image.loadNetworkImageByUrl(adsList.get(position + 1).image);
+    image.loadNetworkImageByUrl(getItem(position).position_img);
     viewPager.addView(view);
 
     image.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        bannerItemClickListener.onClick(adsList.get(position % adsList.size()));
+        bannerItemClickListener.onClick(getItem(position));
       }
     });
     return view;
@@ -98,7 +101,16 @@ public class BannerPagerAdapter extends PagerAdapter {
   }
 
   public AdModel getItem(int i) {
-    if (adsList != null && adsList.size() > 0) {
+    if (adsList != null ) {
+      if(getCount()>=4){
+        if(i == 0){
+          return adsList.get(adsList.size()-1);
+        }else if(i == adsList.size()-2){
+          return adsList.get(0);
+        }else{
+          return adsList.get(i-1);
+        }
+      }
       return adsList.get(i);
     }
     return null;
@@ -113,7 +125,7 @@ public class BannerPagerAdapter extends PagerAdapter {
   }
 
   public static void gelleryToPage(Context context, AdModel adModel) {
-    if (!TextUtils.isEmpty(adModel.url) && adModel.url.startsWith("http://")) {
+    if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http://")) {
       // BrowserManager browser = new BrowserManager(context);
       // browser.loadurl(adModel.url, "广告位");
     }

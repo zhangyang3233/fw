@@ -6,11 +6,13 @@
     android:orientation="vertical">
 
 
-    <android.support.v7.widget.Toolbar
+    <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary">
+        <include layout="@layout/fragment_title_layout" />
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -23,7 +25,7 @@
         <com.hongyu.reward.widget.BannerView
             android:id="@+id/banner_layout"
             android:layout_width="wrap_content"
-            android:layout_height="140dp"/>
+            android:layout_height="140dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
