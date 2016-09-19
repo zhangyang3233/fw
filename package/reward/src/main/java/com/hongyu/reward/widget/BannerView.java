@@ -44,8 +44,8 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
     mView = (ViewGroup) inflater.inflate(R.layout.widget_banner_layout, null);
     mViewPager = (ViewPager) mView.findViewById(R.id.viewPager);
     indicator = (CircleIndicator) mView.findViewById(R.id.indicator);
-    indicator.setViewPager(mViewPager);
     mViewPager.setAdapter(adapter);
+    indicator.setViewPager(mViewPager);
     addView(mView);
   }
 

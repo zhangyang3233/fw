@@ -12,8 +12,10 @@ public abstract class BaseSingleFragmentActivity extends AppBaseActivity {
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);if (getSingleContentFragmentClass() != null) {
-      Fragment f = Fragment.instantiate(this, getSingleContentFragmentClass().getName(), getIntent().getExtras());
+    super.onCreate(savedInstanceState);
+    if (getSingleContentFragmentClass() != null) {
+      Fragment f = Fragment.instantiate(this, getSingleContentFragmentClass().getName(),
+          getIntent().getExtras());
       if (f != null) {
         replaceFragment(f);
       }

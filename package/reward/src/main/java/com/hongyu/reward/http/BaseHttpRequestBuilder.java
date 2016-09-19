@@ -36,10 +36,6 @@ public abstract class BaseHttpRequestBuilder<T> extends AppBaseHttpRequestBuilde
         return ApiContextManager.getInstance().getApiContext();
     }
 
-    protected String getServerApiUrl() {
-        return Constants.Server.API_PREFIX;
-    }
-
     protected void setParams(Params params) {
         super.setParams(params);
         // 除了获取token的接口之外所有的请求都加上token参数

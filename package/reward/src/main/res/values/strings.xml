@@ -69,5 +69,31 @@
     <string name="shop_distance">距离您：%1$s米内</string>
     <string name="save_time">平均节省：%1$s分钟</string>
 
+    <!-- 发布悬赏信息详情页 -->
+    <string name="input_reward_info_title">填写悬赏信息</string>
+    <string name="not_get_shop_info">未获取到商户信息</string>
+    <string name="reward_time_duration">即时悬赏：（%1$s分钟）</string>
+    <string name="diners_count">就餐人数</string>
+    <string name="reward_money">悬赏金额</string>
+    <string name="reward_type">悬赏类型</string>
+    <string name="tip_please_diners_count">请输入就餐人数</string>
+    <string name="tip_please_reward_money">请输入悬赏金额</string>
+    <string name="tip_diners_count_not_be_0">就餐人数不能为0</string>
+    <string name="tip_reward_money_not_be_0">悬赏金额必须大于0</string>
+    <string name="public_sure">确认要发布悬赏任务吗？</string>
+    <string name="sys_tip">系统提示？</string>
+    <string name="public_success">发布成功</string>
+
+    <!-- 已发布订单页面 -->
+    <string name="wait_for_reward">等待领赏</string>
+    <string name="order_user_num">%1$s 人</string>
+    <string name="order_price">%1$s 元</string>
+    <string name="appointment">预约悬赏</string>
+    <string name="immediate">即时悬赏（10分钟）</string>
+    <string name="add_reward_tip">追加后赏金:</string>
+    <string name="cancel_reward_order_success">取消成功</string>
+    <string name="cancel_tip_content">确认要取消悬赏任务吗?</string>
+    <string name="add_reward_success">追加悬赏成功</string>
+
 
 </resources>

@@ -43,4 +43,6 @@
     <dimen name="text_h4">12dp</dimen>
     <dimen name="text_h5">10dp</dimen>
     <dimen name="text_h6">8dp</dimen>
+
+    <dimen name="dialog_radius">6dp</dimen>
 </resources>

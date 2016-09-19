@@ -25,8 +25,8 @@
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <ImageView
             android:id="@+id/common_title_view_layout_left_arrow"
@@ -43,7 +43,9 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 
 </com.hongyu.reward.widget.ActionTitleView>
 

@@ -34,7 +34,7 @@ import java.util.List;
 public abstract class AsyncLoadListFragment<M extends Object> extends BaseLoadFragment {
 
   private static final int DEFAULT_PAGE_SIZE = 20;
-  private static final int DEFAULT_START_PAGE = 0;
+  private static final int DEFAULT_START_PAGE = 1;
   private static final int DEFAULT_PRE_LOAD_GAP_SIZE = 15;
   private static final boolean DEFAULT_HAS_FILTER = false;
   private static final boolean DEFAULT_NEED_RESTORE_SCROLL_STATE = false;

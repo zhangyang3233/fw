@@ -14,6 +14,7 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.model.ShopListMode;
+import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
 
 import java.util.ArrayList;
@@ -34,7 +35,6 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
   ImageView mRightBtn;
-
 
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
@@ -75,11 +75,23 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
 
   @Override
   protected DataAdapter newContentAdapter() {
-    return new ShopListAdapter();
+    ShopListAdapter adapter = new ShopListAdapter();
+    adapter.setmOnItemClickListener(new ShopListAdapter.OnItemClickListener() {
+      @Override
+      public void itemOnClick(ShopListMode.ShopInfo mode) {
+        RewardPublishInfoActivity.launch(getActivity(), mode);
+      }
+    });
+    return adapter;
   }
 
   @Override
   protected int getLayoutResId() {
     return R.layout.tab_title_load_list_fragment;
+  }
+
+  @Override
+  protected int getPageSize() {
+    return 10;
   }
 }

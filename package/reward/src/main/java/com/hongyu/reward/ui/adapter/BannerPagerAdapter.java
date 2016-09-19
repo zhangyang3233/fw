@@ -11,6 +11,7 @@ import android.widget.ImageView.ScaleType;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.model.AdModel;
+import com.hongyu.reward.ui.activity.BrowserActivity;
 import com.hongyu.reward.widget.NetImageView;
 
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ public class BannerPagerAdapter extends PagerAdapter {
         }else if(i == adsList.size()-2){
           return adsList.get(0);
         }else{
-          return adsList.get(i-1);
+          return adsList.get((i-1)%adsList.size());
         }
       }
       return adsList.get(i);
@@ -126,8 +127,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
   public static void gelleryToPage(Context context, AdModel adModel) {
     if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http://")) {
-      // BrowserManager browser = new BrowserManager(context);
-      // browser.loadurl(adModel.url, "广告位");
+      BrowserActivity.launch(context, adModel.position_url);
     }
   }
 
@@ -140,7 +140,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
     @Override
     public void onClick(AdModel adModel) {
-      BannerPagerAdapter.gelleryToPage(context, adModel);
+      BannerPagerAdapter.gelleryToPage(mContext, adModel);
     }
 
   }

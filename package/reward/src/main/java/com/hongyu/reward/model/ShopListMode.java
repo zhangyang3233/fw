@@ -1,11 +1,13 @@
 package com.hongyu.reward.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by zhangyang131 on 16/9/12.
  */
 public class ShopListMode extends BaseModel {
+
   private int total;
   private ArrayList<ShopInfo> data;
 
@@ -25,7 +27,7 @@ public class ShopListMode extends BaseModel {
     this.data = data;
   }
 
-  public class ShopInfo implements BaseDataModel {
+  public static class ShopInfo implements BaseDataModel, Serializable {
     String shop_name;
     String distance;
     String mapuid;

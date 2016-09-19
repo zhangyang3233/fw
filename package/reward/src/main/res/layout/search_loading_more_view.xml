@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:auto="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingLeft="100dp"
     android:layout_height="60dp"
     android:layout_gravity="center">
 
     <com.hongyu.reward.widget.ProgressWheelLoadingView
         android:id="@+id/progress_loading_view"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        auto:matProg_barColor="@android:color/holo_blue_dark"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        auto:matProg_barColor="@android:color/holo_orange_dark"
         auto:matProg_progressIndeterminate="true" />
 
     <TextView
+        android:layout_toRightOf="@id/progress_loading_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
         android:text="@string/loading_more_tips"
         android:textSize="18sp"
         android:layout_gravity="center_vertical" />
 
-</LinearLayout>
+</RelativeLayout>

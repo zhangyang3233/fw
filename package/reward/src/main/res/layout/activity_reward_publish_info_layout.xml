@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_bg_color"
+    android:orientation="vertical">
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.hongyu.reward.widget.NetImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/image_desc"
+            android:scaleType="fitXY"
+            tools:src="@mipmap/defalut_image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_h1"
+                tools:text="味千拉面" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/reward_per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_h2"
+                    tools:text="悬赏人数：500人" />
+
+                <TextView
+                    android:id="@+id/reward_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_h2"
+                    tools:text="平均节省：50分钟" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/km"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/text_gray_light"
+                android:textSize="@dimen/text_h2"
+                tools:text="距离您：1000米内" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/reward_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h1"
+            tools:text="悬赏类型" />
+
+        <TextView
+            android:id="@+id/order_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_gray_more"
+            android:textSize="@dimen/text_h1"
+            tools:text="即时悬赏（10分钟）" />
+    </LinearLayout>
+
+    <View style="@style/divider_theme_gray" />
+
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_marginTop="12dp" />
+
+    <include
+        android:id="@+id/met_num"
+        layout="@layout/common_select_view_layout" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <include
+        android:id="@+id/price"
+        layout="@layout/common_select_view_layout" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <Button
+        android:id="@+id/publish"
+        style="@style/App.Comm.Button"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:text="发布悬赏" />
+</LinearLayout>

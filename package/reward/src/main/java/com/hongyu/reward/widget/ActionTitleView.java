@@ -129,7 +129,7 @@ public class ActionTitleView extends RelativeLayout implements TitleContainer {
       mTitle.setTextColor(Color.WHITE);
     }
     if (mBackImageView != null) {
-      mBackImageView.setImageResource(R.mipmap.home_base_title_back);
+      mBackImageView.setImageResource(R.mipmap.comm_icon_back_yellow);
     }
   }
 

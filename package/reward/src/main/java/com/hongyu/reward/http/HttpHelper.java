@@ -4,6 +4,7 @@ import android.os.Looper;
 
 import com.fw.zycoder.http.callback.DataFuture;
 import com.hongyu.reward.model.ShopListMode;
+import com.hongyu.reward.request.GetReceiveShopListRequestBuilder;
 import com.hongyu.reward.request.GetShopListRequestBuilder;
 
 /**
@@ -26,6 +27,23 @@ public class HttpHelper {
     public static ShopListMode getShopList(String page, String location, String key){
         checkNonUIThread();
         GetShopListRequestBuilder builder = new GetShopListRequestBuilder(page,location,key);
+        DataFuture<ShopListMode> future = builder.build().submitSync();
+        if (future == null) {
+            return null;
+        }
+        return future.get();
+    }
+
+    /**
+     * 获取可接单商家列表
+     * @param page
+     * @param location
+     * @param key
+     * @return
+     */
+    public static ShopListMode getReceiveShopList(String page, String location, String key){
+        checkNonUIThread();
+        GetReceiveShopListRequestBuilder builder = new GetReceiveShopListRequestBuilder(page,location,key);
         DataFuture<ShopListMode> future = builder.build().submitSync();
         if (future == null) {
             return null;
