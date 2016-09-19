@@ -94,6 +94,12 @@
         <activity
             android:name=".ui.activity.RewardPublishWaitActivity"
             android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.ShopOrderListActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.OrderDetailActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"

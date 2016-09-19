@@ -94,6 +94,7 @@
     <string name="cancel_reward_order_success">取消成功</string>
     <string name="cancel_tip_content">确认要取消悬赏任务吗?</string>
     <string name="add_reward_success">追加悬赏成功</string>
+    <string name="reward_name">悬赏人：%1$s</string>
 
 
 </resources>

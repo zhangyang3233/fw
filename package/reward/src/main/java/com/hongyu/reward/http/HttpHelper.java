@@ -3,8 +3,10 @@ package com.hongyu.reward.http;
 import android.os.Looper;
 
 import com.fw.zycoder.http.callback.DataFuture;
+import com.hongyu.reward.model.RewardListModel;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.GetReceiveShopListRequestBuilder;
+import com.hongyu.reward.request.GetRewardListRequestBuilder;
 import com.hongyu.reward.request.GetShopListRequestBuilder;
 
 /**
@@ -45,6 +47,22 @@ public class HttpHelper {
         checkNonUIThread();
         GetReceiveShopListRequestBuilder builder = new GetReceiveShopListRequestBuilder(page,location,key);
         DataFuture<ShopListMode> future = builder.build().submitSync();
+        if (future == null) {
+            return null;
+        }
+        return future.get();
+    }
+
+    /**
+     * 获取商家悬赏信息列表
+     * @param page
+     * @param shopId
+     * @return
+     */
+    public static RewardListModel getShopOrderList(String page, String shopId){
+        checkNonUIThread();
+        GetRewardListRequestBuilder builder = new GetRewardListRequestBuilder(page,shopId);
+        DataFuture<RewardListModel> future = builder.build().submitSync();
         if (future == null) {
             return null;
         }

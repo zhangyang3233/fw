@@ -14,7 +14,7 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.model.ShopListMode;
-import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
+import com.hongyu.reward.ui.activity.ShopOrderListActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
 	  adapter.setmOnItemClickListener(new ShopListAdapter.OnItemClickListener() {
 		  @Override
 		  public void itemOnClick(ShopListMode.ShopInfo mode) {
-
+            ShopOrderListActivity.launch(getActivity(), mode.getShop_name(), mode.getShop_id());
 		  }
 	  });
 	  return adapter;

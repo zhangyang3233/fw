@@ -5,6 +5,7 @@ import com.hongyu.reward.http.BaseHttpRequestBuilder;
 import com.hongyu.reward.model.ShopListMode;
 
 /**
+ * 获取可接单商家列表 首页接单页面数据
  * Created by zhangyang131 on 16/9/19.
  */
 public class GetReceiveShopListRequestBuilder extends BaseHttpRequestBuilder<ShopListMode> {
