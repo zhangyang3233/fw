@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hongyu.reward.widget.TagView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tag_btn_bg"
+    android:padding="5dp"
+    android:textColor="@color/white"
+    android:textSize="14sp"
+    tools:text="信誉好 21">
+
+</com.hongyu.reward.widget.TagView>

@@ -10,10 +10,13 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
+import com.hongyu.reward.request.ReceiveOrderRequestBuilder;
 import com.hongyu.reward.ui.activity.OrderDetailActivity;
+import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.NetImageView;
@@ -124,7 +127,32 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.receive:
+                showReceiveDialog();
                 break;
         }
+    }
+
+    private void showReceiveDialog() {
+        DialogFactory.showNumeralInputView(getActivity(), new DialogFactory.OnDialogActionListener() {
+            @Override
+            public void onFinish(String indexNum, String waitNum, String pNum) {
+                receiveOrder(indexNum, waitNum, pNum);
+            }
+        });
+    }
+
+    private void receiveOrder(String indexNum, String waitNum, String pNum) {
+        ReceiveOrderRequestBuilder builder = new ReceiveOrderRequestBuilder(order_id, indexNum, waitNum, pNum);
+        builder.setDataCallback(new DataCallback<BaseModel>() {
+            @Override
+            public void onDataCallback(BaseModel data) {
+                if (ResponesUtil.checkModelCodeOK(data)) {
+                    T.show("领取成功");
+                } else {
+                    T.show(ResponesUtil.getErrorMsg(data));
+                }
+            }
+        });
+        builder.build().submit();
     }
 }

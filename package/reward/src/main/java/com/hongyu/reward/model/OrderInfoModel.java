@@ -1,7 +1,5 @@
 package com.hongyu.reward.model;
 
-import java.util.List;
-
 /**
  * Created by zhangyang131 on 16/9/19.
  */
@@ -45,7 +43,7 @@ public class OrderInfoModel extends BaseModel {
          */
 
         private OrderModel order;
-        private List<?> receive;
+        private ReceiveModel receive;
 
         public OrderModel getOrder() {
             return order;
@@ -55,11 +53,11 @@ public class OrderInfoModel extends BaseModel {
             this.order = order;
         }
 
-        public List<?> getReceive() {
+        public ReceiveModel getReceive() {
             return receive;
         }
 
-        public void setReceive(List<?> receive) {
+        public void setReceive(ReceiveModel receive) {
             this.receive = receive;
         }
 

@@ -3,7 +3,7 @@ package com.hongyu.reward.ui.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.view.Display;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.fw.zycoder.utils.DisplayUtil;
 import com.hongyu.reward.R;
+import com.hongyu.reward.utils.T;
 
 public class DialogFactory {
 
@@ -103,7 +104,6 @@ public class DialogFactory {
     View cancel = view.findViewById(R.id.cancel);
 
     WindowManager windowManager = builder.getWindow().getWindowManager();
-    Display display = windowManager.getDefaultDisplay();
     WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
     lp.width = DisplayUtil.getScreenWidth(context);
     builder.getWindow().setAttributes(lp);
@@ -127,11 +127,90 @@ public class DialogFactory {
         builder.dismiss();
       }
     });
+  }
+
+  /**
+   * 输入排号信息
+   *
+   * @auther jiawenze
+   * @since 2016-7-18 上午7:53:30
+   * @tags @param context
+   * @tags @param listen
+   */
+  public static void showNumeralInputView(final Context context,
+                                          final OnDialogActionListener mOnDialogActionListener) {
+    LayoutInflater factory = LayoutInflater.from(context);
+    final View view = factory.inflate(R.layout.select_input_numeral, null);
+
+    final Dialog builder = new AlertDialog.Builder(context, R.style.DialogStyle).create();
+    builder.show();
+    builder.setContentView(view);
+
+    // 软键盘把dialog整个推上去
+    builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+    Window window = builder.getWindow();
+    window.setGravity(Gravity.BOTTOM);
+    window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    window.setWindowAnimations(R.style.dialog_sheet_window_anim);
+
+    final EditText con1 = (EditText) view.findViewById(R.id.con_1);
+    final EditText con2 = (EditText) view.findViewById(R.id.con_2);
+    final EditText con3 = (EditText) view.findViewById(R.id.con_3);
+    View ok = view.findViewById(R.id.ok);
+    View cancel = view.findViewById(R.id.cancel);
+
+    WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+    lp.width = DisplayUtil.getScreenWidth(context);
+    builder.getWindow().setAttributes(lp);
+
+    InputMethodManager imm =
+            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+    ok.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String indexNum = con1.getText().toString();
+        String waitNum = con2.getText().toString();
+        String pNum = con3.getText().toString();
+        if (TextUtils.isEmpty(indexNum)) {
+          T.show("请输入排位号");
+          return;
+        }
+        if (TextUtils.isEmpty(waitNum)) {
+          T.show("请输入还需等待几桌");
+          return;
+        }
+        if (TextUtils.isEmpty(pNum)) {
+          T.show("请输入几人桌");
+          return;
+        }
+        if (mOnDialogActionListener != null) {
+          mOnDialogActionListener.onFinish(indexNum, waitNum, pNum);
+          builder.dismiss();
+        }
+      }
+    });
+
+    cancel.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+      }
+    });
 
   }
 
+
   public interface OnWhichBackStringListener {
     void onConfirmClick(String[] content);
+  }
+
+  public interface OnDialogActionListener {
+    void onFinish(String indexNum, String waitNum, String pNum);
   }
 
 }

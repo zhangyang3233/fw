@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="center"
-        android:src="@mipmap/common_icon_blank_new"/>
+        android:src="@mipmap/icon_reward_appointment"/>
 
     <TextView
         android:id="@+id/empty_view_text"

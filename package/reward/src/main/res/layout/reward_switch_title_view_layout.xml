@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hongyu.reward.widget.AppSwitchTitleView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary">
+
+    <RadioGroup
+        android:id="@+id/order_title"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/send"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:gravity="center"
+            android:button="@null"
+            android:text="我发起的"
+            android:background="@drawable/cell_yellow_round_left"
+            android:textSize="@dimen/text_h2"
+            android:textColor="@color/app_main_title_text_color" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/receive"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/cell_tran_round_right"
+            android:text="我收到的"
+            android:textSize="@dimen/text_h2"
+            android:textColor="@color/text_gray_light">
+        </RadioButton>
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/common_title_view_layout_left_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/common_title_view_layout_left_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/comm_icon_back_yellow"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/common_title_view_layout_right_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+</com.hongyu.reward.widget.AppSwitchTitleView>
+

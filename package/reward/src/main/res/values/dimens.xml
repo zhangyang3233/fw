@@ -35,14 +35,14 @@
     <dimen name="red_envelop_date">10sp</dimen>
 
     <!-- 字体尺寸定义 -->
-    <dimen name="nav_bar_text_size">20dp</dimen>
-    <dimen name="text_h0">20dp</dimen>
-    <dimen name="text_h1">18dp</dimen>
-    <dimen name="text_h2">16dp</dimen>
-    <dimen name="text_h3">14dp</dimen>
-    <dimen name="text_h4">12dp</dimen>
-    <dimen name="text_h5">10dp</dimen>
-    <dimen name="text_h6">8dp</dimen>
+    <dimen name="nav_bar_text_size">20sp</dimen>
+    <dimen name="text_h0">20sp</dimen>
+    <dimen name="text_h1">18sp</dimen>
+    <dimen name="text_h2">16sp</dimen>
+    <dimen name="text_h3">14sp</dimen>
+    <dimen name="text_h4">12sp</dimen>
+    <dimen name="text_h5">10sp</dimen>
+    <dimen name="text_h6">8sp</dimen>
 
     <dimen name="dialog_radius">6dp</dimen>
 </resources>

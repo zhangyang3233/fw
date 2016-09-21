@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:reward="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+        <include layout="@layout/fragment_title_layout" />
+    </RelativeLayout>
+    <com.hongyu.reward.widget.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                style="@style/divider_theme_gray"
+                android:layout_marginTop="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white">
+
+                <com.hongyu.reward.widget.RoundImageView
+                    android:id="@+id/header_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/defalut_head_img"
+                    reward:riv_border_color="@color/white"
+                    reward:riv_border_width="1dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/header_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="张拓鑫" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账户余额：" />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="0元" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账户积分：" />
+
+                        <TextView
+                            android:id="@+id/score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="1000积分" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/next_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/image_desc"
+                    android:src="@mipmap/general_icon_more_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_theme_gray"
+                android:layout_marginBottom="20dp" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_order"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_order"
+                reward:labeltext="我的订单" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_evaluation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_eval"
+                reward:labeltext="我的评价" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_wallet"
+                reward:labeltext="我的钱包" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_score"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_score"
+                reward:labeltext="积分中心" />
+
+            <View
+                style="@style/divider_theme_gray"
+                android:layout_marginBottom="20dp" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_msg"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_message"
+                reward:labeltext="消息中心" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_contact"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_contact"
+                reward:labeltext="联系客服" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <com.hongyu.reward.widget.CommonTextView
+                android:id="@+id/my_setting"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                reward:isclick="true"
+                reward:leftbg="@color/total_transparent"
+                reward:leftimg="@mipmap/icon_my_setting"
+                reward:labeltext="设置" />
+
+            <View
+                style="@style/divider_theme_gray"
+                android:layout_marginBottom="30dp" />
+        </LinearLayout>
+    </com.hongyu.reward.widget.OverScrollView>
+
+</LinearLayout>

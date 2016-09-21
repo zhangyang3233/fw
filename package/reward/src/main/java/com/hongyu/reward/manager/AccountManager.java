@@ -17,6 +17,7 @@ import com.hongyu.reward.request.CommonCallback;
 import com.hongyu.reward.request.FindPwdRequestBuilder;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
 import com.hongyu.reward.request.GetTokenRequestBuilder;
+import com.hongyu.reward.request.GetUserInfoRequestBuilder;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.request.SetPwdRequestBuilder;
@@ -48,7 +49,7 @@ public class AccountManager {
   }
 
   public boolean isLogin() {
-    if(user != null && !TextUtils.isEmpty(user.getUser_id())){
+    if (user != null && !TextUtils.isEmpty(user.getUser_id())) {
       return true;
     }
     return false;
@@ -69,8 +70,8 @@ public class AccountManager {
       @Override
       public void onDataCallback(final LoginModel data) {
         if (ResponesUtil.checkModelCodeOK(data)) {
-          callback.loginSuccess(data.getData());
           saveUserInfo(data.getData());
+          callback.loginSuccess(data.getData());
         } else {
           callback.loginFailed(ResponesUtil.getErrorMsg(data));
         }
@@ -150,9 +151,9 @@ public class AccountManager {
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
-        if(ResponesUtil.checkModelCodeOK(data)){
+        if (ResponesUtil.checkModelCodeOK(data)) {
           callback.success();
-        }else{
+        } else {
           callback.failed(ResponesUtil.getErrorMsg(data));
         }
       }
@@ -161,14 +162,14 @@ public class AccountManager {
 
   }
 
-  public void setPwd(String phoneNum, String pwd, final CommonCallback callback){
+  public void setPwd(String phoneNum, String pwd, final CommonCallback callback) {
     SetPwdRequestBuilder builder = new SetPwdRequestBuilder(phoneNum, pwd);
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
-        if(ResponesUtil.checkModelCodeOK(data)){
+        if (ResponesUtil.checkModelCodeOK(data)) {
           callback.success();
-        }else{
+        } else {
           callback.failed(ResponesUtil.getErrorMsg(data));
         }
       }
@@ -188,7 +189,7 @@ public class AccountManager {
     this.mtoken = token;
   }
 
-  private void saveUserInfo(LoginModel.UserInfo user) {
+  public void saveUserInfo(LoginModel.UserInfo user) {
     /**
      * 将个人信息持久化到本地
      */
@@ -206,10 +207,48 @@ public class AccountManager {
     editor.commit();
   }
 
+  public void getUserInfo(final GetUserInfoCallback callback) {
+    GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
+    builder.setDataCallback(new DataCallback<LoginModel>() {
+      @Override
+      public void onDataCallback(LoginModel data) {
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          if (callback != null) {
+            callback.getUserInfoSuccess(data.getData());
+          }
+        } else {
+          LoginModel.UserInfo userInfo = getLocalUserInfo();
+          if (userInfo == null) {
+            if (callback != null) {
+              callback.getUserInfoFailed(ResponesUtil.getErrorMsg(data));
+            }
+          } else {
+            if (callback != null) {
+              callback.getUserInfoSuccess(userInfo);
+            }
+          }
+        }
+      }
+    });
+    builder.build().submit();
+  }
+
+  private LoginModel.UserInfo getLocalUserInfo() {
+    initUser();
+    return user;
+  }
+
+  public interface GetUserInfoCallback {
+    void getUserInfoSuccess(LoginModel.UserInfo userInfo);
+
+    void getUserInfoFailed(String msg);
+  }
+
   private void initUser() {
-    if(user == null){
+    if (user == null) {
       user = new LoginModel.UserInfo();
-      SharedPreferences pref = GlobalConfig.getAppContext().getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
+      SharedPreferences pref = GlobalConfig.getAppContext()
+          .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
       String userId = pref.getString(Constants.App.APP_USERID, "");
       user.setUser_id(userId);
       user.setUsername(pref.getString("username", ""));

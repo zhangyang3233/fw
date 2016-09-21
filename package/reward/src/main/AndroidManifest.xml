@@ -101,6 +101,15 @@
             android:name=".ui.activity.OrderDetailActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
+            android:name=".ui.activity.RewardStartActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.personal.MyOrderActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.personal.MyEvaluateActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

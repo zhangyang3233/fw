@@ -6,6 +6,14 @@ package com.hongyu.reward.model;
 public class OrderModel implements BaseDataModel {
     public static final String IMMEDIATE = "0";
     public static final String APPOINTMENT = "1";
+    public static final int STATUS_ALL = 0;
+    public static final int STATUS_FINISHED = 30;
+    public static final int STATUS_PENDING_RECEIVE = 0;
+    public static final int STATUS_PENDING_PAY = 20;
+    public static final int STATUS_PENDING_COMMENT = 40;
+    public static final int STATUS_PENDING_COMPLAINT = 50;
+    public static final int STATUS_PENDING_RECEIVED = 10;
+
     private String order_id;
     private String user_id;
     private String shop_id;
@@ -14,7 +22,7 @@ public class OrderModel implements BaseDataModel {
     private String usernum;
     private String begin_time;
     private String end_time;
-    private String status;
+    private int status;
     private String nickname;
     private String mobile;
     private String shop_name;
@@ -89,11 +97,11 @@ public class OrderModel implements BaseDataModel {
         this.end_time = end_time;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

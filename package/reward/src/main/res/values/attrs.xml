@@ -26,4 +26,11 @@
         <attr name="bottom_src" format="color|reference"/>
         <attr name="bottom_paddingBetween" format="reference|dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="MyTextView">
+        <attr name="leftimg" format="reference"/>
+        <attr name="leftbg" format="reference"/>
+        <attr name="isclick" format="boolean"/>
+        <attr name="labeltext" format="string"/>
+    </declare-styleable>
 </resources>

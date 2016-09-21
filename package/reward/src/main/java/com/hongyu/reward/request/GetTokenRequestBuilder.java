@@ -19,8 +19,8 @@ public class GetTokenRequestBuilder extends BaseHttpRequestBuilder<TokenModel> {
 
   public GetTokenRequestBuilder() {
     this.devive_type = "2";
-    this.device_code = SystemUtil.getImei(GlobalConfig.getAppContext().getApplicationContext());
-    this.push_code = SystemUtil.getImei(GlobalConfig.getAppContext().getApplicationContext());
+    this.device_code = SystemUtil.getDeviceId(GlobalConfig.getAppContext().getApplicationContext());
+    this.push_code = SystemUtil.getDeviceId(GlobalConfig.getAppContext().getApplicationContext());
   }
 
 

@@ -120,10 +120,12 @@ dependencies {
     compile project(':external:errorpage')
     compile project(':external:sliding')
     compile project(':external:customtoast')
+    compile project(':external:flowlayout')
     compile project(':framework:http')
     compile project(':external:refreshable')
     compile project(':external:uicomp')
     compile project(':external:dialoghelper')
+    compile project(':external:magicindicator')
     compile 'io.reactivex:rxjava:1.0.9'
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'

@@ -95,6 +95,13 @@
     <string name="cancel_tip_content">确认要取消悬赏任务吗?</string>
     <string name="add_reward_success">追加悬赏成功</string>
     <string name="reward_name">悬赏人：%1$s</string>
+    <string name="task_start">任务开始</string>
+    <string name="call_tip">是否要电话联系对方？</string>
 
-
+    <!-- 个人中心 -->
+    <string name="personal_center">个人中心</string>
+    <string name="tip_to_open">该功能即将开放,敬请期待!</string>
+    <string name="order_empty">暂无相关订单</string>
+    <!-- 我的评价页面 -->
+    <string name="my_evaluate_title">我的评价</string>
 </resources>
