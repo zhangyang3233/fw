@@ -104,4 +104,13 @@
     <string name="order_empty">暂无相关订单</string>
     <!-- 我的评价页面 -->
     <string name="my_evaluate_title">我的评价</string>
+
+    <!-- 我的钱包 -->
+    <string name="my_wallet">我的钱包</string>
+    <string name="apply_get_money">申请提现</string>
+
+    <!-- 积分中心 -->
+    <string name="score_center">积分中心</string>
+    <string name="msg_center">消息中心</string>
+    <string name="contact_title">联系客服</string>
 </resources>

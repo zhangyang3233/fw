@@ -109,6 +109,24 @@
         <activity
             android:name=".ui.activity.personal.MyEvaluateActivity"
             android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.WalletActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.personal.WithdrawActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.personal.ScoreActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.personal.MessageListActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.ContactActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.ContactSuccessActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"

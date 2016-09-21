@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:reward="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_bg_color"
+    android:orientation="vertical">
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.hongyu.reward.widget.RoundImageView
+            android:id="@+id/header_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/defalut_head_img"
+            reward:riv_border_color="@color/white"
+            reward:riv_border_width="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="刘嘉玲"
+                android:textColor="@color/text_gray_dark"
+                android:textSize="@dimen/text_h1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="账户余额: "
+                    android:textColor="@color/text_gray_dark"
+                    android:textSize="@dimen/text_h2" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="200"
+                    android:textColor="@color/text_orange"
+                    android:textSize="@dimen/text_h1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 元"
+                    android:textColor="@color/text_gray_dark"
+                    android:textSize="@dimen/text_h2" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/divider_theme_gray" />
+
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="提现金额"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h2" />
+
+        <EditText
+            android:id="@+id/withdraw_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:background="@color/total_transparent"
+            android:hint="本次可提现"
+            android:inputType="numberDecimal"
+            android:textColor="@color/text_gray_dark"
+            android:textColorHint="@color/text_hint"
+            android:textSize="@dimen/text_h2" />
+    </LinearLayout>
+
+    <View style="@style/divider_theme_gray" />
+
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_marginTop="50dp" />
+
+    <LinearLayout
+        android:id="@+id/btn_alipay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/icon_alipay" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="支付宝提现"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h2" />
+
+        <ImageView
+            android:id="@+id/alipay_img"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/icon_alipay_select" />
+    </LinearLayout>
+
+    <View style="@style/divider_theme_gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="目前仅支持:支付宝提现"
+        android:textColor="@color/text_gray_light"
+        android:textSize="@dimen/text_h2" />
+
+    <Button
+        android:id="@+id/start"
+        style="@style/App.Comm.Button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="开始提现" />
+</LinearLayout>

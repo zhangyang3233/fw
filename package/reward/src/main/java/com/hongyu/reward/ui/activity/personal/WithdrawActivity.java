@@ -6,31 +6,35 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
-import com.hongyu.reward.ui.fragment.personal.WalletFragment;
+import com.hongyu.reward.ui.fragment.personal.WithdrawFragment;
 
 /**
  * Created by zhangyang131 on 16/9/21.
  */
-public class WalletActivity extends BaseSingleFragmentActivity {
+public class WithdrawActivity extends BaseSingleFragmentActivity {
 
   public static void launch(Context context) {
-    Intent i = new Intent(context, WalletActivity.class);
+    Intent i = new Intent(context, WithdrawActivity.class);
     context.startActivity(i);
   }
 
-
   @Override
   protected Class<? extends Fragment> getSingleContentFragmentClass() {
-    return WalletFragment.class;
+    return WithdrawFragment.class;
   }
 
   @Override
   protected String getTitleText() {
-    return getString(R.string.my_wallet);
+    return getString(R.string.apply_get_money);
   }
 
   @Override
   public boolean getCanFlingBack() {
+    return true;
+  }
+
+  @Override
+  public boolean getCanRelativeMove() {
     return true;
   }
 }

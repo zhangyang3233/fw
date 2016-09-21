@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View style="@style/divider_theme_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFF3D0">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="提示：请您选择投诉原因，以便我们为您处理。"
+            android:textColor="#FFA530"
+            android:textSize="@dimen/text_h2" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_theme_gray"
+        android:background="#ffde7c" />
+
+    <com.handmark.pulltorefresh.library.RefreshableListView
+        android:id="@+id/common_fragment_listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:divider="#00000000"
+        android:dividerHeight="0dp" />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/cell_round_comm_edit"
+        android:gravity="top"
+        android:hint="点击输入其他投诉原因"
+        android:maxEms="3"
+        android:maxLines="4"
+        android:padding="5dp"
+        android:textColorHint="@color/light_gray_text" />
+
+    <Button
+        android:id="@+id/commit"
+        style="@style/App.Comm.Button"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:text="点击发送" />
+</LinearLayout>

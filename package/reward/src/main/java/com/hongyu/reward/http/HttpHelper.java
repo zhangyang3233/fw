@@ -3,10 +3,14 @@ package com.hongyu.reward.http;
 import android.os.Looper;
 
 import com.fw.zycoder.http.callback.DataFuture;
+import com.hongyu.reward.model.MsgModel;
 import com.hongyu.reward.model.OrderListModel;
+import com.hongyu.reward.model.ReasonModel;
 import com.hongyu.reward.model.RewardListModel;
 import com.hongyu.reward.model.ShopListMode;
+import com.hongyu.reward.request.GetMsgListRequestBuilder;
 import com.hongyu.reward.request.GetOrderListRequestBuilder;
+import com.hongyu.reward.request.GetReasonListRequestModel;
 import com.hongyu.reward.request.GetReceiveShopListRequestBuilder;
 import com.hongyu.reward.request.GetRewardListRequestBuilder;
 import com.hongyu.reward.request.GetShopListRequestBuilder;
@@ -90,4 +94,35 @@ public class HttpHelper {
     }
     return future.get();
   }
+
+  /**
+   * 获取消息列表
+   *
+   * @return
+   */
+  public static MsgModel getMsgList(String page) {
+    checkNonUIThread();
+    GetMsgListRequestBuilder builder = new GetMsgListRequestBuilder(page);
+    DataFuture<MsgModel> future = builder.build().submitSync();
+    if (future == null) {
+      return null;
+    }
+    return future.get();
+  }
+
+  /**
+   * 获取投诉原因列表
+   *
+   * @return
+   */
+  public static ReasonModel getReasonList() {
+    checkNonUIThread();
+    GetReasonListRequestModel builder = new GetReasonListRequestModel();
+    DataFuture<ReasonModel> future = builder.build().submitSync();
+    if (future == null) {
+      return null;
+    }
+    return future.get();
+  }
+
 }

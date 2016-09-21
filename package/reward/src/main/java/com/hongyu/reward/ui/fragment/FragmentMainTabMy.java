@@ -11,8 +11,12 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
+import com.hongyu.reward.ui.activity.personal.ContactActivity;
+import com.hongyu.reward.ui.activity.personal.MessageListActivity;
 import com.hongyu.reward.ui.activity.personal.MyEvaluateActivity;
 import com.hongyu.reward.ui.activity.personal.MyOrderActivity;
+import com.hongyu.reward.ui.activity.personal.ScoreActivity;
+import com.hongyu.reward.ui.activity.personal.WalletActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.CommonTextView;
 import com.hongyu.reward.widget.RoundImageView;
@@ -130,20 +134,18 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
             case R.id.my_evaluation: // 我的评价
                 MyEvaluateActivity.launch(getActivity());
                 break;
-//            case R.id.my_wallet: // 我的钱包
-//                intent = new Intent(getActivity(), WalletActivity.class);
-//                goToActivity(intent);
-//                break;
-//            case R.id.my_score: // 积分中心
-//                T.show(R.string.tip_to_open);
-//                break;
-//            case R.id.my_msg:// 消息中心
-//                intent = new Intent(getActivity(), MessageListActivity.class);
-//                goToActivity(intent);
-//                break;
-//            case R.id.my_contact: // 联系客服
-//                intent = new Intent(getActivity(), ContactActivity.class);
-//                goToActivity(intent);
+            case R.id.my_wallet: // 我的钱包
+                WalletActivity.launch(getActivity());
+                break;
+            case R.id.my_score: // 积分中心
+                ScoreActivity.launch(getActivity());
+                break;
+            case R.id.my_msg:// 消息中心
+                MessageListActivity.launch(getActivity());
+                break;
+            case R.id.my_contact: // 联系客服
+                intent = new Intent(getActivity(), ContactActivity.class);
+                goToActivity(intent);
 //                break;
 //            case R.id.my_setting: // 设置
 //                intent = new Intent(getActivity(), SettingActivity.class);
