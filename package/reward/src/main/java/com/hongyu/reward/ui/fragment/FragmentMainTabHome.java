@@ -36,6 +36,10 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
 
   @Override
   protected void onStartLoading() {
+  }
+
+  @Override
+  protected void loadingData() {
     initAd();
   }
 

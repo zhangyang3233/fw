@@ -39,6 +39,15 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
 
 
   @Override
+  protected void onStartLoading() {
+  }
+
+  @Override
+  protected void loadingData() {
+    getFetchHelper().fetch();
+  }
+
+  @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
     super.onInflated(contentView, savedInstanceState);
     initView();

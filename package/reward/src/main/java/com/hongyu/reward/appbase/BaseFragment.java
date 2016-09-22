@@ -23,15 +23,16 @@ public abstract class BaseFragment extends Fragment {
   protected View mContentView;
   protected boolean mIsInflated;
 
-  private boolean isVisible;
-  private boolean isPrepared;
-  private boolean isLoaded;
+  protected boolean isVisible;
+  protected boolean isPrepared;
+  protected boolean isLoaded;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     mContentView = inflater.inflate(getLayoutResId(), container, false);
     isPrepared = true;
+    isLoaded = false;
     checkLazyLoad();
     return mContentView;
   }
@@ -96,7 +97,7 @@ public abstract class BaseFragment extends Fragment {
   }
 
 
-  private void checkLazyLoad() {
+  protected void checkLazyLoad() {
     if (isVisible && isPrepared && !isLoaded) {
       loadingData();
       isLoaded = true;

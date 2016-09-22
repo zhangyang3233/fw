@@ -36,6 +36,17 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
   LinearLayout mLeftContainer;
   ImageView mRightBtn;
 
+
+  @Override
+  protected void onStartLoading() {
+
+  }
+
+  @Override
+  protected void loadingData() {
+    getFetchHelper().fetch();
+  }
+
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
     super.onInflated(contentView, savedInstanceState);
