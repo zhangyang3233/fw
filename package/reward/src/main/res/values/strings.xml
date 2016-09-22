@@ -113,4 +113,9 @@
     <string name="score_center">积分中心</string>
     <string name="msg_center">消息中心</string>
     <string name="contact_title">联系客服</string>
+
+    <!-- 设置 -->
+    <string name="setting_title">设置</string>
+    <string name="sure_to_logout">确认要退出吗？</string>
+    <string name="update_pwd_title">修改密码</string>
 </resources>

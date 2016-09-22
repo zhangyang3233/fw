@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:reward="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View style="@style/divider_theme_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="声音提示"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h2" />
+
+        <ToggleButton
+            android:id="@+id/sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:button="@drawable/switch_btn"
+            android:checked="true"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
+    </RelativeLayout>
+
+    <View style="@style/divider_theme_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="振动提示"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h2" />
+
+        <ToggleButton
+            android:id="@+id/vibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:button="@drawable/switch_btn"
+            android:checked="true"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_marginBottom="15dp" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <com.hongyu.reward.widget.CommonTextView
+        android:id="@+id/setting_update_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        reward:isclick="true"
+        reward:labeltext="修改密码"
+        reward:leftbg="@color/total_transparent" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <com.hongyu.reward.widget.CommonTextView
+        android:id="@+id/setting_help"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        reward:isclick="true"
+        reward:labeltext="帮助"
+        reward:leftbg="@color/total_transparent" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <com.hongyu.reward.widget.CommonTextView
+        android:id="@+id/setting_terms"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        reward:isclick="true"
+        reward:labeltext="法律条款"
+        reward:leftbg="@color/total_transparent" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <com.hongyu.reward.widget.CommonTextView
+        android:id="@+id/setting_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        reward:isclick="true"
+        reward:labeltext="关于我们"
+        reward:leftbg="@color/total_transparent" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <Button
+        android:id="@+id/logout"
+        style="@style/App.Comm.Button"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:text="退出登录" />
+</LinearLayout>

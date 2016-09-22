@@ -127,6 +127,12 @@
        <activity
             android:name=".ui.activity.personal.ContactSuccessActivity"
             android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.SettingActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.UpdatePwdActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"

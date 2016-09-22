@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.fw.zycoder.http.callback.DataCallback;
+import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.R;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.model.TokenModel;
@@ -24,6 +26,8 @@ import com.hongyu.reward.request.SetPwdRequestBuilder;
 import com.hongyu.reward.ui.fragment.WelcomeFragment;
 import com.hongyu.reward.utils.T;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by zhangyang131 on 16/9/8.
@@ -32,6 +36,21 @@ public class AccountManager {
   private static AccountManager instance;
   private String mtoken;
   private LoginModel.UserInfo user;
+  private ArrayList<LogoutListener> observe;
+
+
+  public void addLogoutListener(LogoutListener l) {
+    if (observe == null) {
+      observe = new ArrayList<>();
+    }
+    observe.add(l);
+  }
+
+  public void removeLogoutListener(LogoutListener l) {
+    if (observe != null) {
+      observe.remove(l);
+    }
+  }
 
   public static AccountManager getInstance() {
     if (instance == null) {
@@ -115,20 +134,28 @@ public class AccountManager {
   }
 
   public void getToken() {
-    GetTokenRequestBuilder builder = new GetTokenRequestBuilder();
-    builder.setDataCallback(new DataCallback<TokenModel>() {
-      @Override
-      public void onDataCallback(TokenModel data) {
-        if (ResponesUtil.checkModelCodeOK(data)) {
-          saveToken(data.getToken());
-        } else {
-          T.show(R.string.get_token_error);
+    String token = getTokenLocation();
+    if (TextUtils.isEmpty(token)) {
+      GetTokenRequestBuilder builder = new GetTokenRequestBuilder();
+      builder.setDataCallback(new DataCallback<TokenModel>() {
+        @Override
+        public void onDataCallback(TokenModel data) {
+          if (ResponesUtil.checkModelCodeOK(data)) {
+            saveToken(data.getToken());
+          } else {
+            T.show(R.string.get_token_error);
+          }
         }
-      }
-    });
-    builder.build().submit();
+      });
+      builder.build().submit();
+    }
   }
 
+  /**
+   * 获取手机验证码
+   * @param phone
+   * @param callBack
+     */
   public void getCode(String phone, final GetAuthCodeRequestBuilder.CallBack callBack) {
     GetAuthCodeRequestBuilder builder = new GetAuthCodeRequestBuilder(phone);
     builder.setDataCallback(new DataCallback<BaseModel>() {
@@ -145,6 +172,7 @@ public class AccountManager {
     builder.build().submit();
 
   }
+
 
   public void findPwdVerfiy(String phoneNum, String authCode, final CommonCallback callback) {
     FindPwdRequestBuilder builder = new FindPwdRequestBuilder(phoneNum, authCode);
@@ -207,6 +235,7 @@ public class AccountManager {
     editor.commit();
   }
 
+
   public void getUserInfo(final GetUserInfoCallback callback) {
     GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
     builder.setDataCallback(new DataCallback<LoginModel>() {
@@ -236,6 +265,24 @@ public class AccountManager {
   private LoginModel.UserInfo getLocalUserInfo() {
     initUser();
     return user;
+  }
+
+  public void logout() {
+    user = null;
+    SharedPreferences pref = GlobalConfig.getAppContext()
+        .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = pref.edit();
+    editor.clear();
+    editor.commit();
+    notifyLogout();
+  }
+
+  private void notifyLogout() {
+    if(!CollectionUtils.isEmpty(observe)){
+      for(LogoutListener l : observe){
+        l.onLogout();
+      }
+    }
   }
 
   public interface GetUserInfoCallback {

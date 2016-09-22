@@ -45,4 +45,8 @@ public class LoginActivity extends BaseSingleFragmentActivity {
         });
         setRightTitleView(register);
     }
+
+    @Override
+    public void onLogout() {
+    }
 }

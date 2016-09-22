@@ -51,6 +51,9 @@ public final class Constants {
 		public static final String GUIDE_KEY = "guide_key";
 		public static final String TOKEN = "token";
 
+		public static final String AUDIO_CUES = "audioCues"; // 声音提示
+		public static final String SHOCK_CUES = "shockCues"; // 震动提示
+
 	}
 	
 	public final class Pay {

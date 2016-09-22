@@ -16,6 +16,7 @@ import com.hongyu.reward.ui.activity.personal.MessageListActivity;
 import com.hongyu.reward.ui.activity.personal.MyEvaluateActivity;
 import com.hongyu.reward.ui.activity.personal.MyOrderActivity;
 import com.hongyu.reward.ui.activity.personal.ScoreActivity;
+import com.hongyu.reward.ui.activity.personal.SettingActivity;
 import com.hongyu.reward.ui.activity.personal.WalletActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.CommonTextView;
@@ -126,7 +127,6 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Intent intent;
         switch (v.getId()) {
             case R.id.my_order: // 我的订单
                 MyOrderActivity.launch(getActivity());
@@ -144,13 +144,11 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
                 MessageListActivity.launch(getActivity());
                 break;
             case R.id.my_contact: // 联系客服
-                intent = new Intent(getActivity(), ContactActivity.class);
-                goToActivity(intent);
-//                break;
-//            case R.id.my_setting: // 设置
-//                intent = new Intent(getActivity(), SettingActivity.class);
-//                goToActivity(intent);
-//                break;
+                ContactActivity.launch(getActivity());
+                break;
+            case R.id.my_setting: // 设置
+                SettingActivity.launch(getActivity());
+                break;
 //            case R.id.next_info: // 我的详情页面
 //                intent = new Intent(getActivity(), MyInfoActivity.class);
 //                goToActivity(intent);

@@ -8,13 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.hongyu.reward.R;
+import com.hongyu.reward.interfaces.LogoutListener;
+import com.hongyu.reward.manager.AccountManager;
 import com.zycoder.sliding.SlidingHelper;
 import com.zycoder.sliding.component.SlideActivity;
 
 /**
  * @author zhangyang
  */
-public class BaseSlideActivity extends AppCompatActivity implements SlideActivity {
+public class BaseSlideActivity extends AppCompatActivity implements SlideActivity, LogoutListener {
   private boolean mIsDestroyed = false;
   protected BaseFragment mFragment;
 
@@ -23,6 +25,7 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     super.onCreate(savedInstanceState);
     setContentView(getLayoutId());
     SlidingHelper.onCreate(this);
+    AccountManager.getInstance().addLogoutListener(this);
   }
 
   @Override
@@ -53,6 +56,7 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     super.onDestroy();
     mIsDestroyed = true;
     SlidingHelper.onDestroy(this);
+    AccountManager.getInstance().removeLogoutListener(this);
   }
 
   @Override
@@ -113,4 +117,8 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
         : super.onKeyDown(keyCode, event);
   }
 
+  @Override
+  public void onLogout() {
+    finish();
+  }
 }

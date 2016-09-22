@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.hongyu.reward.R;
+import com.hongyu.reward.interfaces.LogoutListener;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.adapter.MainPagerAdapter;
 import com.hongyu.reward.widget.BottomBar;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -22,7 +24,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 /**
  * Created by zhangyang131 on 16/8/29.
  */
-public class TabHostActivity extends FragmentActivity {
+public class TabHostActivity extends FragmentActivity implements LogoutListener {
   private ViewPager mViewPager;
   private MainPagerAdapter mPagerAdapter;
   private BottomBar mBottomBar;
@@ -43,6 +45,7 @@ public class TabHostActivity extends FragmentActivity {
     initWindow();
     setContentView(R.layout.activity_classic);
     initView();
+    AccountManager.getInstance().addLogoutListener(this);
   }
 
   private void initView() {
@@ -80,16 +83,13 @@ public class TabHostActivity extends FragmentActivity {
     mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
     mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
       @Override
-      public void onDrawerSlide(View drawerView, float slideOffset) {
-      }
+      public void onDrawerSlide(View drawerView, float slideOffset) {}
 
       @Override
-      public void onDrawerOpened(View drawerView) {
-      }
+      public void onDrawerOpened(View drawerView) {}
 
       @Override
-      public void onDrawerClosed(View drawerView) {
-      }
+      public void onDrawerClosed(View drawerView) {}
 
       @Override
       public void onDrawerStateChanged(int newState) {
@@ -109,7 +109,19 @@ public class TabHostActivity extends FragmentActivity {
     }
   }
 
-  public void switchPage(int index){
+  public void switchPage(int index) {
     mViewPager.setCurrentItem(index, false);
+  }
+
+  @Override
+  public void onLogout() {
+    LoginActivity.launch(this);
+    finish();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    AccountManager.getInstance().removeLogoutListener(this);
   }
 }
