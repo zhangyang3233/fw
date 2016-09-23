@@ -36,9 +36,9 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="刘嘉玲"
                 android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h1" />
+                android:textSize="@dimen/text_h1"
+                tools:text="刘嘉玲" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,9 +58,9 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="200"
                     android:textColor="@color/text_orange"
-                    android:textSize="@dimen/text_h1" />
+                    android:textSize="@dimen/text_h1"
+                    tools:text="200" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -84,9 +84,9 @@
         android:layout_height="50dp"
         android:clickable="true"
         reward:isclick="true"
+        reward:labeltext="申请提现"
         reward:leftbg="@color/total_transparent"
-        reward:leftimg="@mipmap/withdraw_replay"
-        reward:labeltext="申请提现" />
+        reward:leftimg="@mipmap/withdraw_replay" />
 
     <View style="@style/divider_theme_gray" />
 
@@ -96,9 +96,9 @@
         android:layout_height="50dp"
         android:clickable="true"
         reward:isclick="true"
+        reward:labeltext="提现设置"
         reward:leftbg="@color/total_transparent"
-        reward:leftimg="@mipmap/withdraw_setting"
-        reward:labeltext="提现设置" />
+        reward:leftimg="@mipmap/withdraw_setting" />
 
     <View style="@style/divider_theme_gray" />
 
@@ -108,9 +108,9 @@
         android:layout_height="50dp"
         android:clickable="true"
         reward:isclick="true"
+        reward:labeltext="交易详情"
         reward:leftbg="@color/total_transparent"
-        reward:leftimg="@mipmap/withdraw_detail"
-        reward:labeltext="交易详情" />
+        reward:leftimg="@mipmap/withdraw_detail" />
 
     <View style="@style/divider_theme_gray" />
 

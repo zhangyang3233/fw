@@ -27,14 +27,16 @@ android {
         // 默认是self的渠道
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "self"]
     }
+
+
     // 签名配置
     signingConfigs {
         // 配置的名字(可以自己定义)
         debugAndRelease {
-            keyAlias 'zhangyang'
-            keyPassword 'zhangyang'
-            storeFile file('zy.jks')
-            storePassword 'zhangyang'
+            keyAlias 'weiyixuanshang'
+            keyPassword 'weiyixuanshang11'
+            storeFile file('wyxs.jks')
+            storePassword 'weiyixuanshang11'
         }
     }
     buildTypes { // 构建类型,一般有release 和 debug. 有些公司会用 release 和 dev,不过都是一个意思

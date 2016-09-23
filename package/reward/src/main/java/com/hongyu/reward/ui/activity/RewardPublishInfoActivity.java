@@ -14,24 +14,24 @@ import com.hongyu.reward.ui.fragment.RewardPublishInfoFragment;
  */
 public class RewardPublishInfoActivity extends BaseSingleFragmentActivity {
 
-    public static void launch(Context context, ShopListMode.ShopInfo shopInfo){
-        Intent i = new Intent(context, RewardPublishInfoActivity.class);
-        i.putExtra(ShopListMode.ShopInfo.class.getSimpleName(), shopInfo);
-        context.startActivity(i);
-    }
+  public static void launch(Context context, ShopListMode.ShopInfo shopInfo) {
+    Intent i = new Intent(context, RewardPublishInfoActivity.class);
+    i.putExtra(ShopListMode.ShopInfo.class.getSimpleName(), shopInfo);
+    context.startActivity(i);
+  }
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return RewardPublishInfoFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return RewardPublishInfoFragment.class;
+  }
 
-    @Override
-    protected String getTitleText() {
-        return getString(R.string.input_reward_info_title);
-    }
+  @Override
+  protected String getTitleText() {
+    return getString(R.string.input_reward_info_title);
+  }
 
-    @Override
-    public boolean getCanFlingBack() {
-        return true;
-    }
+  @Override
+  public boolean getCanFlingBack() {
+    return true;
+  }
 }

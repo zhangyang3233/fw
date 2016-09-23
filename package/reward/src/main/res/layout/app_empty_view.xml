@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hongyu.reward.widget.AppEmptyView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hongyu.reward.widget.AppEmptyView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/app_empty_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:visibility="invisible"
-    android:padding="10dp"
+    android:background="@color/appbase_app_background_color"
     android:gravity="center_horizontal|center_vertical"
-    android:background="@color/appbase_app_background_color">
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:visibility="invisible">
 
 
     <ImageView
@@ -16,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="center"
-        android:src="@mipmap/icon_reward_appointment"/>
+        android:src="@mipmap/icon_reward_appointment" />
 
     <TextView
         android:id="@+id/empty_view_text"
@@ -26,7 +25,7 @@
         android:gravity="center_horizontal"
         android:text="@string/base_default_empty_message"
         android:textColor="#aaaaaa"
-        android:textSize="19sp"/>
+        android:textSize="19sp" />
 
 
 </com.hongyu.reward.widget.AppEmptyView>

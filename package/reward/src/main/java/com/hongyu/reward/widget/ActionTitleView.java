@@ -40,11 +40,13 @@ public class ActionTitleView extends RelativeLayout implements TitleContainer {
   }
 
   public static ActionTitleView newInstance(ViewGroup parent) {
-    return (ActionTitleView) ViewUtils.newInstance(parent, R.layout.reward_common_title_view_layout);
+    return (ActionTitleView) ViewUtils.newInstance(parent,
+        R.layout.reward_common_title_view_layout);
   }
 
   public static ActionTitleView newInstance(Context context) {
-    return (ActionTitleView) ViewUtils.newInstance(context, R.layout.reward_common_title_view_layout);
+    return (ActionTitleView) ViewUtils.newInstance(context,
+        R.layout.reward_common_title_view_layout);
   }
 
   @Override
@@ -80,12 +82,6 @@ public class ActionTitleView extends RelativeLayout implements TitleContainer {
   }
 
   @Override
-  public void setTitle(int resId) {
-    mTitle.setText(StringUtil.getString(resId));
-  }
-
-
-  @Override
   public void setLeftView(View v, ViewGroup.LayoutParams layoutParams) {
     if (v == null) {
       return;
@@ -118,6 +114,11 @@ public class ActionTitleView extends RelativeLayout implements TitleContainer {
     return mTitle;
   }
 
+  @Override
+  public void setTitle(int resId) {
+    mTitle.setText(StringUtil.getString(resId));
+  }
+
   public ImageView getBackImageView() {
     return mBackImageView;
   }
@@ -133,11 +134,11 @@ public class ActionTitleView extends RelativeLayout implements TitleContainer {
     }
   }
 
-  public interface RightViewChangedListener {
-    void onRightViewChangedListener(View view);
-  }
-
   public void setOnRightViewChangedListener(RightViewChangedListener listener) {
     mRightViewChangedListener = listener;
+  }
+
+  public interface RightViewChangedListener {
+    void onRightViewChangedListener(View view);
   }
 }

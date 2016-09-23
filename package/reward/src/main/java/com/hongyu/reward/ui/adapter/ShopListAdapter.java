@@ -15,63 +15,67 @@ import com.hongyu.reward.widget.NetImageView;
  * Created by zhangyang131 on 16/9/12.
  */
 public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
-    OnItemClickListener mOnItemClickListener;
+  OnItemClickListener mOnItemClickListener;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder;
-        if (convertView == null) {
-            holder = new Holder();
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listview_shop, null);
-            holder.rootView = convertView;
-            holder.cover = (NetImageView) convertView.findViewById(R.id.image);
-            holder.per = (TextView) convertView.findViewById(R.id.reward_per);
-            holder.time = (TextView) convertView.findViewById(R.id.reward_time);
-            holder.name = (TextView) convertView.findViewById(R.id.shop_name);
-            holder.km = (TextView) convertView.findViewById(R.id.km);
-            convertView.setTag(holder);
-        } else {
-            holder = (Holder) convertView.getTag();
+  @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+    Holder holder;
+    if (convertView == null) {
+      holder = new Holder();
+      convertView =
+          LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listview_shop, null);
+      holder.rootView = convertView;
+      holder.cover = (NetImageView) convertView.findViewById(R.id.image);
+      holder.per = (TextView) convertView.findViewById(R.id.reward_per);
+      holder.time = (TextView) convertView.findViewById(R.id.reward_time);
+      holder.name = (TextView) convertView.findViewById(R.id.shop_name);
+      holder.km = (TextView) convertView.findViewById(R.id.km);
+      convertView.setTag(holder);
+    } else {
+      holder = (Holder) convertView.getTag();
+    }
+
+    final ShopListMode.ShopInfo model = getItem(position);
+    if (model == null) return null;
+
+    holder.cover.loadNetworkImageByUrl(model.getImg());
+    holder.per.setText(
+        GlobalConfig.getAppContext().getString(R.string.reward_count, model.getOrder_num()));
+    holder.name.setText(model.getShop_name());
+    holder.km.setText(
+        GlobalConfig.getAppContext().getString(R.string.shop_distance, model.getDistance()));
+    holder.time
+        .setText(GlobalConfig.getAppContext().getString(R.string.save_time, model.getSave_time()));
+    if (mOnItemClickListener != null) {
+      holder.rootView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          mOnItemClickListener.itemOnClick(model);
         }
-
-        final ShopListMode.ShopInfo model = getItem(position);
-        if (model == null) return null;
-
-        holder.cover.loadNetworkImageByUrl(model.getImg());
-        holder.per.setText(GlobalConfig.getAppContext().getString(R.string.reward_count, model.getOrder_num()));
-        holder.name.setText(model.getShop_name());
-        holder.km.setText(GlobalConfig.getAppContext().getString(R.string.shop_distance, model.getDistance()));
-        holder.time.setText(GlobalConfig.getAppContext().getString(R.string.save_time, model.getSave_time()));
-        if(mOnItemClickListener != null){
-            holder.rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.itemOnClick(model);
-                }
-            });
-        }
-
-        return convertView;
+      });
     }
 
-    public OnItemClickListener getmOnItemClickListener() {
-        return mOnItemClickListener;
-    }
+    return convertView;
+  }
 
-    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
+  public OnItemClickListener getmOnItemClickListener() {
+    return mOnItemClickListener;
+  }
 
-    private class Holder {
-        private View rootView;
-        private TextView name;
-        private TextView per;
-        private TextView time;
-        private TextView km;
-        private NetImageView cover;
-    }
+  public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    this.mOnItemClickListener = mOnItemClickListener;
+  }
 
-    public interface OnItemClickListener{
-        void itemOnClick(ShopListMode.ShopInfo mode);
-    }
+  public interface OnItemClickListener {
+    void itemOnClick(ShopListMode.ShopInfo mode);
+  }
+
+  private class Holder {
+    private View rootView;
+    private TextView name;
+    private TextView per;
+    private TextView time;
+    private TextView km;
+    private NetImageView cover;
+  }
 }

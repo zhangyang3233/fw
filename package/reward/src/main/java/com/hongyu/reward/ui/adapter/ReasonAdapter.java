@@ -17,9 +17,9 @@ public class ReasonAdapter extends DataAdapter<ReasonModel.Reason> {
   public View getView(final int position, View convertView, ViewGroup parent) {
     ReasonView item = new ReasonView(parent.getContext());
     item.setContent(getItem(position).getId(), getItem(position).getReason());
-    if(getSelectReason() == getItem(position)){
+    if (getSelectReason() == getItem(position)) {
       item.setSelect(true);
-    }else{
+    } else {
       item.setSelect(false);
     }
     item.setOnClickListener(new View.OnClickListener() {

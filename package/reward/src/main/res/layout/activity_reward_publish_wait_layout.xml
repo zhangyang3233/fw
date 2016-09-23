@@ -38,9 +38,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
-                    tools:text="味千拉面"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h1" />
+                    android:textSize="@dimen/text_h1"
+                    tools:text="味千拉面" />
             </LinearLayout>
 
             <View style="@style/divider_theme_gray" />
@@ -166,10 +166,10 @@
                     android:id="@+id/time_count_down"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="60sp"
-                    android:textColor="@color/black"
                     android:layout_centerInParent="true"
-                    android:text="10:00"/>
+                    android:text="10:00"
+                    android:textColor="@color/black"
+                    android:textSize="60sp" />
             </RelativeLayout>
 
             <TextView

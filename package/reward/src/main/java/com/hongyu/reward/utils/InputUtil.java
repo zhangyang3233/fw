@@ -32,11 +32,11 @@ public class InputUtil {
     return true;
   }
 
-  public static boolean checkPwd(EditText pwdEditText){
+  public static boolean checkPwd(EditText pwdEditText) {
     String pwd = pwdEditText.getText().toString();
     if (TextUtils.isEmpty(pwd)) {
       pwdEditText
-              .setError(pwdEditText.getContext().getString(R.string.login_pwd_must_be_not_empty));
+          .setError(pwdEditText.getContext().getString(R.string.login_pwd_must_be_not_empty));
       return false;
     }
 
@@ -45,7 +45,7 @@ public class InputUtil {
       return false;
     }
 
-    if (pwd.length() >16) {
+    if (pwd.length() > 16) {
       pwdEditText.setError(pwdEditText.getContext().getString(R.string.pwd_too_long));
       return false;
     }

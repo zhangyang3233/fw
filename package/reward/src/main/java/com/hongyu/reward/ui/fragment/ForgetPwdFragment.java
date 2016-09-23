@@ -140,10 +140,10 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
     MainThreadPostUtils.post(new Runnable() {
       @Override
       public void run() {
-        if(s>0){
+        if (s > 0) {
           mBtnGetCode.setText(getString(R.string.login_second, String.valueOf(s)));
           mBtnGetCode.setClickable(false);
-        }else{
+        } else {
           mBtnGetCode.setText(R.string.login_get_auth);
           mBtnGetCode.setClickable(true);
         }

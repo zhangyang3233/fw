@@ -3,140 +3,159 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_main_bg_color"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical">
+
     <View style="@style/divider_theme_gray" />
-    <View style="@style/divider_theme_gray"
-	        android:layout_marginTop="15dp" />
-    
-	<LinearLayout 
+
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_marginTop="15dp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:gravity="center_vertical"
         android:background="@color/white"
-        android:orientation="horizontal">
-        <TextView 
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/login_phone_num"
             android:textColor="@color/text_gray_dark"
-            android:textSize="@dimen/text_h2"/>
-        <EditText 
-		    android:id="@+id/phone"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:hint="@string/login_phone_hint"
-		    android:maxLength="11"
-		    android:inputType="phone"
-		    android:background="@color/total_transparent"
-		    android:textColor="@color/text_gray_dark"
-		    android:textSize="@dimen/text_h2"
-		    android:textColorHint="@color/text_gray_lightest"/>
+            android:textSize="@dimen/text_h2" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/total_transparent"
+            android:hint="@string/login_phone_hint"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textColor="@color/text_gray_dark"
+            android:textColorHint="@color/text_gray_lightest"
+            android:textSize="@dimen/text_h2" />
     </LinearLayout>
-	<View style="@style/divider_theme_gray" />
-	<LinearLayout 
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:gravity="center_vertical"
         android:background="@color/white"
-        android:orientation="horizontal">
-        <TextView 
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/auth_code"
             android:textColor="@color/text_gray_dark"
-            android:textSize="@dimen/text_h2"/>
-        <EditText 
-		    android:id="@+id/code"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:hint="@string/please_input_auth"
-		    android:maxLength="6"
-		    android:inputType="number"
-		    android:background="@color/total_transparent"
-		    android:textColor="@color/text_gray_dark"
-		    android:textSize="@dimen/text_h2"
-		    android:textColorHint="@color/text_gray_lightest"/>
-        
-        <TextView 
+            android:textSize="@dimen/text_h2" />
+
+        <EditText
+            android:id="@+id/code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/total_transparent"
+            android:hint="@string/please_input_auth"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textColor="@color/text_gray_dark"
+            android:textColorHint="@color/text_gray_lightest"
+            android:textSize="@dimen/text_h2" />
+
+        <TextView
             android:id="@+id/get_code"
             android:layout_width="100dp"
             android:layout_height="36dp"
-            android:singleLine="true"
-            android:text="@string/login_get_auth"
+            android:background="@drawable/btn_bg_get_code"
             android:clickable="true"
             android:gravity="center"
-            android:background="@drawable/btn_bg_get_code"
+            android:singleLine="true"
+            android:text="@string/login_get_auth"
             android:textColor="@color/app_main_title_text_color"
-            android:textSize="@dimen/text_h2"/>
+            android:textSize="@dimen/text_h2" />
     </LinearLayout>
-	<View style="@style/divider_theme_gray" />
-	<LinearLayout 
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:gravity="center_vertical"
         android:background="@color/white"
-        android:orientation="horizontal">
-        <TextView 
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/pwd"
             android:textColor="@color/text_gray_dark"
-            android:textSize="@dimen/text_h2"/>
-        <EditText 
-		    android:id="@+id/pwd"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:hint="@string/please_input_pwd"
-		    android:maxLength="16"
-		    android:inputType="textPassword"
-		    android:background="@color/total_transparent"
-		    android:textColor="@color/text_gray_dark"
-		    android:textSize="@dimen/text_h2"
-		    android:textColorHint="@color/text_gray_lightest"/>
+            android:textSize="@dimen/text_h2" />
+
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/total_transparent"
+            android:hint="@string/please_input_pwd"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/text_gray_dark"
+            android:textColorHint="@color/text_gray_lightest"
+            android:textSize="@dimen/text_h2" />
     </LinearLayout>
-	<View style="@style/divider_theme_gray" />
-	<LinearLayout 
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:gravity="center_vertical"
         android:background="@color/white"
-        android:orientation="horizontal">
-        <TextView 
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/please_reinput_pwd"
             android:textColor="@color/text_gray_dark"
-            android:textSize="@dimen/text_h2"/>
-        <EditText 
-		    android:id="@+id/repwd"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:hint="@string/please_input_pwd"
-		    android:maxLength="16"
-		    android:inputType="textPassword"
-		    android:background="@color/total_transparent"
-		    android:textColor="@color/text_gray_dark"
-		    android:textSize="@dimen/text_h2"
-		    android:textColorHint="@color/text_gray_lightest"/>
+            android:textSize="@dimen/text_h2" />
+
+        <EditText
+            android:id="@+id/repwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/total_transparent"
+            android:hint="@string/please_input_pwd"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/text_gray_dark"
+            android:textColorHint="@color/text_gray_lightest"
+            android:textSize="@dimen/text_h2" />
     </LinearLayout>
-	<View style="@style/divider_theme_gray" />		
-	<Button style="@style/App.Comm.Button"
+
+    <View style="@style/divider_theme_gray" />
+
+    <Button
         android:id="@+id/register"
+        style="@style/App.Comm.Button"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/register_now"/>
+        android:text="@string/register_now" />
 </LinearLayout>

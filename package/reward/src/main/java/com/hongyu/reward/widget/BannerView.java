@@ -20,23 +20,20 @@ import me.relex.circleindicator.CircleIndicator;
  */
 public class BannerView extends FrameLayout implements ViewPager.OnPageChangeListener {
   BannerPagerAdapter adapter;
-
+  private Context mContext;
+  private ViewGroup mView;
+  private ViewPager mViewPager;
+  private CircleIndicator indicator;
   public BannerView(Context context) {
     super(context);
     mContext = context;
     initView();
   }
-
   public BannerView(Context context, AttributeSet attrs) {
     super(context, attrs);
     mContext = context;
     initView();
   }
-
-  private Context mContext;
-  private ViewGroup mView;
-  private ViewPager mViewPager;
-  private CircleIndicator indicator;
 
   public void initView() {
     initAdapter();

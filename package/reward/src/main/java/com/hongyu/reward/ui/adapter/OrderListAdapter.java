@@ -25,76 +25,58 @@ import com.hongyu.reward.model.OrderModel;
  *
  */
 public class OrderListAdapter extends DataAdapter<OrderModel> {
+  public OnOrderItemClickListener orderItemClickListener;
   private Context context;
   private int isme = 0; // 0我发出的 1我收到的
-  public OnOrderItemClickListener orderItemClickListener;
 
   public OrderListAdapter(Context context, int type) {
     this.context = context;
     this.isme = type;
   }
 
-  public void setOnItemClickListener(OnOrderItemClickListener orderItemClickListener) {
-    this.orderItemClickListener = orderItemClickListener;
-  }
-
-  public interface OnOrderItemClickListener {
-    void onClick(OrderModel model, int type);
-  }
-
   public static void gelleryToPage(Context context, OrderModel model, int isme) {
     Intent intent = null;
-//     switch (model.getStatus()) {
-//     case OrderModel.STATUS_FINISHED: // 已完成
-//     intent = new Intent(context, OrderFinishActivity.class);
-//     intent.putExtra("order_id", model.getOrder_id());
-//     context.startActivity(intent);
-//     break;
-//     case OrderModel.STATUS_PENDING_RECEIVE: // 待接单
-//     intent = new Intent(context, RewardPublishWaitActivity.class);
-//     intent.putExtra("order_id", model.getOrder_id());
-//     context.startActivity(intent);
-//     break;
-//     case OrderModel.STATUS_PENDING_PAY: // 待付款
-//     if (isme == 1) return;
-//     intent = new Intent(context, PaySureActivity.class);
-//     intent.putExtra("order_id", model.getOrder_id());
-//     intent.putExtra("price", String.valueOf(model.getPrice()));
-//     context.startActivity(intent);
-//     break;
-//     case OrderModel.STATUS_PENDING_COMMENT: // 待评论
-//     intent = new Intent(context, RewardFinishActivity.class);
-//     intent.putExtra("order_id", model.getOrder_id());
-//     intent.putExtra("price", model.getPrice());
-//     context.startActivity(intent);
-//     break;
-//     case OrderModel.STATUS_PENDING_RECEIVED:
-//     if (isme == 1) {
-//     intent = new Intent(context, RewardStartActivity.class);
-//     } else {
-//     intent = new Intent(context, OrderStartActivity.class);
-//     }
-//     intent.putExtra("order_id", model.getOrder_id());
-//     intent.putExtra("shop_name", model.getShop_name());
-//     intent.putExtra("shop_image", model.getImg());
-//
-//     context.startActivity(intent);
-//     break;
-//     }
+    // switch (model.getStatus()) {
+    // case OrderModel.STATUS_FINISHED: // 已完成
+    // intent = new Intent(context, OrderFinishActivity.class);
+    // intent.putExtra("order_id", model.getOrder_id());
+    // context.startActivity(intent);
+    // break;
+    // case OrderModel.STATUS_PENDING_RECEIVE: // 待接单
+    // intent = new Intent(context, RewardPublishWaitActivity.class);
+    // intent.putExtra("order_id", model.getOrder_id());
+    // context.startActivity(intent);
+    // break;
+    // case OrderModel.STATUS_PENDING_PAY: // 待付款
+    // if (isme == 1) return;
+    // intent = new Intent(context, PaySureActivity.class);
+    // intent.putExtra("order_id", model.getOrder_id());
+    // intent.putExtra("price", String.valueOf(model.getPrice()));
+    // context.startActivity(intent);
+    // break;
+    // case OrderModel.STATUS_PENDING_COMMENT: // 待评论
+    // intent = new Intent(context, RewardFinishActivity.class);
+    // intent.putExtra("order_id", model.getOrder_id());
+    // intent.putExtra("price", model.getPrice());
+    // context.startActivity(intent);
+    // break;
+    // case OrderModel.STATUS_PENDING_RECEIVED:
+    // if (isme == 1) {
+    // intent = new Intent(context, RewardStartActivity.class);
+    // } else {
+    // intent = new Intent(context, OrderStartActivity.class);
+    // }
+    // intent.putExtra("order_id", model.getOrder_id());
+    // intent.putExtra("shop_name", model.getShop_name());
+    // intent.putExtra("shop_image", model.getImg());
+    //
+    // context.startActivity(intent);
+    // break;
+    // }
   }
 
-  private class OrderClickListener implements OnOrderItemClickListener {
-    private Context mContext;
-
-    public OrderClickListener(Context context) {
-      mContext = context;
-    }
-
-    @Override
-    public void onClick(OrderModel model, int type) {
-      OrderListAdapter.gelleryToPage(context, model, type);
-    }
-
+  public void setOnItemClickListener(OnOrderItemClickListener orderItemClickListener) {
+    this.orderItemClickListener = orderItemClickListener;
   }
 
   public OnOrderItemClickListener getListener() {
@@ -162,6 +144,24 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
       }
     });
     return convertView;
+  }
+
+  public interface OnOrderItemClickListener {
+    void onClick(OrderModel model, int type);
+  }
+
+  private class OrderClickListener implements OnOrderItemClickListener {
+    private Context mContext;
+
+    public OrderClickListener(Context context) {
+      mContext = context;
+    }
+
+    @Override
+    public void onClick(OrderModel model, int type) {
+      OrderListAdapter.gelleryToPage(context, model, type);
+    }
+
   }
 
   private class Holder {

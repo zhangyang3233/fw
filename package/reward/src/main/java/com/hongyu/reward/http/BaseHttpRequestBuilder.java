@@ -13,53 +13,51 @@ import com.hongyu.reward.manager.AccountManager;
 /**
  * Created by zhangyang131 on 16/9/8.
  */
-public abstract class BaseHttpRequestBuilder<T> extends AppBaseHttpRequestBuilder<T>{
-    private DataCallback<T> mNetWorkCallback = null;
-
-
+public abstract class BaseHttpRequestBuilder<T> extends AppBaseHttpRequestBuilder<T> {
+  private DataCallback<T> mNetWorkCallback = null;
+  DataCallback<T> dataCallback = new DataCallback<T>() {
     @Override
-    protected GsonRequestBuilder setMethod(int method) {
-        return super.setMethod(method);
+    public void onDataCallback(T data) {
+      if (null != BaseHttpRequestBuilder.this.mNetWorkCallback) {
+        BaseHttpRequestBuilder.this.mNetWorkCallback.onDataCallback(data);
+      }
     }
+  };
 
-    DataCallback<T> dataCallback = new DataCallback<T>() {
-        @Override
-        public void onDataCallback(T data) {
-            if(null != BaseHttpRequestBuilder.this.mNetWorkCallback) {
-                BaseHttpRequestBuilder.this.mNetWorkCallback.onDataCallback(data);
-            }
-        }
-    };
+  @Override
+  protected GsonRequestBuilder setMethod(int method) {
+    return super.setMethod(method);
+  }
 
-    @Override
-    protected ApiContext getApiContext() {
-        return ApiContextManager.getInstance().getApiContext();
+  @Override
+  protected ApiContext getApiContext() {
+    return ApiContextManager.getInstance().getApiContext();
+  }
+
+  protected void setParams(Params params) {
+    super.setParams(params);
+    // 除了获取token的接口之外所有的请求都加上token参数
+    if (!(Constants.Server.API_PREFIX + Constants.Server.API_GET_TOKEN).equals(getUrl())) {
+      String token = AccountManager.getInstance().getTokenLocation();
+      params.put(Constants.Pref.TOKEN, token);
     }
+  }
 
-    protected void setParams(Params params) {
-        super.setParams(params);
-        // 除了获取token的接口之外所有的请求都加上token参数
-        if (!(Constants.Server.API_PREFIX+ Constants.Server.API_GET_TOKEN).equals(getUrl())) {
-            String token = AccountManager.getInstance().getTokenLocation();
-            params.put(Constants.Pref.TOKEN, token);
-        }
+  protected void checkNullAndSet(Params params, String key, Object value) {
+    if (value != null && !TextUtils.isEmpty(String.valueOf(value))) {
+      params.put(key, value);
     }
+  }
 
-    protected void checkNullAndSet(Params params, String key, Object value) {
-        if(value != null && !TextUtils.isEmpty(String.valueOf(value))) {
-            params.put(key, value);
-        }
-    }
+  public GsonRequestBuilder setDataCallback(DataCallback<T> callback) {
+    this.mNetWorkCallback = callback;
+    return super.setDataCallback(this.dataCallback);
+  }
 
-    public GsonRequestBuilder setDataCallback(DataCallback<T> callback) {
-        this.mNetWorkCallback = callback;
-        return super.setDataCallback(this.dataCallback);
-    }
+  @Override
+  protected String getUrl() {
+    return Constants.Server.API_PREFIX + getApiUrl();
+  }
 
-    @Override
-    protected String getUrl() {
-        return Constants.Server.API_PREFIX + getApiUrl();
-    }
-
-    protected abstract String getApiUrl();
+  protected abstract String getApiUrl();
 }

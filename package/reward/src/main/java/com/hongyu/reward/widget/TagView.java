@@ -13,10 +13,6 @@ import com.hongyu.reward.model.MyEvaluateReceiveModel;
  * Created by zhangyang131 on 16/9/21.
  */
 public class TagView extends TextView {
-  public void setTagModel(MyEvaluateReceiveModel.TagModel tagModel) {
-    setText(tagModel.getTag() + " " + tagModel.getNum());
-  }
-
   public TagView(Context context) {
     super(context);
   }
@@ -33,5 +29,9 @@ public class TagView extends TextView {
   public static TagView newInstance(Context context) {
     TagView tagView = (TagView) ViewUtils.newInstance(context, R.layout.tagview_layout);
     return tagView;
+  }
+
+  public void setTagModel(MyEvaluateReceiveModel.TagModel tagModel) {
+    setText(tagModel.getTag() + " " + tagModel.getNum());
   }
 }

@@ -27,7 +27,7 @@ public class CustomWebview extends WebView {
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public CustomWebview(Context context, AttributeSet attrs, int defStyleAttr,
-                       int defStyleRes) {
+      int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
   }
 

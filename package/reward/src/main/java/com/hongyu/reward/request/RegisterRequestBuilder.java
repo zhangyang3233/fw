@@ -40,8 +40,9 @@ public class RegisterRequestBuilder extends BaseHttpRequestBuilder<BaseModel> {
     checkNullAndSet(params, PASSWORD, MD5.getMD5(password));
   }
 
-  public interface CallBack{
+  public interface CallBack {
     void success();
+
     void failed(String msg);
   }
 }

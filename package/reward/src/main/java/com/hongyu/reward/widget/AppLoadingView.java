@@ -34,36 +34,43 @@ public class AppLoadingView {
     onCreate();
   }
 
+  public boolean isShowing() {
+    if (dialog != null && dialog.isShowing()) {
+      return true;
+    }
+    return false;
+  }
+
   public void setLoadingText(String loadingText) {
     this.loadingText = loadingText;
-    if(textView != null){
+    if (textView != null) {
       textView.setText(loadingText);
     }
   }
 
   public boolean isCancelable() {
-        return cancelable;
-    }
+    return cancelable;
+  }
 
-    public void setCancelable(boolean cancelable) {
-        this.cancelable = cancelable;
-        if(dialog != null){
-            dialog.setCancelable(cancelable);
-        }
+  public void setCancelable(boolean cancelable) {
+    this.cancelable = cancelable;
+    if (dialog != null) {
+      dialog.setCancelable(cancelable);
     }
+  }
 
-    public boolean isOutSideCancel() {
-        return outSideCancel;
+  public boolean isOutSideCancel() {
+    return outSideCancel;
+  }
+
+  public void setOutSideCancel(boolean outSideCancel) {
+    this.outSideCancel = outSideCancel;
+    if (dialog != null) {
+      dialog.setCanceledOnTouchOutside(outSideCancel);
     }
+  }
 
-    public void setOutSideCancel(boolean outSideCancel) {
-        this.outSideCancel = outSideCancel;
-        if(dialog != null){
-            dialog.setCanceledOnTouchOutside(outSideCancel);
-        }
-    }
-
-    public void onCreate() {
+  public void onCreate() {
     LayoutInflater inflater = LayoutInflater.from(context);
     this.rootView = (inflater.inflate(R.layout.app_loading_view, null));
     this.textView = (TextView) rootView.findViewById(R.id.loading_text);

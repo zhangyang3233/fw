@@ -46,10 +46,10 @@ public class MyCreateOrderListFragment extends PagerFragment {
     return adapter;
   }
 
-  private Bundle getBundle(int index){
+  private Bundle getBundle(int index) {
     Bundle bundle = new Bundle();
     bundle.putInt(OrderListFragment.ISME, 0);
-    switch (index){
+    switch (index) {
       case 0:
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_ALL);
         break;

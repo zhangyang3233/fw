@@ -65,7 +65,7 @@ public class ReasonView extends RelativeLayout {
     this.id = id;
   }
 
-  public void setSelect(boolean isSelect){
+  public void setSelect(boolean isSelect) {
     if (isSelect) {
       mIvIcon.setImageResource(R.mipmap.btn_select);
     } else {

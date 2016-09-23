@@ -3,13 +3,13 @@
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/app_main_bg_color"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View style="@style/divider_theme_gray" />
 
@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/image"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/cell_reward_round_all"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/task_status"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <com.hongyu.reward.widget.RoundImageView
                     android:id="@+id/header_icon"
@@ -78,15 +78,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="刘嘉玲"
                         android:textColor="@color/text_gray_dark"
-                        android:textSize="@dimen/text_h1" />
+                        android:textSize="@dimen/text_h1"
+                        tools:text="刘嘉玲" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -94,25 +94,25 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/gcr"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            tools:text="好评率:90%"
                             android:textColor="@color/text_gray_dark"
-                            android:textSize="@dimen/text_h2" />
+                            android:textSize="@dimen/text_h2"
+                            tools:text="好评率:90%" />
 
                         <TextView
                             android:id="@+id/order_num"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            tools:text="成交:5000单"
                             android:textColor="@color/text_gray_dark"
-                            android:textSize="@dimen/text_h2" />
+                            android:textSize="@dimen/text_h2"
+                            tools:text="成交:5000单" />
                     </LinearLayout>
 
                     <com.hongyu.reward.widget.StarSingle
@@ -132,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,9 +149,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
-                    tools:text="10"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h1" />
+                    android:textSize="@dimen/text_h1"
+                    tools:text="10" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -229,9 +229,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
-                    tools:text="8"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h1" />
+                    android:textSize="@dimen/text_h1"
+                    tools:text="8" />
 
                 <TextView
                     android:layout_width="wrap_content"

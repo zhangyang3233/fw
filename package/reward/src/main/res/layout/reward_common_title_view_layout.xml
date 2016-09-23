@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hongyu.reward.widget.ActionTitleView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hongyu.reward.widget.ActionTitleView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary">
@@ -15,7 +14,7 @@
         android:maxEms="9"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/h1"/>
+        android:textSize="@dimen/h1" />
 
     <LinearLayout
         android:id="@+id/common_title_view_layout_left_container"
@@ -32,7 +31,7 @@
             android:id="@+id/common_title_view_layout_left_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/comm_icon_back_yellow"/>
+            android:src="@mipmap/comm_icon_back_yellow" />
     </LinearLayout>
 
 
@@ -45,7 +44,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:paddingRight="10dp" />
 
 </com.hongyu.reward.widget.ActionTitleView>
 

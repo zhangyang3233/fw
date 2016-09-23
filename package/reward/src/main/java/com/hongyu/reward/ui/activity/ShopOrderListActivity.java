@@ -12,28 +12,28 @@ import com.hongyu.reward.ui.fragment.ShopOrderListFragment;
  * Created by zhangyang131 on 16/9/19.
  */
 public class ShopOrderListActivity extends BaseSingleFragmentActivity {
-    public static final String SHOP_NAME = "shopName";
-    public static final String SHOP_ID = "shop_id";
+  public static final String SHOP_NAME = "shopName";
+  public static final String SHOP_ID = "shop_id";
 
-    public static void launch(Context context, String shopName, String shopId){
-        Intent i = new Intent(context, ShopOrderListActivity.class);
-        i.putExtra(SHOP_NAME, shopName);
-        i.putExtra(SHOP_ID, shopId);
-        context.startActivity(i);
-    }
+  public static void launch(Context context, String shopName, String shopId) {
+    Intent i = new Intent(context, ShopOrderListActivity.class);
+    i.putExtra(SHOP_NAME, shopName);
+    i.putExtra(SHOP_ID, shopId);
+    context.startActivity(i);
+  }
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return ShopOrderListFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return ShopOrderListFragment.class;
+  }
 
-    @Override
-    protected String getTitleText() {
-        return getIntent().getStringExtra(SHOP_NAME);
-    }
+  @Override
+  protected String getTitleText() {
+    return getIntent().getStringExtra(SHOP_NAME);
+  }
 
-    @Override
-    public boolean getCanFlingBack() {
-        return true;
-    }
+  @Override
+  public boolean getCanFlingBack() {
+    return true;
+  }
 }

@@ -14,7 +14,7 @@ import com.hongyu.reward.R;
 
 public class BottomBar extends RelativeLayout {
   private LinearLayout mBottomBar;
-//  private ImageView mCenterTab;
+  // private ImageView mCenterTab;
 
   private OnTabChangeListener mOnTabChangeListener;
 
@@ -31,7 +31,7 @@ public class BottomBar extends RelativeLayout {
     super(context, attrs, defStyleAttr);
     LayoutInflater.from(context).inflate(R.layout.classic_activity_bottom_bar_internal, this);
     mBottomBar = (LinearLayout) findViewById(R.id.ll_bottom_bar);
-//    mCenterTab = (ImageView) findViewById(R.id.iv_center_tab);
+    // mCenterTab = (ImageView) findViewById(R.id.iv_center_tab);
   }
 
 
@@ -53,25 +53,25 @@ public class BottomBar extends RelativeLayout {
       child.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View v) {
-//          if (position != -1) {
-            selectTab(v);
-            if (mOnTabChangeListener != null) {
-              mOnTabChangeListener.onTabSelected(position);
-            }
-//          }
+          // if (position != -1) {
+          selectTab(v);
+          if (mOnTabChangeListener != null) {
+            mOnTabChangeListener.onTabSelected(position);
+          }
+          // }
         }
       });
     }
 
-//    mCenterTab.setOnClickListener(new OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//
-//        if (mOnTabChangeListener != null) {
-//          mOnTabChangeListener.onTabSelected(2);
-//        }
-//      }
-//    });
+    // mCenterTab.setOnClickListener(new OnClickListener() {
+    // @Override
+    // public void onClick(View v) {
+    //
+    // if (mOnTabChangeListener != null) {
+    // mOnTabChangeListener.onTabSelected(2);
+    // }
+    // }
+    // });
   }
 
   private void selectTab(View view) {
@@ -94,12 +94,12 @@ public class BottomBar extends RelativeLayout {
     mOnTabChangeListener = l;
   }
 
-  public interface OnTabChangeListener {
-    void onTabSelected(int position);
-  }
-
   @Override
   protected void onVisibilityChanged(View changedView, int visibility) {
     super.onVisibilityChanged(changedView, visibility);
+  }
+
+  public interface OnTabChangeListener {
+    void onTabSelected(int position);
   }
 }

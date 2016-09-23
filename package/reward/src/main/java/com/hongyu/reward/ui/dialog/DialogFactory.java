@@ -138,7 +138,7 @@ public class DialogFactory {
    * @tags @param listen
    */
   public static void showNumeralInputView(final Context context,
-                                          final OnDialogActionListener mOnDialogActionListener) {
+      final OnDialogActionListener mOnDialogActionListener) {
     LayoutInflater factory = LayoutInflater.from(context);
     final View view = factory.inflate(R.layout.select_input_numeral, null);
 
@@ -148,7 +148,7 @@ public class DialogFactory {
 
     // 软键盘把dialog整个推上去
     builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-            | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
     Window window = builder.getWindow();
@@ -167,7 +167,7 @@ public class DialogFactory {
     builder.getWindow().setAttributes(lp);
 
     InputMethodManager imm =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
     ok.setOnClickListener(new android.view.View.OnClickListener() {

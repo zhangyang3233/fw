@@ -13,23 +13,23 @@ import com.hongyu.reward.ui.fragment.personal.MyEvaluateFragment;
  */
 public class MyEvaluateActivity extends BaseSingleFragmentActivity {
 
-    public static void launch(Context context){
-        Intent i = new Intent(context, MyEvaluateActivity.class);
-        context.startActivity(i);
-    }
+  public static void launch(Context context) {
+    Intent i = new Intent(context, MyEvaluateActivity.class);
+    context.startActivity(i);
+  }
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return MyEvaluateFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return MyEvaluateFragment.class;
+  }
 
-    @Override
-    protected String getTitleText() {
-        return getString(R.string.my_evaluate_title);
-    }
+  @Override
+  protected String getTitleText() {
+    return getString(R.string.my_evaluate_title);
+  }
 
-    @Override
-    public boolean getCanFlingBack() {
-        return true;
-    }
+  @Override
+  public boolean getCanFlingBack() {
+    return true;
+  }
 }

@@ -22,7 +22,7 @@ public class MyOrderActivity extends AppBaseActivity
   Fragment leftFragment;
   Fragment rightFragment;
 
-  public static void launch(Context context){
+  public static void launch(Context context) {
     Intent i = new Intent(context, MyOrderActivity.class);
     context.startActivity(i);
   }

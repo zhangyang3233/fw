@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:gravity="center_horizontal"
-    android:padding="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,8 +18,8 @@
         <com.hongyu.reward.widget.RoundImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            tools:src="@mipmap/app_logo"
-            app:riv_corner_radius="30dp"/>
+            app:riv_corner_radius="30dp"
+            tools:src="@mipmap/app_logo" />
 
         <TextView
             android:layout_width="wrap_content"

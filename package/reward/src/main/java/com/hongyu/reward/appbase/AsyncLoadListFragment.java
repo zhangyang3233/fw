@@ -39,49 +39,17 @@ public abstract class AsyncLoadListFragment<M extends Object> extends BaseLoadFr
   private static final boolean DEFAULT_HAS_FILTER = false;
   private static final boolean DEFAULT_NEED_RESTORE_SCROLL_STATE = false;
   private static final String EXTRA_LIST_STATE = "zycoder.fw.intent.extra.LIST_STATE";
-
-  private List<M> mNewData;
   protected DataAdapter<M> mContentAdapter;
-  private FetchHelper<M> mFetchHelper;
-
   protected PullToRefreshBase<? extends View> mContentListView;
   protected CommonBottomView mBottomView;
-
+  private List<M> mNewData;
+  private FetchHelper<M> mFetchHelper;
   private int mLastTryFetch;
   private boolean mLoadedGapData;
   private boolean mIsPullToRefreshing;
   private boolean mIsScrolling;
   private boolean mFetchFail;
   private boolean mIsMatchPageSize = true;
-
-  private Parcelable mListState;
-
-  private BaseFetcher.Callback<M> mFetchCallback = new BaseFetcher.Callback<M>() {
-    @Override
-    public void onFetched(int limit, int page, List<M> result) {
-      AsyncLoadListFragment.this.onFetched(limit, page, result);
-    }
-
-    @Override
-    public void onFailed(int limit, int page) {
-      AsyncLoadListFragment.this.onFailed(limit, page);
-    }
-  };
-
-  private AbsListView.OnScrollListener mScrollListener = new AbsListView.OnScrollListener() {
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-      scrollStateChanged(SCROLL_STATE_IDLE == scrollState,
-          SCROLL_STATE_TOUCH_SCROLL == scrollState);
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-        int totalItemCount) {
-      scroll(firstVisibleItem, visibleItemCount, totalItemCount);
-    }
-  };
-
   protected InternalAbsListView.OnScrollListener mOnScrollListener =
       new InternalAbsListView.OnScrollListener() {
         @Override
@@ -96,6 +64,31 @@ public abstract class AsyncLoadListFragment<M extends Object> extends BaseLoadFr
           scroll(firstVisibleItem, visibleItemCount, totalItemCount);
         }
       };
+  private Parcelable mListState;
+  private BaseFetcher.Callback<M> mFetchCallback = new BaseFetcher.Callback<M>() {
+    @Override
+    public void onFetched(int limit, int page, List<M> result) {
+      AsyncLoadListFragment.this.onFetched(limit, page, result);
+    }
+
+    @Override
+    public void onFailed(int limit, int page) {
+      AsyncLoadListFragment.this.onFailed(limit, page);
+    }
+  };
+  private AbsListView.OnScrollListener mScrollListener = new AbsListView.OnScrollListener() {
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+      scrollStateChanged(SCROLL_STATE_IDLE == scrollState,
+          SCROLL_STATE_TOUCH_SCROLL == scrollState);
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+        int totalItemCount) {
+      scroll(firstVisibleItem, visibleItemCount, totalItemCount);
+    }
+  };
 
   protected void scrollStateChanged(boolean isStateIde, boolean isStateTouchScroll) {
     if (isStateIde) {

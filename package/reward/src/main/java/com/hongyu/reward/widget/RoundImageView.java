@@ -14,21 +14,21 @@ import com.hongyu.reward.R;
  */
 public class RoundImageView extends RoundedCornerImageView {
 
-    public RoundImageView(Context context) {
-        super(context);
-    }
+  public RoundImageView(Context context) {
+    super(context);
+  }
 
-    public RoundImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public RoundImageView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    public void loadNetworkImageByUrl(String url) {
-        Glide.with(getContext()).load(url).error(R.mipmap.defalut_image)
-                .skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).into(this);
-    }
+  public void loadNetworkImageByUrl(String url) {
+    Glide.with(getContext()).load(url).error(R.mipmap.defalut_image)
+        .skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).into(this);
+  }
 
-    public void loadNetworkImageByUrl(String url, int resourceId) {
-        Glide.with(getContext()).load(url).error(resourceId)
-                .skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).into(this);
-    }
+  public void loadNetworkImageByUrl(String url, int resourceId) {
+    Glide.with(getContext()).load(url).error(resourceId)
+        .skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).into(this);
+  }
 }

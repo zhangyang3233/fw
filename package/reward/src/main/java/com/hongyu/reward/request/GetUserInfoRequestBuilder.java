@@ -10,13 +10,13 @@ import com.hongyu.reward.model.LoginModel;
 public class GetUserInfoRequestBuilder extends BaseHttpRequestBuilder<LoginModel> {
 
 
-    @Override
-    protected String getApiUrl() {
-        return Constants.Server.API_USER_INFO;
-    }
+  @Override
+  protected String getApiUrl() {
+    return Constants.Server.API_USER_INFO;
+  }
 
-    @Override
-    protected Class<LoginModel> getResponseClass() {
-        return LoginModel.class;
-    }
+  @Override
+  protected Class<LoginModel> getResponseClass() {
+    return LoginModel.class;
+  }
 }

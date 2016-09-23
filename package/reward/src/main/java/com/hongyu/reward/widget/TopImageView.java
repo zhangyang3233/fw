@@ -16,13 +16,11 @@ import com.hongyu.reward.R;
 
 
 public class TopImageView extends FrameLayout {
+  private static final int DEFAULT_DRAWABLE_WIDTH = 0;
+  private static final int DEFAULT_DRAWABLE_HEIGHT = 0;
   private LinearLayout mContent;
   private NetImageView mImageView;
   private TextView mTextView;
-
-  private static final int DEFAULT_DRAWABLE_WIDTH = 0;
-  private static final int DEFAULT_DRAWABLE_HEIGHT = 0;
-
   private int mDrawable;
   private int mDrawableWidth;
   private int mDrawableHeight;

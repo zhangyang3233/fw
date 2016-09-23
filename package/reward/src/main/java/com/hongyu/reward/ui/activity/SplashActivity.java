@@ -12,6 +12,8 @@ import com.hongyu.reward.manager.AccountManager;
  */
 public class SplashActivity extends BaseSlideActivity {
 
+  private static final String IS_FIRST_LAUNCH = "is first launch";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -63,6 +65,4 @@ public class SplashActivity extends BaseSlideActivity {
     }
     return 2000;
   }
-
-  private static final String IS_FIRST_LAUNCH = "is first launch";
 }

@@ -3,125 +3,127 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFFFFFFF"
-    android:orientation="vertical" >
-	
-    <RelativeLayout 
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
-        
-        <TextView 
+
+        <TextView
             android:id="@+id/cancel"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:gravity="center"
             android:text="取消"
             android:textColor="@color/text_gray_dark"
-            android:textSize="@dimen/text_h2"
-            android:gravity="center"
-            android:clickable="true"
-            android:layout_centerVertical="true"/>
-        
-        <TextView 
+            android:textSize="@dimen/text_h2" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:gravity="center"
             android:text="追加赏金"
             android:textColor="@color/text_gray_dark"
-            android:textSize="@dimen/text_h0"
-            android:gravity="center"
-            android:clickable="true"
-            android:layout_centerInParent="true"/>
+            android:textSize="@dimen/text_h0" />
     </RelativeLayout>
-    
-    <View style="@style/divider_theme_gray"/>
-    
-    <LinearLayout 
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
+        android:gravity="bottom"
         android:orientation="horizontal">
-        
-        <TextView 
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="追加后赏金："
             android:textColor="@color/text_gray_more"
-            android:textSize="@dimen/text_h2"/>
-        
-        <TextView 
+            android:textSize="@dimen/text_h2" />
+
+        <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="200"
             android:textColor="@color/app_main_title_text_color"
-            android:textSize="@dimen/text_h0"/>
-        
-        <TextView 
+            android:textSize="@dimen/text_h0" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="元"
             android:layout_marginLeft="4dp"
+            android:text="元"
             android:textColor="@color/app_main_title_text_color"
-            android:textSize="@dimen/text_h2"/>
+            android:textSize="@dimen/text_h2" />
     </LinearLayout>
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="26dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
-        
-        <TextView 
+
+        <TextView
             android:id="@+id/add_10"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="44dp"
-            android:gravity="center"
-            android:text="10元"
-            android:tag="10"
-            android:clickable="true"
+            android:layout_weight="1"
             android:background="@drawable/common_button_main"
+            android:clickable="true"
+            android:gravity="center"
+            android:tag="10"
+            android:text="10元"
             android:textColor="@color/app_main_title_text_color"
-            android:textSize="@dimen/text_h1"/>
-        
-        <TextView 
+            android:textSize="@dimen/text_h1" />
+
+        <TextView
             android:id="@+id/add_20"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="44dp"
-            android:gravity="center"
-            android:text="20元"
-            android:tag="20"
-            android:clickable="true"
-            android:background="@drawable/common_button_yellow"
             android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/common_button_yellow"
+            android:clickable="true"
+            android:gravity="center"
+            android:tag="20"
+            android:text="20元"
             android:textColor="@color/app_main_title_text_color"
-            android:textSize="@dimen/text_h1"/>
-        
-        <TextView 
+            android:textSize="@dimen/text_h1" />
+
+        <TextView
             android:id="@+id/add_50"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="44dp"
-            android:gravity="center"
-            android:clickable="true"
-            android:background="@drawable/common_button_yellow"
             android:layout_marginLeft="12dp"
-            android:text="50元"
+            android:layout_weight="1"
+            android:background="@drawable/common_button_yellow"
+            android:clickable="true"
+            android:gravity="center"
             android:tag="50"
+            android:text="50元"
             android:textColor="@color/app_main_title_text_color"
-            android:textSize="@dimen/text_h1"/>
+            android:textSize="@dimen/text_h1" />
     </LinearLayout>
-    
-    <View style="@style/divider_theme_gray"
-        android:layout_marginTop="36dp"/>
-    
-    <Button style="@style/App.Comm.Button"
+
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_marginTop="36dp" />
+
+    <Button
         android:id="@+id/ok"
+        style="@style/App.Comm.Button"
         android:layout_margin="15dp"
-        android:text="确认追加"/>
+        android:text="确认追加" />
 </LinearLayout>

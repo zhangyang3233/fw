@@ -18,6 +18,14 @@ public class FetchHelper<T> {
     this(fetcher, callback, DEFAULT_PAGE_SIZE);
   }
 
+  public FetchHelper(BaseFetcher<T> fetcher, BaseFetcher.Callback<T> callback, int pageSize) {
+    this.fetcher = fetcher;
+    this.callback = callback;
+    this.pageSize = pageSize;
+    this.callbackProxy = new CustomCallback();
+    this.hasMore = true;
+  }
+
   public void fetch() {
     fetcher.fetch(pageSize, currentPage, callbackProxy);
   }
@@ -25,14 +33,6 @@ public class FetchHelper<T> {
   public void fetchMore() {
     fetcher.fetch(pageSize, currentPage + 1, callbackProxy);
 
-  }
-
-  public FetchHelper(BaseFetcher<T> fetcher, BaseFetcher.Callback<T> callback, int pageSize) {
-    this.fetcher = fetcher;
-    this.callback = callback;
-    this.pageSize = pageSize;
-    this.callbackProxy = new CustomCallback();
-    this.hasMore = true;
   }
 
   /**

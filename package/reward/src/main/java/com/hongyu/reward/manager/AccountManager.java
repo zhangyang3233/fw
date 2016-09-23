@@ -38,20 +38,6 @@ public class AccountManager {
   private LoginModel.UserInfo user;
   private ArrayList<LogoutListener> observe;
 
-
-  public void addLogoutListener(LogoutListener l) {
-    if (observe == null) {
-      observe = new ArrayList<>();
-    }
-    observe.add(l);
-  }
-
-  public void removeLogoutListener(LogoutListener l) {
-    if (observe != null) {
-      observe.remove(l);
-    }
-  }
-
   public static AccountManager getInstance() {
     if (instance == null) {
       instance = new AccountManager();
@@ -65,6 +51,19 @@ public class AccountManager {
       GlobalConfig.setAppContext(context);
     }
     return getInstance();
+  }
+
+  public void addLogoutListener(LogoutListener l) {
+    if (observe == null) {
+      observe = new ArrayList<>();
+    }
+    observe.add(l);
+  }
+
+  public void removeLogoutListener(LogoutListener l) {
+    if (observe != null) {
+      observe.remove(l);
+    }
   }
 
   public boolean isLogin() {
@@ -153,9 +152,10 @@ public class AccountManager {
 
   /**
    * 获取手机验证码
+   * 
    * @param phone
    * @param callBack
-     */
+   */
   public void getCode(String phone, final GetAuthCodeRequestBuilder.CallBack callBack) {
     GetAuthCodeRequestBuilder builder = new GetAuthCodeRequestBuilder(phone);
     builder.setDataCallback(new DataCallback<BaseModel>() {
@@ -278,17 +278,11 @@ public class AccountManager {
   }
 
   private void notifyLogout() {
-    if(!CollectionUtils.isEmpty(observe)){
-      for(LogoutListener l : observe){
+    if (!CollectionUtils.isEmpty(observe)) {
+      for (LogoutListener l : observe) {
         l.onLogout();
       }
     }
-  }
-
-  public interface GetUserInfoCallback {
-    void getUserInfoSuccess(LoginModel.UserInfo userInfo);
-
-    void getUserInfoFailed(String msg);
   }
 
   private void initUser() {
@@ -306,6 +300,12 @@ public class AccountManager {
       user.setCash(pref.getFloat("cash", 0));
       user.setLock_cash(pref.getFloat("lock_cash", 0));
     }
+  }
+
+  public interface GetUserInfoCallback {
+    void getUserInfoSuccess(LoginModel.UserInfo userInfo);
+
+    void getUserInfoFailed(String msg);
   }
 
 }

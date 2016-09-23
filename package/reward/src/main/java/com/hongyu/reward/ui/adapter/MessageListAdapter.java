@@ -31,11 +31,6 @@ public class MessageListAdapter extends DataAdapter<MessageModel> {
     this.messageItemClickListener = messageItemClickListener;
   }
 
-  public interface OnMessageItemClickListener {
-    void onClick(MessageModel model);
-  }
-
-
   @Override
   public long getItemId(int position) {
     return 0;
@@ -63,6 +58,10 @@ public class MessageListAdapter extends DataAdapter<MessageModel> {
     holder.date.setText(model.date);
 
     return convertView;
+  }
+
+  public interface OnMessageItemClickListener {
+    void onClick(MessageModel model);
   }
 
   private class Holder {

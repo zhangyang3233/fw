@@ -12,8 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
+
         <include layout="@layout/fragment_title_layout" />
     </RelativeLayout>
+
     <com.hongyu.reward.widget.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -119,9 +121,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="我的订单"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_order"
-                reward:labeltext="我的订单" />
+                reward:leftimg="@mipmap/icon_my_order" />
 
             <View style="@style/divider_theme_gray" />
 
@@ -131,9 +133,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="我的评价"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_eval"
-                reward:labeltext="我的评价" />
+                reward:leftimg="@mipmap/icon_my_eval" />
 
             <View style="@style/divider_theme_gray" />
 
@@ -143,9 +145,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="我的钱包"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_wallet"
-                reward:labeltext="我的钱包" />
+                reward:leftimg="@mipmap/icon_my_wallet" />
 
             <View style="@style/divider_theme_gray" />
 
@@ -155,9 +157,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="积分中心"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_score"
-                reward:labeltext="积分中心" />
+                reward:leftimg="@mipmap/icon_my_score" />
 
             <View
                 style="@style/divider_theme_gray"
@@ -171,9 +173,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="消息中心"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_message"
-                reward:labeltext="消息中心" />
+                reward:leftimg="@mipmap/icon_my_message" />
 
             <View style="@style/divider_theme_gray" />
 
@@ -183,9 +185,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="联系客服"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_contact"
-                reward:labeltext="联系客服" />
+                reward:leftimg="@mipmap/icon_my_contact" />
 
             <View style="@style/divider_theme_gray" />
 
@@ -195,9 +197,9 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 reward:isclick="true"
+                reward:labeltext="设置"
                 reward:leftbg="@color/total_transparent"
-                reward:leftimg="@mipmap/icon_my_setting"
-                reward:labeltext="设置" />
+                reward:leftimg="@mipmap/icon_my_setting" />
 
             <View
                 style="@style/divider_theme_gray"

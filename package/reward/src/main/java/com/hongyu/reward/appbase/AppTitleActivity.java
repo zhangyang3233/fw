@@ -22,8 +22,8 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  */
 public abstract class AppTitleActivity extends BaseSlideActivity {
 
-  private ActionBar mActionBar;
   protected TitleContainer mCustomTitleView;
+  private ActionBar mActionBar;
 
   @Override
   protected int getLayoutId() {

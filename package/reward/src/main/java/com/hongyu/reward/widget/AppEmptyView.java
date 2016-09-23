@@ -106,13 +106,12 @@ public class AppEmptyView extends LinearLayout {
     setVisibility(View.GONE);
   }
 
+  public void setEmptyTextStatus(int visibility) {
+    mEmptyText.setVisibility(visibility);
+  }
 
   public interface OnEmptyRefreshListener {
     void onRefresh();
-  }
-
-  public void setEmptyTextStatus(int visibility){
-    mEmptyText.setVisibility(visibility);
   }
 
 

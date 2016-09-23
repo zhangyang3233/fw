@@ -83,9 +83,9 @@
         android:layout_height="50dp"
         android:clickable="true"
         reward:isclick="true"
+        reward:labeltext="悬赏积分商城"
         reward:leftbg="@color/total_transparent"
-        reward:leftimg="@mipmap/defalut_head_img"
-        reward:labeltext="悬赏积分商城" />
+        reward:leftimg="@mipmap/defalut_head_img" />
 
     <View style="@style/divider_theme_gray" />
 

@@ -14,53 +14,51 @@ import org.json.JSONObject;
 /**
  * Created by zhangyang131 on 16/9/8.
  */
-public abstract class JSONObjectHttpRequestBuilder extends JSONObjectRequestBuilder{
-    private DataCallback<JSONObject> mNetWorkCallback = null;
-
-
+public abstract class JSONObjectHttpRequestBuilder extends JSONObjectRequestBuilder {
+  private DataCallback<JSONObject> mNetWorkCallback = null;
+  DataCallback<JSONObject> dataCallback = new DataCallback<JSONObject>() {
     @Override
-    protected JSONObjectRequestBuilder setMethod(int method) {
-        return super.setMethod(method);
+    public void onDataCallback(JSONObject data) {
+      if (null != JSONObjectHttpRequestBuilder.this.mNetWorkCallback) {
+        JSONObjectHttpRequestBuilder.this.mNetWorkCallback.onDataCallback(data);
+      }
     }
+  };
 
-    DataCallback<JSONObject> dataCallback = new DataCallback<JSONObject>() {
-        @Override
-        public void onDataCallback(JSONObject data) {
-            if(null != JSONObjectHttpRequestBuilder.this.mNetWorkCallback) {
-                JSONObjectHttpRequestBuilder.this.mNetWorkCallback.onDataCallback(data);
-            }
-        }
-    };
+  @Override
+  protected JSONObjectRequestBuilder setMethod(int method) {
+    return super.setMethod(method);
+  }
 
-    @Override
-    protected ApiContext getApiContext() {
-        return ApiContextManager.getInstance().getApiContext();
+  @Override
+  protected ApiContext getApiContext() {
+    return ApiContextManager.getInstance().getApiContext();
+  }
+
+  protected void setParams(Params params) {
+    super.setParams(params);
+    // 除了获取token的接口之外所有的请求都加上token参数
+    if (!(Constants.Server.API_PREFIX + Constants.Server.API_GET_TOKEN).equals(getUrl())) {
+      String token = AccountManager.getInstance().getTokenLocation();
+      params.put(Constants.Pref.TOKEN, token);
     }
+  }
 
-    protected void setParams(Params params) {
-        super.setParams(params);
-        // 除了获取token的接口之外所有的请求都加上token参数
-        if (!(Constants.Server.API_PREFIX+ Constants.Server.API_GET_TOKEN).equals(getUrl())) {
-            String token = AccountManager.getInstance().getTokenLocation();
-            params.put(Constants.Pref.TOKEN, token);
-        }
+  protected void checkNullAndSet(Params params, String key, Object value) {
+    if (value != null && !TextUtils.isEmpty(String.valueOf(value))) {
+      params.put(key, value);
     }
+  }
 
-    protected void checkNullAndSet(Params params, String key, Object value) {
-        if(value != null && !TextUtils.isEmpty(String.valueOf(value))) {
-            params.put(key, value);
-        }
-    }
+  public JSONObjectRequestBuilder setDataCallback(DataCallback<JSONObject> callback) {
+    this.mNetWorkCallback = callback;
+    return super.setDataCallback(this.dataCallback);
+  }
 
-    public JSONObjectRequestBuilder setDataCallback(DataCallback<JSONObject> callback) {
-        this.mNetWorkCallback = callback;
-        return super.setDataCallback(this.dataCallback);
-    }
+  @Override
+  protected String getUrl() {
+    return Constants.Server.API_PREFIX + getApiUrl();
+  }
 
-    @Override
-    protected String getUrl() {
-        return Constants.Server.API_PREFIX + getApiUrl();
-    }
-
-    protected abstract String getApiUrl();
+  protected abstract String getApiUrl();
 }

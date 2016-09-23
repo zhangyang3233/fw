@@ -13,18 +13,18 @@ import com.hongyu.reward.ui.fragment.personal.SettingFragment;
  */
 public class SettingActivity extends BaseSingleFragmentActivity {
 
-    public static void launch(Context context){
-        Intent i = new Intent(context, SettingActivity.class);
-        context.startActivity(i);
-    }
+  public static void launch(Context context) {
+    Intent i = new Intent(context, SettingActivity.class);
+    context.startActivity(i);
+  }
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return SettingFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return SettingFragment.class;
+  }
 
-    @Override
-    protected String getTitleText() {
-        return getString(R.string.setting_title);
-    }
+  @Override
+  protected String getTitleText() {
+    return getString(R.string.setting_title);
+  }
 }

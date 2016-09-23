@@ -13,6 +13,7 @@ import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
+import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
@@ -36,16 +37,6 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
   LinearLayout mLeftContainer;
   ImageView mRightBtn;
 
-
-  @Override
-  protected void onStartLoading() {
-
-  }
-
-  @Override
-  protected void loadingData() {
-    getFetchHelper().fetch();
-  }
 
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
@@ -72,7 +63,8 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
     return new BaseFetcher() {
       @Override
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
-        ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page), null, null);
+        ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page),
+            LocationManager.getInstance().getLocalLocationInfo().toString(), null);
         if (listMode == null) {
           return null;
         } else if (CollectionUtils.isEmpty(listMode.getData())) {

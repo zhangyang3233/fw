@@ -2,11 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false">
         <shape>
-    		<solid android:color="@color/total_transparent" />
-   			<stroke android:width="0dp" android:color="#f9f9f9" />
-    		<corners android:bottomLeftRadius="@dimen/dialog_radius"/>
+            <solid android:color="@color/total_transparent" />
+            <stroke android:width="0dp" android:color="#f9f9f9" />
+            <corners android:bottomLeftRadius="@dimen/dialog_radius" />
         </shape>
-  	</item>
+    </item>
     <item android:state_pressed="true">
         <shape>
             <solid android:color="#10000000" />

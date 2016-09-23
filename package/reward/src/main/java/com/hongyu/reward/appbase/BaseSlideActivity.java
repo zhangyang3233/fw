@@ -17,8 +17,8 @@ import com.zycoder.sliding.component.SlideActivity;
  * @author zhangyang
  */
 public class BaseSlideActivity extends AppCompatActivity implements SlideActivity, LogoutListener {
-  private boolean mIsDestroyed = false;
   protected BaseFragment mFragment;
+  private boolean mIsDestroyed = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

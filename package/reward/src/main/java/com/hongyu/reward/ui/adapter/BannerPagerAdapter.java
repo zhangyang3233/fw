@@ -29,12 +29,18 @@ import java.util.ArrayList;
  *
  */
 public class BannerPagerAdapter extends PagerAdapter {
+  public OnBannerItemClickListener bannerItemClickListener;
   private Context context;
   private ArrayList<AdModel> adsList = new ArrayList<AdModel>();
-  public OnBannerItemClickListener bannerItemClickListener;
 
   public BannerPagerAdapter(Context context) {
     this.context = context;
+  }
+
+  public static void gelleryToPage(Context context, AdModel adModel) {
+    if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http://")) {
+      BrowserActivity.launch(context, adModel.position_url);
+    }
   }
 
   public void addData(ArrayList<AdModel> dataList) {
@@ -102,14 +108,14 @@ public class BannerPagerAdapter extends PagerAdapter {
   }
 
   public AdModel getItem(int i) {
-    if (adsList != null ) {
-      if(getCount()>=4){
-        if(i == 0){
-          return adsList.get(adsList.size()-1);
-        }else if(i == adsList.size()-2){
+    if (adsList != null) {
+      if (getCount() >= 4) {
+        if (i == 0) {
+          return adsList.get(adsList.size() - 1);
+        } else if (i == adsList.size() - 2) {
           return adsList.get(0);
-        }else{
-          return adsList.get((i-1)%adsList.size());
+        } else {
+          return adsList.get((i - 1) % adsList.size());
         }
       }
       return adsList.get(i);
@@ -121,14 +127,12 @@ public class BannerPagerAdapter extends PagerAdapter {
     this.bannerItemClickListener = bannerItemClickListener;
   }
 
-  public interface OnBannerItemClickListener {
-    public void onClick(AdModel adModel);
+  public OnBannerItemClickListener getListener() {
+    return new AdsClickListener(context);
   }
 
-  public static void gelleryToPage(Context context, AdModel adModel) {
-    if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http://")) {
-      BrowserActivity.launch(context, adModel.position_url);
-    }
+  public interface OnBannerItemClickListener {
+    public void onClick(AdModel adModel);
   }
 
   private class AdsClickListener implements OnBannerItemClickListener {
@@ -143,10 +147,6 @@ public class BannerPagerAdapter extends PagerAdapter {
       BannerPagerAdapter.gelleryToPage(mContext, adModel);
     }
 
-  }
-
-  public OnBannerItemClickListener getListener() {
-    return new AdsClickListener(context);
   }
 
 }

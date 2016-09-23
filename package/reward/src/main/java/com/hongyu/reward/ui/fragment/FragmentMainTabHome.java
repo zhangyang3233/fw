@@ -35,8 +35,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
   private NetImageView mMainImage;
 
   @Override
-  protected void onStartLoading() {
-  }
+  protected void onStartLoading() {}
 
   @Override
   protected void loadingData() {

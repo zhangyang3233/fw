@@ -36,7 +36,7 @@ public class GetShopListRequestBuilder extends BaseHttpRequestBuilder<ShopListMo
   protected void setParams(Params params) {
     super.setParams(params);
     checkNullAndSet(params, PAGE, page);
-    checkNullAndSet(params, LOCATION, "36.013974,110.779576");
+    checkNullAndSet(params, LOCATION, location);
     checkNullAndSet(params, KEYWORD, keyword);
   }
 }

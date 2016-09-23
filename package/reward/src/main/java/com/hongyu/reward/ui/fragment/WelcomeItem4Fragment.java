@@ -12,22 +12,23 @@ import com.hongyu.reward.ui.activity.LoginActivity;
 /**
  * Created by zhangyang131 on 16/9/8.
  */
-public class WelcomeItem4Fragment extends BaseFragment implements View.OnClickListener{
-Button mBtnLogin;
-    @Override
-    protected void onInflated(View contentView, Bundle savedInstanceState) {
-        mBtnLogin = (Button) mContentView.findViewById(R.id.btn_login);
-        mBtnLogin.setOnClickListener(this);
-    }
+public class WelcomeItem4Fragment extends BaseFragment implements View.OnClickListener {
+  Button mBtnLogin;
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.welcome_layout_pager4;
-    }
+  @Override
+  protected void onInflated(View contentView, Bundle savedInstanceState) {
+    mBtnLogin = (Button) mContentView.findViewById(R.id.btn_login);
+    mBtnLogin.setOnClickListener(this);
+  }
 
-    @Override
-    public void onClick(View v) {
-        LoginActivity.launch(getActivity());
-        getActivity().finish();
-    }
+  @Override
+  protected int getLayoutResId() {
+    return R.layout.welcome_layout_pager4;
+  }
+
+  @Override
+  public void onClick(View v) {
+    LoginActivity.launch(getActivity());
+    getActivity().finish();
+  }
 }

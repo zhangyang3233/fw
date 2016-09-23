@@ -33,6 +33,10 @@ import com.hongyu.reward.widget.RoundImageView;
  * @since 2016-7-18 下午12:12:25
  */
 public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickListener {
+  TextView mTitle;
+  LinearLayout mRightContainer;
+  LinearLayout mLeftContainer;
+  ImageView mRightBtn;
   private CommonTextView mEval;
   private CommonTextView mOrder;
   private CommonTextView mWallet;
@@ -45,11 +49,6 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   private TextView mTvName;
   private TextView mTvPrice;
   private TextView mTvScore;
-
-  TextView mTitle;
-  LinearLayout mRightContainer;
-  LinearLayout mLeftContainer;
-  ImageView mRightBtn;
 
   protected void checkLazyLoad() {
     if (isVisible && isPrepared) {

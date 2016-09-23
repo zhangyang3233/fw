@@ -3,46 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical" >
-    <View style="@style/divider_theme_gray" />    
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_margin="20dp"
-	    android:orientation="vertical">
-	    
-	    <EditText 
-	        android:id="@+id/pwd"
-	        android:layout_width="match_parent"
-	        android:layout_height="50dp"
-	        android:hint="请输入密码"
-	        android:singleLine="true"
-	        android:inputType="textPassword"
-	        android:maxLength="16"
-	        android:background="@color/total_transparent"
-	        android:gravity="center_vertical"
-	        android:textSize="@dimen/text_h2"
-	        android:textColor="@color/dark_gray_text"
-	        android:textColorHint="@color/light_gray_text"/>
-	    <View style="@style/divider_theme_gray" />
-	    <EditText 
-	        android:id="@+id/re_pwd"
-	        android:layout_width="match_parent"
-	        android:layout_height="50dp"
-	        android:hint="请输入密码"
-	        android:singleLine="true"
-	        android:inputType="textPassword"
-	        android:maxLength="16"
-	        android:background="@color/total_transparent"
-	        android:gravity="center_vertical"
-	        android:textSize="@dimen/text_h2"
-	        android:textColor="@color/dark_gray_text"
-	        android:textColorHint="@color/light_gray_text"/>
-	    <View style="@style/divider_theme_gray" />
-	    
-	    <Button style="@style/App.Comm.Button"
-	        android:id="@+id/commit"
-	        android:layout_marginTop="20dp"
-	        android:text="确 认"/>
-	</LinearLayout>
+    android:orientation="vertical">
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/total_transparent"
+            android:gravity="center_vertical"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray_text"
+            android:textColorHint="@color/light_gray_text"
+            android:textSize="@dimen/text_h2" />
+
+        <View style="@style/divider_theme_gray" />
+
+        <EditText
+            android:id="@+id/re_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/total_transparent"
+            android:gravity="center_vertical"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray_text"
+            android:textColorHint="@color/light_gray_text"
+            android:textSize="@dimen/text_h2" />
+
+        <View style="@style/divider_theme_gray" />
+
+        <Button
+            android:id="@+id/commit"
+            style="@style/App.Comm.Button"
+            android:layout_marginTop="20dp"
+            android:text="确 认" />
+    </LinearLayout>
 </LinearLayout>

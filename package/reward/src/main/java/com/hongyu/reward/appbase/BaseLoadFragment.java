@@ -80,6 +80,15 @@ public abstract class BaseLoadFragment extends BaseFragment {
   }
 
   /**
+   * get is allow load data
+   *
+   * @return
+   */
+  public final boolean isAllowLoading() {
+    return allowLoading;
+  }
+
+  /**
    * This is used to notify the fragment that if it should load data.
    *
    * @param allowLoading whether the fragment should launch loading
@@ -90,15 +99,6 @@ public abstract class BaseLoadFragment extends BaseFragment {
       pendingToLoad = false;
       requestLoad();
     }
-  }
-
-  /**
-   * get is allow load data
-   * 
-   * @return
-   */
-  public final boolean isAllowLoading() {
-    return allowLoading;
   }
 
   /**

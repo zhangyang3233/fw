@@ -7,9 +7,10 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="140dp" />
+
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

@@ -9,13 +9,13 @@ import com.hongyu.reward.model.ReasonModel;
  */
 public class GetReasonListRequestModel extends BaseHttpRequestBuilder<ReasonModel> {
 
-    @Override
-    protected String getApiUrl() {
-        return Constants.Server.API_REPORT_INFO;
-    }
+  @Override
+  protected String getApiUrl() {
+    return Constants.Server.API_REPORT_INFO;
+  }
 
-    @Override
-    protected Class<ReasonModel> getResponseClass() {
-        return ReasonModel.class;
-    }
+  @Override
+  protected Class<ReasonModel> getResponseClass() {
+    return ReasonModel.class;
+  }
 }

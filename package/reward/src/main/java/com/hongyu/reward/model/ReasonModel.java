@@ -8,15 +8,15 @@ import java.util.ArrayList;
 public class ReasonModel extends BaseModel {
   private ArrayList<Reason> data;
 
+  public ReasonModel(ArrayList<Reason> data) {
+    this.data = data;
+  }
+
   public ArrayList<Reason> getData() {
     return data;
   }
 
   public void setData(ArrayList<Reason> data) {
-    this.data = data;
-  }
-
-  public ReasonModel(ArrayList<Reason> data) {
     this.data = data;
   }
 

@@ -13,6 +13,7 @@ import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
+import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.ShopOrderListActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
@@ -39,15 +40,6 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
 
 
   @Override
-  protected void onStartLoading() {
-  }
-
-  @Override
-  protected void loadingData() {
-    getFetchHelper().fetch();
-  }
-
-  @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
     super.onInflated(contentView, savedInstanceState);
     initView();
@@ -72,7 +64,8 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
     return new BaseFetcher() {
       @Override
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
-        ShopListMode listMode = HttpHelper.getReceiveShopList(String.valueOf(page), null, null);
+        ShopListMode listMode = HttpHelper.getReceiveShopList(String.valueOf(page),
+            LocationManager.getInstance().getLocalLocationInfo().toString(), null);
         if (listMode == null) {
           return null;
         } else if (CollectionUtils.isEmpty(listMode.getData())) {
@@ -86,14 +79,14 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
 
   @Override
   protected DataAdapter newContentAdapter() {
-	  ShopListAdapter adapter = new ShopListAdapter();
-	  adapter.setmOnItemClickListener(new ShopListAdapter.OnItemClickListener() {
-		  @Override
-		  public void itemOnClick(ShopListMode.ShopInfo mode) {
-            ShopOrderListActivity.launch(getActivity(), mode.getShop_name(), mode.getShop_id());
-		  }
-	  });
-	  return adapter;
+    ShopListAdapter adapter = new ShopListAdapter();
+    adapter.setmOnItemClickListener(new ShopListAdapter.OnItemClickListener() {
+      @Override
+      public void itemOnClick(ShopListMode.ShopInfo mode) {
+        ShopOrderListActivity.launch(getActivity(), mode.getShop_name(), mode.getShop_id());
+      }
+    });
+    return adapter;
   }
 
   @Override

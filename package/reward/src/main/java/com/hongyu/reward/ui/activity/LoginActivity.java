@@ -16,37 +16,37 @@ import com.hongyu.reward.ui.fragment.LoginFragment;
  */
 public class LoginActivity extends BaseSingleFragmentActivity {
 
-    public static void launch(Context context){
-        Intent i = new Intent(context, LoginActivity.class);
-        context.startActivity(i);
-    }
+  public static void launch(Context context) {
+    Intent i = new Intent(context, LoginActivity.class);
+    context.startActivity(i);
+  }
 
-    @Override
-    protected String getTitleText() {
-        return getResources().getString(R.string.login);
-    }
+  @Override
+  protected String getTitleText() {
+    return getResources().getString(R.string.login);
+  }
 
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return LoginFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return LoginFragment.class;
+  }
 
-    @Override
-    protected void onCreateMenu() {
-        super.onCreateMenu();
-        TextView register = (TextView) getLayoutInflater().inflate(R.layout.common_right_title_view, null);
-        register.setText(R.string.register);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RegisterActivity.launch(LoginActivity.this);
-            }
-        });
-        setRightTitleView(register);
-    }
+  @Override
+  protected void onCreateMenu() {
+    super.onCreateMenu();
+    TextView register =
+        (TextView) getLayoutInflater().inflate(R.layout.common_right_title_view, null);
+    register.setText(R.string.register);
+    register.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        RegisterActivity.launch(LoginActivity.this);
+      }
+    });
+    setRightTitleView(register);
+  }
 
-    @Override
-    public void onLogout() {
-    }
+  @Override
+  public void onLogout() {}
 }

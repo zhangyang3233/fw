@@ -28,14 +28,6 @@ public class AppSwitchTitleView extends RelativeLayout
   LinearLayout mLeftContainer;
   LinearLayout mRightContainer;
 
-  public OnCheckedChangedListener getOnCheckedChangedListener() {
-    return mOnCheckedChangedListener;
-  }
-
-  public void setOnCheckedChangedListener(OnCheckedChangedListener mOnCheckedChangedListener) {
-    this.mOnCheckedChangedListener = mOnCheckedChangedListener;
-  }
-
   public AppSwitchTitleView(Context context) {
     super(context);
   }
@@ -52,6 +44,14 @@ public class AppSwitchTitleView extends RelativeLayout
   public static AppSwitchTitleView newInstance(Context context) {
     return (AppSwitchTitleView) ViewUtils.newInstance(context,
         R.layout.reward_switch_title_view_layout);
+  }
+
+  public OnCheckedChangedListener getOnCheckedChangedListener() {
+    return mOnCheckedChangedListener;
+  }
+
+  public void setOnCheckedChangedListener(OnCheckedChangedListener mOnCheckedChangedListener) {
+    this.mOnCheckedChangedListener = mOnCheckedChangedListener;
   }
 
   @Override

@@ -13,13 +13,13 @@ import com.hongyu.reward.appbase.BaseFragment;
 public class WelcomeItem1Fragment extends BaseFragment {
 
 
-    @Override
-    protected void onInflated(View contentView, Bundle savedInstanceState) {
+  @Override
+  protected void onInflated(View contentView, Bundle savedInstanceState) {
 
-    }
+  }
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.welcome_layout_pager1;
-    }
+  @Override
+  protected int getLayoutResId() {
+    return R.layout.welcome_layout_pager1;
+  }
 }

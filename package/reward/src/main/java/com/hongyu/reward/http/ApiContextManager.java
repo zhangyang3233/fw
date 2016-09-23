@@ -8,26 +8,25 @@ package com.hongyu.reward.http;
 import com.fw.zycoder.utils.GlobalConfig;
 
 public class ApiContextManager {
-    private static ApiContextManager sInstance;
-    private BaseApiContext mApiContext;
+  private static ApiContextManager sInstance;
+  private BaseApiContext mApiContext;
 
-    private ApiContextManager() {
+  private ApiContextManager() {}
+
+  public static synchronized ApiContextManager getInstance() {
+    if (sInstance == null) {
+      sInstance = new ApiContextManager();
     }
 
-    public static synchronized ApiContextManager getInstance() {
-        if(sInstance == null) {
-            sInstance = new ApiContextManager();
-        }
+    return sInstance;
+  }
 
-        return sInstance;
+  public BaseApiContext getApiContext() {
+    if (this.mApiContext == null) {
+      this.mApiContext = new BaseApiContext(GlobalConfig.getAppContext());
     }
 
-    public BaseApiContext getApiContext() {
-        if(this.mApiContext == null) {
-            this.mApiContext = new BaseApiContext(GlobalConfig.getAppContext());
-        }
-
-        return this.mApiContext;
-    }
+    return this.mApiContext;
+  }
 
 }

@@ -16,30 +16,30 @@ import java.util.List;
  */
 public class MessageListFragment extends AsyncLoadListFragment<MessageModel> {
 
-    @Override
-    protected BaseFetcher<MessageModel> newFetcher() {
-        return new BaseFetcher<MessageModel>() {
-            @Override
-            protected List<MessageModel> fetchHttpData(int limit, int page) {
-                MsgModel msgs = HttpHelper.getMsgList(String.valueOf(page));
-                if(msgs == null){
-                    return null;
-                }else if(msgs.getData() == null){
-                    return new ArrayList<>();
-                }else{
-                    return msgs.getData();
-                }
-            }
-        };
-    }
+  @Override
+  protected BaseFetcher<MessageModel> newFetcher() {
+    return new BaseFetcher<MessageModel>() {
+      @Override
+      protected List<MessageModel> fetchHttpData(int limit, int page) {
+        MsgModel msgs = HttpHelper.getMsgList(String.valueOf(page));
+        if (msgs == null) {
+          return null;
+        } else if (msgs.getData() == null) {
+          return new ArrayList<>();
+        } else {
+          return msgs.getData();
+        }
+      }
+    };
+  }
 
-    @Override
-    protected DataAdapter<MessageModel> newContentAdapter() {
-        return new MessageListAdapter();
-    }
+  @Override
+  protected DataAdapter<MessageModel> newContentAdapter() {
+    return new MessageListAdapter();
+  }
 
-    @Override
-    protected int getPageSize() {
-        return 10;
-    }
+  @Override
+  protected int getPageSize() {
+    return 10;
+  }
 }

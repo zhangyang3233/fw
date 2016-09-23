@@ -31,11 +31,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
+            android:background="@drawable/dialog_btn_click_bg_left"
+            android:clickable="true"
             android:gravity="center"
             android:textColor="@color/text_blue"
-            android:background="@drawable/dialog_btn_click_bg_left"
             android:textSize="18sp"
-            android:clickable="true"
             tools:text="@string/dialog_cancel" />
 
         <View
@@ -47,10 +47,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:gravity="center"
-            android:clickable="true"
-            android:textColor="@color/text_red"
             android:background="@drawable/dialog_btn_click_bg_right"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/text_red"
             android:textSize="18sp"
             tools:text="@string/dialog_ok" />
     </LinearLayout>

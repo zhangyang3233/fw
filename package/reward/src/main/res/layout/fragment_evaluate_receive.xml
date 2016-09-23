@@ -35,9 +35,9 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="刘嘉玲"
                 android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h1" />
+                android:textSize="@dimen/text_h1"
+                tools:text="刘嘉玲" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,18 +52,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="好评率:90%"
                     android:textColor="@color/text_gray_dark"
-                    android:textSize="@dimen/text_h2" />
+                    android:textSize="@dimen/text_h2"
+                    tools:text="好评率:90%" />
 
                 <TextView
                     android:id="@+id/order_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="成交:5000单"
                     android:textColor="@color/text_gray_dark"
-                    android:textSize="@dimen/text_h2" />
+                    android:textSize="@dimen/text_h2"
+                    tools:text="成交:5000单" />
             </LinearLayout>
 
             <com.hongyu.reward.widget.FiveStarSingle
@@ -105,6 +105,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

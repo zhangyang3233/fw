@@ -8,6 +8,7 @@ import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.manager.CoreService;
+import com.hongyu.reward.manager.LocationManager;
 import com.squareup.leakcanary.LeakCanary;
 
 
@@ -21,12 +22,13 @@ public class BaseApplication extends Application {
     super.onCreate();
     long t1 = System.currentTimeMillis();
     initLeakCanary();
-//    initErrorPage();
+    // initErrorPage();
     initGlobalConfig();
     initLog();
+    LocationManager.getInstance().init(this);
     startCoreService();
-    Log.i("time:"+(System.currentTimeMillis() - t1));
   }
+
 
   private void initLeakCanary() {
     LeakCanary.install(this);
@@ -63,6 +65,7 @@ public class BaseApplication extends Application {
 
   /**
    * 启动核心服务
+   *
    * @auther centos
    * @tags
    */

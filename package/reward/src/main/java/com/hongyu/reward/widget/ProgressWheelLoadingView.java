@@ -29,7 +29,9 @@ import com.hongyu.reward.R;
  */
 public class ProgressWheelLoadingView extends View {
   private static final String TAG = ProgressWheelLoadingView.class.getSimpleName();
-
+  private final int barLength = 16;
+  private final int barMaxLength = 270;
+  private final long pauseGrowingTime = 200;
   /**
    * *********
    * DEFAULTS *
@@ -39,20 +41,12 @@ public class ProgressWheelLoadingView extends View {
   private int circleRadius = 28;
   private int barWidth = 4;
   private int rimWidth = 4;
-
-  private final int barLength = 16;
-  private final int barMaxLength = 270;
-
   private boolean fillRadius = false;
-
   private double timeStartGrowing = 0;
   private double barSpinCycleTime = 460;
   private float barExtraLength = 0;
   private boolean barGrowingFromFront = true;
-
   private long pausedTimeWithoutGrowing = 0;
-  private final long pauseGrowingTime = 200;
-
   // Colors (with defaults)
   private int barColor = 0xAA000000;
   private int rimColor = 0x00FFFFFF;
@@ -429,42 +423,6 @@ public class ProgressWheelLoadingView extends View {
 
   /**
    * Set the progress to a specific value,
-   * the bar will smoothly animate until that value
-   *
-   * @param progress the progress between 0 and 1
-   */
-  public void setProgress(float progress) {
-    if (isSpinning) {
-      mProgress = 0.0f;
-      isSpinning = false;
-
-      runCallback();
-    }
-
-    if (progress > 1.0f) {
-      progress -= 1.0f;
-    } else if (progress < 0) {
-      progress = 0;
-    }
-
-    if (progress == mTargetProgress) {
-      return;
-    }
-
-    // If we are currently in the right position
-    // we set again the last time animated so the
-    // animation starts smooth from here
-    if (mProgress == mTargetProgress) {
-      lastTimeAnimated = SystemClock.uptimeMillis();
-    }
-
-    mTargetProgress = Math.min(progress * 360.0f, 360.0f);
-
-    invalidate();
-  }
-
-  /**
-   * Set the progress to a specific value,
    * the bar will be set instantly to that value
    *
    * @param progress the progress between 0 and 1
@@ -539,16 +497,52 @@ public class ProgressWheelLoadingView extends View {
     this.lastTimeAnimated = SystemClock.uptimeMillis();
   }
 
-  // ----------------------------------
-  // Getters + setters
-  // ----------------------------------
-
   /**
    * @return the current progress between 0.0 and 1.0,
    *         if the wheel is indeterminate, then the result is -1
    */
   public float getProgress() {
     return isSpinning ? -1 : mProgress / 360.0f;
+  }
+
+  // ----------------------------------
+  // Getters + setters
+  // ----------------------------------
+
+  /**
+   * Set the progress to a specific value,
+   * the bar will smoothly animate until that value
+   *
+   * @param progress the progress between 0 and 1
+   */
+  public void setProgress(float progress) {
+    if (isSpinning) {
+      mProgress = 0.0f;
+      isSpinning = false;
+
+      runCallback();
+    }
+
+    if (progress > 1.0f) {
+      progress -= 1.0f;
+    } else if (progress < 0) {
+      progress = 0;
+    }
+
+    if (progress == mTargetProgress) {
+      return;
+    }
+
+    // If we are currently in the right position
+    // we set again the last time animated so the
+    // animation starts smooth from here
+    if (mProgress == mTargetProgress) {
+      lastTimeAnimated = SystemClock.uptimeMillis();
+    }
+
+    mTargetProgress = Math.min(progress * 360.0f, 360.0f);
+
+    invalidate();
   }
 
   /**
@@ -680,7 +674,32 @@ public class ProgressWheelLoadingView extends View {
     }
   }
 
+  public interface ProgressCallback {
+    /**
+     * Method to call when the progress reaches a value
+     * in order to avoid float precision issues, the progress
+     * is rounded to a float with two decimals.
+     * <p/>
+     * In indeterminate mode, the callback is called each time the wheel completes an animation
+     * cycle, with, the progress value is -1.0f
+     *
+     * @param progress a double value between 0.00 and 1.00 both included
+     */
+    public void onProgressUpdate(float progress);
+  }
+
   static class WheelSavedState extends BaseSavedState {
+    // required field that makes Parcelables from a Parcel
+    public static final Creator<WheelSavedState> CREATOR =
+        new Creator<WheelSavedState>() {
+          public WheelSavedState createFromParcel(Parcel in) {
+            return new WheelSavedState(in);
+          }
+
+          public WheelSavedState[] newArray(int size) {
+            return new WheelSavedState[size];
+          }
+        };
     float mProgress;
     float mTargetProgress;
     boolean isSpinning;
@@ -727,31 +746,5 @@ public class ProgressWheelLoadingView extends View {
       out.writeByte((byte) (linearProgress ? 1 : 0));
       out.writeByte((byte) (fillRadius ? 1 : 0));
     }
-
-    // required field that makes Parcelables from a Parcel
-    public static final Creator<WheelSavedState> CREATOR =
-        new Creator<WheelSavedState>() {
-          public WheelSavedState createFromParcel(Parcel in) {
-            return new WheelSavedState(in);
-          }
-
-          public WheelSavedState[] newArray(int size) {
-            return new WheelSavedState[size];
-          }
-        };
-  }
-
-  public interface ProgressCallback {
-    /**
-     * Method to call when the progress reaches a value
-     * in order to avoid float precision issues, the progress
-     * is rounded to a float with two decimals.
-     * <p/>
-     * In indeterminate mode, the callback is called each time the wheel completes an animation
-     * cycle, with, the progress value is -1.0f
-     *
-     * @param progress a double value between 0.00 and 1.00 both included
-     */
-    public void onProgressUpdate(float progress);
   }
 }

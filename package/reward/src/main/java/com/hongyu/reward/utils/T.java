@@ -10,7 +10,7 @@ public class T {
   public static void show(CharSequence text) {
     SuperToast.cancelAllSuperToasts();
     SuperToast st = SuperToast
-            .create(GlobalConfig.getAppContext(),text, SuperToast.Duration.MEDIUM);
+        .create(GlobalConfig.getAppContext(), text, SuperToast.Duration.MEDIUM);
     st.setBackground(SuperToast.Background.ORANGE);
     st.show();
   }

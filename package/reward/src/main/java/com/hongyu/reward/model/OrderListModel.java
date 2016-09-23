@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class OrderListModel extends BaseModel {
   private ArrayList<OrderModel> data;
 
-    public ArrayList<OrderModel> getData() {
-        return data;
-    }
+  public ArrayList<OrderModel> getData() {
+    return data;
+  }
 
-    public void setData(ArrayList<OrderModel> data) {
-        this.data = data;
-    }
+  public void setData(ArrayList<OrderModel> data) {
+    this.data = data;
+  }
 }

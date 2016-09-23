@@ -5,14 +5,14 @@ package com.hongyu.reward.model;
  */
 public class AddRewardModel extends BaseModel {
 
-    /**
-     * order_id : 100496
-     */
+  /**
+   * order_id : 100496
+   */
 
-    private OrderModel data;
+  private OrderModel data;
 
-    public OrderModel getData() {
-        return data;
-    }
+  public OrderModel getData() {
+    return data;
+  }
 
 }

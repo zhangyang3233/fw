@@ -62,15 +62,15 @@ public class ShopOrderListAdapter extends DataAdapter<RewardModel> {
     this.mOnItemClickListener = mOnItemClickListener;
   }
 
+  public interface OnItemClickListener {
+    void itemOnClick(RewardModel mode);
+  }
+
   private class Holder {
     View rootView;
     TextView per;
     TextView name;
     TextView price;
     NetImageView cover;
-  }
-
-  public interface OnItemClickListener {
-    void itemOnClick(RewardModel mode);
   }
 }

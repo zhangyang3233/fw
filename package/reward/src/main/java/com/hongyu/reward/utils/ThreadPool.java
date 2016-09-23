@@ -11,16 +11,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ThreadPool {
 
-  private static final int CORE_THREAD_NUM = 5;
-  private static final long KEEP_ALIVE_TIME = 10;
   public static final ThreadPoolExecutor MIN_PRIOR_EXECUTOR;
   public static final ThreadPoolExecutor NORMAL_PRIOR_EXECUTOR;
-
-  public static enum Priority {
-    NORMAL, LOW;
-  }
-
-  private ThreadPool() {}
+  private static final int CORE_THREAD_NUM = 5;
+  private static final long KEEP_ALIVE_TIME = 10;
 
   static {
     MIN_PRIOR_EXECUTOR = new ThreadPoolExecutor(1, Integer.MAX_VALUE,
@@ -30,6 +24,8 @@ public class ThreadPool {
         KEEP_ALIVE_TIME, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(true),
         new AppThreadFactory(Thread.NORM_PRIORITY));
   }
+
+  private ThreadPool() {}
 
   /**
    * Executes task with given priority.
@@ -65,6 +61,10 @@ public class ThreadPool {
     }
     MIN_PRIOR_EXECUTOR.remove(runnable);
     NORMAL_PRIOR_EXECUTOR.remove(runnable);
+  }
+
+  public static enum Priority {
+    NORMAL, LOW;
   }
 
   private static class AppThreadFactory implements ThreadFactory {

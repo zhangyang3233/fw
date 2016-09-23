@@ -8,13 +8,13 @@ public abstract class DataAdapter<T> extends BaseAdapter {
 
   protected List<T> mData;
 
+  public List<T> getData() {
+    return mData;
+  }
+
   public void setData(List<T> data) {
     this.mData = data;
     notifyDataSetChanged();
-  }
-
-  public List<T> getData() {
-    return mData;
   }
 
   @Override

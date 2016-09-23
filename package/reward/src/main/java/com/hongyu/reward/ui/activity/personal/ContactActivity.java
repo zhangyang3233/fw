@@ -13,18 +13,18 @@ import com.hongyu.reward.ui.fragment.personal.ContactFragment;
  */
 public class ContactActivity extends BaseSingleFragmentActivity {
 
-    public static void launch(Context context){
-        Intent i = new Intent(context, ContactActivity.class);
-        context.startActivity(i);
-    }
+  public static void launch(Context context) {
+    Intent i = new Intent(context, ContactActivity.class);
+    context.startActivity(i);
+  }
 
-    @Override
-    protected Class<? extends Fragment> getSingleContentFragmentClass() {
-        return ContactFragment.class;
-    }
+  @Override
+  protected Class<? extends Fragment> getSingleContentFragmentClass() {
+    return ContactFragment.class;
+  }
 
-    @Override
-    protected String getTitleText() {
-        return getString(R.string.contact_title);
-    }
+  @Override
+  protected String getTitleText() {
+    return getString(R.string.contact_title);
+  }
 }
