@@ -6,7 +6,6 @@ package com.hongyu.reward.model;
 public class OrderModel implements BaseDataModel {
   public static final String IMMEDIATE = "0";
   public static final String APPOINTMENT = "1";
-  public static final int STATUS_ALL = 0;
   public static final int STATUS_FINISHED = 30;
   public static final int STATUS_PENDING_RECEIVE = 0;
   public static final int STATUS_PENDING_PAY = 20;

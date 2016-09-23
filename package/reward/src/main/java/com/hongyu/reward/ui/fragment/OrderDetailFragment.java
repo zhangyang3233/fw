@@ -16,6 +16,7 @@ import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.request.ReceiveOrderRequestBuilder;
 import com.hongyu.reward.ui.activity.OrderDetailActivity;
+import com.hongyu.reward.ui.activity.RewardStartActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
@@ -44,6 +45,8 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   private TextView mTvGcr;
   private FiveStarSingle mScoreView;
   private View mReceiveBtn;
+
+  private OrderModel order;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   }
 
   private void refreshData(OrderModel order) {
+    this.order = order;
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(order.getNickname());
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
@@ -141,7 +145,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     });
   }
 
-  private void receiveOrder(String indexNum, String waitNum, String pNum) {
+  private void receiveOrder(final String indexNum, final String waitNum, final String pNum) {
     ReceiveOrderRequestBuilder builder =
         new ReceiveOrderRequestBuilder(order_id, indexNum, waitNum, pNum);
     builder.setDataCallback(new DataCallback<BaseModel>() {
@@ -149,6 +153,9 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
       public void onDataCallback(BaseModel data) {
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show("领取成功");
+          RewardStartActivity.launch(getActivity(), order.getShop_name(), order.getImg(),
+              order.getOrder_id(), indexNum, waitNum, pNum);
+          getActivity().finish();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
         }

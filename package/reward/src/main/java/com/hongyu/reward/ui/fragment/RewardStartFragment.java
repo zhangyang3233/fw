@@ -96,10 +96,16 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mobileNum = order.getMobile();
     price = order.getPrice();
 
+    if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE){
+      mTaskStatus.setText(R.string.task_tip_wait);
+    }
+
     ReceiveModel receive = data.getData().getReceive();
-    mTvTableNum.setText(String.valueOf(receive.rank_num));
-    mTvTableWait.setText(String.valueOf(receive.wait_num));
-    mTvTabPre.setText(String.valueOf(receive.table_num));
+    if(receive != null){
+      mTvTableNum.setText(String.valueOf(receive.rank_num));
+      mTvTableWait.setText(String.valueOf(receive.wait_num));
+      mTvTabPre.setText(String.valueOf(receive.table_num));
+    }
   }
 
   @Override
@@ -125,7 +131,6 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mTvTabPre.setText(table_pre);
 
     mBtnCall = mContentView.findViewById(R.id.call);
-    mTaskStatus = (TextView) mContentView.findViewById(R.id.task_status);
     mBtnCall.setOnClickListener(this);
 
     mTvShopName.setText(shop_name);

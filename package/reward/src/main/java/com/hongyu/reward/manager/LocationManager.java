@@ -51,6 +51,10 @@ public class LocationManager {
     mLocationClient.start();
   }
 
+  public boolean isStarted(){
+    return mLocationClient.isStarted();
+  }
+
   public void stop() {
     mLocationClient.stop();
   }
@@ -66,7 +70,7 @@ public class LocationManager {
     LocationClientOption option = new LocationClientOption();
     option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
     option.setCoorType("bd09ll");// 可选，默认gcj02，设置返回的定位结果坐标系
-    int span = 1000;
+    int span = 10000;
     option.setScanSpan(span);// 可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
     option.setIsNeedAddress(true);// 可选，设置是否需要地址信息，默认不需要
     option.setOpenGps(true);// 可选，默认false,设置是否使用gps
@@ -195,6 +199,47 @@ public class LocationManager {
 
   }
 
+//  @TargetApi(23)
+//  private ArrayList<String> getPersimmions() {
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//      ArrayList<String> permissions = new ArrayList<String>();
+//      /***
+//       * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+//       */
+//      // 定位精确位置
+//      if (GlobalConfig.getAppContext().checkSelfPermission(
+//              Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+//      }
+//      if (GlobalConfig.getAppContext().checkSelfPermission(
+//              Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+//      }
+//      /*
+//       * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+//       */
+//      // 读写权限
+//      addPermission(permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//      // 读取电话状态权限
+//      addPermission(permissions, Manifest.permission.READ_PHONE_STATE);
+//      return permissions;
+//    }
+//    return null;
+//  }
 
+//  @TargetApi(23)
+//  private boolean addPermission(ArrayList<String> permissionsList, String permission) {
+//    if (GlobalConfig.getAppContext().checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
+//      if (shouldShowRequestPermissionRationale(permission)) {
+//        return true;
+//      } else {
+//        permissionsList.add(permission);
+//        return false;
+//      }
+//
+//    } else {
+//      return true;
+//    }
+//  }
 
 }

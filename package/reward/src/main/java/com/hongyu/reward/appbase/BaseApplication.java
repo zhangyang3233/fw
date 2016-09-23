@@ -26,6 +26,7 @@ public class BaseApplication extends Application {
     initGlobalConfig();
     initLog();
     LocationManager.getInstance().init(this);
+    LocationManager.getInstance().start();
     startCoreService();
   }
 

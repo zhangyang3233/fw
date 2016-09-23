@@ -97,6 +97,7 @@
     <string name="reward_name">悬赏人：%1$s</string>
     <string name="task_start">任务开始</string>
     <string name="call_tip">是否要电话联系对方？</string>
+    <string name="task_tip_wait">任务状态:等待悬赏人确认</string>
 
     <!-- 个人中心 -->
     <string name="personal_center">个人中心</string>

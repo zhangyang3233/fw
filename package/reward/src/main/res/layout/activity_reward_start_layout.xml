@@ -20,7 +20,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.hongyu.reward.widget.NetImageView
                 android:id="@+id/image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -54,7 +54,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/cell_reward_round_top"
                 android:gravity="center"
-                android:text="任务进行中"
+                android:text="@string/task_tip_wait"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_h1" />
 
@@ -115,7 +115,7 @@
                             tools:text="成交:5000单" />
                     </LinearLayout>
 
-                    <com.hongyu.reward.widget.StarSingle
+                    <com.hongyu.reward.widget.FiveStarSingle
                         android:id="@+id/my_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -250,7 +250,11 @@
 
             <Button
                 android:id="@+id/call"
-                style="@style/App.Comm.Button"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/common_button_blue"
+                android:textSize="@dimen/text_h1"
+                android:textColor="@color/white"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
