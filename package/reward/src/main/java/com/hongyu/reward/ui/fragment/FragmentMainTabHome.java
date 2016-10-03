@@ -52,6 +52,9 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<AdListModel>() {
       @Override
       public void onDataCallback(AdListModel data) {
+        if(!isAdded()){
+          return;
+        }
         if (ResponesUtil.checkModelCodeOK(data)) {
           mBannerView.setData(data.getData());
         } else {
@@ -65,6 +68,9 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     builder2.setDataCallback(new DataCallback<AdListModel>() {
       @Override
       public void onDataCallback(final AdListModel data) {
+        if(!isAdded()){
+          return;
+        }
         if (ResponesUtil.checkModelCodeOK(data) && data.getData() != null
             && data.getData().size() != 0
             && data.getData().get(0) != null

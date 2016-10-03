@@ -64,6 +64,9 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<OrderInfoModel>() {
       @Override
       public void onDataCallback(OrderInfoModel data) {
+        if(!isAdded()){
+          return;
+        }
         cancel.setOnClickListener(RewardPublishWaitFragment.this);
         add_price.setOnClickListener(RewardPublishWaitFragment.this);
         dismissLoadingView();
@@ -190,6 +193,9 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         builder.setDataCallback(new DataCallback<AddRewardModel>() {
           @Override
           public void onDataCallback(AddRewardModel data) {
+            if(!isAdded()){
+              return;
+            }
             if (ResponesUtil.checkModelCodeOK(data)) {
               T.show(R.string.add_reward_success);
               order_id = data.getData().getOrder_id();
@@ -233,6 +239,9 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
+        if(!isAdded()){
+          return;
+        }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show(R.string.cancel_reward_order_success);
           getActivity().finish();

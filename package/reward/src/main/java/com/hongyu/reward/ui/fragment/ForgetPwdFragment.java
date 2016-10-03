@@ -81,6 +81,9 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
     AccountManager.getInstance().findPwdVerfiy(phone, code, new CommonCallback() {
       @Override
       public void success() {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         RePwdAuthActivity.launch(getActivity(), phone);
         getActivity().finish();
@@ -88,6 +91,9 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
 
       @Override
       public void failed(String msg) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         T.show(msg);
       }
@@ -105,12 +111,18 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
     AccountManager.getInstance().getCode(phone, new GetAuthCodeRequestBuilder.CallBack() {
       @Override
       public void success() {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         startTiming();
       }
 
       @Override
       public void failed(String msg) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         T.show(msg);
       }

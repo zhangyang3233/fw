@@ -74,6 +74,9 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<OrderInfoModel>() {
       @Override
       public void onDataCallback(OrderInfoModel data) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         refreshUI(data);
       }

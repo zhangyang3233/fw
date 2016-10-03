@@ -96,12 +96,18 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
 
           @Override
           public void success() {
+            if(!isAdded()){
+              return;
+            }
             T.show(getString(R.string.register_success));
             getActivity().finish();
           }
 
           @Override
           public void failed(String error) {
+            if(!isAdded()){
+              return;
+            }
             T.show(error);
           }
         });

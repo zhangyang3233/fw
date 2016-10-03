@@ -77,6 +77,9 @@ public class RePwdAuthFragment extends BaseLoadFragment implements View.OnClickL
     AccountManager.getInstance().setPwd(phone, repwd, new CommonCallback() {
       @Override
       public void success() {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         T.show(R.string.reset_pwd_success);
         getActivity().finish();
@@ -84,6 +87,9 @@ public class RePwdAuthFragment extends BaseLoadFragment implements View.OnClickL
 
       @Override
       public void failed(String msg) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         T.show(msg);
       }

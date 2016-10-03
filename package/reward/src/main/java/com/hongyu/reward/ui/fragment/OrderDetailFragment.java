@@ -71,6 +71,9 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<OrderInfoModel>() {
       @Override
       public void onDataCallback(OrderInfoModel data) {
+        if(!isAdded()){
+          return;
+        }
         mReceiveBtn.setOnClickListener(OrderDetailFragment.this);
         dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {
@@ -151,6 +154,9 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
+        if(!isAdded()){
+          return;
+        }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show("领取成功");
           RewardStartActivity.launch(getActivity(), order.getShop_name(), order.getImg(),

@@ -100,7 +100,7 @@ public class LocationManager {
         success = true;
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-        locationInfo = new AppLocation(latitude, longitude);
+        locationInfo = new AppLocation(latitude, longitude, location.getCity());
       } else {
         success = false;
       } // locationInfo

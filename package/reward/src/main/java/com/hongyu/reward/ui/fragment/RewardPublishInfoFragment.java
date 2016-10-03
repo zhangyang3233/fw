@@ -181,6 +181,9 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<PublishReqeustModel>() {
       @Override
       public void onDataCallback(PublishReqeustModel data) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {// 发布成功
           RewardPublishWaitActivity.launch(getActivity(), data.getData().getOrder_id(),

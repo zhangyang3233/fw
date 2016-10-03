@@ -9,11 +9,13 @@ public class AppLocation {
   private static final long MAX_PAST_TIME = 1000 * 60 * 5;
   private double latitude;
   private double longitude;
+  private String city;
   private long setTime;
 
-  public AppLocation(double latitude, double longitude) {
+  public AppLocation(double latitude, double longitude, String city) {
     this.latitude = latitude;
     this.longitude = longitude;
+    this.city = city;
     this.setTime = System.currentTimeMillis();
   }
 
@@ -39,7 +41,7 @@ public class AppLocation {
 
   @Override
   public String toString() {
-    DecimalFormat df = new DecimalFormat("###.#####");
+    DecimalFormat df = new DecimalFormat("###.######");
     String location = df.format(latitude) + "," + df.format(longitude);
     return location;
   }

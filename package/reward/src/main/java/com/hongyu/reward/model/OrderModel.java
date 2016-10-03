@@ -6,12 +6,17 @@ package com.hongyu.reward.model;
 public class OrderModel implements BaseDataModel {
   public static final String IMMEDIATE = "0";
   public static final String APPOINTMENT = "1";
-  public static final int STATUS_FINISHED = 30;
-  public static final int STATUS_PENDING_RECEIVE = 0;
-  public static final int STATUS_PENDING_PAY = 20;
-  public static final int STATUS_PENDING_COMMENT = 40;
-  public static final int STATUS_PENDING_COMPLAINT = 50;
-  public static final int STATUS_PENDING_RECEIVED = 10;
+  // 订单状态
+  public static final int STATUS_PENDING_RECEIVE = 0; // 待领取
+  public static final int STATUS_PENDING_RECEIVED = 10; // 已经领取
+  public static final int STATUS_PENDING_PAY = 20; // 待付款
+  public static final int STATUS_FINISHED = 30; // 已经完成
+  public static final int STATUS_INVALID = 31; // 失效
+  public static final int STATUS_CANCEL = 32; // 取消
+  public static final int STATUS_APPEND = 33; // 追加
+  public static final int STATUS_PENDING_COMMENT = 40; // 待评价
+  public static final int STATUS_PENDING_COMPLAINT = 50; // 投诉单
+  // 订单状态(完)
 
   private String order_id;
   private String user_id;

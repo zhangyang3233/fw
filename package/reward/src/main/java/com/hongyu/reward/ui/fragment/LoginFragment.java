@@ -78,6 +78,9 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
     AccountManager.getInstance().login(phone, pwd, new LoginRequestBuilder.LoginCallback() {
       @Override
       public void loginSuccess(LoginModel.UserInfo userInfo) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         T.show(R.string.login_success);
         gotoMainPage();
@@ -86,6 +89,9 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
 
       @Override
       public void loginFailed(String errorMsg) {
+        if(!isAdded()){
+          return;
+        }
         dismissLoadingView();
         T.show(errorMsg);
       }
