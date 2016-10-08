@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/edit_img_right"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@mipmap/comm_icon_go" />

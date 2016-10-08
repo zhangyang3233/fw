@@ -1,7 +1,6 @@
 package com.hongyu.reward.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +10,12 @@ import android.widget.TextView;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.model.OrderModel;
+import com.hongyu.reward.ui.activity.RewardPublishWaitActivity;
+import com.hongyu.reward.ui.activity.order.CommentActivity;
+import com.hongyu.reward.ui.activity.order.OrderFinishActivity;
+import com.hongyu.reward.ui.activity.order.PaySureActivity;
+import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
+import com.hongyu.reward.utils.StatusUtil;
 
 /**
  * 
@@ -32,56 +37,36 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
   public OrderListAdapter(Context context, int type) {
     this.context = context;
     this.isme = type;
+    initOrderItemClickListener();
+  }
+
+  private void initOrderItemClickListener() {
+    orderItemClickListener = new OrderClickListener(context);
   }
 
   public static void gelleryToPage(Context context, OrderModel model, int isme) {
-    Intent intent = null;
-    // switch (model.getStatus()) {
-    // case OrderModel.STATUS_FINISHED: // 已完成
-    // intent = new Intent(context, OrderFinishActivity.class);
-    // intent.putExtra("order_id", model.getOrder_id());
-    // context.startActivity(intent);
-    // break;
-    // case OrderModel.STATUS_PENDING_RECEIVE: // 待接单
-    // intent = new Intent(context, RewardPublishWaitActivity.class);
-    // intent.putExtra("order_id", model.getOrder_id());
-    // context.startActivity(intent);
-    // break;
-    // case OrderModel.STATUS_PENDING_PAY: // 待付款
-    // if (isme == 1) return;
-    // intent = new Intent(context, PaySureActivity.class);
-    // intent.putExtra("order_id", model.getOrder_id());
-    // intent.putExtra("price", String.valueOf(model.getPrice()));
-    // context.startActivity(intent);
-    // break;
-    // case OrderModel.STATUS_PENDING_COMMENT: // 待评论
-    // intent = new Intent(context, RewardFinishActivity.class);
-    // intent.putExtra("order_id", model.getOrder_id());
-    // intent.putExtra("price", model.getPrice());
-    // context.startActivity(intent);
-    // break;
-    // case OrderModel.STATUS_PENDING_RECEIVED:
-    // if (isme == 1) {
-    // intent = new Intent(context, RewardStartActivity.class);
-    // } else {
-    // intent = new Intent(context, OrderStartActivity.class);
-    // }
-    // intent.putExtra("order_id", model.getOrder_id());
-    // intent.putExtra("shop_name", model.getShop_name());
-    // intent.putExtra("shop_image", model.getImg());
-    //
-    // context.startActivity(intent);
-    // break;
-    // }
+    switch (model.getStatus()) {
+      case OrderModel.STATUS_FINISHED: // 已完成
+        OrderFinishActivity.launch(context, model.getOrder_id());
+        break;
+      case OrderModel.STATUS_PENDING_RECEIVE: // 待接单
+        RewardPublishWaitActivity.launch(context, model.getOrder_id(), model.getShop_name(),
+            model.getImg());
+        break;
+      case OrderModel.STATUS_PENDING_PAY: // 待付款
+        if (isme == 1) return;
+        PaySureActivity.launch(context, model.getOrder_id(), model.getPrice());
+        break;
+      case OrderModel.STATUS_PENDING_COMMENT: // 待评论
+        CommentActivity.launch(context, model.getOrder_id());
+        break;
+      case OrderModel.STATUS_RECEIVED: // 已经领取
+        SelectPersonActivity.launch(context, model.getOrder_id(), model.getShop_name(),
+            model.getImg());
+        break;
+    }
   }
 
-  public void setOnItemClickListener(OnOrderItemClickListener orderItemClickListener) {
-    this.orderItemClickListener = orderItemClickListener;
-  }
-
-  public OnOrderItemClickListener getListener() {
-    return new OrderClickListener(context);
-  }
 
   @Override
   public long getItemId(int position) {
@@ -107,25 +92,9 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
     final OrderModel model = getItem(position);
     if (model == null) return null;
 
-    if (model.getStatus() == OrderModel.STATUS_PENDING_PAY) {
-      holder.status.setText("待付款");
-      holder.status.setTextColor(context.getResources().getColor(R.color.text_orange));
-    } else if (model.getStatus() == OrderModel.STATUS_FINISHED) {
-      holder.status.setText("已完成");
-      holder.status.setTextColor(context.getResources().getColor(R.color.text_green));
-    } else if (model.getStatus() == OrderModel.STATUS_PENDING_COMMENT) {
-      holder.status.setText("待评论");
-      holder.status.setTextColor(context.getResources().getColor(R.color.text_orange));
-    } else if (model.getStatus() == OrderModel.STATUS_PENDING_COMPLAINT) {
-      holder.status.setText("客诉单");
-      holder.status.setTextColor(context.getResources().getColor(R.color.text_red));
-    } else if (model.getStatus() == OrderModel.STATUS_PENDING_RECEIVE) {
-      holder.status.setText("待领取");
-      holder.status.setTextColor(context.getResources().getColor(R.color.text_orange));
-    } else if (model.getStatus() == OrderModel.STATUS_PENDING_RECEIVED) {
-      holder.status.setText("已领取");
-      holder.status.setTextColor(context.getResources().getColor(R.color.text_green));
-    }
+    holder.status.setText(StatusUtil.getMsgByStatus(model.getStatus()));
+    holder.status.setTextColor(StatusUtil.getColorByStatus(model.getStatus()));
+
     holder.time.setText(model.getDate());
     holder.name.setText(model.getShop_name());
     holder.price.setText("￥" + model.getPrice());
@@ -140,7 +109,9 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
 
       @Override
       public void onClick(View v) {
-        orderItemClickListener.onClick(model, isme);
+        if (orderItemClickListener != null) {
+          orderItemClickListener.onClick(model, isme);
+        }
       }
     });
     return convertView;

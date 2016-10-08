@@ -25,4 +25,100 @@ public class ReceiveModel extends BaseModel {
   public String mobile;
   public String good;
   public float score = 0;
+
+  public String getReceive_id() {
+    return receive_id;
+  }
+
+  public void setReceive_id(String receive_id) {
+    this.receive_id = receive_id;
+  }
+
+  public String getReceive_uid() {
+    return receive_uid;
+  }
+
+  public void setReceive_uid(String receive_uid) {
+    this.receive_uid = receive_uid;
+  }
+
+  public String getOrder_id() {
+    return order_id;
+  }
+
+  public void setOrder_id(String order_id) {
+    this.order_id = order_id;
+  }
+
+  public String getRank_num() {
+    return rank_num;
+  }
+
+  public void setRank_num(String rank_num) {
+    this.rank_num = rank_num;
+  }
+
+  public String getTable_num() {
+    return table_num;
+  }
+
+  public void setTable_num(String table_num) {
+    this.table_num = table_num;
+  }
+
+  public String getWait_num() {
+    return wait_num;
+  }
+
+  public void setWait_num(String wait_num) {
+    this.wait_num = wait_num;
+  }
+
+  public String getNickname() {
+    return nickname;
+  }
+
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
+
+  public String getGcr() {
+    return gcr;
+  }
+
+  public void setGcr(String gcr) {
+    this.gcr = gcr;
+  }
+
+  public String getOrder_num() {
+    return order_num;
+  }
+
+  public void setOrder_num(String order_num) {
+    this.order_num = order_num;
+  }
+
+  public String getMobile() {
+    return mobile;
+  }
+
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
+
+  public String getGood() {
+    return good;
+  }
+
+  public void setGood(String good) {
+    this.good = good;
+  }
+
+  public float getScore() {
+    return score;
+  }
+
+  public void setScore(float score) {
+    this.score = score;
+  }
 }

@@ -32,11 +32,11 @@ public class RewardStartActivity extends BaseSingleFragmentActivity {
     context.startActivity(intent);
   }
 
-  public static void launch(Context context, String shop_name, String shop_img, String order_id) {
+  public static void launch(Context context, String order_id, String shop_name, String shop_img) {
     Intent intent = new Intent(context, RewardStartActivity.class);
+    intent.putExtra(ORDER_ID, order_id);
     intent.putExtra(SHOP_NAME, shop_name);
     intent.putExtra(SHOP_IMG, shop_img);
-    intent.putExtra(ORDER_ID, order_id);
     context.startActivity(intent);
   }
 

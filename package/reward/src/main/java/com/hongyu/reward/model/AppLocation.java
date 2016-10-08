@@ -35,6 +35,14 @@ public class AppLocation {
     this.longitude = longitude;
   }
 
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
   public boolean isPast() {
     return System.currentTimeMillis() - setTime > MAX_PAST_TIME;
   }

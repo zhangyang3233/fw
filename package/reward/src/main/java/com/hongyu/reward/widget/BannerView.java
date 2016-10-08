@@ -11,9 +11,11 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.model.AdModel;
 import com.hongyu.reward.ui.adapter.BannerPagerAdapter;
 
-import java.util.ArrayList;
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.circlenavigator.CircleNavigator;
 
-import me.relex.circleindicator.CircleIndicator;
+import java.util.ArrayList;
 
 /**
  * Created by zhangyang131 on 16/9/10.
@@ -23,12 +25,15 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
   private Context mContext;
   private ViewGroup mView;
   private ViewPager mViewPager;
-  private CircleIndicator indicator;
+  MagicIndicator magicIndicator;
+  CircleNavigator circleNavigator;
+
   public BannerView(Context context) {
     super(context);
     mContext = context;
     initView();
   }
+
   public BannerView(Context context, AttributeSet attrs) {
     super(context, attrs);
     mContext = context;
@@ -40,9 +45,9 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
     LayoutInflater inflater = LayoutInflater.from(mContext);
     mView = (ViewGroup) inflater.inflate(R.layout.widget_banner_layout, null);
     mViewPager = (ViewPager) mView.findViewById(R.id.viewPager);
-    indicator = (CircleIndicator) mView.findViewById(R.id.indicator);
     mViewPager.setAdapter(adapter);
-    indicator.setViewPager(mViewPager);
+    magicIndicator = (MagicIndicator) mView.findViewById(R.id.magic_indicator);
+    circleNavigator = new CircleNavigator(mContext);
     addView(mView);
   }
 
@@ -57,6 +62,16 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
   public void setData(ArrayList<AdModel> list) {
     initAdapter();
     adapter.setData(list);
+    circleNavigator.setCircleCount(adapter.getCount());
+    circleNavigator.setCircleColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+    circleNavigator.setCircleClickListener(new CircleNavigator.OnCircleClickListener() {
+      @Override
+      public void onClick(int index) {
+        mViewPager.setCurrentItem(index);
+      }
+    });
+    magicIndicator.setNavigator(circleNavigator);
+    ViewPagerHelper.bind(magicIndicator, mViewPager);
   }
 
   @Override

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:reward="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_bg_color"
+    android:orientation="vertical" >
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="100dp"
+	    android:background="@color/white"
+	    android:gravity="center_vertical"
+	    android:orientation="horizontal">
+	    
+	    <com.hongyu.reward.widget.RoundImageView
+	        android:id="@+id/header_icon"
+	        android:layout_width="80dp"
+	        android:layout_height="80dp"
+	        android:contentDescription="@null"
+	        android:scaleType="centerCrop"
+	        android:layout_margin="10dp"
+	        android:src="@mipmap/defalut_head_img"
+	        reward:riv_border_color="@color/white"
+	        reward:riv_border_width="1dp" />
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <TextView 
+	            android:id="@+id/name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="刘嘉玲"
+	            android:textColor="@color/text_gray_dark"
+	            android:textSize="@dimen/text_h1"/>
+	       	
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:layout_marginTop="5dp"
+	            android:layout_marginRight="10dp"
+	            android:gravity="center_vertical">
+	            
+	            <TextView 
+	                android:id="@+id/gcr"
+	                android:layout_width="0dp"
+	                android:layout_weight="1"
+	                android:layout_height="wrap_content"
+	                android:text="好评率:90%"
+	                android:textColor="@color/text_gray_dark"
+	                android:textSize="@dimen/text_h2"/>
+	            
+	            <TextView 
+	                android:id="@+id/order_num"
+	                android:layout_width="0dp"
+	                android:layout_weight="1"
+	                android:layout_height="wrap_content"
+	                android:text="成交:5000单"
+	                android:textColor="@color/text_gray_dark"
+	                android:textSize="@dimen/text_h2"/>
+	        </LinearLayout>
+	        
+	        <com.hongyu.reward.widget.FiveStarSingle
+	            android:id="@+id/my_score"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"/>
+	    </LinearLayout>
+	</LinearLayout>
+	
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="110dp"
+	    android:padding="10dp"
+	    android:layout_marginTop="5dp"
+	    android:background="@color/white"
+	    android:orientation="vertical" >
+	    
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1">
+	        
+	        <TextView 
+	            android:id="@+id/shop_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/text_gray_dark"
+	            android:textSize="@dimen/text_h0"
+	            android:text="海底捞"
+	            android:layout_centerVertical="true"/>
+	        
+	        <TextView 
+	            android:id="@+id/status"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/text_orange"
+	            android:textSize="@dimen/text_h2"
+	            android:layout_alignParentRight="true"
+	            android:text="已完成"
+	            android:layout_centerVertical="true"/>
+	    </RelativeLayout>
+	    
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:layout_marginTop="10dp">
+	        
+	        <TextView 
+	            android:id="@+id/order_type"
+	            android:layout_width="60dp"
+	            android:layout_height="26dp"
+	            android:textColor="@color/text_orange"
+	            android:textSize="@dimen/text_h2"
+	            android:text="预约"
+	            android:gravity="center"
+	            android:clickable="true"
+	            android:background="@drawable/common_button_orange"
+	            android:layout_centerVertical="true"/>
+	        
+	        <TextView 
+	            android:id="@+id/time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/text_gray_light"
+	            android:textSize="@dimen/text_h2"
+	            android:layout_toRightOf="@id/order_type"
+	            android:text="2016-07-12 12:23"
+	            android:layout_marginLeft="10dp"
+	            android:layout_centerVertical="true"/>
+	    </RelativeLayout>
+	</LinearLayout>
+	
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/white">
+        
+        <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:gravity="bottom"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="20dp">
+	        
+	        <TextView 
+	            android:id="@+id/o_star"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="4"
+	            android:textColor="@color/text_orange"
+	            android:textSize="@dimen/text_h0"/>
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text=" 星评价"
+	            android:textColor="@color/text_orange"
+	            android:textSize="@dimen/text_h3"/>
+	    </LinearLayout>
+	    
+        <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="20dp"
+	        android:layout_gravity="center_horizontal"
+	        android:gravity="center_vertical">
+	        
+	        <ImageView 
+	            android:id="@+id/o_star1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:contentDescription="@null"
+	            android:clickable="true"
+	            android:src="@mipmap/icon_star_orange_h"/>
+	        <ImageView 
+	            android:id="@+id/o_star2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:contentDescription="@null"
+	            android:clickable="true"
+	            android:layout_marginLeft="8dp"
+	            android:src="@mipmap/icon_star_orange_h"/>
+	        <ImageView 
+	            android:id="@+id/o_star3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:contentDescription="@null"
+	            android:clickable="true"
+	            android:layout_marginLeft="8dp"
+	            android:src="@mipmap/icon_star_orange_h"/>
+	        <ImageView 
+	            android:id="@+id/o_star4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:contentDescription="@null"
+	            android:clickable="true"
+	            android:layout_marginLeft="8dp"
+	            android:src="@mipmap/icon_star_orange_h"/>
+	        <ImageView 
+	            android:id="@+id/o_star5"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:contentDescription="@null"
+	            android:clickable="true"
+	            android:layout_marginLeft="8dp"
+	            android:src="@mipmap/icon_star_orange_h"/>
+	    </LinearLayout>
+	    
+        <TextView 
+            android:id="@+id/content"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/text_gray_more"
+			android:textSize="@dimen/text_h3"
+			android:layout_marginLeft="3dp"
+			android:layout_marginRight="3dp"
+			android:layout_marginTop="25dp"
+			android:layout_gravity="center_horizontal"
+			android:text="您的匿名评价"/>
+        
+        <Button style="@style/App.Comm.Button"
+	        android:id="@+id/share"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginTop="50dp"
+	        android:text="分享"/>
+    </LinearLayout>
+</LinearLayout>

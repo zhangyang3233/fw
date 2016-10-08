@@ -68,6 +68,8 @@
     <string name="reward_count">悬赏人数：%1$s人</string>
     <string name="shop_distance">距离您：%1$s米内</string>
     <string name="save_time">平均节省：%1$s分钟</string>
+    <string name="show_tip_publish">饿得不行了？赶时间？请客户？\n不能等位，但就是想吃！\n即刻发布悬赏，所有在排队的好心人都会来帮你！</string>
+    <string name="show_tip_receive">不是很着急？\n吧你的派对号让给需要的人吧！\n技能帮助别人，还能笑赚点，为什么不呢？</string>
 
     <!-- 发布悬赏信息详情页 -->
     <string name="input_reward_info_title">填写悬赏信息</string>
@@ -119,4 +121,19 @@
     <string name="setting_title">设置</string>
     <string name="sure_to_logout">确认要退出吗？</string>
     <string name="update_pwd_title">修改密码</string>
+
+    <string name="notice_publish">您发布的悬赏任务正在进行中…</string>
+    <string name="notice_receive">您接受的任务正在进行中…</string>
+
+    <!-- 选择/定位城市 Begin -->
+    <string name="label_text_history">历史</string>
+    <string name="label_text_hot">热门</string>
+    <string name="label_text_history_city">历史访问城市</string>
+    <string name="label_text_hot_city">热门城市</string>
+    <string name="label_text_location_city">定位城市</string>
+    <string name="label_text_all_city">全部城市</string>
+    <string name="label_text_location_citying">城市定位中...</string>
+    <string name="search_city_abc">请输入城市名称或拼音查询</string>
+    <string name="search_city_no_data">抱歉,暂未找到相关城市!</string>
+    <!-- 选择/定位城市 End -->
 </resources>

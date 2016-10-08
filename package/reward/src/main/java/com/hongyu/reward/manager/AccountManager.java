@@ -287,18 +287,23 @@ public class AccountManager {
 
   private void initUser() {
     if (user == null) {
-      user = new LoginModel.UserInfo();
+      LoginModel.UserInfo userInfo = new LoginModel.UserInfo();
       SharedPreferences pref = GlobalConfig.getAppContext()
           .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
       String userId = pref.getString(Constants.App.APP_USERID, "");
-      user.setUser_id(userId);
-      user.setUsername(pref.getString("username", ""));
-      user.setAvatar(pref.getString("avatar", ""));
-      user.setPhone(pref.getString("phone", ""));
-      user.setGender(pref.getInt("gender", 0));
-      user.setScore(pref.getFloat("score", 0));
-      user.setCash(pref.getFloat("cash", 0));
-      user.setLock_cash(pref.getFloat("lock_cash", 0));
+      if(!TextUtils.isEmpty(userId)){
+        user = userInfo;
+        user.setUser_id(userId);
+        user.setUsername(pref.getString("username", ""));
+        user.setAvatar(pref.getString("avatar", ""));
+        user.setPhone(pref.getString("phone", ""));
+        user.setGender(pref.getInt("gender", 0));
+        user.setScore(pref.getFloat("score", 0));
+        user.setCash(pref.getFloat("cash", 0));
+        user.setLock_cash(pref.getFloat("lock_cash", 0));
+      }else{
+        return;
+      }
     }
   }
 

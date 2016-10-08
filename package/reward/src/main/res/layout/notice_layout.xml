@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/notice_bg_cell_round_selector"
+        android:padding="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notice_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_notice"
+            android:textColor="@color/notice"
+            android:drawablePadding="5dp"
+            android:textSize="16sp"
+            android:text="@string/notice_publish" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击查看 >"
+            android:layout_marginTop="3dp"
+            android:textSize="13sp"
+            android:textColor="@color/notice"
+            android:layout_gravity="right|bottom"/>
+    </LinearLayout>
+</RelativeLayout>

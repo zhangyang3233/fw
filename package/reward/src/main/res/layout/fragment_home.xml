@@ -21,92 +21,111 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:background="@color/white"
+        android:paddingBottom="10dp"
         android:orientation="vertical">
 
-        <com.hongyu.reward.widget.BannerView
-            android:id="@+id/banner_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="140dp" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="6dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/reward_publish"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#FF6666"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/home_icon_reward_publish" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="发布悬赏"
-                    android:textColor="@color/app_main_title_text_color"
-                    android:textSize="@dimen/text_h0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/reward_get"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
-                android:layout_weight="1"
-                android:background="#FFD300"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/home_icon_reward_receive" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="领取悬赏"
-                    android:textColor="@color/app_main_title_text_color"
-                    android:textSize="@dimen/text_h0" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.hongyu.reward.widget.NetImageView
-                android:id="@+id/main_image"
+            <com.hongyu.reward.widget.BannerView
+                android:id="@+id/banner_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/defalut_image" />
-        </LinearLayout>
+                android:layout_height="match_parent" />
 
+            <com.hongyu.reward.widget.NoticeView
+                android:id="@+id/notice_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:padding="10dp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/reward_publish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#FF6666"
+            android:padding="10dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/icon_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/home_icon_reward_publish" />
+
+            <TextView
+                android:id="@+id/icon_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/icon_publish"
+                android:layout_marginTop="5dp"
+                android:text="发布悬赏"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_h0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/icon_publish"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:text="@string/show_tip_publish"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/reward_get"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="#FFD300"
+            android:clickable="true"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/icon_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/home_icon_reward_receive" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text="领取悬赏"
+                android:layout_toRightOf="@id/icon_receive"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_h0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/icon_receive"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:text="@string/show_tip_receive"/>
+        </RelativeLayout>
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

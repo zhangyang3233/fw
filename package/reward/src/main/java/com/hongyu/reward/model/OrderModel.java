@@ -7,8 +7,9 @@ public class OrderModel implements BaseDataModel {
   public static final String IMMEDIATE = "0";
   public static final String APPOINTMENT = "1";
   // 订单状态
+  public static final int STATUS_ALL = -1; // 待领取
   public static final int STATUS_PENDING_RECEIVE = 0; // 待领取
-  public static final int STATUS_PENDING_RECEIVED = 10; // 已经领取
+  public static final int STATUS_RECEIVED = 10; // 已经领取
   public static final int STATUS_PENDING_PAY = 20; // 待付款
   public static final int STATUS_FINISHED = 30; // 已经完成
   public static final int STATUS_INVALID = 31; // 失效
@@ -21,7 +22,7 @@ public class OrderModel implements BaseDataModel {
   private String order_id;
   private String user_id;
   private String shop_id;
-  private String type;
+  private int type;
   private String price;
   private String usernum;
   private String begin_time;
@@ -36,6 +37,7 @@ public class OrderModel implements BaseDataModel {
   private String gcr;
   private String order_num;
   private String isComment;
+  private String mTvTime;
 
   public String getOrder_id() {
     return order_id;
@@ -61,11 +63,11 @@ public class OrderModel implements BaseDataModel {
     this.shop_id = shop_id;
   }
 
-  public String getType() {
+  public int getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(int type) {
     this.type = type;
   }
 
@@ -179,5 +181,13 @@ public class OrderModel implements BaseDataModel {
 
   public void setIsComment(String isComment) {
     this.isComment = isComment;
+  }
+
+  public String getmTvTime() {
+    return mTvTime;
+  }
+
+  public void setmTvTime(String mTvTime) {
+    this.mTvTime = mTvTime;
   }
 }

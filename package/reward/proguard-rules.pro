@@ -254,3 +254,14 @@
 -dontwarn com.squareup.okhttp.**
 -keep class com.hongyu.reward.model.**{*;}
 -keepclassmembers class com.hongyu.reward.model.** { public * ;protected * ; private *;}
+
+# ----------- 支付宝 -----------
+-libraryjars libs/alipaySdk-20160825.jar
+
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+# ----------- 支付宝(完) -----------

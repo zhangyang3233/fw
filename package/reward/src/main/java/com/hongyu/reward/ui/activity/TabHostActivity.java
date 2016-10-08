@@ -87,9 +87,7 @@ public class TabHostActivity extends FragmentActivity
   }
 
   private void getLocation() {
-    if (!LocationManager.getInstance().isStarted()) {
-      LocationManager.getInstance().start();
-    }
+    LocationManager.getInstance().start();
     if (LocationManager.getInstance().getLocalLocationInfo() != null) { // 已经获取到位置信息
       setView();
     } else { // 没有获取到位置信息

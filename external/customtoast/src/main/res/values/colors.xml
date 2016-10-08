@@ -8,4 +8,10 @@
     <color name="stroke">#FF744400</color>
 
 
+    <color name="progress_start_color">#ff19e1e2</color>
+    <color name="progress_center_color">#fffdde98</color>
+    <color name="progress_end_color">#ffff4393</color>
+    <color name="progress_view_bg">#ffefeff0</color>
+
+
 </resources>

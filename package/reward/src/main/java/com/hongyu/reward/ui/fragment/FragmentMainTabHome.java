@@ -1,7 +1,6 @@
 package com.hongyu.reward.ui.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,13 +8,16 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.AdListModel;
 import com.hongyu.reward.request.GetAdListRequestBuilder;
-import com.hongyu.reward.ui.activity.BrowserActivity;
 import com.hongyu.reward.ui.activity.TabHostActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.BannerView;
-import com.hongyu.reward.widget.NetImageView;
+import com.hongyu.reward.widget.NoticeView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * fragment - home - 主页
@@ -30,9 +32,9 @@ import com.hongyu.reward.widget.NetImageView;
 public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClickListener {
   private BannerView mBannerView;
   private View mRewardPublish;
+  private NoticeView mNoticeView;
   private View mRewardget;
   private TextView title;
-  private NetImageView mMainImage;
 
   @Override
   protected void onStartLoading() {}
@@ -52,7 +54,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<AdListModel>() {
       @Override
       public void onDataCallback(AdListModel data) {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
@@ -64,30 +66,30 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     });
     builder.build().submit();
 
-    GetAdListRequestBuilder builder2 = new GetAdListRequestBuilder(String.valueOf(2));
-    builder2.setDataCallback(new DataCallback<AdListModel>() {
-      @Override
-      public void onDataCallback(final AdListModel data) {
-        if(!isAdded()){
-          return;
-        }
-        if (ResponesUtil.checkModelCodeOK(data) && data.getData() != null
-            && data.getData().size() != 0
-            && data.getData().get(0) != null
-            && !TextUtils.isEmpty(data.getData().get(0).getPosition_url())) {
-          mMainImage.loadNetworkImageByUrl(data.getData().get(0).getPosition_img());
-          mMainImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              BrowserActivity.launch(getActivity(), data.getData().get(0).getPosition_url());
-            }
-          });
-        } else {
-          T.show(ResponesUtil.getErrorMsg(data));
-        }
-      }
-    });
-    builder2.build().submit();
+//    GetAdListRequestBuilder builder2 = new GetAdListRequestBuilder(String.valueOf(2));
+//    builder2.setDataCallback(new DataCallback<AdListModel>() {
+//      @Override
+//      public void onDataCallback(final AdListModel data) {
+//        if (!isAdded()) {
+//          return;
+//        }
+//        if (ResponesUtil.checkModelCodeOK(data) && data.getData() != null
+//            && data.getData().size() != 0
+//            && data.getData().get(0) != null
+//            && !TextUtils.isEmpty(data.getData().get(0).getPosition_url())) {
+//          mMainImage.loadNetworkImageByUrl(data.getData().get(0).getPosition_img());
+//          mMainImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//              BrowserActivity.launch(getActivity(), data.getData().get(0).getPosition_url());
+//            }
+//          });
+//        } else {
+//          T.show(ResponesUtil.getErrorMsg(data));
+//        }
+//      }
+//    });
+//    builder2.build().submit();
   }
 
   @Override
@@ -102,8 +104,9 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     title = (TextView) mContentView.findViewById(R.id.title);
     mRewardPublish.setOnClickListener(this);
     mRewardget.setOnClickListener(this);
-    mMainImage = (NetImageView) mContentView.findViewById(R.id.main_image);
+    mNoticeView = (NoticeView) mContentView.findViewById(R.id.notice_view);
     title.setText(R.string.main_tag_text_home);
+    RefreshOrderManager.getStatusOrder();
   }
 
 
@@ -123,4 +126,34 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     TabHostActivity activity = (TabHostActivity) getActivity();
     activity.switchPage(index);
   }
+
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void onEventMainThread(RefreshOrderManager.Prog prog) {
+    if (!isAdded()) {
+      return;
+    }
+    if(mNoticeView != null){
+      if(prog == null || prog.getStatus() == RefreshOrderManager.NONE){
+        mNoticeView.hide();
+      }else if (prog.getStatus() == RefreshOrderManager.PUBLISH_ORDER) {
+        mNoticeView.show(prog.getOrderId(), true);
+      } else if (prog.getStatus() == RefreshOrderManager.RECEIVE_ORDER) {
+        mNoticeView.show(prog.getOrderId(), false);
+      }
+    }
+  }
+
 }

@@ -231,6 +231,9 @@ public final class Constants {
     public static final String API_MESSAGE_LIST = "/message/message_list";
 
 
+    public static final String API_PAY_SIGN = "/pay/sign";
+
+
     // 退出登录
     public static final String API_LOGOUT = "";
   }

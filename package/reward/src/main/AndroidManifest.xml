@@ -135,11 +135,37 @@
             android:name=".ui.activity.personal.UpdatePwdActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
+            android:name=".ui.activity.order.OrderFinishActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.order.PaySureActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.order.CommentActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
+            android:name=".ui.activity.order.SelectPersonActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main"
             android:windowSoftInputMode="adjustPan"></activity>
+
+        <!-- 支付宝支付 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
 
         <!-- 核心服务类 -->
         <service

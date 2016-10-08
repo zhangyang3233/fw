@@ -1,13 +1,12 @@
 package com.hongyu.reward.manager;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+
+import com.fw.zycoder.utils.Log;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -30,7 +29,7 @@ public class CoreService extends Service {
   private ScheduledExecutorService scheduledExecutor = null;
   private AccountManager userManager;
   // private ScreenManager screenManager;
-  private ReceiveBroadCast receiveBroadCast;
+  // private ReceiveBroadCast receiveBroadCast;
 
   private String order_id = "";
   private String shop_img = "";
@@ -77,34 +76,9 @@ public class CoreService extends Service {
   public void onCreate() {
     super.onCreate();
     initSharedVal();
-    initBroadCast();
+    onStartListen();
   }
 
-  private void initBroadCast() {
-    receiveBroadCast = new ReceiveBroadCast();
-    IntentFilter filter = new IntentFilter();
-    filter.addAction("COM.HONGYU.REWARD.START"); // 只有持有相同的action的接受者才能接收此广播
-    filter.addAction("COM.HONGYU.REWARD.STOP"); // 只有持有相同的action的接受者才能接收此广播
-    registerReceiver(receiveBroadCast, filter);
-  }
-
-  private void getReceiveNum() {
-    // userManager.getReceNum(order_id, new CallBack(){
-    //
-    // @Override
-    // public void success(JSONObject res) {
-    // MLog.v("req ==== " + res.toString());
-    // JSONObject data = res.optJSONObject("data");
-    // if (data.optInt("num", 0) > 0 && !isShow) {
-    // handler.sendEmptyMessage(0);
-    // }
-    // }
-    //
-    // @Override
-    // public void faild(String error) {
-    //
-    // }});
-  }
 
   /**
    * 初始化类内部共享变量
@@ -138,11 +112,6 @@ public class CoreService extends Service {
   @Override
   public void onDestroy() {
     super.onDestroy();
-
-    if (receiveBroadCast != null) {
-      unregisterReceiver(receiveBroadCast);
-      receiveBroadCast = null;
-    }
     onStopListen();
   }
 
@@ -160,22 +129,9 @@ public class CoreService extends Service {
   private class MyTask implements Runnable {
     @Override
     public void run() {
-      getReceiveNum();
+      Log.i("MyTask", "MyTask执行中....");
+      RefreshOrderManager.getStatusOrder();
     }
   }
 
-  public class ReceiveBroadCast extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      order_id = intent.getStringExtra("order_id");
-      if ("COM.HONGYU.REWARD.START".equals(intent.getAction())) {
-        shop_img = intent.getStringExtra("shop_img");
-        shop_name = intent.getStringExtra("shop_name");
-        onStartListen();
-      } else if ("COM.HONGYU.REWARD.STOP".equals(intent.getAction())) {
-        onStopListen();
-      }
-    }
-  }
 }

@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by zhangyang131 on 16/9/20.
  */
 public class MyReceiveOrderListFragment extends PagerFragment {
-  private static final String[] CHANNELS = new String[] {"全部", "已经完成", "待付款", "待评价", "客诉单"};
+  private static final String[] CHANNELS = new String[] {"全部", "已领取", "待付款", "待评价", "完成"};
   MagicIndicator magicIndicator;
   OrderPagerAdapter adapter;
 
@@ -50,20 +50,20 @@ public class MyReceiveOrderListFragment extends PagerFragment {
     Bundle bundle = new Bundle();
     bundle.putInt(OrderListFragment.ISME, 1);
     switch (index) {
-      case 0:
+      case 0: // 全部
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_ALL);
         break;
-      case 1:
-        bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_FINISHED);
+      case 1: // 已经领取,待确认
+        bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_RECEIVED);
         break;
-      case 2:
+      case 2: // 待支付
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_PENDING_PAY);
         break;
-      case 3:
+      case 3: // 待评价
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_PENDING_COMMENT);
         break;
-      case 4:
-        bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_PENDING_COMPLAINT);
+      case 4: // 完成
+        bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_FINISHED);
         break;
     }
     return bundle;

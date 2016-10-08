@@ -11,6 +11,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.PublishReqeustModel;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.PublishRequestBuilder;
@@ -19,6 +20,8 @@ import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.NetImageView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 
@@ -181,7 +184,7 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<PublishReqeustModel>() {
       @Override
       public void onDataCallback(PublishReqeustModel data) {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         dismissLoadingView();
@@ -189,6 +192,9 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
           RewardPublishWaitActivity.launch(getActivity(), data.getData().getOrder_id(),
               shopInfo.getShop_name(), shopInfo.getImg());
           T.show(R.string.public_success);
+          RefreshOrderManager.Prog prog = new RefreshOrderManager.Prog(
+              RefreshOrderManager.PUBLISH_ORDER, data.getData().getOrder_id());
+          EventBus.getDefault().post(prog);
           getActivity().finish();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));

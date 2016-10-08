@@ -56,13 +56,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
   @Override
   public int getCount() {
-    if (adsList == null || adsList.size() == 0) {
-      return 0;
-    } else if (adsList.size() == 1) {
-      return 1;
-    } else {
-      return adsList.size() + 2;
-    }
+    return adsList == null ? 0 : adsList.size();
 
   }
 
@@ -84,8 +78,7 @@ public class BannerPagerAdapter extends PagerAdapter {
   @Override
   public Object instantiateItem(ViewGroup viewPager, final int position) {
     View view = LayoutInflater.from(context).inflate(R.layout.layout_header_ad, null);
-    NetImageView image = null;
-    image = (NetImageView) view.findViewById(R.id.iv_ad_img);
+    NetImageView image = (NetImageView) view.findViewById(R.id.iv_ad_img);
 
     image.setScaleType(ScaleType.FIT_XY);
 
@@ -108,19 +101,7 @@ public class BannerPagerAdapter extends PagerAdapter {
   }
 
   public AdModel getItem(int i) {
-    if (adsList != null) {
-      if (getCount() >= 4) {
-        if (i == 0) {
-          return adsList.get(adsList.size() - 1);
-        } else if (i == adsList.size() - 2) {
-          return adsList.get(0);
-        } else {
-          return adsList.get((i - 1) % adsList.size());
-        }
-      }
-      return adsList.get(i);
-    }
-    return null;
+    return adsList.get(i);
   }
 
   public void setOnItemClickListener(OnBannerItemClickListener bannerItemClickListener) {

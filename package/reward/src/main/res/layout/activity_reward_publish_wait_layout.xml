@@ -168,8 +168,17 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="10:00"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="60sp" />
+
+                <com.hongyu.reward.widget.SpringProgressView
+                    android:id="@+id/progress_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentBottom="true"/>
             </RelativeLayout>
 
             <TextView

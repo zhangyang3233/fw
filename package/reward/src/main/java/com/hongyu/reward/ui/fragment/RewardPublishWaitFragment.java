@@ -12,6 +12,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.AddRewardModel;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.OrderInfoModel;
@@ -23,6 +24,9 @@ import com.hongyu.reward.ui.dialog.AddRewardDialog;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.NetImageView;
+import com.hongyu.reward.widget.SpringProgressView;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhangyang131 on 16/9/13.
@@ -45,6 +49,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
   private Button cancel;
   private Button add_price;
   private CountDownTimer timer;
+  private SpringProgressView progress_view;
 
   private void initView() {
     image = (NetImageView) mContentView.findViewById(R.id.image);
@@ -53,6 +58,8 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     dinner_count_info = (TextView) mContentView.findViewById(R.id.dinner_count_info);
     reward_money_info = (TextView) mContentView.findViewById(R.id.reward_money_info);
     time_count_down = (TextView) mContentView.findViewById(R.id.time_count_down);
+    progress_view = (SpringProgressView) mContentView.findViewById(R.id.progress_view);
+    progress_view.setMaxCount(600);
     cancel = (Button) mContentView.findViewById(R.id.cancel);
     add_price = (Button) mContentView.findViewById(R.id.add_price);
   }
@@ -145,6 +152,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     String minStr = min > 9 ? String.valueOf(min) : "0" + min;
     String secondStr = second > 9 ? String.valueOf(second) : "0" + second;
     time_count_down.setText(minStr + ":" + secondStr);
+    progress_view.setCurrentCount(seconds);
   }
 
   private void getData() {
@@ -244,6 +252,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show(R.string.cancel_reward_order_success);
+          EventBus.getDefault().post(new RefreshOrderManager.Prog());
           getActivity().finish();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));

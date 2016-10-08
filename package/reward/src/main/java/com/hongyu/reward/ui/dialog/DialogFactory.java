@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -204,6 +205,59 @@ public class DialogFactory {
 
   }
 
+
+  public static void showShareView(Context context, final OnWhichListener listen) {
+    LayoutInflater factory = LayoutInflater.from(context);
+    final View view = factory.inflate(R.layout.select_share, null);
+
+    final Dialog builder = new AlertDialog.Builder(context).create();
+    builder.show();
+    builder.setContentView(view);
+
+    Window window = builder.getWindow();
+    window.setGravity(Gravity.BOTTOM);
+    window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    window.setWindowAnimations(R.style.dialog_sheet_window_anim);
+
+    View wechat = view.findViewById(R.id.wechat);
+    View wechats = view.findViewById(R.id.wechats);
+    View qq = view.findViewById(R.id.qq);
+
+    WindowManager windowManager = builder.getWindow().getWindowManager();
+    Display display = windowManager.getDefaultDisplay();
+    WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+    lp.width = (int) (display.getWidth() - 0); // 设置宽度
+    builder.getWindow().setAttributes(lp);
+
+    wechat.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+        listen.onConfirmClick(1);
+      }
+    });
+
+    wechats.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+        listen.onConfirmClick(2);
+      }
+    });
+
+    qq.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+        listen.onConfirmClick(3);
+      }
+    });
+
+  }
+
+  public interface OnWhichListener {
+    public void onConfirmClick(int which);
+  }
 
   public interface OnWhichBackStringListener {
     void onConfirmClick(String[] content);

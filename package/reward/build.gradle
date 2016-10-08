@@ -48,7 +48,7 @@ android {
             // 混淆文件的位置
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 是否可以debug
-            debuggable false
+            debuggable true
             // 是否可以debug jni
             jniDebuggable false
             // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
@@ -133,6 +133,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'me.relex:circleindicator:1.2.1@aar'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'org.greenrobot:eventbus:3.0.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }
