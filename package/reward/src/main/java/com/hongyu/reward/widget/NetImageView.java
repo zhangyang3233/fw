@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fw.zycoder.utils.GlobalConfig;
 import com.hongyu.reward.R;
 
 
@@ -20,12 +21,12 @@ public class NetImageView extends ImageView {
   }
 
   public void loadNetworkImageByUrl(String url) {
-    Glide.with(getContext()).load(url).error(R.mipmap.defalut_image)
+    Glide.with(GlobalConfig.getAppContext()).load(url).error(R.mipmap.defalut_image)
         .skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).into(this);
   }
 
   public void loadNetworkImageByUrl(String url, int resourceId) {
-    Glide.with(getContext()).load(url).error(resourceId)
+    Glide.with(GlobalConfig.getAppContext()).load(url).error(resourceId)
         .skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.ALL).into(this);
   }
 }

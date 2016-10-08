@@ -1,17 +1,27 @@
 package com.hongyu.reward.ui.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
+import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.interfaces.GetLocationListener;
+import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.AdListModel;
+import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.request.GetAdListRequestBuilder;
 import com.hongyu.reward.ui.activity.TabHostActivity;
+import com.hongyu.reward.ui.city.CityPickerActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.BannerView;
 import com.hongyu.reward.widget.NoticeView;
@@ -30,41 +40,44 @@ import org.greenrobot.eventbus.Subscribe;
  * @since 2016-7-18 上午6:38:00
  */
 public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClickListener {
-  private BannerView mBannerView;
-  private View mRewardPublish;
-  private NoticeView mNoticeView;
-  private View mRewardget;
-  private TextView title;
+    private BannerView mBannerView;
+    private View mRewardPublish;
+    private NoticeView mNoticeView;
+    private LinearLayout left_container;
+    private View mRewardget;
+    private TextView title;
+    private TextView leftBtn;
 
-  @Override
-  protected void onStartLoading() {}
+    @Override
+    protected void onStartLoading() {
+    }
 
-  @Override
-  protected void loadingData() {
-    initAd();
-  }
+    @Override
+    protected void loadingData() {
+        initAd();
+    }
 
-  @Override
-  protected void onInflated(View contentView, Bundle savedInstanceState) {
-    initView();
-  }
+    @Override
+    protected void onInflated(View contentView, Bundle savedInstanceState) {
+        initView();
+    }
 
-  private void initAd() {
-    GetAdListRequestBuilder builder = new GetAdListRequestBuilder(String.valueOf(1));
-    builder.setDataCallback(new DataCallback<AdListModel>() {
-      @Override
-      public void onDataCallback(AdListModel data) {
-        if (!isAdded()) {
-          return;
-        }
-        if (ResponesUtil.checkModelCodeOK(data)) {
-          mBannerView.setData(data.getData());
-        } else {
-          T.show(ResponesUtil.getErrorMsg(data));
-        }
-      }
-    });
-    builder.build().submit();
+    private void initAd() {
+        GetAdListRequestBuilder builder = new GetAdListRequestBuilder(String.valueOf(1));
+        builder.setDataCallback(new DataCallback<AdListModel>() {
+            @Override
+            public void onDataCallback(AdListModel data) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (ResponesUtil.checkModelCodeOK(data)) {
+                    mBannerView.setData(data.getData());
+                } else {
+                    T.show(ResponesUtil.getErrorMsg(data));
+                }
+            }
+        });
+        builder.build().submit();
 
 //    GetAdListRequestBuilder builder2 = new GetAdListRequestBuilder(String.valueOf(2));
 //    builder2.setDataCallback(new DataCallback<AdListModel>() {
@@ -90,70 +103,122 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
 //      }
 //    });
 //    builder2.build().submit();
-  }
-
-  @Override
-  protected int getLayoutResId() {
-    return R.layout.fragment_home;
-  }
-
-  private void initView() {
-    mBannerView = (BannerView) mContentView.findViewById(R.id.banner_layout);
-    mRewardPublish = mContentView.findViewById(R.id.reward_publish);
-    mRewardget = mContentView.findViewById(R.id.reward_get);
-    title = (TextView) mContentView.findViewById(R.id.title);
-    mRewardPublish.setOnClickListener(this);
-    mRewardget.setOnClickListener(this);
-    mNoticeView = (NoticeView) mContentView.findViewById(R.id.notice_view);
-    title.setText(R.string.main_tag_text_home);
-    RefreshOrderManager.getStatusOrder();
-  }
-
-
-  @Override
-  public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.reward_publish:
-        switchTabTo(1);
-        break;
-      case R.id.reward_get:
-        switchTabTo(2);
-        break;
     }
-  }
 
-  private void switchTabTo(int index) {
-    TabHostActivity activity = (TabHostActivity) getActivity();
-    activity.switchPage(index);
-  }
-
-
-  @Override
-  public void onStart() {
-    super.onStart();
-    EventBus.getDefault().register(this);
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-    EventBus.getDefault().unregister(this);
-  }
-
-  @Subscribe
-  public void onEventMainThread(RefreshOrderManager.Prog prog) {
-    if (!isAdded()) {
-      return;
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.fragment_home;
     }
-    if(mNoticeView != null){
-      if(prog == null || prog.getStatus() == RefreshOrderManager.NONE){
-        mNoticeView.hide();
-      }else if (prog.getStatus() == RefreshOrderManager.PUBLISH_ORDER) {
-        mNoticeView.show(prog.getOrderId(), true);
-      } else if (prog.getStatus() == RefreshOrderManager.RECEIVE_ORDER) {
-        mNoticeView.show(prog.getOrderId(), false);
-      }
-    }
-  }
 
+    private void initView() {
+        mBannerView = (BannerView) mContentView.findViewById(R.id.banner_layout);
+        mRewardPublish = mContentView.findViewById(R.id.reward_publish);
+        mRewardget = mContentView.findViewById(R.id.reward_get);
+        left_container = (LinearLayout) mContentView.findViewById(R.id.left_container);
+        title = (TextView) mContentView.findViewById(R.id.title);
+        mRewardPublish.setOnClickListener(this);
+        mRewardget.setOnClickListener(this);
+        mNoticeView = (NoticeView) mContentView.findViewById(R.id.notice_view);
+        title.setText(R.string.main_tag_text_home);
+        RefreshOrderManager.getStatusOrder();
+        initLeftBtn();
+    }
+
+    private void initLeftBtn() {
+        leftBtn = new TextView(getActivity());
+        leftBtn.setTextColor(getResources().getColor(R.color.white));
+        leftBtn.setTextSize(18);
+        leftBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CityPickerActivity.launchForResult(FragmentMainTabHome.this,
+                        CityPickerActivity.REQUEST_CODE_PICK_CITY);
+            }
+        });
+        String currentCity = SPUtil.getString(Constants.Pref.CURRENT_CITY, null);
+        if (TextUtils.isEmpty(currentCity)) { // 没有定位过城市
+            final AppLocation location = LocationManager.getInstance().getLocalLocationInfo();
+            if (location != null && !TextUtils.isEmpty(location.getCity())) {
+                leftBtn.setText(location.getCity());
+                SPUtil.putString(Constants.Pref.CURRENT_CITY, location.getCity());
+            } else {
+                LocationManager.getInstance().addLocationListener(new GetLocationListener() {
+                    @Override
+                    public void onSuccess(AppLocation locationInfo) {
+                        LocationManager.getInstance().removeLocationListener(this);
+                        leftBtn.setText(location.getCity());
+                        SPUtil.putString(Constants.Pref.CURRENT_CITY, location.getCity());
+                    }
+
+                    @Override
+                    public void onFailed(String msg) {
+
+                    }
+                });
+                LocationManager.getInstance().start();
+            }
+        } else { // 以前定位过城市
+            leftBtn.setText(currentCity);
+        }
+        left_container.addView(leftBtn);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.reward_publish:
+                switchTabTo(1);
+                break;
+            case R.id.reward_get:
+                switchTabTo(2);
+                break;
+        }
+    }
+
+    private void switchTabTo(int index) {
+        TabHostActivity activity = (TabHostActivity) getActivity();
+        activity.switchPage(index);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(RefreshOrderManager.Prog prog) {
+        if (!isAdded()) {
+            return;
+        }
+        if (mNoticeView != null) {
+            if (prog == null || prog.getStatus() == RefreshOrderManager.NONE) {
+                mNoticeView.hide();
+            } else if (prog.getStatus() == RefreshOrderManager.PUBLISH_ORDER) {
+                mNoticeView.show(prog.getOrderId(), true);
+            } else if (prog.getStatus() == RefreshOrderManager.RECEIVE_ORDER) {
+                mNoticeView.show(prog.getOrderId(), false);
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CityPickerActivity.REQUEST_CODE_PICK_CITY && resultCode == Activity.RESULT_OK){
+            String selectCity = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+            if(!TextUtils.isEmpty(selectCity)){
+                leftBtn.setText(selectCity);
+                SPUtil.putString(Constants.Pref.CURRENT_CITY, selectCity);
+            }
+        }
+    }
 }

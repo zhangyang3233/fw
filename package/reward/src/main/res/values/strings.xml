@@ -126,14 +126,12 @@
     <string name="notice_receive">您接受的任务正在进行中…</string>
 
     <!-- 选择/定位城市 Begin -->
-    <string name="label_text_history">历史</string>
-    <string name="label_text_hot">热门</string>
-    <string name="label_text_history_city">历史访问城市</string>
-    <string name="label_text_hot_city">热门城市</string>
-    <string name="label_text_location_city">定位城市</string>
-    <string name="label_text_all_city">全部城市</string>
-    <string name="label_text_location_citying">城市定位中...</string>
-    <string name="search_city_abc">请输入城市名称或拼音查询</string>
-    <string name="search_city_no_data">抱歉,暂未找到相关城市!</string>
+    <string name="select_city">选择城市</string>
+    <string name="hot_city">热门城市</string>
+    <string name="located_city">定位城市</string>
+    <string name="hint_search_box">请输入城市名或拼音</string>
+    <string name="nothing_found">没有搜索结果~</string>
+    <string name="locating">正在定位…</string>
+    <string name="located_failed">定位失败</string>
     <!-- 选择/定位城市 End -->
 </resources>

@@ -146,6 +146,10 @@
         <activity
             android:name=".ui.activity.order.SelectPersonActivity"
             android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.city.CityPickerActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:theme="@style/AppTheme.Main"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"

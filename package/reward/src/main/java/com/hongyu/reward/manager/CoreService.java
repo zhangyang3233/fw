@@ -2,9 +2,7 @@ package com.hongyu.reward.manager;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 
 import com.fw.zycoder.utils.Log;
 
@@ -37,31 +35,31 @@ public class CoreService extends Service {
 
   private boolean isShow = false;
 
-  private Handler handler = new Handler() {
-
-    @Override
-    public void handleMessage(Message msg) {
-      super.handleMessage(msg);
-      isShow = true;
-      // if (screenManager.currentActivity() instanceof RewardSelectPersonActivity) {
-      // isShow = false;
-      // } else {
-      // DialogFactory.showCommDialog2(screenManager.currentActivity(), "提示", "您的订单有人接单了？", new
-      // OnWhichListener(){
-      //
-      // @Override
-      // public void onConfirmClick(int which) {
-      // if (which == 99) {
-      // isShow = false;
-      // } else {
-      // isShow = false;
-      // toSelect();
-      // }
-      // }});
-      // }
-    }
-
-  };
+//  private Handler handler = new Handler() {
+//
+//    @Override
+//    public void handleMessage(Message msg) {
+//      super.handleMessage(msg);
+//      isShow = true;
+//      // if (screenManager.currentActivity() instanceof RewardSelectPersonActivity) {
+//      // isShow = false;
+//      // } else {
+//      // DialogFactory.showCommDialog2(screenManager.currentActivity(), "提示", "您的订单有人接单了？", new
+//      // OnWhichListener(){
+//      //
+//      // @Override
+//      // public void onConfirmClick(int which) {
+//      // if (which == 99) {
+//      // isShow = false;
+//      // } else {
+//      // isShow = false;
+//      // toSelect();
+//      // }
+//      // }});
+//      // }
+//    }
+//
+//  };
 
   private void toSelect() {
     // Intent intent = new Intent(screenManager.currentActivity(),

@@ -40,7 +40,9 @@ public class LocationManager {
   }
 
   public void addLocationListener(GetLocationListener l) {
-    ls.add(l);
+    if(!ls.contains(l)){
+      ls.add(l);
+    }
   }
 
   public void removeLocationListener(GetLocationListener l) {

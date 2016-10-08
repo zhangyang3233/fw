@@ -209,6 +209,9 @@ public class AccountManager {
   private void saveToken(String token) {
     // JPushInterface.init(mContext);
     // JPushInterface.setAlias(mContext, token, null);
+    if(TextUtils.isEmpty(token)){
+     throw new RuntimeException("token is empty");
+    }
     SharedPreferences pref = GlobalConfig.getAppContext()
         .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
     SharedPreferences.Editor editor = pref.edit();
