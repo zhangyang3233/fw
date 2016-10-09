@@ -9,7 +9,7 @@ import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
 import com.hongyu.reward.ui.fragment.RewardStartFragment;
 
 /**
- * 领任务成功详情界面
+ * 发起人看到的界面
  * Created by zhangyang131 on 16/9/19.
  */
 public class RewardStartActivity extends BaseSingleFragmentActivity {

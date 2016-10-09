@@ -1,5 +1,7 @@
 package com.hongyu.reward.model;
 
+import android.text.TextUtils;
+
 import java.text.DecimalFormat;
 
 /**
@@ -36,6 +38,9 @@ public class AppLocation {
   }
 
   public String getCity() {
+    if(!TextUtils.isEmpty(city) && city.endsWith("市")){
+      return city.substring(0, city.length()-1);
+    }
     return city;
   }
 

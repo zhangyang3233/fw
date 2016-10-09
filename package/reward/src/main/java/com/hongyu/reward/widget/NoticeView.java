@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.fw.zycoder.utils.ViewUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.ui.activity.RewardPublishWaitActivity;
-import com.hongyu.reward.ui.activity.RewardStartActivity;
+import com.hongyu.reward.ui.activity.personal.ReceiveWaitActivity;
 
 /**
  * Created by zhangyang131 on 16/10/5.
@@ -61,7 +61,7 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
     if (isPublish) { // 发布的任务
       RewardPublishWaitActivity.launch(mContext, publishedOrderId, null, null);
     } else {// 接受任务
-      RewardStartActivity.launch(mContext, publishedOrderId, null, null);
+      ReceiveWaitActivity.launch(mContext, publishedOrderId, null, null, null, null, null);
     }
   }
 }

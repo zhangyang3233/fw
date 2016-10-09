@@ -2,6 +2,7 @@ package com.hongyu.reward.widget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class AppLoadingView {
   private TextView textView;
   private Dialog dialog;
   private String loadingText;
+  private DialogInterface.OnCancelListener mListener;
 
   public AppLoadingView(Context context) {
     this.context = context;
@@ -78,7 +80,9 @@ public class AppLoadingView {
     this.dialog = new Dialog(context, R.style.MProgressDialog);
     this.dialog.setContentView(rootView);
     this.dialog.setCancelable(cancelable);
+    this.dialog.setOnCancelListener(mListener);
     this.dialog.setCanceledOnTouchOutside(outSideCancel);
+    mListener = null; // 每次只用一次
   }
 
   public void show() {
@@ -87,5 +91,9 @@ public class AppLoadingView {
 
   public void dismiss() {
     this.dialog.dismiss();
+  }
+
+  public void setCancelListener(DialogInterface.OnCancelListener listener){
+    this.mListener = listener;
   }
 }

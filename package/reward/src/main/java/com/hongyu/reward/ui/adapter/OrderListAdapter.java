@@ -11,9 +11,9 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.ui.activity.RewardPublishWaitActivity;
+import com.hongyu.reward.ui.activity.RewardStartActivity;
 import com.hongyu.reward.ui.activity.order.CommentActivity;
 import com.hongyu.reward.ui.activity.order.OrderFinishActivity;
-import com.hongyu.reward.ui.activity.order.PaySureActivity;
 import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
 import com.hongyu.reward.utils.StatusUtil;
 
@@ -55,7 +55,7 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
         break;
       case OrderModel.STATUS_PENDING_PAY: // 待付款
         if (isme == 1) return;
-        PaySureActivity.launch(context, model.getOrder_id(), model.getPrice());
+        RewardStartActivity.launch(context, model.getOrder_id(),model.getShop_name(), model.getPrice());
         break;
       case OrderModel.STATUS_PENDING_COMMENT: // 待评论
         CommentActivity.launch(context, model.getOrder_id());

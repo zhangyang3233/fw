@@ -1,6 +1,7 @@
 package com.hongyu.reward.appbase;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 /**
@@ -134,6 +135,13 @@ public abstract class BaseLoadFragment extends BaseFragment {
     Activity activity = getActivity();
     if (activity != null && activity instanceof AppAsyncActivity) {
       ((AppAsyncActivity) activity).setCancelable(cancelable);
+    }
+  }
+
+  public void setLoadingCancelListener(DialogInterface.OnCancelListener listener) {
+    Activity activity = getActivity();
+    if (activity != null && activity instanceof AppAsyncActivity) {
+      ((AppAsyncActivity) activity).setCancelListener(listener);
     }
   }
 

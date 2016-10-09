@@ -1,5 +1,6 @@
 package com.hongyu.reward.appbase;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.hongyu.reward.widget.AppLoadingView;
@@ -34,10 +35,15 @@ public abstract class AppAsyncActivity extends AppTitleActivity {
 
   public void showLoadingView(String content) {
     appLoadingView.setLoadingText(content);
+    appLoadingView.show();
   }
 
   public void dissmissLoadingView() {
     appLoadingView.dismiss();
+  }
+
+  public void setCancelListener(DialogInterface.OnCancelListener listener){
+    appLoadingView.setCancelListener(listener);
   }
 
 }

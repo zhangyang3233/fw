@@ -1,15 +1,18 @@
 package com.hongyu.reward.ui.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.SPUtil;
+import com.fw.zycoder.utils.Spanny;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.config.Constants;
@@ -22,6 +25,7 @@ import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.request.GetAdListRequestBuilder;
 import com.hongyu.reward.ui.activity.TabHostActivity;
 import com.hongyu.reward.ui.city.CityPickerActivity;
+import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.BannerView;
 import com.hongyu.reward.widget.NoticeView;
@@ -78,31 +82,6 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
             }
         });
         builder.build().submit();
-
-//    GetAdListRequestBuilder builder2 = new GetAdListRequestBuilder(String.valueOf(2));
-//    builder2.setDataCallback(new DataCallback<AdListModel>() {
-//      @Override
-//      public void onDataCallback(final AdListModel data) {
-//        if (!isAdded()) {
-//          return;
-//        }
-//        if (ResponesUtil.checkModelCodeOK(data) && data.getData() != null
-//            && data.getData().size() != 0
-//            && data.getData().get(0) != null
-//            && !TextUtils.isEmpty(data.getData().get(0).getPosition_url())) {
-//          mMainImage.loadNetworkImageByUrl(data.getData().get(0).getPosition_img());
-//          mMainImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//              BrowserActivity.launch(getActivity(), data.getData().get(0).getPosition_url());
-//            }
-//          });
-//        } else {
-//          T.show(ResponesUtil.getErrorMsg(data));
-//        }
-//      }
-//    });
-//    builder2.build().submit();
     }
 
     @Override
@@ -135,7 +114,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
                         CityPickerActivity.REQUEST_CODE_PICK_CITY);
             }
         });
-        String currentCity = SPUtil.getString(Constants.Pref.CURRENT_CITY, null);
+        String currentCity = LocationManager.getLocationCity();
         if (TextUtils.isEmpty(currentCity)) { // 没有定位过城市
             final AppLocation location = LocationManager.getInstance().getLocalLocationInfo();
             if (location != null && !TextUtils.isEmpty(location.getCity())) {
@@ -147,7 +126,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
                     public void onSuccess(AppLocation locationInfo) {
                         LocationManager.getInstance().removeLocationListener(this);
                         leftBtn.setText(location.getCity());
-                        SPUtil.putString(Constants.Pref.CURRENT_CITY, location.getCity());
+                        LocationManager.saveCity(location.getCity());
                     }
 
                     @Override
@@ -159,6 +138,42 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
             }
         } else { // 以前定位过城市
             leftBtn.setText(currentCity);
+            LocationManager.getInstance().addLocationListener(new GetLocationListener() {
+                @Override
+                public void onSuccess(final AppLocation locationInfo) {
+                    if(!isAdded()){
+                        return;
+                    }
+                    LocationManager.getInstance().removeLocationListener(this);
+                    if(!locationInfo.getCity().equals(LocationManager.getLocationCity())){ // 获取的城市和当前城市不相同
+                        CommonTwoBtnDialogFragment dialog = new CommonTwoBtnDialogFragment();
+                        Spanny sp = new Spanny("定位到您所在城市:\n");
+                        sp.append(locationInfo.getCity(), new ForegroundColorSpan(getResources().getColor(R.color.colorPrimaryDark)));
+                        dialog.setContent(sp);
+                        dialog.setLeft(getString(R.string.dialog_cancel), new CommonTwoBtnDialogFragment.OnClickListener() {
+                            @Override
+                            public void onClick(Dialog dialog) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setRight(getString(R.string.city_changed), new CommonTwoBtnDialogFragment.OnClickListener() {
+                            @Override
+                            public void onClick(Dialog dialog) {
+                                dialog.dismiss();
+                                leftBtn.setText(locationInfo.getCity());
+                                LocationManager.saveCity(locationInfo.getCity());
+                            }
+                        });
+                        dialog.show(getChildFragmentManager(), FragmentMainTabHome.class.getSimpleName());
+                    }
+                }
+
+                @Override
+                public void onFailed(String msg) {
+
+                }
+            });
+            LocationManager.getInstance().start();
         }
         left_container.addView(leftBtn);
     }

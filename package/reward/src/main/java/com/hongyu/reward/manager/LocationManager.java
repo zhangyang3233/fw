@@ -9,6 +9,8 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.fw.zycoder.utils.CollectionUtils;
+import com.fw.zycoder.utils.SPUtil;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.model.AppLocation;
 
@@ -68,6 +70,14 @@ public class LocationManager {
     mLocationClient = new LocationClient(context); // 声明LocationClient类
     initLocation();
     mLocationClient.registerLocationListener(myListener); // 注册监听函数
+  }
+
+  public static void saveCity(String city){
+    SPUtil.putString(Constants.Pref.CURRENT_CITY, city);
+  }
+
+  public static String getLocationCity(){
+    return SPUtil.getString(Constants.Pref.CURRENT_CITY, null);
   }
 
   private void initLocation() {

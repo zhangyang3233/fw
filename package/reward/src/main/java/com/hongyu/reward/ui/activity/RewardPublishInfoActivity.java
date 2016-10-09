@@ -10,6 +10,7 @@ import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.fragment.RewardPublishInfoFragment;
 
 /**
+ *
  * Created by zhangyang131 on 16/9/12.
  */
 public class RewardPublishInfoActivity extends BaseSingleFragmentActivity {

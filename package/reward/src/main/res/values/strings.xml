@@ -99,7 +99,8 @@
     <string name="reward_name">悬赏人：%1$s</string>
     <string name="task_start">任务开始</string>
     <string name="call_tip">是否要电话联系对方？</string>
-    <string name="task_tip_wait">任务状态:等待悬赏人确认</string>
+    <string name="task_continue">任务进行中</string>
+    <string name="task_receive_wait">任务状态:待悬赏人确认完成</string>
 
     <!-- 个人中心 -->
     <string name="personal_center">个人中心</string>
@@ -133,5 +134,6 @@
     <string name="nothing_found">没有搜索结果~</string>
     <string name="locating">正在定位…</string>
     <string name="located_failed">定位失败</string>
+    <string name="city_changed">切换</string>
     <!-- 选择/定位城市 End -->
 </resources>

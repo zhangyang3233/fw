@@ -12,7 +12,7 @@ public class GetAdListRequestBuilder extends BaseHttpRequestBuilder<AdListModel>
   private String type;
 
   public GetAdListRequestBuilder(String type) {
-    this.type = type;
+    this.type = type; // 1 是获取banner, 2 是获取一个main的广告
   }
 
   @Override

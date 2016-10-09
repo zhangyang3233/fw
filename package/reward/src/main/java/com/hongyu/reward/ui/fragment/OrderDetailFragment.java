@@ -1,5 +1,6 @@
 package com.hongyu.reward.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -13,15 +14,19 @@ import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
+import com.hongyu.reward.model.ReceiveOrderInfo;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.request.ReceiveOrderRequestBuilder;
 import com.hongyu.reward.ui.activity.OrderDetailActivity;
-import com.hongyu.reward.ui.activity.RewardStartActivity;
+import com.hongyu.reward.ui.activity.personal.ReceiveWaitActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.RoundImageView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * 可领取任务详情页
@@ -52,6 +57,13 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getData();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    EventBus.getDefault().unregister(this);
   }
 
   private void getData() {
@@ -159,14 +171,33 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show("领取成功");
-          RewardStartActivity.launch(getActivity(), order.getShop_name(), order.getImg(),
-              order.getOrder_id(), indexNum, waitNum, pNum);
-          getActivity().finish();
+          setLoadingViewCancelable(true);
+          setLoadingCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+              getActivity().finish();
+            }
+          });
+          showLoadingView("待悬赏人确认");
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
         }
       }
     });
     builder.build().submit();
+  }
+
+  /**
+   * 悬赏人确认接受该订单的接单请求
+   * @param order 订单信息
+     */
+  @Subscribe
+  public void onEventMainThread(ReceiveOrderInfo order) {
+    if (!isAdded()) {
+      return;
+    }
+    ReceiveWaitActivity.launch(getActivity(),order.getOrderId(), order.getShopName(), order.getOrderImg(),
+            order.getIndexNum(), order.getWaitNum(), order.getpNum());
+    getActivity().finish();
   }
 }
