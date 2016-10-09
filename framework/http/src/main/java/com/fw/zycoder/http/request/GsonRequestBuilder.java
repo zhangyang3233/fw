@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.fw.zycoder.http.BuildConfig;
 import com.fw.zycoder.http.R;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.http.callback.DataFuture;
@@ -12,7 +13,6 @@ import com.fw.zycoder.http.volley.ApiContext;
 import com.fw.zycoder.http.volley.ApiRequest;
 import com.fw.zycoder.http.volley.Interceptor;
 import com.fw.zycoder.utils.CollectionUtils;
-import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.StringUtil;
@@ -48,7 +48,7 @@ public abstract class GsonRequestBuilder<T> implements VolleyRequestBuilder {
   /**
    * 是否开启日志，默认为跟随应用的 debug 状态，即 debug 开启，release 关闭。
    */
-  private boolean isLogEnable = GlobalConfig.isDebug();
+  private boolean isLogEnable = BuildConfig.DEBUG;
 
   private Response.ErrorListener errorListener = new Response.ErrorListener() {
     @Override

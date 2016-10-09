@@ -64,7 +64,8 @@
         android:theme="@style/AppTheme.Main">
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.SplashPage">
+            android:theme="@style/AppTheme.SplashPage"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -194,6 +195,20 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="tPwNcvNAYahm5Cv7FGtpSnM0Rg8i7Etq" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57eb676067e58eabc7002d05">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="16aa5a658daf5d8f4f276fc3f7b8a64e">
+        </meta-data>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Unknown" >
+        </meta-data>
 
     </application>
 

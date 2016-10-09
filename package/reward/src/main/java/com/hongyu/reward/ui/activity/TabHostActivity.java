@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
 import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.interfaces.LogoutListener;
@@ -24,6 +25,7 @@ import com.hongyu.reward.utils.DoubleClickUtil;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.BottomBar;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.message.PushAgent;
 
 
 /**
@@ -50,11 +52,30 @@ public class TabHostActivity extends FragmentActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    PushAgent.getInstance(this).onAppStart();
     initWindow();
     setContentView(R.layout.activity_classic);
     initView();
     getLocation();
     AccountManager.getInstance().addLogoutListener(this);
+    if(getParentActivityIntent()!=null){
+      Bundle b = getParentActivityIntent().getExtras();
+      if(b != null){
+        Log.e("push" , "TabHostActivity onCreate"+b.getString("aaa"));
+      }
+    }
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    if(getParentActivityIntent()!=null){
+      Bundle b = getParentActivityIntent().getExtras();
+      if(b != null) {
+        Log.e("push", "TabHostActivity onNewIntent" + b.getString("aaa"));
+      }
+    }
+
   }
 
   private void initView() {

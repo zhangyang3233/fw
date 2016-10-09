@@ -1,6 +1,7 @@
 package com.hongyu.reward.appbase;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 
 import com.fw.zycoder.errorpage.CustomActivityOnCrash;
@@ -8,8 +9,15 @@ import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.manager.CoreService;
+import com.hongyu.reward.manager.CustomMessageHandler;
+import com.hongyu.reward.manager.CustomNotificationClickHandler;
 import com.hongyu.reward.manager.LocationManager;
 import com.squareup.leakcanary.LeakCanary;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 
 
 /**
@@ -28,6 +36,31 @@ public class BaseApplication extends Application {
     LocationManager.getInstance().init(this);
     LocationManager.getInstance().start();
     startCoreService();
+    initPush();
+  }
+
+  private void initPush() {
+    PushAgent mPushAgent = PushAgent.getInstance(this);
+    // 注册推送服务，每次调用register方法都会回调该接口
+    mPushAgent.register(new IUmengRegisterCallback() {
+
+      @Override
+      public void onSuccess(String deviceToken) {
+        // 注册成功会返回device token
+        GlobalConfig.setDeviceToken(deviceToken);
+        Log.e("push", deviceToken);
+      }
+
+      @Override
+      public void onFailure(String s, String s1) {
+        Log.e("push", s + " & " + s1);
+      }
+    });
+    mPushAgent.setDebugMode(BuildConfig.IS_SHOW_LOG);
+    UmengMessageHandler umengMessageHandler = new CustomMessageHandler();
+    UmengNotificationClickHandler notificationClickHandler = new CustomNotificationClickHandler();
+    mPushAgent.setMessageHandler(umengMessageHandler);
+    mPushAgent.setNotificationClickHandler(notificationClickHandler);
   }
 
 

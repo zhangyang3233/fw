@@ -46,16 +46,16 @@ public class Log {
 
   public static void d(String tag, String msg) {
     if (isPrintLog)
-      android.util.Log.i(tag, msg);
+      android.util.Log.d(tag, msg);
   }
 
   public static void e(String tag, String msg) {
     if (isPrintLog)
-      android.util.Log.i(tag, msg);
+      android.util.Log.e(tag, msg);
   }
 
   public static void v(String tag, String msg) {
     if (isPrintLog)
-      android.util.Log.i(tag, msg);
+      android.util.Log.v(tag, msg);
   }
 }

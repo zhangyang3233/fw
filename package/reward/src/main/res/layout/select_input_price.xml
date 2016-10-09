@@ -40,7 +40,7 @@
         android:layout_margin="18dp"
         android:background="@drawable/cell_round_gray_edit"
         android:gravity="center_vertical"
-        android:hint="输入就餐人数"
+        android:hint="填写悬赏金额"
         android:inputType="number"
         android:paddingLeft="12dp"
         android:singleLine="true"

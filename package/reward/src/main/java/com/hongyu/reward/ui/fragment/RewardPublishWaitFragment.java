@@ -135,13 +135,34 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     timer = new CountDownTimer(time * 1000, 1000) {
       @Override
       public void onTick(long millisUntilFinished) {
+        if(!isAdded()){
+          return;
+        }
         setTimeCountDown((int) (millisUntilFinished) / 1000);
       }
 
       @Override
       public void onFinish() {
+        if(!isAdded()){
+          return;
+        }
         setTimeCountDown(0);
+        showLoadingView();
+        CancelOrderRequestBuilder builder = new CancelOrderRequestBuilder(order_id);
+        builder.setDataCallback(new DataCallback<BaseModel>() {
+          @Override
+          public void onDataCallback(BaseModel data) {
+            if(!isAdded()){
+              return;
+            }
+            dismissLoadingView();
+            T.show("订单已经自动取消");
+            getActivity().finish();
+          }
+        });
+        builder.build().submit();
       }
+
     };
     timer.start();
   }
@@ -260,5 +281,14 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
       }
     });
     builder.build().submit();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    if(timer != null ){
+      timer.cancel();
+    }
+    timer = null;
   }
 }

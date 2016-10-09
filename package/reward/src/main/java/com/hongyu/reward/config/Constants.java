@@ -10,6 +10,15 @@ import android.os.Environment;
  */
 public final class Constants {
 
+  /**
+   * 友盟推送相关
+   */
+  public static final class Push{
+    public static final String APPKEY = "57eb676067e58eabc7002d05";
+    public static final String UMENG_MESSAGE_SECRET = "16aa5a658daf5d8f4f276fc3f7b8a64e";
+    public static final String APP_MASTER_SECRET = "cwxjrzmwvyffrrl6nzavn62dltxwswwa";
+  }
+
   public static final class Path {
     public static final String DISK_BASE_PATH =
         Environment.getExternalStorageDirectory().getAbsolutePath() + "/reward";
