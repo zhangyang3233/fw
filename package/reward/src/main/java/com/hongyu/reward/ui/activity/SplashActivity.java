@@ -2,12 +2,10 @@ package com.hongyu.reward.ui.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.hongyu.reward.appbase.BaseSlideActivity;
 import com.hongyu.reward.manager.AccountManager;
@@ -24,29 +22,6 @@ public class SplashActivity extends BaseSlideActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     delayedLaunch();
-    Bundle b = getIntent().getExtras();
-    if(b != null) {
-      Log.e("push", "SplashActivity onCreate" + b.getString("aaa"));
-    }
-  }
-
-
-  @Override
-  protected void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-    Bundle b = getIntent().getExtras();
-    if(b != null) {
-      Log.e("push", "SplashActivity onNewIntent" + b.getString("aaa"));
-    }
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    Bundle b = getIntent().getExtras();
-    if(b != null) {
-      Log.e("push", "SplashActivity onCreate" + b.getString("aaa"));
-    }
   }
 
   private void delayedLaunch() {

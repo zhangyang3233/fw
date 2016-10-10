@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.fw.zycoder.utils.Log;
@@ -39,7 +37,7 @@ public class TabHostActivity extends FragmentActivity
   private ViewPager mViewPager;
   private MainPagerAdapter mPagerAdapter;
   private BottomBar mBottomBar;
-  private DrawerLayout mDrawerLayout;
+//  private DrawerLayout mDrawerLayout;
 
   public static void launch(Context context) {
     Intent intent = new Intent(context, TabHostActivity.class);
@@ -58,12 +56,6 @@ public class TabHostActivity extends FragmentActivity
     initView();
     getLocation();
     AccountManager.getInstance().addLogoutListener(this);
-    if(getParentActivityIntent()!=null){
-      Bundle b = getParentActivityIntent().getExtras();
-      if(b != null){
-        Log.e("push" , "TabHostActivity onCreate"+b.getString("aaa"));
-      }
-    }
   }
 
   @Override
@@ -104,7 +96,7 @@ public class TabHostActivity extends FragmentActivity
         mViewPager.setCurrentItem(position, false);
       }
     });
-    initDrawerView();
+//    initDrawerView();
   }
 
   private void getLocation() {
@@ -121,24 +113,24 @@ public class TabHostActivity extends FragmentActivity
     mViewPager.setAdapter(mPagerAdapter);
   }
 
-  private void initDrawerView() {
-    mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
-    mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
-      @Override
-      public void onDrawerSlide(View drawerView, float slideOffset) {}
-
-      @Override
-      public void onDrawerOpened(View drawerView) {}
-
-      @Override
-      public void onDrawerClosed(View drawerView) {}
-
-      @Override
-      public void onDrawerStateChanged(int newState) {
-
-      }
-    });
-  }
+//  private void initDrawerView() {
+//    mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
+//    mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+//      @Override
+//      public void onDrawerSlide(View drawerView, float slideOffset) {}
+//
+//      @Override
+//      public void onDrawerOpened(View drawerView) {}
+//
+//      @Override
+//      public void onDrawerClosed(View drawerView) {}
+//
+//      @Override
+//      public void onDrawerStateChanged(int newState) {
+//
+//      }
+//    });
+//  }
 
   @TargetApi(19)
   private void initWindow() {
