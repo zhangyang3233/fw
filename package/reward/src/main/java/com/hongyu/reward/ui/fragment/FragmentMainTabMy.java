@@ -2,6 +2,7 @@ package com.hongyu.reward.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +12,8 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
+import com.hongyu.reward.model.NoticeEvent;
+import com.hongyu.reward.ui.activity.PersonInfoSettingActivity;
 import com.hongyu.reward.ui.activity.personal.ContactActivity;
 import com.hongyu.reward.ui.activity.personal.MessageListActivity;
 import com.hongyu.reward.ui.activity.personal.MyEvaluateActivity;
@@ -21,6 +24,9 @@ import com.hongyu.reward.ui.activity.personal.WalletActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.CommonTextView;
 import com.hongyu.reward.widget.RoundImageView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * aopayun - fragment - 我的 *
@@ -45,6 +51,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   private CommonTextView mContact;
   private CommonTextView mSetting;
   private View mNextInfo;
+  private View head_layout;
   private RoundImageView mHeadImag;
   private TextView mTvName;
   private TextView mTvPrice;
@@ -83,6 +90,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   private void refreshUI(LoginModel.UserInfo userInfo) {
     mTvName.setText(userInfo.getNickname());
     mTvPrice.setText(userInfo.getCash() + "元");
+    mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
     mTvScore.setText(userInfo.getScore() + "积分");
   }
 
@@ -93,6 +101,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
 
   private void initView() {
     mNextInfo = mContentView.findViewById(R.id.next_info);
+    head_layout = mContentView.findViewById(R.id.head_layout);
     mOrder = (CommonTextView) mContentView.findViewById(R.id.my_order);
     mEval = (CommonTextView) mContentView.findViewById(R.id.my_evaluation);
     mWallet = (CommonTextView) mContentView.findViewById(R.id.my_wallet);
@@ -107,6 +116,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
     mTvScore = (TextView) mContentView.findViewById(R.id.score);
 
 
+    head_layout.setOnClickListener(this);
     mOrder.setOnClickListener(this);
     mEval.setOnClickListener(this);
     mWallet.setOnClickListener(this);
@@ -154,10 +164,9 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
       case R.id.my_setting: // 设置
         SettingActivity.launch(getActivity());
         break;
-      // case R.id.next_info: // 我的详情页面
-      // intent = new Intent(getActivity(), MyInfoActivity.class);
-      // goToActivity(intent);
-      // break;
+       case R.id.head_layout: // 我的详情页面
+         PersonInfoSettingActivity.launch(getActivity());
+       break;
       default:
     }
   }
@@ -169,6 +178,26 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   @Override
   protected void onStartLoading() {
 
+  }
+
+
+  @Subscribe
+  public void onEventMainThread(NoticeEvent noticeEvent) {
+    if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED) {
+      loadingData();
+    }
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    EventBus.getDefault().unregister(this);
   }
 }
 

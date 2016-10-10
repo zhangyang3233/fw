@@ -18,6 +18,12 @@ public class Log {
   }
 
   // 下面四个是默认tag的函数
+  public static void w(String msg) {
+    if (isPrintLog)
+      android.util.Log.w(TAG, msg);
+  }
+
+  // 下面四个是默认tag的函数
   public static void i(String msg) {
     if (isPrintLog)
       android.util.Log.i(TAG, msg);
@@ -39,6 +45,11 @@ public class Log {
   }
 
   // 下面是传入自定义tag的函数
+  public static void w(String tag, String msg) {
+    if (isPrintLog)
+      android.util.Log.w(tag, msg);
+  }
+
   public static void i(String tag, String msg) {
     if (isPrintLog)
       android.util.Log.i(tag, msg);

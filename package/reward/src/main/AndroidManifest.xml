@@ -155,6 +155,9 @@
             android:name=".ui.activity.personal.ReceiveWaitActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.PersonInfoSettingActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"

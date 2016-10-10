@@ -30,6 +30,7 @@
                 android:layout_marginTop="20dp" />
 
             <RelativeLayout
+                android:id="@+id/head_layout"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@color/white">
@@ -43,8 +44,8 @@
                     android:contentDescription="@null"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/defalut_head_img"
-                    reward:riv_border_color="@color/white"
-                    reward:riv_border_width="1dp" />
+                    reward:riv_corner_radius="40dp"
+                    reward:riv_border_width="0dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

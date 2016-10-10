@@ -21,7 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
+import android.util.Base64;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -630,7 +630,7 @@ public class ImageUtil {
       in = new FileInputStream(image);
       WallpaperManager.getInstance(context).setStream(in);
     } catch (IOException e) {
-      Log.w("ImageUtil", "set wallpaper meet io exception, file:" + imagePath, e);
+      Log.w("ImageUtil", "set wallpaper meet io exception, file:" + imagePath);
     } finally {
       if (in != null) {
         try {
@@ -692,6 +692,39 @@ public class ImageUtil {
       }
     }
     return output;
+  }
+
+  public static String getBitmapToBase64(File file){
+    if(!file.exists()){
+      Log.e("image", "文件不存在");
+      return null;
+    }
+    try {
+      FileInputStream in = new FileInputStream(file);
+      byte[] bytes = FileUtil.readFileToBytes(in);
+      return Base64.encodeToString(bytes, 0);
+    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
+    return null;
+  }
+
+  // 测试用的方法：把Bitmap转换成Base64
+  public static String getBitmapToBase64(Bitmap bitmap) {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    bitmap.compress(CompressFormat.PNG, 100, baos);
+    byte[] bytes = baos.toByteArray();
+    return Base64.encodeToString(bytes, 0);
+  }
+
+  // 测试用的方法：把Base64转换成Bitmap
+  public static Bitmap getBitmapFromBase64(String imageBase64) {
+    byte[] bitmapArray;
+    bitmapArray = Base64.decode(imageBase64, 0);
+    return BitmapFactory
+        .decodeByteArray(bitmapArray, 0, bitmapArray.length);
   }
 
   public static class ImageSize {

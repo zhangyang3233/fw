@@ -136,4 +136,9 @@
     <string name="located_failed">定位失败</string>
     <string name="city_changed">切换</string>
     <!-- 选择/定位城市 End -->
+
+    <!-- 拍照 -->
+    <string name="label_pick_from_gallery">从相册选择</string>
+    <string name="label_take_a_picture">拍照</string>
+    <string name="label_save_picture_failed">保存照片失败，请重试！</string>
 </resources>

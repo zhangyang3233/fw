@@ -23,10 +23,20 @@ public class LoginModel extends BaseModel {
     float cash;
     float lock_cash;
 
-    int gender;
+    int gender; // 0男1女
     String head_img;
     String nickname;
     String user_id;
+    int point;
+
+
+    public int getPoint() {
+      return point;
+    }
+
+    public void setPoint(int point) {
+      this.point = point;
+    }
 
     public int getGender() {
       return gender;

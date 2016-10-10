@@ -25,6 +25,7 @@ public class CommonTextView extends RelativeLayout {
   private ImageView mEidtImageViewRight;
   private ImageView mEidtImageViewLeft;
   private TextView mTextView;
+  private TextView mRightText;
 
   private String accepted = "";
   private RelativeLayout mImageViewLeftView;
@@ -91,6 +92,7 @@ public class CommonTextView extends RelativeLayout {
     mImageViewLeftView = (RelativeLayout) mView.findViewById(R.id.edit_img_left_view);
     mTextView = (TextView) mView.findViewById(R.id.text_view);
     mTextViewInfo = (TextView) mView.findViewById(R.id.info);
+    mRightText = (TextView) mView.findViewById(R.id.right_text);
 
   }
 
@@ -133,6 +135,10 @@ public class CommonTextView extends RelativeLayout {
     // MLog.v("--- ontouch ---");
     return super.dispatchTouchEvent(ev);
 
+  }
+
+  public void setRightText(String right_text){
+    this.mRightText.setText(right_text);
   }
 
 

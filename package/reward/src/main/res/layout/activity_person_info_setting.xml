@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:reward="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:text="头像"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h2" />
+
+
+        <ImageView
+            android:id="@+id/next_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:contentDescription="@string/image_desc"
+            android:src="@mipmap/general_icon_more_arrow" />
+
+
+        <com.hongyu.reward.widget.RoundImageView
+            android:id="@+id/header_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/next_info"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/defalut_head_img"
+            reward:riv_border_color="@color/white"
+            reward:riv_corner_radius="25dp"
+            reward:riv_border_width="0dp" />
+    </RelativeLayout>
+
+
+    <com.hongyu.reward.widget.CommonTextView
+        android:id="@+id/nickname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        reward:isclick="true"
+        reward:labeltext="昵称"
+        reward:leftbg="@color/total_transparent" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <com.hongyu.reward.widget.CommonTextView
+        android:id="@+id/gender_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        reward:isclick="true"
+        reward:labeltext="性别"
+        reward:leftbg="@color/total_transparent" />
+</LinearLayout>

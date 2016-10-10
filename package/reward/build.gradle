@@ -116,7 +116,6 @@ dependencies {
     compile 'com.android.support:design:23+'
     // 编译 external 目录下的 imageblur 模块
     compile project(':external:image:imageblur')
-    compile project(':external:image:circleimageview')
     compile project(':external:utils')
     compile project(':external:nfc')
     compile project(':external:errorpage')
@@ -129,9 +128,10 @@ dependencies {
     compile project(':external:dialoghelper')
     compile project(':external:magicindicator')
     compile project(':external:PushSDK')
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'io.reactivex:rxjava:1.0.9'
     compile 'io.reactivex:rxandroid:0.24.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'me.relex:circleindicator:1.2.1@aar'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'org.greenrobot:eventbus:3.0.0'
