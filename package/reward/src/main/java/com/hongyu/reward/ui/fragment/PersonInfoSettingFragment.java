@@ -11,11 +11,14 @@ import com.fw.zycoder.utils.ImageUtil;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.EditUserInfoRequestBuilder;
 import com.hongyu.reward.request.GetUserInfoRequestBuilder;
+import com.hongyu.reward.ui.activity.personal.EditNicknameActivity;
+import com.hongyu.reward.ui.activity.personal.EditUserGenderActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.utils.getpic.PicHelper;
 import com.hongyu.reward.widget.CommonTextView;
@@ -30,6 +33,7 @@ import java.io.File;
  * Created by zhangyang131 on 16/10/10.
  */
 public class PersonInfoSettingFragment extends BaseLoadFragment implements View.OnClickListener {
+  LoginModel.UserInfo userInfo;
   View headLayout;
   RoundImageView header_icon;
   CommonTextView nickname_layout;
@@ -61,13 +65,15 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<LoginModel>() {
       @Override
       public void onDataCallback(LoginModel data) {
-        if (!isAdded()) {
-          return;
+        if (isAdded()) {
+          dismissLoadingView();
         }
-        dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {
-          refreshData(data.getData());
-        } else {
+          PersonInfoSettingFragment.this.userInfo = data.getData();
+          if(isAdded()){
+            refreshData(data.getData());
+          }
+        } else if(isAdded()){
           T.show(ResponesUtil.getErrorMsg(data));
         }
 
@@ -109,9 +115,11 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
         mPicHelper.getPic();
         break;
       case R.id.nickname_layout:
-
+        EditNicknameActivity.launch(getActivity());
         break;
       case R.id.gender_layout:
+        EditUserGenderActivity.launch(getActivity(),
+            AccountManager.getInstance().getLocalUserInfo().getGender());
         break;
 
     }
@@ -140,8 +148,7 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
         public void onDataCallback(BaseModel data) {
           if (ResponesUtil.checkModelCodeOK(data)) {
             // 修改成功
-            NoticeEvent noticeEvent = new NoticeEvent();
-            noticeEvent.setType(NoticeEvent.USER_IMG_CHANGED);
+            NoticeEvent noticeEvent = new NoticeEvent(NoticeEvent.USER_IMG_CHANGED);
             EventBus.getDefault().post(noticeEvent);
             if (isAdded()) {
               dismissLoadingView();
@@ -158,7 +165,9 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
 
   @Subscribe
   public void onEventMainThread(NoticeEvent noticeEvent) {
-    if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED) {
+    if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
+        || noticeEvent.getType() == NoticeEvent.USER_NICKNAME_CHANGED
+            || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
       requestLoad();
     }
   }

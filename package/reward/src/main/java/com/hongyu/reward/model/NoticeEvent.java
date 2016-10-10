@@ -5,8 +5,19 @@ package com.hongyu.reward.model;
  */
 public class NoticeEvent extends BaseModel {
     public static final int USER_IMG_CHANGED = 1;
+    public static final int USER_NICKNAME_CHANGED = 2;
+    public static final int USER_GENDER_CHANGED = 3;
     private int type;
     private String data;
+
+    public NoticeEvent(int type) {
+        this.type = type;
+    }
+
+    public NoticeEvent(int type, String data) {
+        this.type = type;
+        this.data = data;
+    }
 
     public int getType() {
         return type;

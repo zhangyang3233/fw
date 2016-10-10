@@ -221,6 +221,7 @@ public class AccountManager {
   }
 
   public void saveUserInfo(LoginModel.UserInfo user) {
+    this.user = user;
     /**
      * 将个人信息持久化到本地
      */
@@ -239,7 +240,7 @@ public class AccountManager {
   }
 
 
-  public void getUserInfo(final GetUserInfoCallback callback) {
+  public void requestUserInfo(final GetUserInfoCallback callback) {
     GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
     builder.setDataCallback(new DataCallback<LoginModel>() {
       @Override
@@ -265,7 +266,7 @@ public class AccountManager {
     builder.build().submit();
   }
 
-  private LoginModel.UserInfo getLocalUserInfo() {
+  public LoginModel.UserInfo getLocalUserInfo() {
     initUser();
     return user;
   }

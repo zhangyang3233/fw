@@ -26,7 +26,7 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
 
   @Override
   protected void onStartLoading() {
-    AccountManager.getInstance().getUserInfo(new AccountManager.GetUserInfoCallback() {
+    AccountManager.getInstance().requestUserInfo(new AccountManager.GetUserInfoCallback() {
       @Override
       public void getUserInfoSuccess(LoginModel.UserInfo userInfo) {
         if (!isAdded()) {

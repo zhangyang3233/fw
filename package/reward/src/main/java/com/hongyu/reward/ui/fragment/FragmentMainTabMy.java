@@ -66,7 +66,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   @Override
   protected void loadingData() {
     showLoadingView();
-    AccountManager.getInstance().getUserInfo(new AccountManager.GetUserInfoCallback() {
+    AccountManager.getInstance().requestUserInfo(new AccountManager.GetUserInfoCallback() {
       @Override
       public void getUserInfoSuccess(LoginModel.UserInfo userInfo) {
         if (!isAdded()) {
@@ -164,9 +164,9 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
       case R.id.my_setting: // 设置
         SettingActivity.launch(getActivity());
         break;
-       case R.id.head_layout: // 我的详情页面
-         PersonInfoSettingActivity.launch(getActivity());
-       break;
+      case R.id.head_layout: // 我的详情页面
+        PersonInfoSettingActivity.launch(getActivity());
+        break;
       default:
     }
   }
@@ -183,7 +183,9 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
 
   @Subscribe
   public void onEventMainThread(NoticeEvent noticeEvent) {
-    if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED) {
+    if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
+        || noticeEvent.getType() == NoticeEvent.USER_NICKNAME_CHANGED
+            || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
       loadingData();
     }
   }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <View style="@style/divider_theme_gray" />
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:hint="请输入昵称"
+        android:padding="15dp"
+        android:singleLine="true"
+        android:textColor="@color/text_gray_dark"
+        android:drawableRight="@mipmap/comm_icon_delete"
+        android:textSize="@dimen/text_h2" />
+
+    <View style="@style/divider_theme_gray" />
+
+
+</LinearLayout>

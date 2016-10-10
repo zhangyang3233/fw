@@ -27,7 +27,7 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
   @Override
   protected void onStartLoading() {
     showLoadingView();
-    AccountManager.getInstance().getUserInfo(new AccountManager.GetUserInfoCallback() {
+    AccountManager.getInstance().requestUserInfo(new AccountManager.GetUserInfoCallback() {
       @Override
       public void getUserInfoSuccess(LoginModel.UserInfo userInfo) {
         if (!isAdded()) {

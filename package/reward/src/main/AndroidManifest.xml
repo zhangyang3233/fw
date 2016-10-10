@@ -158,6 +158,12 @@
        <activity
             android:name=".ui.activity.PersonInfoSettingActivity"
             android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.EditNicknameActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+       <activity
+            android:name=".ui.activity.personal.EditUserGenderActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
             android:launchMode="singleTask"
