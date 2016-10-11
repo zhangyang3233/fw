@@ -7,6 +7,7 @@ import com.fw.zycoder.http.AppBaseHttpRequestBuilder;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.http.request.GsonRequestBuilder;
 import com.fw.zycoder.http.volley.ApiContext;
+import com.fw.zycoder.utils.GlobalConfig;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.config.ResultCode;
 import com.hongyu.reward.manager.AccountManager;
@@ -46,7 +47,7 @@ public abstract class BaseHttpRequestBuilder<T> extends AppBaseHttpRequestBuilde
     super.setParams(params);
     // 除了获取token的接口之外所有的请求都加上token参数
     if (!(Constants.Server.API_PREFIX + Constants.Server.API_GET_TOKEN).equals(getUrl())) {
-      String token = AccountManager.getInstance().getTokenLocation();
+      String token = GlobalConfig.getToken();
       params.put(Constants.Pref.TOKEN, token);
     }
   }

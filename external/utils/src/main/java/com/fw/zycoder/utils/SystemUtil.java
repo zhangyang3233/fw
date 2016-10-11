@@ -699,15 +699,6 @@ public class SystemUtil {
 
     try {
 
-      // wifi mac地址
-      WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-      WifiInfo info = wifi.getConnectionInfo();
-      String wifiMac = info.getMacAddress();
-      if (!TextUtils.isEmpty(wifiMac)) {
-        deviceId.append(wifiMac);
-        return deviceId.toString();
-      }
-
       // IMEI（imei）
       TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
       String imei = tm.getDeviceId();
@@ -722,6 +713,15 @@ public class SystemUtil {
       if (!TextUtils.isEmpty(sn)) {
         deviceId.append("sn");
         deviceId.append(sn);
+        return deviceId.toString();
+      }
+
+      // wifi mac地址
+      WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+      WifiInfo info = wifi.getConnectionInfo();
+      String wifiMac = info.getMacAddress();
+      if (!TextUtils.isEmpty(wifiMac)) {
+        deviceId.append(wifiMac);
         return deviceId.toString();
       }
 

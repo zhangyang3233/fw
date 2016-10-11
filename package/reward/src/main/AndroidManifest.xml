@@ -64,8 +64,7 @@
         android:theme="@style/AppTheme.Main">
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.SplashPage"
-            android:launchMode="singleTask">
+            android:theme="@style/AppTheme.SplashPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -166,8 +165,8 @@
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Main"
             android:windowSoftInputMode="adjustPan"></activity>
 

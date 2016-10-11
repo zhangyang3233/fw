@@ -26,68 +26,11 @@ public class CoreService extends Service {
 
   private ScheduledExecutorService scheduledExecutor = null;
   private AccountManager userManager;
-  // private ScreenManager screenManager;
-  // private ReceiveBroadCast receiveBroadCast;
-
-  private String order_id = "";
-  private String shop_img = "";
-  private String shop_name = "";
-
-  private boolean isShow = false;
-
-//  private Handler handler = new Handler() {
-//
-//    @Override
-//    public void handleMessage(Message msg) {
-//      super.handleMessage(msg);
-//      isShow = true;
-//      // if (screenManager.currentActivity() instanceof RewardSelectPersonActivity) {
-//      // isShow = false;
-//      // } else {
-//      // DialogFactory.showCommDialog2(screenManager.currentActivity(), "提示", "您的订单有人接单了？", new
-//      // OnWhichListener(){
-//      //
-//      // @Override
-//      // public void onConfirmClick(int which) {
-//      // if (which == 99) {
-//      // isShow = false;
-//      // } else {
-//      // isShow = false;
-//      // toSelect();
-//      // }
-//      // }});
-//      // }
-//    }
-//
-//  };
-
-  private void toSelect() {
-    // Intent intent = new Intent(screenManager.currentActivity(),
-    // RewardSelectPersonActivity.class);
-    // intent.putExtra("order_id", order_id);
-    // intent.putExtra("shop_img", shop_img);
-    // intent.putExtra("shop_name", shop_name);
-    // screenManager.currentActivity().startActivity(intent);
-  }
 
   @Override
   public void onCreate() {
     super.onCreate();
-    initSharedVal();
     onStartListen();
-  }
-
-
-  /**
-   * 初始化类内部共享变量
-   * 
-   * @author Jfomt
-   */
-  private void initSharedVal() {
-    userManager = AccountManager.getInstance(getApplicationContext());
-    // screenManager = ScreenManager.getScreenManager();
-    // this.appManager = new AppManager(this);
-    userManager.getToken();
   }
 
   /**
@@ -116,7 +59,7 @@ public class CoreService extends Service {
   public void onStartListen() {
     if (scheduledExecutor != null && !scheduledExecutor.isShutdown()) return;
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    scheduledExecutor.scheduleAtFixedRate(new MyTask(), 5, 5, TimeUnit.SECONDS);
+    scheduledExecutor.scheduleAtFixedRate(new MyTask(), 50, 50, TimeUnit.SECONDS);
   }
 
   public void onStopListen() {

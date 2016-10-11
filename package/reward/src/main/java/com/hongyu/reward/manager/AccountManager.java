@@ -14,11 +14,9 @@ import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.LoginModel;
-import com.hongyu.reward.model.TokenModel;
 import com.hongyu.reward.request.CommonCallback;
 import com.hongyu.reward.request.FindPwdRequestBuilder;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
-import com.hongyu.reward.request.GetTokenRequestBuilder;
 import com.hongyu.reward.request.GetUserInfoRequestBuilder;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
@@ -34,7 +32,6 @@ import java.util.ArrayList;
  */
 public class AccountManager {
   private static AccountManager instance;
-  private String mtoken;
   private LoginModel.UserInfo user;
   private ArrayList<LogoutListener> observe;
 
@@ -116,39 +113,9 @@ public class AccountManager {
 
 
 
-  /**
-   * 获取本地token
-   *
-   * @auther jiawenze
-   * @tags @return
-   * @since 2016-7-9 上午7:38:49
-   */
-  public String getTokenLocation() {
-    if (TextUtils.isEmpty(mtoken)) {
-      SharedPreferences pref = GlobalConfig.getAppContext()
-          .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
-      mtoken = pref.getString(Constants.Pref.TOKEN, "");
-    }
-    return mtoken;
-  }
 
-  public void getToken() {
-    String token = getTokenLocation();
-    if (TextUtils.isEmpty(token)) {
-      GetTokenRequestBuilder builder = new GetTokenRequestBuilder();
-      builder.setDataCallback(new DataCallback<TokenModel>() {
-        @Override
-        public void onDataCallback(TokenModel data) {
-          if (ResponesUtil.checkModelCodeOK(data)) {
-            saveToken(data.getToken());
-          } else {
-            T.show(R.string.get_token_error);
-          }
-        }
-      });
-      builder.build().submit();
-    }
-  }
+
+
 
   /**
    * 获取手机验证码
@@ -206,19 +173,7 @@ public class AccountManager {
 
   }
 
-  private void saveToken(String token) {
-    // JPushInterface.init(mContext);
-    // JPushInterface.setAlias(mContext, token, null);
-    if(TextUtils.isEmpty(token)){
-     throw new RuntimeException("token is empty");
-    }
-    SharedPreferences pref = GlobalConfig.getAppContext()
-        .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = pref.edit();
-    editor.putString(Constants.Pref.TOKEN, token);
-    editor.commit();
-    this.mtoken = token;
-  }
+
 
   public void saveUserInfo(LoginModel.UserInfo user) {
     this.user = user;
@@ -229,7 +184,8 @@ public class AccountManager {
         .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
     SharedPreferences.Editor editor = pref.edit();
     editor.putString("user_id", user.getUser_id());
-    editor.putString("username", user.getNickname());
+    editor.putString("username", user.getUsername());
+    editor.putString("nickname", user.getNickname());
     editor.putString("avatar", user.getAvatar());
     editor.putString("phone", user.getPhone());
     editor.putInt("gender", user.getGender());
@@ -289,7 +245,7 @@ public class AccountManager {
     }
   }
 
-  private void initUser() {
+  public void initUser() {
     if (user == null) {
       LoginModel.UserInfo userInfo = new LoginModel.UserInfo();
       SharedPreferences pref = GlobalConfig.getAppContext()
@@ -299,6 +255,7 @@ public class AccountManager {
         user = userInfo;
         user.setUser_id(userId);
         user.setUsername(pref.getString("username", ""));
+        user.setNickname(pref.getString("nickname", ""));
         user.setAvatar(pref.getString("avatar", ""));
         user.setPhone(pref.getString("phone", ""));
         user.setGender(pref.getInt("gender", 0));

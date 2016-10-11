@@ -8,7 +8,9 @@ import android.os.Bundle;
 
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.hongyu.reward.appbase.BaseSlideActivity;
+import com.hongyu.reward.interfaces.AppInitFinishCallback;
 import com.hongyu.reward.manager.AccountManager;
+import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.utils.T;
 
 /**
@@ -24,6 +26,8 @@ public class SplashActivity extends BaseSlideActivity {
     delayedLaunch();
   }
 
+
+
   private void delayedLaunch() {
     MainThreadPostUtils.postDelayed(new Runnable() {
       @Override
@@ -35,7 +39,18 @@ public class SplashActivity extends BaseSlideActivity {
         if (isDestroyed()) {
           return;
         }
-        jumpToNextActivity();
+        if(AppInitManager.getInstance().isInited()){
+          jumpToNextActivity();
+        }else{
+          AppInitManager.getInstance().addInitListener(new AppInitFinishCallback() {
+            @Override
+            public void initFinish() {
+              AppInitManager.getInstance().removeInitListener(this);
+              jumpToNextActivity();
+            }
+          });
+          AppInitManager.getInstance().init();
+        }
       }
     }, getDelayedTime());
   }

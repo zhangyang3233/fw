@@ -18,7 +18,6 @@ public class RefreshOrderManager {
     public static final int PUBLISH_ORDER = 2;
     public static final int NONE = 0;
 
-
     public static class Prog{
         int step;
         int status;
