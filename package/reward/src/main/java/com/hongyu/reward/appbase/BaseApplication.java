@@ -11,6 +11,8 @@ import com.hongyu.reward.manager.CoreService;
 import com.hongyu.reward.manager.LocationManager;
 import com.squareup.leakcanary.LeakCanary;
 
+import org.litepal.LitePalApplication;
+
 
 /**
  * Created by zhangyang131 on 16/6/12.
@@ -20,6 +22,7 @@ public class BaseApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
+    LitePalApplication.initialize(this);
     long t1 = System.currentTimeMillis();
     initLeakCanary();
     // initErrorPage();

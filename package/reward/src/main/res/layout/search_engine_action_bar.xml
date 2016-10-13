@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hongyu.reward.widget.SearchEngineActionBar
+    android:id="@+id/action_bar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="#f3f3f3"
+    android:paddingBottom="4dp"
+    android:paddingRight="10dp"
+    android:paddingTop="4dp">
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="取消"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/cancel"
+        android:background="@mipmap/base_search_background">
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="5dp"
+            android:src="@mipmap/ic_search_clear"/>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/iv_clear"
+            android:background="@color/total_transparent"
+            android:drawableLeft="@mipmap/ic_search"
+            android:drawablePadding="4dp"
+            android:focusable="true"
+            android:imeOptions="actionSearch"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:hint="请输入餐厅名称"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:textSize="@dimen/h4"/>
+    </RelativeLayout>
+</com.hongyu.reward.widget.SearchEngineActionBar>

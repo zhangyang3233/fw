@@ -102,7 +102,7 @@ public class LocationManager {
 
     @Override
     public void onReceiveLocation(BDLocation location) {
-      logLocation(location);
+//      logLocation(location);
       notifyListener(location);
     }
 

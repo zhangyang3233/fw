@@ -16,6 +16,7 @@ import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
+import com.hongyu.reward.ui.activity.SearchActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
 
 import java.util.ArrayList;
@@ -56,6 +57,12 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
     mRightBtn = (ImageView) LayoutInflater.from(getActivity())
         .inflate(R.layout.search_right_button_layout, null, false);
     mRightContainer.addView(mRightBtn);
+    mRightBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        SearchActivity.launch(getActivity(), true);
+      }
+    });
   }
 
   @Override

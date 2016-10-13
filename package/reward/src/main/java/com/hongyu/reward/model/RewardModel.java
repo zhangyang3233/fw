@@ -23,7 +23,6 @@ public class RewardModel extends BaseModel implements Serializable {
   public ArrayList<String> taglist = new ArrayList<String>();
   public float score;
 
-
   public String getImg() {
     return img;
   }

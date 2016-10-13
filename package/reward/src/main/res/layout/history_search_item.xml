@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/common_selector"
+    android:layout_height="70dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/left_img"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:src="@mipmap/ic_search" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/right_img"
+        android:layout_toRightOf="@id/left_img"
+        android:textSize="18sp"
+        android:textColor="#999"
+        tools:text="全聚德" />
+
+    <ImageView
+        android:id="@id/right_img"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/comm_icon_delete" />
+    <View
+        style="@style/divider_theme_gray"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>
