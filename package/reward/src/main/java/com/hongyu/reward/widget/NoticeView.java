@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.fw.zycoder.utils.ViewUtils;
 import com.hongyu.reward.R;
-import com.hongyu.reward.ui.activity.RewardPublishWaitActivity;
-import com.hongyu.reward.ui.activity.personal.ReceiveWaitActivity;
+import com.hongyu.reward.interfaces.OrderClickUtil;
+import com.hongyu.reward.manager.RefreshOrderManager;
 
 /**
  * Created by zhangyang131 on 16/10/5.
@@ -19,6 +19,7 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
   private TextView notice_tip;
   String publishedOrderId;
   boolean isPublish;
+  int status;
 
   public NoticeView(Context context) {
     super(context);
@@ -40,10 +41,11 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
   }
 
 
-  public void show(String publishedOrderId, boolean isPublish) {
+  public void show(RefreshOrderManager.Prog prog) {
     setVisibility(View.VISIBLE);
-    this.publishedOrderId = publishedOrderId;
-    this.isPublish = isPublish;
+    this.publishedOrderId = prog.getOrderId();
+    this.isPublish = prog.isPublish();
+    this.status = prog.getStatus();
     if (isPublish) {
       notice_tip.setText(R.string.notice_publish);
     } else {
@@ -58,10 +60,19 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
 
   @Override
   public void onClick(View v) {
-    if (isPublish) { // 发布的任务
-      RewardPublishWaitActivity.launch(mContext, publishedOrderId, null, null);
-    } else {// 接受任务
-      ReceiveWaitActivity.launch(mContext, publishedOrderId, null, null, null, null, null);
-    }
+//    if (isPublish) { // 发布的任务
+//      if (status == 0) {
+//        RewardPublishWaitActivity.launch(mContext, publishedOrderId, null, null);
+//      } else if (status == 10) {
+//        SelectPersonActivity.launch(mContext, publishedOrderId, null, null);
+//      }
+//    } else {// 接受任务
+//      if (status == 20) { // 待付款
+//        ReceiveWaitActivity.launch(mContext, publishedOrderId, null, null, null, null, null);
+//      } else if (status == 10) {
+//        T.show("待悬赏人确认订单中...");
+//      }
+//    }
+    OrderClickUtil.orderOnClick(mContext, publishedOrderId);
   }
 }

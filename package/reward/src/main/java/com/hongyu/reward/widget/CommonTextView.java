@@ -142,6 +142,8 @@ public class CommonTextView extends RelativeLayout {
   }
 
 
+
+
   // public void setOnClickListener(MOnClickListener mOnClickListener) {
   // mTextView.setOnClickListener(mOnClickListener);
   // }

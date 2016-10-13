@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseFragment;
 import com.hongyu.reward.appbase.BaseSlideActivity;
-import com.hongyu.reward.ui.fragment.WelcomeFragment;
+import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 
 
 /**

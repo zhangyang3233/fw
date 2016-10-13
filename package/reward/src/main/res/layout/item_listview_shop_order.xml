@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="horizontal"
     android:padding="10dp">
@@ -27,7 +28,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="味千拉面"
+            tools:text="味千拉面"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_h1" />
 
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="悬赏人：王大锤"
+                android:text="悬赏人："
                 android:textColor="@color/text_gray_light"
                 android:textSize="@dimen/text_h2" />
 
@@ -53,7 +54,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="50"
+            tools:text="50"
             android:textColor="@color/text_orange"
             android:textSize="@dimen/text_h1" />
     </LinearLayout>

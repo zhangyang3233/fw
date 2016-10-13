@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cell_round_all"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="31dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:paddingTop="32dp"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        tools:text="unbind_card_tip" />
+
+    <View style="@style/divider_theme_gray" />
+    <TextView
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_weight="1.0"
+        android:background="@drawable/dialog_btn_click_bg_bottom"
+        android:clickable="true"
+        android:gravity="center"
+        android:textColor="@color/text_blue"
+        android:textSize="18sp"
+        tools:text="@string/dialog_cancel" />
+
+</LinearLayout>

@@ -32,32 +32,32 @@
             android:textSize="@dimen/text_h1"
             tools:text="刘嘉玲" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/gcr"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:textColor="@color/text_gray_dark"
                 android:textSize="@dimen/text_h2"
                 tools:text="好评率:90%" />
 
             <TextView
                 android:id="@+id/order_num"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="15dp"
                 android:textColor="@color/text_gray_dark"
                 android:textSize="@dimen/text_h2"
+                android:layout_alignParentRight="true"
                 tools:text="成交:5000单" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <com.hongyu.reward.widget.FiveStarSingle
             android:id="@+id/my_score"

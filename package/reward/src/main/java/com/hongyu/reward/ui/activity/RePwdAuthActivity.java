@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
-import com.hongyu.reward.ui.fragment.RePwdAuthFragment;
+import com.hongyu.reward.ui.fragment.startapp.RePwdAuthFragment;
 
 
 /**

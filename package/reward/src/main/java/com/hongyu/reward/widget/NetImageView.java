@@ -22,7 +22,7 @@ public class NetImageView extends ImageView {
 
   public void loadNetworkImageByUrl(String url) {
     if(TextUtils.isEmpty(url)){
-      setImageResource(R.mipmap.defalut_head_img);
+      setImageResource(R.mipmap.defalut_image);
     }else{
       Picasso.with(GlobalConfig.getAppContext())
               .load(url)

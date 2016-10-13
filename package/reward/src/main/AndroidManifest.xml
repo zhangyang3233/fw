@@ -93,7 +93,7 @@
             android:name=".ui.activity.RewardPublishInfoActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name=".ui.activity.RewardPublishWaitActivity"
+            android:name=".ui.activity.order.RewardPublishWaitActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.ShopOrderListActivity"
@@ -102,7 +102,7 @@
             android:name=".ui.activity.OrderDetailActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name=".ui.activity.RewardStartActivity"
+            android:name=".ui.activity.order.RewardStartActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.personal.MyOrderActivity"
@@ -141,7 +141,7 @@
             android:name=".ui.activity.order.PaySureActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name=".ui.activity.order.CommentActivity"
+            android:name=".ui.activity.order.PublishFinishedCommentActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.SelectPersonActivity"
@@ -151,7 +151,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:theme="@style/AppTheme.Detail"></activity>
        <activity
-            android:name=".ui.activity.personal.ReceiveWaitActivity"
+            android:name=".ui.activity.order.ReceiveWaitActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:theme="@style/AppTheme.Detail"></activity>
        <activity
@@ -162,6 +162,12 @@
             android:theme="@style/AppTheme.Detail"></activity>
        <activity
             android:name=".ui.activity.personal.EditUserGenderActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+      <activity
+            android:name=".ui.activity.order.ReceiveOrderFinishedActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+      <activity
+            android:name=".ui.activity.SearchActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.TabHostActivity"

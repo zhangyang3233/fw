@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
-import com.hongyu.reward.ui.fragment.LoginFragment;
+import com.hongyu.reward.ui.fragment.startapp.LoginFragment;
 
 
 /**

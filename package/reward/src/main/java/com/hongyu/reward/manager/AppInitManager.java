@@ -13,6 +13,7 @@ import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.interfaces.AppInitFinishCallback;
+import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.model.TokenModel;
 import com.hongyu.reward.request.GetTokenRequestBuilder;
 import com.umeng.message.IUmengRegisterCallback;
@@ -25,31 +26,33 @@ import java.util.ArrayList;
 /**
  * Created by zhangyang131 on 16/10/10.
  */
-public class AppInitManager {
+public class AppInitManager implements LogoutListener{
+  private static final String TAG = AppInitManager.class.getSimpleName();
   private static AppInitManager instance;
   ArrayList<AppInitFinishCallback> mAppInitFinishCallbacks = new ArrayList<>();
   boolean isInited;
   boolean isIniting;
 
-  public static AppInitManager getInstance() {
+  public static synchronized AppInitManager getInstance() {
     if (instance == null) {
+      Log.e(TAG, "创建对象...");
       instance = new AppInitManager();
     }
     return instance;
   }
 
   public void init() {
-      if(!isInited() && !isIniting){
-          isIniting = true;
-          initPush();
-      }
+    if (!isInited() && !isIniting) {
+      isIniting = true;
+      initToken();
+    }
   }
 
-  public void addInitListener(AppInitFinishCallback callback){
+  public void addInitListener(AppInitFinishCallback callback) {
     mAppInitFinishCallbacks.add(callback);
   }
 
-  public boolean removeInitListener(AppInitFinishCallback callback){
+  public boolean removeInitListener(AppInitFinishCallback callback) {
     return mAppInitFinishCallbacks.remove(callback);
   }
 
@@ -62,8 +65,10 @@ public class AppInitManager {
   }
 
   private void initPush() {
+    Log.w(TAG, "开始初始化 push");
     PushAgent mPushAgent = PushAgent.getInstance(GlobalConfig.getAppContext());
     registerPush();
+    AccountManager.getInstance().addLogoutListener(this);
     mPushAgent.setDebugMode(BuildConfig.IS_SHOW_LOG);
     UmengMessageHandler umengMessageHandler = new CustomMessageHandler();
     UmengNotificationClickHandler notificationClickHandler = new CustomNotificationClickHandler();
@@ -71,34 +76,25 @@ public class AppInitManager {
     mPushAgent.setNotificationClickHandler(notificationClickHandler);
   }
 
+  public void onLogout(){ // 用户退出登录了,要重新刷pushCode
+    registerPush();
+  }
+
+
   private void registerPush() {
-    // 注册推送服务，每次调用register方法都会回调该接口
+    Log.i(TAG, "开始注册pushCode");
     PushAgent mPushAgent = PushAgent.getInstance(GlobalConfig.getAppContext());
     mPushAgent.register(new IUmengRegisterCallback() {
-
       @Override
-      public void onSuccess(String deviceToken) {
-        // 注册成功会返回device token
-        if(!TextUtils.isEmpty(deviceToken)){
-          GlobalConfig.setDeviceToken(deviceToken);
-          Log.e("push deviceToken: ", String.valueOf(deviceToken));
-          initToken();
-        }else if(!TextUtils.isEmpty(GlobalConfig.getLocalPushCode())){
-          GlobalConfig.setDeviceToken(GlobalConfig.getLocalPushCode());
-          initToken();
-        }else{
-          MainThreadPostUtils.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-              registerPush();
-            }
-          }, 200);
-        }
+      public void onSuccess(String pushCode) {
+        GlobalConfig.setPushCode(pushCode);
+        Log.i(TAG, "请求pushCode成功:" + pushCode);
+        freshToken();
       }
 
       @Override
       public void onFailure(String s, String s1) {
-        Log.e("register push failed: ", s + " & " + s1);
+        Log.i(TAG, "请求pushCode失败:" + s + " & " + s1);
         MainThreadPostUtils.postDelayed(new Runnable() {
           @Override
           public void run() {
@@ -109,20 +105,43 @@ public class AppInitManager {
     });
   }
 
+  private void freshToken() {
+    GetTokenRequestBuilder builder = new GetTokenRequestBuilder();
+    builder.setDataCallback(new DataCallback<TokenModel>() {
+      @Override
+      public void onDataCallback(TokenModel data) {
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          Log.w(TAG, "刷pushCode成功: " + data.getToken());
+        } else {
+          Log.e(TAG, "刷pushCode失败:" + ResponesUtil.getErrorMsg(data) + "重新尝试中");
+          MainThreadPostUtils.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+              freshToken();
+            }
+          }, 200);
+        }
+      }
+    });
+    builder.build().submit();
+  }
 
   private void initToken() {
+    Log.w(TAG, "注册token");
     String token = getTokenLocation();
     if (TextUtils.isEmpty(token)) {
+      Log.w(TAG, "本地token为空,请求token");
       GetTokenRequestBuilder builder = new GetTokenRequestBuilder();
       builder.setDataCallback(new DataCallback<TokenModel>() {
         @Override
         public void onDataCallback(TokenModel data) {
           if (ResponesUtil.checkModelCodeOK(data)) {
+            Log.w(TAG, "网络获取token成功: " + data.getToken());
             saveToken(data.getToken());
             GlobalConfig.setToken(data.getToken());
             finishInit();
           } else {
-            Log.e("获取token失败:" + ResponesUtil.getErrorMsg(data));
+            Log.e(TAG, "获取token失败:" + ResponesUtil.getErrorMsg(data) + "重新尝试中");
             MainThreadPostUtils.postDelayed(new Runnable() {
               @Override
               public void run() {
@@ -133,21 +152,24 @@ public class AppInitManager {
         }
       });
       builder.build().submit();
-    }else{
+    } else {
+      Log.w(TAG, "本地token不为空,使用本地token:"+token);
       GlobalConfig.setToken(token);
       finishInit();
     }
   }
 
   private void finishInit() {
+    Log.w(TAG, "初始化完成!!!");
     AccountManager.getInstance().initUser();
     isInited = true;
     isIniting = false;
-    if(!CollectionUtils.isEmpty(mAppInitFinishCallbacks)){
+    if (!CollectionUtils.isEmpty(mAppInitFinishCallbacks)) {
       for (AppInitFinishCallback callback : mAppInitFinishCallbacks) {
         callback.initFinish();
       }
     }
+    initPush();
   }
 
 
@@ -163,7 +185,7 @@ public class AppInitManager {
       SharedPreferences pref = GlobalConfig.getAppContext()
           .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
       String token = pref.getString(Constants.Pref.TOKEN, "");
-      if(!TextUtils.isEmpty(token)){
+      if (!TextUtils.isEmpty(token)) {
         GlobalConfig.setToken(token);
       }
 

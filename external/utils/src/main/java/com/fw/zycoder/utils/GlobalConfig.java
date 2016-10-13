@@ -9,7 +9,7 @@ import android.text.TextUtils;
 public class GlobalConfig {
   private static Context appContext;
   private static String rootDir = "rootDir";
-  private static String deviceToken;
+  private static String pushCode;
   private static String token;
   private static boolean debug = true;
 
@@ -37,18 +37,21 @@ public class GlobalConfig {
     GlobalConfig.debug = debug;
   }
 
-  public static String getDeviceToken() {
-    return deviceToken;
+  public static String getPushCode() {
+    if(TextUtils.isEmpty(pushCode)){
+      pushCode = getLocalPushCode();
+    }
+    return pushCode;
   }
 
-  public static void setDeviceToken(String deviceToken) {
-    GlobalConfig.deviceToken = deviceToken;
+  public static void setPushCode(String pushCode) {
+    GlobalConfig.pushCode = pushCode;
     savePushCode();
   }
 
   private static void savePushCode() {
-    if(!TextUtils.isEmpty(GlobalConfig.deviceToken)){
-      SPUtil.putString("PushCode", GlobalConfig.deviceToken);
+    if(!TextUtils.isEmpty(GlobalConfig.pushCode)){
+      SPUtil.putString("PushCode", GlobalConfig.pushCode);
     }
   }
 

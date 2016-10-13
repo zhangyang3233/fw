@@ -1,5 +1,7 @@
 package com.hongyu.reward.model;
 
+import com.hongyu.reward.manager.AccountManager;
+
 /**
  * Created by zhangyang131 on 16/9/19.
  */
@@ -189,5 +191,9 @@ public class OrderModel implements BaseDataModel {
 
   public void setmTvTime(String mTvTime) {
     this.mTvTime = mTvTime;
+  }
+
+  public boolean isMePublish(){
+    return AccountManager.getInstance().getUserInfo().getUser_id().equals(user_id);
   }
 }

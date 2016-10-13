@@ -110,4 +110,6 @@ public abstract class AbsDialogFragment extends DialogFragment {
   public boolean isCenterStyle() {
     return true;
   }
+
+
 }

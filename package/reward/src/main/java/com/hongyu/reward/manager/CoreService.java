@@ -25,12 +25,12 @@ import java.util.concurrent.TimeUnit;
 public class CoreService extends Service {
 
   private ScheduledExecutorService scheduledExecutor = null;
-  private AccountManager userManager;
 
   @Override
   public void onCreate() {
     super.onCreate();
     onStartListen();
+    AppInitManager.getInstance().init();
   }
 
   /**

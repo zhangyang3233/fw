@@ -12,11 +12,14 @@ import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.config.ResultCode;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.OrderInfoModel;
+import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.model.ReceiveInfoModel;
 import com.hongyu.reward.model.ReceiveModel;
+import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.request.GetReceivePersonInfoRequestBuilder;
 import com.hongyu.reward.request.UserReceiveRequestBuilder;
-import com.hongyu.reward.ui.activity.RewardStartActivity;
+import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
@@ -48,6 +51,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
 
   private TextView mTvTableNum;
   private ReceiveModel receive;
+  private OrderModel orderModel;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,16 +67,29 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
 
   @Override
   protected void onStartLoading() {
+    GetOrderInfoRequestBuilder b = new GetOrderInfoRequestBuilder(order_id);
+    b.setDataCallback(new DataCallback<OrderInfoModel>() {
+      @Override
+      public void onDataCallback(OrderInfoModel data) {
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          refreshData(data.getData().getOrder());
+        } else if (data.getCode() == ResultCode.code_3005) {
+          T.show(ResponesUtil.getErrorMsg(data));
+          getActivity().finish();
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
+        }
+      }
+    });
+    b.build().submit();
+
     GetReceivePersonInfoRequestBuilder builder = new GetReceivePersonInfoRequestBuilder(order_id);
     builder.setDataCallback(new DataCallback<ReceiveInfoModel>() {
       @Override
       public void onDataCallback(ReceiveInfoModel data) {
-        if (!isAdded()) {
-          return;
-        }
         if (ResponesUtil.checkModelCodeOK(data)) {
           refreshData(data.getData());
-        } else if(data.getCode() == ResultCode.code_3005){
+        } else if (data.getCode() == ResultCode.code_3005) {
           T.show(ResponesUtil.getErrorMsg(data));
           getActivity().finish();
         } else {
@@ -83,16 +100,28 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
     builder.build().submit();
   }
 
-  private void refreshData(ReceiveModel receive) {
-    this.receive = receive;
-    mTvGcr.setText("好评率:" + receive.getGcr());
-    mTvName.setText(receive.getNickname());
-    mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
-    mScoreView.setData(5, false);
+  private void refreshData(OrderModel orderModel) {
+    if (orderModel != null) {
+      this.orderModel = orderModel;
+      this.shop_name = orderModel.getShop_name();
+      this.shop_img = orderModel.getImg();
+      mTvShopName.setText(shop_name);
+      mIvShop.loadNetworkImageByUrl(shop_img);
+    }
+  }
 
-    mTvTableNum.setText(String.valueOf(receive.getRank_num()));
-    mTvTableWait.setText(String.valueOf(receive.getWait_num()));
-    mTvTablePre.setText(String.valueOf(receive.getTable_num()));
+  private void refreshData(ReceiveModel receive) {
+    if (receive != null) {
+      this.receive = receive;
+      mTvGcr.setText("好评率:" + receive.getGcr());
+      mTvName.setText(receive.getNickname());
+      mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
+      mScoreView.setData(5, false);
+      mIvHeader.loadNetworkImageByUrl(receive.getHead_img());
+      mTvTableNum.setText(String.valueOf(receive.getRank_num()));
+      mTvTableWait.setText(String.valueOf(receive.getWait_num()));
+      mTvTablePre.setText(String.valueOf(receive.getTable_num()));
+    }
   }
 
   @Override
@@ -172,6 +201,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
           if (select) { // 选择成功
             RewardStartActivity.launch(getActivity(), shop_name, shop_img, order_id,
                 receive.getTable_num(), receive.getWait_num(), receive.getRank_num());
+            getActivity().finish();
           } else { // 不选择成功
             T.show("反馈成功,系统正在给您匹配下个一接单人");
             getActivity().finish();

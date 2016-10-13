@@ -15,7 +15,7 @@ import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.PublishReqeustModel;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.PublishRequestBuilder;
-import com.hongyu.reward.ui.activity.RewardPublishWaitActivity;
+import com.hongyu.reward.ui.activity.order.RewardPublishWaitActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
@@ -192,8 +192,10 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
           RewardPublishWaitActivity.launch(getActivity(), data.getData().getOrder_id(),
               shopInfo.getShop_name(), shopInfo.getImg());
           T.show(R.string.public_success);
-          RefreshOrderManager.Prog prog = new RefreshOrderManager.Prog(
-              RefreshOrderManager.PUBLISH_ORDER, data.getData().getOrder_id());
+          RefreshOrderManager.Prog prog = new RefreshOrderManager.Prog();
+          prog.setOrderId(data.getData().getOrder_id());
+          prog.setPublish(true);
+          prog.setStatus(0);
           EventBus.getDefault().post(prog);
           getActivity().finish();
         } else {

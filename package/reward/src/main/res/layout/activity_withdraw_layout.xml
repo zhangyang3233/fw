@@ -3,6 +3,7 @@
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_main_bg_color"
     android:orientation="vertical">
 
@@ -35,7 +36,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="刘嘉玲"
+                tools:text="刘嘉玲"
                 android:textColor="@color/text_gray_dark"
                 android:textSize="@dimen/text_h1" />
 
@@ -57,7 +58,7 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="200"
+                    tools:text="200"
                     android:textColor="@color/text_orange"
                     android:textSize="@dimen/text_h1" />
 

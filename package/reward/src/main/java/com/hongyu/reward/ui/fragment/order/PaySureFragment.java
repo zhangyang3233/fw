@@ -15,6 +15,7 @@ import com.hongyu.reward.model.SignResultModel;
 import com.hongyu.reward.pay.PayAsyncTask;
 import com.hongyu.reward.request.PayRequestBuilder;
 import com.hongyu.reward.ui.activity.order.PaySureActivity;
+import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.utils.T;
 
 /**
@@ -90,6 +91,8 @@ public class PaySureFragment extends BaseLoadFragment implements OnClickListener
             @Override
             public void paySuccess() {
                 T.show("支付成功");
+                PublishFinishedCommentActivity.launch(getActivity(), orderId);
+                getActivity().finish();
             }
 
             @Override

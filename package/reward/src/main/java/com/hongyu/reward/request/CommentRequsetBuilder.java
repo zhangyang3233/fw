@@ -20,7 +20,9 @@ public class CommentRequsetBuilder extends BaseHttpRequestBuilder<BaseModel> {
   public CommentRequsetBuilder(String order_id, String score, String tag, String content) {
     this.order_id = order_id;
     this.score = score;
-    this.tag = tag;
+    if(tag == null){
+      this.tag = "";
+    }
     this.content = content;
   }
 
@@ -39,7 +41,7 @@ public class CommentRequsetBuilder extends BaseHttpRequestBuilder<BaseModel> {
     super.setParams(params);
     checkNullAndSet(params, ORDER_ID, order_id);
     checkNullAndSet(params, SCORE, score);
-    checkNullAndSet(params, TAG, tag);
+    params.put(TAG, tag);
     checkNullAndSet(params, CONTENT, content);
   }
 }

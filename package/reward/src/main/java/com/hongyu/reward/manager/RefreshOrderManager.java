@@ -14,21 +14,23 @@ import org.greenrobot.eventbus.EventBus;
  * Created by zhangyang131 on 16/10/7.
  */
 public class RefreshOrderManager {
-    public static final int RECEIVE_ORDER = 1;
-    public static final int PUBLISH_ORDER = 2;
     public static final int NONE = 0;
 
     public static class Prog{
         int step;
+        boolean isPublish;
         int status;
         String orderId;
 
         public Prog() {
         }
 
-        public Prog(int status, String orderId) {
-            this.status = status;
-            this.orderId = orderId;
+        public boolean isPublish() {
+            return isPublish;
+        }
+
+        public void setPublish(boolean publish) {
+            isPublish = publish;
         }
 
         public int getStep() {
@@ -79,7 +81,8 @@ public class RefreshOrderManager {
                 if (ResponesUtil.checkModelCodeOK(data)) {
                     if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) {
                         prog.setOrderId(data.getData().getOrder_id());
-                        prog.setStatus(PUBLISH_ORDER);
+                        prog.setStatus(data.getData().getStatus());
+                        prog.setPublish(true);
                     }
                 }
                 prog.stepOver();
@@ -94,7 +97,8 @@ public class RefreshOrderManager {
                 if (ResponesUtil.checkModelCodeOK(data)) {
                     if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) { // 有接受订单
                         prog.setOrderId(data.getData().getOrder_id());
-                        prog.setStatus(RECEIVE_ORDER);
+                        prog.setStatus(data.getData().getStatus());
+                        prog.setPublish(false);
                     }
                 }
                 prog.stepOver();

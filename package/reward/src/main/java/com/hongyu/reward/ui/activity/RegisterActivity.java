@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
-import com.hongyu.reward.ui.fragment.RegisterFragment;
+import com.hongyu.reward.ui.fragment.startapp.RegisterFragment;
 
 /**
  * Created by zhangyang131 on 16/9/10.

@@ -14,14 +14,14 @@ import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.LoginModel;
-import com.hongyu.reward.request.CommonCallback;
+import com.hongyu.reward.interfaces.CommonCallback;
 import com.hongyu.reward.request.FindPwdRequestBuilder;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
 import com.hongyu.reward.request.GetUserInfoRequestBuilder;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.request.SetPwdRequestBuilder;
-import com.hongyu.reward.ui.fragment.WelcomeFragment;
+import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 import com.hongyu.reward.utils.T;
 
 import java.util.ArrayList;
@@ -206,7 +206,7 @@ public class AccountManager {
             callback.getUserInfoSuccess(data.getData());
           }
         } else {
-          LoginModel.UserInfo userInfo = getLocalUserInfo();
+          LoginModel.UserInfo userInfo = getUserInfo();
           if (userInfo == null) {
             if (callback != null) {
               callback.getUserInfoFailed(ResponesUtil.getErrorMsg(data));
@@ -222,7 +222,7 @@ public class AccountManager {
     builder.build().submit();
   }
 
-  public LoginModel.UserInfo getLocalUserInfo() {
+  public LoginModel.UserInfo getUserInfo() {
     initUser();
     return user;
   }

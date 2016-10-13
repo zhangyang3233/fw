@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:reward="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_main_bg_color"
@@ -34,7 +35,7 @@
 	            android:id="@+id/name"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="刘嘉玲"
+	            tools:text="刘嘉玲"
 	            android:textColor="@color/text_gray_dark"
 	            android:textSize="@dimen/text_h1"/>
 	       	
@@ -51,7 +52,7 @@
 	                android:layout_width="0dp"
 	                android:layout_weight="1"
 	                android:layout_height="wrap_content"
-	                android:text="好评率:90%"
+	                tools:text="好评率:90%"
 	                android:textColor="@color/text_gray_dark"
 	                android:textSize="@dimen/text_h2"/>
 	            
@@ -60,7 +61,7 @@
 	                android:layout_width="0dp"
 	                android:layout_weight="1"
 	                android:layout_height="wrap_content"
-	                android:text="成交:5000单"
+	                tools:text="成交:5000单"
 	                android:textColor="@color/text_gray_dark"
 	                android:textSize="@dimen/text_h2"/>
 	        </LinearLayout>
@@ -92,7 +93,7 @@
 	            android:layout_height="wrap_content"
 	            android:textColor="@color/text_gray_dark"
 	            android:textSize="@dimen/text_h0"
-	            android:text="海底捞"
+	            tools:text="海底捞"
 	            android:layout_centerVertical="true"/>
 	        
 	        <TextView 

@@ -2,7 +2,6 @@ package com.hongyu.reward.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -78,9 +77,4 @@ public class CommentTextView extends RelativeLayout {
 		return this.isSelect;
 	}
 	
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		return super.dispatchTouchEvent(ev);
-		
-	}
 }

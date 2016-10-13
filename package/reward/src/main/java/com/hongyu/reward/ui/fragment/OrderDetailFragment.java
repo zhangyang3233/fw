@@ -18,7 +18,7 @@ import com.hongyu.reward.model.ReceiveOrderInfo;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.request.ReceiveOrderRequestBuilder;
 import com.hongyu.reward.ui.activity.OrderDetailActivity;
-import com.hongyu.reward.ui.activity.personal.ReceiveWaitActivity;
+import com.hongyu.reward.ui.activity.order.ReceiveWaitActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
@@ -196,8 +196,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     if (!isAdded()) {
       return;
     }
-    ReceiveWaitActivity.launch(getActivity(),order.getOrderId(), order.getShopName(), order.getOrderImg(),
-            order.getIndexNum(), order.getWaitNum(), order.getpNum());
+    ReceiveWaitActivity.launch(getActivity(),order.getOrderId());
     getActivity().finish();
   }
 }

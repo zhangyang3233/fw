@@ -3,6 +3,7 @@
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_main_bg_color"
     android:orientation="vertical">
 
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="味千拉面"
+            tools:text="味千拉面"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_h0" />
     </LinearLayout>
@@ -67,7 +68,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="刘嘉玲"
+                tools:text="刘嘉玲"
                 android:textColor="@color/text_gray_dark"
                 android:textSize="@dimen/text_h1" />
 
@@ -84,7 +85,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="好评率:90%"
+                    tools:text="好评率:90%"
                     android:textColor="@color/text_gray_dark"
                     android:textSize="@dimen/text_h2" />
 
@@ -93,7 +94,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="成交:5000单"
+                    tools:text="成交:5000单"
                     android:textColor="@color/text_gray_dark"
                     android:textSize="@dimen/text_h2" />
             </LinearLayout>
@@ -130,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="10"
+            tools:text="10"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_h0" />
 
@@ -168,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="10"
+            tools:text="10"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_h0" />
 
@@ -206,7 +207,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="10"
+            tools:text="10"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_h0" />
 

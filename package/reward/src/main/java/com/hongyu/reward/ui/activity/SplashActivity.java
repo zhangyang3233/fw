@@ -49,7 +49,6 @@ public class SplashActivity extends BaseSlideActivity {
               jumpToNextActivity();
             }
           });
-          AppInitManager.getInstance().init();
         }
       }
     }, getDelayedTime());

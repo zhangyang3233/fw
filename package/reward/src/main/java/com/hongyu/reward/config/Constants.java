@@ -211,7 +211,7 @@ public final class Constants {
     // 订单评论
     public static final String API_COMMENT_ORDER = "/comment/order";
     // 获取我的单个订单评论
-    public static final String API_COMMENT_ITEM = "/comment/itme";
+    public static final String API_COMMENT_ITEM = "/comment/item";
     // 获取我的评论
     public static final String API_COMMENT_MY = "/comment/my_comment";
 

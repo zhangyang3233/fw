@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item"
     android:layout_width="match_parent"
     android:layout_height="100dp"
@@ -27,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="味千拉面"
+            tools:text="味千拉面"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_h1" />
 
@@ -40,7 +41,7 @@
                 android:id="@+id/reward_per"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="悬赏人数：500人"
+                tools:text="悬赏人数：500人"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_h2" />
 
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="平均节省：50分钟"
+                tools:text="平均节省：50分钟"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_h2" />
         </RelativeLayout>
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="距离您：1000米内"
+            tools:text="距离您：1000米内"
             android:textColor="@color/text_gray_light"
             android:textSize="@dimen/text_h2" />
     </LinearLayout>

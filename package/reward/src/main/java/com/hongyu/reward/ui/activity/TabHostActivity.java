@@ -17,6 +17,7 @@ import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.manager.ScreenManager;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.ui.adapter.MainPagerAdapter;
 import com.hongyu.reward.utils.DoubleClickUtil;
@@ -56,6 +57,7 @@ public class TabHostActivity extends FragmentActivity
     initView();
     getLocation();
     AccountManager.getInstance().addLogoutListener(this);
+    ScreenManager.getScreenManager().pushActivity(this);
   }
 
   @Override
@@ -156,6 +158,7 @@ public class TabHostActivity extends FragmentActivity
   @Override
   protected void onDestroy() {
     super.onDestroy();
+    ScreenManager.getScreenManager().popActivity(this);
     AccountManager.getInstance().removeLogoutListener(this);
     if (LocationManager.getInstance().isStarted()) {
       LocationManager.getInstance().stop();
@@ -177,9 +180,16 @@ public class TabHostActivity extends FragmentActivity
   @Override
   public void onBackPressed() {
     if (DoubleClickUtil.isDouble(this.getClass().getSimpleName())) {
-      super.onBackPressed();
+      goBackground();
     } else {
       T.show("再次点击关闭程序");
     }
+  }
+
+  private void goBackground() {
+    Intent intent = new Intent(Intent.ACTION_MAIN);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.addCategory(Intent.CATEGORY_HOME);
+    this.startActivity(intent);
   }
 }
