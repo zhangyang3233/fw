@@ -226,6 +226,11 @@
             android:name="UMENG_CHANNEL"
             android:value="Unknown"></meta-data>
 
+        <activity
+            android:name="wxapi.WXEntryActivity"
+            android:label="@string/app_name_reward"
+            android:exported="true">
+        </activity>
     </application>
 
 

@@ -42,6 +42,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   String user_id;
   private NetImageView mIvShop;
   private TextView mTvShopName;
+  private TextView mAddress;
   private TextView mTvNum;
   private TextView mTvPrice;
   private RoundImageView mIvHeader;
@@ -103,13 +104,9 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(order.getNickname());
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
-    float good = 0;
-    try {
-      good = Float.parseFloat(TextUtils.isEmpty(order.getGood()) ? "0" : order.getGood());
-    } catch (NumberFormatException e) {
-      e.printStackTrace();
-    }
-    mScoreView.setData(good, false);
+    mIvHeader.loadNetworkImageByUrl(order.getHead_img());
+    mIvShop.loadNetworkImageByUrl(order.getImg());
+    mScoreView.setData(order.getGcr(), false);
     mTvNum.setText(order.getUsernum() + "人");
   }
 
@@ -124,6 +121,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mTvNum = (TextView) mContentView.findViewById(R.id.num);
     mTvPrice = (TextView) mContentView.findViewById(R.id.price);
     mTvName = (TextView) mContentView.findViewById(R.id.name);
+    mAddress = (TextView) mContentView.findViewById(R.id.address);
     mTvGcr = (TextView) mContentView.findViewById(R.id.gcr);
     mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);
     mScoreView = (FiveStarSingle) mContentView.findViewById(R.id.my_score);

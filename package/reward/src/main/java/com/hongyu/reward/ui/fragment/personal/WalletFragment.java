@@ -36,6 +36,7 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
         dismissLoadingView();
         mTvName.setText(userInfo.getNickname());
         mTvPrice.setText(String.valueOf(userInfo.getCash()));
+        mHeadImg.loadNetworkImageByUrl(userInfo.getHead_img());
       }
 
       @Override

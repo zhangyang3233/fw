@@ -2,6 +2,7 @@ package com.hongyu.reward.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hongyu.reward.R;
+
+import java.math.BigDecimal;
 
 /**
  * 
@@ -62,14 +65,14 @@ public class FiveStarSingle extends LinearLayout {
     mNum = (TextView) mView.findViewById(R.id.num);
 
   }
-
   public void setData(float score, boolean showNumText) {
     mStar1.setImageResource(R.mipmap.icon_star_orange_m);
     mStar2.setImageResource(R.mipmap.icon_star_orange_m);
     mStar3.setImageResource(R.mipmap.icon_star_orange_m);
     mStar4.setImageResource(R.mipmap.icon_star_orange_m);
     mStar5.setImageResource(R.mipmap.icon_star_orange_m);
-    int tag = (int) score;
+    int tag = new BigDecimal(score)
+            .setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
     switch (tag) {
       case 0:
         mStar1.setImageResource(R.mipmap.icon_star_gary_m);
@@ -84,7 +87,44 @@ public class FiveStarSingle extends LinearLayout {
       case 5:
         break;
     }
-    mNum.setText(String.valueOf(score));
+    mNum.setText(score*20+"%");
+    if (showNumText) {
+      mNum.setVisibility(View.VISIBLE);
+    } else {
+      mNum.setVisibility(View.GONE);
+    }
+  }
+
+  public void setData(String gcr, boolean showNumText) {
+    if (TextUtils.isEmpty(gcr)) {
+      gcr = "100%";
+    }
+    // 转化成 score 类型 0~5
+    float f = Integer.parseInt(gcr.replace("%", ""))/ 20f;
+    int tag = new BigDecimal(f)
+        .setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
+
+    mStar1.setImageResource(R.mipmap.icon_star_orange_m);
+    mStar2.setImageResource(R.mipmap.icon_star_orange_m);
+    mStar3.setImageResource(R.mipmap.icon_star_orange_m);
+    mStar4.setImageResource(R.mipmap.icon_star_orange_m);
+    mStar5.setImageResource(R.mipmap.icon_star_orange_m);
+
+    switch (tag) {
+      case 0:
+        mStar1.setImageResource(R.mipmap.icon_star_gary_m);
+      case 1:
+        mStar2.setImageResource(R.mipmap.icon_star_gary_m);
+      case 2:
+        mStar3.setImageResource(R.mipmap.icon_star_gary_m);
+      case 3:
+        mStar4.setImageResource(R.mipmap.icon_star_gary_m);
+      case 4:
+        mStar5.setImageResource(R.mipmap.icon_star_gary_m);
+      case 5:
+        break;
+    }
+    mNum.setText(gcr);
     if (showNumText) {
       mNum.setVisibility(View.VISIBLE);
     } else {

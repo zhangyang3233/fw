@@ -23,6 +23,7 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:src="@mipmap/defalut_head_img"
+            reward:riv_corner_radius="40dp"
             reward:riv_border_color="@color/white"
             reward:riv_border_width="1dp" />
 

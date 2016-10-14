@@ -112,11 +112,6 @@ public class AccountManager {
   }
 
 
-
-
-
-
-
   /**
    * 获取手机验证码
    * 
@@ -183,7 +178,8 @@ public class AccountManager {
     SharedPreferences pref = GlobalConfig.getAppContext()
         .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
     SharedPreferences.Editor editor = pref.edit();
-    editor.putString("user_id", user.getUser_id());
+    editor.putString(Constants.App.APP_USERID, user.getUser_id());
+    editor.putString("head_img", user.getHead_img());
     editor.putString("username", user.getUsername());
     editor.putString("nickname", user.getNickname());
     editor.putString("avatar", user.getAvatar());
@@ -203,6 +199,7 @@ public class AccountManager {
       public void onDataCallback(LoginModel data) {
         if (ResponesUtil.checkModelCodeOK(data)) {
           if (callback != null) {
+            saveUserInfo(data.getData());
             callback.getUserInfoSuccess(data.getData());
           }
         } else {
@@ -256,6 +253,7 @@ public class AccountManager {
         user.setUser_id(userId);
         user.setUsername(pref.getString("username", ""));
         user.setNickname(pref.getString("nickname", ""));
+        user.setHead_img(pref.getString("head_img", ""));
         user.setAvatar(pref.getString("avatar", ""));
         user.setPhone(pref.getString("phone", ""));
         user.setGender(pref.getInt("gender", 0));

@@ -22,6 +22,8 @@ public class CommentRequsetBuilder extends BaseHttpRequestBuilder<BaseModel> {
     this.score = score;
     if(tag == null){
       this.tag = "";
+    }else{
+      this.tag = tag;
     }
     this.content = content;
   }

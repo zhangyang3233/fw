@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="少拍了" />
+            android:text="少排了" />
 
         <EditText
             android:id="@+id/edit_1"

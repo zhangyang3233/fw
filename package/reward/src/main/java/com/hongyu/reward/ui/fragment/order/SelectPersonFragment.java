@@ -3,6 +3,7 @@ package com.hongyu.reward.ui.fragment.order;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
 
   private NetImageView mIvShop;
   private TextView mTvShopName;
+  private TextView address;
   private RoundImageView mIvHeader;
   private TextView mTvName;
   private TextView mTvOrderNum;
@@ -106,6 +108,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
       this.shop_name = orderModel.getShop_name();
       this.shop_img = orderModel.getImg();
       mTvShopName.setText(shop_name);
+      address.setText(orderModel.getShop_address());
       mIvShop.loadNetworkImageByUrl(shop_img);
     }
   }
@@ -113,10 +116,10 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
   private void refreshData(ReceiveModel receive) {
     if (receive != null) {
       this.receive = receive;
-      mTvGcr.setText("好评率:" + receive.getGcr());
+      mTvGcr.setText("好评率:" + (TextUtils.isEmpty(receive.getGcr()) ? "100%" : receive.getGcr()));
       mTvName.setText(receive.getNickname());
       mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
-      mScoreView.setData(5, false);
+      mScoreView.setData(receive.getGcr(), false);
       mIvHeader.loadNetworkImageByUrl(receive.getHead_img());
       mTvTableNum.setText(String.valueOf(receive.getRank_num()));
       mTvTableWait.setText(String.valueOf(receive.getWait_num()));
@@ -132,6 +135,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
   private void initView() {
     mIvShop = (NetImageView) mContentView.findViewById(R.id.image);
     mTvShopName = (TextView) mContentView.findViewById(R.id.shop_name);
+    address = (TextView) mContentView.findViewById(R.id.address);
 
     mTvName = (TextView) mContentView.findViewById(R.id.name);
     mTvGcr = (TextView) mContentView.findViewById(R.id.gcr);

@@ -36,6 +36,7 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
         mTvName.setText(userInfo.getNickname());
         mTvPrice.setText(String.valueOf(userInfo.getCash()));
         mWithdraw.setHint("本次可提现" + (userInfo.getCash() - userInfo.getLock_cash()) + "元");
+        mHeadImg.loadNetworkImageByUrl(userInfo.getHead_img());
       }
 
       @Override

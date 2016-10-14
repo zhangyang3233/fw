@@ -8,6 +8,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.MyEvaluateReceiveModel;
 import com.hongyu.reward.request.GetMyEvaluateRequestBuilder;
 import com.hongyu.reward.utils.T;
@@ -66,6 +67,7 @@ public class MyEvaluateFragment extends BaseLoadFragment {
     adapter.notifyDataChanged();
     mStarMultiple.setData(data.getScore_list());
     mStarMultiple.setVisibility(View.VISIBLE);
+    mHeadImg.loadNetworkImageByUrl(AccountManager.getInstance().getUserInfo().getHead_img());
   }
 
   @Override

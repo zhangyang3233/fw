@@ -65,6 +65,9 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
 
   private void dealWithUMessage(UMessage uMessage) {
     PushModel pm = PushModel.parse(uMessage);
+    if(pm == null){
+      return;
+    }
     PushModel.PushInfo pi = pm.getPush();
     if (pi.getType().equals("1")) { // 订单状态
       if (pi.getStatus().equals("0")) { // 领取的任务被拒绝

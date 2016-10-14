@@ -34,6 +34,7 @@ public class ScoreFragment extends BaseLoadFragment implements View.OnClickListe
         dismissLoadingView();
         mTvName.setText(userInfo.getNickname());
         mTvScore.setText(String.valueOf(userInfo.getScore()));
+        mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
       }
 
       @Override

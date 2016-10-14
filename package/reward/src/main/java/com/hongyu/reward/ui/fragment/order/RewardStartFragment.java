@@ -101,13 +101,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(data.getData().getOrder().getNickname());
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
-    float good = 0f;
-    try {
-      good = Float.parseFloat(TextUtils.isEmpty(order.getGood()) ? "0" : order.getGood());
-    } catch (NumberFormatException e) {
-      e.printStackTrace();
-    }
-    mScoreView.setData(good, false);
+    mScoreView.setData(order.getGcr(), false);
     price = order.getPrice();
 
     if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE){

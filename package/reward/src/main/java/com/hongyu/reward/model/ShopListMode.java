@@ -32,10 +32,19 @@ public class ShopListMode extends BaseModel {
     String shop_name;
     String distance;
     String mapuid;
+    String address;
     String save_time;
     String img;
     String location;
     String order_num;
+
+    public String getAddress() {
+      return address;
+    }
+
+    public void setAddress(String address) {
+      this.address = address;
+    }
 
     public String getShop_id() {
       return shop_id;

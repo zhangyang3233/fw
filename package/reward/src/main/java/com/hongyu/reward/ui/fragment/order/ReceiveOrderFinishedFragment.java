@@ -27,6 +27,7 @@ import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.StatusUtil;
 import com.hongyu.reward.utils.T;
+import com.hongyu.reward.utils.WXUtil;
 import com.hongyu.reward.widget.CommentTagView;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
@@ -179,11 +180,7 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
       name.setText(order.getNickname());
       gcr.setText(order.getGcr());
       order_num.setText("成交: " + order.getOrder_num() + "单");
-      int gcr = 5;
-      try {
-        gcr = Integer.parseInt(order.getGood().replace("%", "")) / 100;
-      } catch (NumberFormatException e) {}
-      score.setData(gcr, true);
+      score.setData(order.getGcr(), true);
     }
 
   }
@@ -342,6 +339,7 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   private void share(int which) {
     if (which == 1) {
       T.show("分享到微信");
+      WXUtil.getInstance().receiveShare(shop_name.getText().toString());
     } else if (which == 2) {
       T.show("分享到朋友圈");
     } else if (which == 3) {

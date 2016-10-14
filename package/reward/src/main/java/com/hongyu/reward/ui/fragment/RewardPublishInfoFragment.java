@@ -32,9 +32,10 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
   ShopListMode.ShopInfo shopInfo;
   NetImageView image;
   TextView shop_name;
-  TextView reward_per;
-  TextView reward_time;
-  TextView km;
+//  TextView reward_per;
+//  TextView reward_time;
+//  TextView km;
+  TextView address;
   TextView order_type;
   TextView diners_count;
   TextView reward_money;
@@ -64,9 +65,7 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
     }
     image.loadNetworkImageByUrl(shopInfo.getImg());
     shop_name.setText(shopInfo.getShop_name());
-    reward_per.setText(getString(R.string.reward_count, shopInfo.getOrder_num()));
-    reward_time.setText(getString(R.string.save_time, shopInfo.getSave_time()));
-    km.setText(getString(R.string.shop_distance, shopInfo.getDistance()));
+    address.setText(shopInfo.getAddress());
     reward_type.setText(getString(R.string.reward_type));
     order_type.setText(getString(R.string.reward_time_duration, String.valueOf(10)));
     diners_count.setText(getString(R.string.diners_count));
@@ -80,9 +79,7 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
   protected void onInflated(View contentView, Bundle savedInstanceState) {
     image = (NetImageView) mContentView.findViewById(R.id.image);
     shop_name = (TextView) mContentView.findViewById(R.id.shop_name);
-    reward_per = (TextView) mContentView.findViewById(R.id.reward_per);
-    reward_time = (TextView) mContentView.findViewById(R.id.reward_time);
-    km = (TextView) mContentView.findViewById(R.id.km);
+    address = (TextView) mContentView.findViewById(R.id.address);
     reward_type = (TextView) mContentView.findViewById(R.id.reward_type);
     order_type = (TextView) mContentView.findViewById(R.id.order_type);
     met_num = mContentView.findViewById(R.id.met_num);

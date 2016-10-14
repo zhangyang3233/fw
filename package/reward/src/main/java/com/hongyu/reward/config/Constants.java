@@ -10,6 +10,25 @@ import android.os.Environment;
  */
 public final class Constants {
 
+  public static final class WX {
+    public static final String AppID = "wx858b0a22ccdace16";
+    public static final String AppSecret = "26c1342471b15405ba71bb9d29b6f592";
+    /**
+     * 发起任务的人分享
+     * 分享商户 需要加
+     * order_id
+     * save_time
+     * save_seat 参数
+     */
+    public static final String share_shop = "http://api.weiyixuanshang.com/share/index1?";
+    /**
+     * 接受任务的人分享
+     * 分享app 需要加
+     * shop_name 参数
+     */
+    public static final String share_app = "http://api.weiyixuanshang.com/share/index2?";
+  }
+
   public static final class Path {
     public static final String DISK_BASE_PATH =
         Environment.getExternalStorageDirectory().getAbsolutePath() + "/reward";
@@ -89,12 +108,6 @@ public final class Constants {
     public static final String WX_MCH_ID = "";
     // API密钥，在商户平台设置
     public static final String WX_API_KEY = "";
-  }
-
-  public final class Outsite {
-    // wechat
-    public static final String WEIXIN_APP_KEY =
-        App.DEBUG ? "wx0bb6d42b5dd32902" : "wxf889fa0d4781b84a";
   }
 
   public final class XGNotification {

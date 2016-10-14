@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by zhangyang131 on 16/10/10.
  */
-public class AppInitManager implements LogoutListener{
+public class AppInitManager implements LogoutListener {
   private static final String TAG = AppInitManager.class.getSimpleName();
   private static AppInitManager instance;
   ArrayList<AppInitFinishCallback> mAppInitFinishCallbacks = new ArrayList<>();
@@ -76,7 +76,7 @@ public class AppInitManager implements LogoutListener{
     mPushAgent.setNotificationClickHandler(notificationClickHandler);
   }
 
-  public void onLogout(){ // 用户退出登录了,要重新刷pushCode
+  public void onLogout() { // 用户退出登录了,要重新刷pushCode
     registerPush();
   }
 
@@ -87,9 +87,25 @@ public class AppInitManager implements LogoutListener{
     mPushAgent.register(new IUmengRegisterCallback() {
       @Override
       public void onSuccess(String pushCode) {
-        GlobalConfig.setPushCode(pushCode);
-        Log.i(TAG, "请求pushCode成功:" + pushCode);
-        freshToken();
+        if (TextUtils.isEmpty(pushCode)) {
+          if (TextUtils.isEmpty(GlobalConfig.getPushCode())) {
+            Log.i(TAG, "请求pushCodef返回null,使用本地pushCode为null,继续请求pushCode");
+            MainThreadPostUtils.postDelayed(new Runnable() {
+
+              @Override
+              public void run() {
+                registerPush();
+              }
+            }, 200);
+          } else {
+            Log.i(TAG, "请求pushCodef返回null,使用本地pushCode:" + GlobalConfig.getPushCode());
+            freshToken();
+          }
+        } else {
+          GlobalConfig.setPushCode(pushCode);
+          Log.i(TAG, "请求pushCode成功:" + pushCode);
+          freshToken();
+        }
       }
 
       @Override
@@ -153,7 +169,7 @@ public class AppInitManager implements LogoutListener{
       });
       builder.build().submit();
     } else {
-      Log.w(TAG, "本地token不为空,使用本地token:"+token);
+      Log.w(TAG, "本地token不为空,使用本地token:" + token);
       GlobalConfig.setToken(token);
       finishInit();
     }

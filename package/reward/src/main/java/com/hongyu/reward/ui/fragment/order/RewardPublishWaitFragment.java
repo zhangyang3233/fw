@@ -42,6 +42,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
 
   private NetImageView image;
   private TextView shop_name_tv;
+  private TextView address;
   private TextView order_type;
   private TextView dinner_count_info;
   private TextView reward_money_info;
@@ -54,6 +55,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
   private void initView() {
     image = (NetImageView) mContentView.findViewById(R.id.image);
     shop_name_tv = (TextView) mContentView.findViewById(R.id.shop_name_tv);
+    address = (TextView) mContentView.findViewById(R.id.address);
     order_type = (TextView) mContentView.findViewById(R.id.order_type);
     dinner_count_info = (TextView) mContentView.findViewById(R.id.dinner_count_info);
     reward_money_info = (TextView) mContentView.findViewById(R.id.reward_money_info);
@@ -96,6 +98,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     dinner_count_info.setText(getString(R.string.order_user_num, order.getUsernum()));
     reward_money_info.setText(getString(R.string.order_price, price));
     shop_name_tv.setText(order.getShop_name());
+    address.setText(order.getShop_address());
     image.loadNetworkImageByUrl(order.getImg());
     if (OrderModel.APPOINTMENT.equals(order.getType())) {
       order_type.setText(R.string.appointment);

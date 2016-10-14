@@ -45,6 +45,9 @@ public class GlobalConfig {
   }
 
   public static void setPushCode(String pushCode) {
+    if(TextUtils.isEmpty(pushCode)){
+      return;
+    }
     GlobalConfig.pushCode = pushCode;
     savePushCode();
   }

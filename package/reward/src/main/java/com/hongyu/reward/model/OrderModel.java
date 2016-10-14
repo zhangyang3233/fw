@@ -33,6 +33,9 @@ public class OrderModel implements BaseDataModel {
   private String nickname;
   private String mobile;
   private String shop_name;
+  private String shop_address;
+  private String shop_telephone;
+  private String head_img;
   private String img;
   private String date;
   private String good;
@@ -40,6 +43,30 @@ public class OrderModel implements BaseDataModel {
   private String order_num;
   private String isComment;
   private String mTvTime;
+
+  public String getHead_img() {
+    return head_img;
+  }
+
+  public void setHead_img(String head_img) {
+    this.head_img = head_img;
+  }
+
+  public String getShop_telephone() {
+    return shop_telephone;
+  }
+
+  public void setShop_telephone(String shop_telephone) {
+    this.shop_telephone = shop_telephone;
+  }
+
+  public String getShop_address() {
+    return shop_address;
+  }
+
+  public void setShop_address(String shop_address) {
+    this.shop_address = shop_address;
+  }
 
   public String getOrder_id() {
     return order_id;

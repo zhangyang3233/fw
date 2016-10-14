@@ -18,6 +18,8 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 
+import java.math.BigDecimal;
+
 /**
  * Created by zhangyang131 on 16/10/3.
  */
@@ -58,13 +60,18 @@ public class OrderFinishFragment extends BaseLoadFragment implements View.OnClic
         mTvName.setText(order.getNickname());
         mTvShopName.setText(order.getShop_name());
         mTvTime.setText(order.getmTvTime());
-        mTvStar.setText(order.getGood());
+        mTvStar.setText(order.getGcr());
         mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
-        String good = TextUtils.isEmpty(order.getGood()) ? "0" : order.getGood();
-        mScore.setData(Float.parseFloat(good), false);
+        mScore.setData(order.getGcr(), false);
 
-        showStar(Integer.parseInt(good));
-
+        String gcr = order.getGcr();
+        if (TextUtils.isEmpty(gcr)) {
+            gcr = "100%";
+        }
+        // 转化成 score 类型 0~5
+        int tag = new BigDecimal(Integer.parseInt(gcr.replace("%", "")) / 20f)
+                .setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
+        showStar(tag);
         if (order.getType() == 0) {
             mTvOrderType.setText("即时");
         } else {

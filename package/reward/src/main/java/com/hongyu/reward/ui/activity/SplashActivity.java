@@ -12,6 +12,7 @@ import com.hongyu.reward.interfaces.AppInitFinishCallback;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.utils.T;
+import com.hongyu.reward.utils.WXUtil;
 
 /**
  * Created by zhangyang131 on 16/7/22.
@@ -24,8 +25,12 @@ public class SplashActivity extends BaseSlideActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     delayedLaunch();
+    initWX();
   }
 
+  private void initWX() {
+    WXUtil.getInstance().registWX(this);
+  }
 
 
   private void delayedLaunch() {
@@ -39,9 +44,9 @@ public class SplashActivity extends BaseSlideActivity {
         if (isDestroyed()) {
           return;
         }
-        if(AppInitManager.getInstance().isInited()){
+        if (AppInitManager.getInstance().isInited()) {
           jumpToNextActivity();
-        }else{
+        } else {
           AppInitManager.getInstance().addInitListener(new AppInitFinishCallback() {
             @Override
             public void initFinish() {

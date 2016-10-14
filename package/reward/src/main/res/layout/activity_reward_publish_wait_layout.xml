@@ -22,6 +22,7 @@
                 android:layout_height="100dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:padding="10dp">
 
                 <com.hongyu.reward.widget.NetImageView
@@ -31,16 +32,35 @@
                     android:contentDescription="@string/image_desc"
                     android:scaleType="fitXY"
                     android:src="@mipmap/defalut_image" />
-
-                <TextView
-                    android:id="@+id/shop_name_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h1"
-                    tools:text="味千拉面" />
+                    android:paddingRight="12dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/shop_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_h1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tools:text="味千拉面" />
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_gray_light"
+                        android:textSize="@dimen/text_h2"
+                        tools:text="北京市北京市北京市北京存北京码头北京码头2组省委家属院172但远2楼102号" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View style="@style/divider_theme_gray" />
