@@ -77,6 +77,7 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
           }
         }
       });
+      builder.build().submit();
       isNeedFresh = false;
     } else {
       LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();

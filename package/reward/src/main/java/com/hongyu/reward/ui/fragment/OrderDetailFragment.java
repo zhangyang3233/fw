@@ -106,6 +106,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
     mIvHeader.loadNetworkImageByUrl(order.getHead_img());
     mIvShop.loadNetworkImageByUrl(order.getImg());
+    mAddress.setText(order.getShop_address());
     mScoreView.setData(order.getGcr(), false);
     mTvNum.setText(order.getUsernum() + "人");
   }
