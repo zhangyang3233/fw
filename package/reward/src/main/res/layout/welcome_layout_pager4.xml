@@ -9,17 +9,26 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@mipmap/welcome_img_content_4" />
+    <View
+        android:id="@+id/center_view"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/center_view"
+        android:padding="20dp"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/enter_app_welcome_bg"
+            android:onClick="onClickEnterance"
+            android:text="进入维依悬赏"
+            android:textColor="@color/notice"
+            android:textSize="@dimen/text_h0" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="160dp"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:background="@drawable/common_button_yellow"
-        android:onClick="onClickEnterance"
-        android:text="进入维依悬赏"
-        android:textColor="@color/app_main_title_text_color"
-        android:textSize="@dimen/text_h0" />
 </RelativeLayout>

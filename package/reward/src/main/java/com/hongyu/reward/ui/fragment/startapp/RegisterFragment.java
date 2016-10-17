@@ -131,6 +131,10 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
+        if(!isAdded()){
+          return;
+        }
+        dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {
           startTiming();
           T.show(R.string.auth_tip);
@@ -149,7 +153,7 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
     new Thread() {
       public void run() {
         int s = max_second;
-        while (s >= 0 || isAdded()) {
+        while (s >= 0 && isAdded()) {
           resetCodeTextOnMainThread(s);
           try {
             sleep(1000);
