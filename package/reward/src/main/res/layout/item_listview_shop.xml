@@ -1,69 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list_item"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/white"
-    android:orientation="horizontal"
-    android:padding="10dp">
-
-    <com.hongyu.reward.widget.NetImageView
-        android:id="@+id/image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:contentDescription="@string/image_desc"
-        android:scaleType="fitXY"
-        android:src="@mipmap/defalut_image" />
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_selector"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/shop_name"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:maxLines="1"
-            android:ellipsize="end"
+        <com.hongyu.reward.widget.NetImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/image_desc"
+            android:scaleType="fitXY"
+            android:src="@mipmap/defalut_image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            tools:text="味千拉面"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/text_h1" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/reward_per"
+                android:id="@+id/shop_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="悬赏人数：500人"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h2" />
+                android:textSize="@dimen/text_h1"
+                tools:text="味千拉面" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/reward_per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_h2"
+                    tools:text="悬赏人数：500人" />
+
+                <TextView
+                    android:id="@+id/reward_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_h2"
+                    tools:text="平均节省：50分钟" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/reward_time"
+                android:id="@+id/km"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                tools:text="平均节省：50分钟"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h2" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/km"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:text="距离您：1000米内"
-            android:textColor="@color/text_gray_light"
-            android:textSize="@dimen/text_h2" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/text_gray_light"
+                android:textSize="@dimen/text_h2"
+                tools:text="距离您：1000米内" />
+        </LinearLayout>
     </LinearLayout>
+
+    <View style="@style/divider_theme_gray" />
 </LinearLayout>

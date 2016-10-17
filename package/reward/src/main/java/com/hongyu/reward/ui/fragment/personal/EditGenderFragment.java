@@ -81,6 +81,9 @@ public class EditGenderFragment extends BaseLoadFragment implements View.OnClick
           AccountManager.getInstance().getUser().save();
           freshUIByGender();
           EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_GENDER_CHANGED));
+          if(isAdded()){
+            getActivity().finish();
+          }
         } else if (isAdded()) {
           T.show(ResponesUtil.getErrorMsg(data));
         }

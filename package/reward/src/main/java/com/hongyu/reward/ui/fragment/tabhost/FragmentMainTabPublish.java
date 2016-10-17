@@ -13,7 +13,9 @@ import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
+import com.hongyu.reward.interfaces.CityChangedListener;
 import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
 import com.hongyu.reward.ui.activity.SearchActivity;
@@ -33,6 +35,7 @@ import java.util.List;
  * @since 2016-7-18 下午12:12:25
  */
 public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.ShopInfo> {
+  CityChangedListener cityChangedListener;
   TextView mTitle;
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
@@ -70,8 +73,19 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
     return new BaseFetcher() {
       @Override
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
+        AppLocation location = LocationManager.getInstance().getLocalLocationInfo();
+        if(location == null){
+          return null;
+        }
+        String locationStr = location.toString();
+        String city = LocationManager.getLocationCity();
+        if(city.equals(location.getCity())){ // 当前城市一致,传坐标
+          city = null;
+        }else{ // 当前城市和选择的城市不一致, 传城市
+          locationStr = null;
+        }
         ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page),
-            LocationManager.getInstance().getLocalLocationInfo().toString(), null);
+                locationStr, city, null);
         if (listMode == null) {
           return null;
         } else if (CollectionUtils.isEmpty(listMode.getData())) {
@@ -81,6 +95,25 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
         }
       }
     };
+  }
+
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    cityChangedListener = new CityChangedListener() {
+      @Override
+      public void onCityChanged(String oldCity, String newCity) {
+        onPullDownToRefresh();
+      }
+    };
+    LocationManager.getInstance().addCitiChangedListener(cityChangedListener);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    LocationManager.getInstance().removeCityChangedListener(cityChangedListener);
   }
 
   @Override

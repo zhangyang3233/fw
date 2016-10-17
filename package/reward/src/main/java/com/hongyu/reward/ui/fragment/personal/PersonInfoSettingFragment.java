@@ -16,6 +16,7 @@ import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.EditUserInfoRequestBuilder;
+import com.hongyu.reward.request.GetUserInfoRequestBuilder;
 import com.hongyu.reward.ui.activity.personal.EditNicknameActivity;
 import com.hongyu.reward.ui.activity.personal.EditUserGenderActivity;
 import com.hongyu.reward.utils.T;
@@ -37,6 +38,7 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
   CommonTextView nickname_layout;
   CommonTextView gender_layout;
   PicHelper mPicHelper;
+  boolean isNeedFresh;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,8 +60,29 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
 
   @Override
   protected void onStartLoading() {
-    LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
-    refreshData(userInfo);
+    if (isNeedFresh) {
+      showLoadingView();
+      GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
+      builder.setDataCallback(new DataCallback<LoginModel>() {
+        @Override
+        public void onDataCallback(LoginModel data) {
+          if (!isAdded()) {
+            return;
+          }
+          dismissLoadingView();
+          if (ResponesUtil.checkModelCodeOK(data)) {
+            refreshData(data.getData());
+          } else {
+            T.show(ResponesUtil.getErrorMsg(data));
+          }
+        }
+      });
+      isNeedFresh = false;
+    } else {
+      LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
+      refreshData(userInfo);
+    }
+
   }
 
   private void refreshData(LoginModel.UserInfo data) {
@@ -147,7 +170,8 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
   public void onEventMainThread(NoticeEvent noticeEvent) {
     if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
         || noticeEvent.getType() == NoticeEvent.USER_NICKNAME_CHANGED
-            || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
+        || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
+      isNeedFresh = true;
       requestLoad();
     }
   }

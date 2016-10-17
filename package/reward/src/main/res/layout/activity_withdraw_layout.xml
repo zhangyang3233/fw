@@ -101,6 +101,8 @@
             android:layout_marginLeft="8dp"
             android:background="@color/total_transparent"
             android:hint="本次可提现"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:inputType="numberDecimal"
             android:textColor="@color/text_gray_dark"
             android:textColorHint="@color/text_hint"

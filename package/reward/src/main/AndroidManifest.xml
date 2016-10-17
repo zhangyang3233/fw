@@ -194,6 +194,18 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"></activity>
+        <activity
+            android:name=".ui.activity.AlipayInfoActivity"
+            android:theme="@style/AppTheme.Detail"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".ui.activity.WithdrawalFinishActivity"
+            android:theme="@style/AppTheme.Detail"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".ui.activity.BillActivity"
+            android:theme="@style/AppTheme.Detail"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <!-- 核心服务类 -->
         <service

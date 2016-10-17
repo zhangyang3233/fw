@@ -91,17 +91,10 @@
 
     <View style="@style/divider_theme_gray" />
 
-    <com.hongyu.reward.widget.CommonTextView
-        android:id="@+id/setting"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:clickable="true"
-        reward:isclick="true"
-        reward:labeltext="提现设置"
-        reward:leftbg="@color/total_transparent"
-        reward:leftimg="@mipmap/withdraw_setting" />
 
-    <View style="@style/divider_theme_gray" />
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/divider_theme_gray" />
 
     <com.hongyu.reward.widget.CommonTextView
         android:id="@+id/detail"
@@ -109,7 +102,7 @@
         android:layout_height="50dp"
         android:clickable="true"
         reward:isclick="true"
-        reward:labeltext="交易详情"
+        reward:labeltext="账单"
         reward:leftbg="@color/total_transparent"
         reward:leftimg="@mipmap/withdraw_detail" />
 

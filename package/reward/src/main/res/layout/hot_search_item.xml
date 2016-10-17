@@ -10,7 +10,6 @@
     android:paddingBottom="10dp"
     android:gravity="center"
     android:textColor="#333"
-    tools:text="全聚德"
-    android:orientation="vertical">
+    tools:text="全聚德">
 
 </TextView>

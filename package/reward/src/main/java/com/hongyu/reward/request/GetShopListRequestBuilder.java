@@ -12,14 +12,17 @@ public class GetShopListRequestBuilder extends BaseHttpRequestBuilder<ShopListMo
   private static final String PAGE = "page";
   private static final String LOCATION = "location";
   private static final String KEYWORD = "keyword";
+  private static final String CITY = "city";
   private String page;
   private String location;
   private String keyword;
+  private String city;
 
-  public GetShopListRequestBuilder(String page, String location, String keyword) {
+  public GetShopListRequestBuilder(String page, String location, String city, String keyword) {
     this.page = page;
     this.location = location;
     this.keyword = keyword;
+    this.city = city;
   }
 
   @Override
@@ -36,7 +39,8 @@ public class GetShopListRequestBuilder extends BaseHttpRequestBuilder<ShopListMo
   protected void setParams(Params params) {
     super.setParams(params);
     checkNullAndSet(params, PAGE, page);
-    checkNullAndSet(params, LOCATION, location);
+    params.put(LOCATION, location == null ? "" : location);
     checkNullAndSet(params, KEYWORD, keyword);
+    checkNullAndSet(params, CITY, city);
   }
 }

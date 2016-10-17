@@ -1,6 +1,7 @@
 package com.hongyu.reward.manager;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -11,6 +12,7 @@ import com.baidu.location.Poi;
 import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.config.Constants;
+import com.hongyu.reward.interfaces.CityChangedListener;
 import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.model.AppLocation;
 
@@ -26,6 +28,17 @@ public class LocationManager {
   private MyLocationListener myListener = new MyLocationListener();
   private ArrayList<GetLocationListener> ls = new ArrayList<>();
   private AppLocation locationInfo;
+  private ArrayList<CityChangedListener> cityChangedListeners = new ArrayList<>();
+
+  public void addCitiChangedListener(CityChangedListener l) {
+    if (!cityChangedListeners.contains(l)) {
+      cityChangedListeners.add(l);
+    }
+  }
+
+  public boolean removeCityChangedListener(CityChangedListener l) {
+    return cityChangedListeners.remove(l);
+  }
 
   public static LocationManager getInstance() {
     if (instance == null) {
@@ -35,14 +48,11 @@ public class LocationManager {
   }
 
   public AppLocation getLocalLocationInfo() {
-    if (locationInfo == null || locationInfo.isPast()) {
-      return null;
-    }
     return locationInfo;
   }
 
   public void addLocationListener(GetLocationListener l) {
-    if(!ls.contains(l)){
+    if (!ls.contains(l)) {
       ls.add(l);
     }
   }
@@ -52,12 +62,12 @@ public class LocationManager {
   }
 
   public void start() {
-    if(mLocationClient != null && !mLocationClient.isStarted()){
+    if (mLocationClient != null && !mLocationClient.isStarted()) {
       mLocationClient.start();
     }
   }
 
-  public boolean isStarted(){
+  public boolean isStarted() {
     return mLocationClient.isStarted();
   }
 
@@ -72,12 +82,19 @@ public class LocationManager {
     mLocationClient.registerLocationListener(myListener); // 注册监听函数
   }
 
-  public static void saveCity(String city){
+  public static void saveCity(String city) {
+    String locationCity = getLocationCity();
+    if (!TextUtils.isEmpty(locationCity) && locationCity.equals(city)) {
+      return;
+    }
     SPUtil.putString(Constants.Pref.CURRENT_CITY, city);
+    for (CityChangedListener l : getInstance().cityChangedListeners) {
+      l.onCityChanged(locationCity, city);
+    }
   }
 
-  public static String getLocationCity(){
-    return SPUtil.getString(Constants.Pref.CURRENT_CITY, null);
+  public static String getLocationCity() {
+    return SPUtil.getString(Constants.Pref.CURRENT_CITY, "");
   }
 
   private void initLocation() {
@@ -102,7 +119,7 @@ public class LocationManager {
 
     @Override
     public void onReceiveLocation(BDLocation location) {
-//      logLocation(location);
+      // logLocation(location);
       notifyListener(location);
     }
 
@@ -213,47 +230,48 @@ public class LocationManager {
 
   }
 
-//  @TargetApi(23)
-//  private ArrayList<String> getPersimmions() {
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//      ArrayList<String> permissions = new ArrayList<String>();
-//      /***
-//       * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
-//       */
-//      // 定位精确位置
-//      if (GlobalConfig.getAppContext().checkSelfPermission(
-//              Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-//      }
-//      if (GlobalConfig.getAppContext().checkSelfPermission(
-//              Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-//      }
-//      /*
-//       * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
-//       */
-//      // 读写权限
-//      addPermission(permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//      // 读取电话状态权限
-//      addPermission(permissions, Manifest.permission.READ_PHONE_STATE);
-//      return permissions;
-//    }
-//    return null;
-//  }
+  // @TargetApi(23)
+  // private ArrayList<String> getPersimmions() {
+  // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+  // ArrayList<String> permissions = new ArrayList<String>();
+  // /***
+  // * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+  // */
+  // // 定位精确位置
+  // if (GlobalConfig.getAppContext().checkSelfPermission(
+  // Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+  // permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+  // }
+  // if (GlobalConfig.getAppContext().checkSelfPermission(
+  // Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+  // permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+  // }
+  // /*
+  // * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+  // */
+  // // 读写权限
+  // addPermission(permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+  // // 读取电话状态权限
+  // addPermission(permissions, Manifest.permission.READ_PHONE_STATE);
+  // return permissions;
+  // }
+  // return null;
+  // }
 
-//  @TargetApi(23)
-//  private boolean addPermission(ArrayList<String> permissionsList, String permission) {
-//    if (GlobalConfig.getAppContext().checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
-//      if (shouldShowRequestPermissionRationale(permission)) {
-//        return true;
-//      } else {
-//        permissionsList.add(permission);
-//        return false;
-//      }
-//
-//    } else {
-//      return true;
-//    }
-//  }
+  // @TargetApi(23)
+  // private boolean addPermission(ArrayList<String> permissionsList, String permission) {
+  // if (GlobalConfig.getAppContext().checkSelfPermission(permission) !=
+  // PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
+  // if (shouldShowRequestPermissionRationale(permission)) {
+  // return true;
+  // } else {
+  // permissionsList.add(permission);
+  // return false;
+  // }
+  //
+  // } else {
+  // return true;
+  // }
+  // }
 
 }

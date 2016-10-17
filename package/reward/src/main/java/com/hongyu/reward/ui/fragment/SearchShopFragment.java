@@ -8,6 +8,7 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
 import com.hongyu.reward.ui.activity.SearchActivity;
@@ -38,13 +39,24 @@ public class SearchShopFragment extends AsyncLoadListFragment<ShopListMode.ShopI
       @Override
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
         ShopListMode listMode;
+        AppLocation location = LocationManager.getInstance().getLocalLocationInfo();
+        if(location == null){
+          return null;
+        }
+        String locationStr = location.toString();
+        String city = LocationManager.getLocationCity();
+        if(city.equals(location.getCity())){ // 当前城市一致,传坐标
+          city = null;
+        }else{ // 当前城市和选择的城市不一致, 传城市
+          locationStr = null;
+        }
         if (isPublish) {
           listMode = HttpHelper.getShopList(String.valueOf(page),
-              LocationManager.getInstance().getLocalLocationInfo().toString(), shop_name);
+                  locationStr, city, shop_name);
 
         } else {
           listMode = HttpHelper.getReceiveShopList(String.valueOf(page),
-              LocationManager.getInstance().getLocalLocationInfo().toString(), shop_name);
+                  locationStr, city, shop_name);
         }
         if (listMode == null) {
           return null;

@@ -8,6 +8,7 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
+import com.hongyu.reward.ui.activity.BillActivity;
 import com.hongyu.reward.ui.activity.personal.WithdrawActivity;
 import com.hongyu.reward.widget.CommonTextView;
 import com.hongyu.reward.widget.RoundImageView;
@@ -20,7 +21,6 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
   private TextView mTvName;
   private TextView mTvPrice;
   private CommonTextView mBtnWithdraw;
-  private CommonTextView mBtnSetting;
   private CommonTextView mBtnDetail;
 
   @Override
@@ -41,10 +41,8 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
     mTvName = (TextView) mContentView.findViewById(R.id.name);
     mTvPrice = (TextView) mContentView.findViewById(R.id.price);
     mBtnWithdraw = (CommonTextView) mContentView.findViewById(R.id.withdraw);
-    mBtnSetting = (CommonTextView) mContentView.findViewById(R.id.setting);
     mBtnDetail = (CommonTextView) mContentView.findViewById(R.id.detail);
     mBtnWithdraw.setOnClickListener(this);
-    mBtnSetting.setOnClickListener(this);
     mBtnDetail.setOnClickListener(this);
   }
 
@@ -59,9 +57,8 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
       case R.id.withdraw:
         WithdrawActivity.launch(getActivity());
         break;
-      case R.id.setting:
-        break;
-      case R.id.detail:
+      case R.id.detail: // 账单
+        BillActivity.launch(getActivity());
         break;
     }
   }

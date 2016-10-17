@@ -3,11 +3,13 @@ package com.hongyu.reward.http;
 import android.os.Looper;
 
 import com.fw.zycoder.http.callback.DataFuture;
+import com.hongyu.reward.model.BillDetailModel;
 import com.hongyu.reward.model.MsgModel;
 import com.hongyu.reward.model.OrderListModel;
 import com.hongyu.reward.model.ReasonModel;
 import com.hongyu.reward.model.RewardListModel;
 import com.hongyu.reward.model.ShopListMode;
+import com.hongyu.reward.request.GetBillRequestBuilder;
 import com.hongyu.reward.request.GetMsgListRequestBuilder;
 import com.hongyu.reward.request.GetOrderListRequestBuilder;
 import com.hongyu.reward.request.GetReasonListRequestModel;
@@ -33,9 +35,9 @@ public class HttpHelper {
    * @param key
    * @return
    */
-  public static ShopListMode getShopList(String page, String location, String key) {
+  public static ShopListMode getShopList(String page, String location, String city, String key) {
     checkNonUIThread();
-    GetShopListRequestBuilder builder = new GetShopListRequestBuilder(page, location, key);
+    GetShopListRequestBuilder builder = new GetShopListRequestBuilder(page, location, city,key);
     DataFuture<ShopListMode> future = builder.build().submitSync();
     if (future == null) {
       return null;
@@ -51,10 +53,10 @@ public class HttpHelper {
    * @param key
    * @return
    */
-  public static ShopListMode getReceiveShopList(String page, String location, String key) {
+  public static ShopListMode getReceiveShopList(String page, String location, String city,  String key) {
     checkNonUIThread();
     GetReceiveShopListRequestBuilder builder =
-        new GetReceiveShopListRequestBuilder(page, location, key);
+        new GetReceiveShopListRequestBuilder(page, location, city, key);
     DataFuture<ShopListMode> future = builder.build().submitSync();
     if (future == null) {
       return null;
@@ -119,6 +121,21 @@ public class HttpHelper {
     checkNonUIThread();
     GetReasonListRequestModel builder = new GetReasonListRequestModel();
     DataFuture<ReasonModel> future = builder.build().submitSync();
+    if (future == null) {
+      return null;
+    }
+    return future.get();
+  }
+
+  /**
+   * @param type 账户类型 1:现金账户;2:积分账户;
+   * @param page
+   * @return
+     */
+  public static BillDetailModel getBillList(String type, String page){
+    checkNonUIThread();
+    GetBillRequestBuilder builder = new GetBillRequestBuilder(type, page);
+    DataFuture<BillDetailModel> future = builder.build().submitSync();
     if (future == null) {
       return null;
     }

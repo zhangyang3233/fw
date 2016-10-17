@@ -12,14 +12,18 @@ public class GetReceiveShopListRequestBuilder extends BaseHttpRequestBuilder<Sho
   private static final String PAGE = "page";
   private static final String LOCATION = "location";
   private static final String KEYWORD = "keyword";
+  private static final String CITY = "city";
+
   private String page;
   private String location;
   private String keyword;
+  private String city;
 
-  public GetReceiveShopListRequestBuilder(String page, String location, String keyword) {
+  public GetReceiveShopListRequestBuilder(String page, String location, String city, String keyword) {
     this.page = page;
     this.location = location;
     this.keyword = keyword;
+    this.city = city;
   }
 
   @Override
@@ -38,5 +42,6 @@ public class GetReceiveShopListRequestBuilder extends BaseHttpRequestBuilder<Sho
     checkNullAndSet(params, PAGE, page);
     checkNullAndSet(params, LOCATION, location);
     checkNullAndSet(params, KEYWORD, keyword);
+    checkNullAndSet(params, CITY, city);
   }
 }
