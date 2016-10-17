@@ -67,7 +67,7 @@ public class MyEvaluateFragment extends BaseLoadFragment {
     adapter.notifyDataChanged();
     mStarMultiple.setData(data.getScore_list());
     mStarMultiple.setVisibility(View.VISIBLE);
-    mHeadImg.loadNetworkImageByUrl(AccountManager.getInstance().getUserInfo().getHead_img());
+    mHeadImg.loadNetworkImageByUrl(AccountManager.getInstance().getUser().getHead_img());
   }
 
   @Override

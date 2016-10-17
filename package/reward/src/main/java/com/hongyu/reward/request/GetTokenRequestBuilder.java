@@ -4,6 +4,7 @@ import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.SystemUtil;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.BaseHttpRequestBuilder;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.TokenModel;
 
 /**
@@ -20,7 +21,7 @@ public class GetTokenRequestBuilder extends BaseHttpRequestBuilder<TokenModel> {
   public GetTokenRequestBuilder() {
     this.devive_type = "2";
     this.device_code = SystemUtil.getDeviceId(GlobalConfig.getAppContext().getApplicationContext());
-    this.push_code = GlobalConfig.getPushCode();
+    this.push_code = AccountManager.getInstance().getToken();
   }
 
 

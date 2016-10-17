@@ -8,20 +8,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.model.NoticeEvent;
+import com.hongyu.reward.request.GetUserInfoRequestBuilder;
 import com.hongyu.reward.ui.activity.PersonInfoSettingActivity;
 import com.hongyu.reward.ui.activity.personal.ContactActivity;
 import com.hongyu.reward.ui.activity.personal.MessageListActivity;
 import com.hongyu.reward.ui.activity.personal.MyEvaluateActivity;
 import com.hongyu.reward.ui.activity.personal.MyOrderActivity;
-import com.hongyu.reward.ui.activity.personal.ScoreActivity;
+import com.hongyu.reward.ui.activity.personal.PointActivity;
 import com.hongyu.reward.ui.activity.personal.SettingActivity;
 import com.hongyu.reward.ui.activity.personal.WalletActivity;
-import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.CommonTextView;
 import com.hongyu.reward.widget.RoundImageView;
 
@@ -66,25 +68,23 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   @Override
   protected void loadingData() {
     showLoadingView();
-    AccountManager.getInstance().requestUserInfo(new AccountManager.GetUserInfoCallback() {
+    GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
+    builder.setDataCallback(new DataCallback<LoginModel>() {
       @Override
-      public void getUserInfoSuccess(LoginModel.UserInfo userInfo) {
+      public void onDataCallback(LoginModel data) {
         if (!isAdded()) {
           return;
         }
         dismissLoadingView();
-        refreshUI(userInfo);
-      }
-
-      @Override
-      public void getUserInfoFailed(String msg) {
-        if (!isAdded()) {
-          return;
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          AccountManager.getInstance().saveUser(data.getData());
+          refreshUI(data.getData());
+        } else {
+          refreshUI(AccountManager.getInstance().getUser());
         }
-        dismissLoadingView();
-        T.show(msg);
       }
     });
+    builder.build().submit();
   }
 
   private void refreshUI(LoginModel.UserInfo userInfo) {
@@ -153,7 +153,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
         WalletActivity.launch(getActivity());
         break;
       case R.id.my_score: // 积分中心
-        ScoreActivity.launch(getActivity());
+        PointActivity.launch(getActivity());
         break;
       case R.id.my_msg:// 消息中心
         MessageListActivity.launch(getActivity());
@@ -185,7 +185,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   public void onEventMainThread(NoticeEvent noticeEvent) {
     if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
         || noticeEvent.getType() == NoticeEvent.USER_NICKNAME_CHANGED
-            || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
+        || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
       loadingData();
     }
   }

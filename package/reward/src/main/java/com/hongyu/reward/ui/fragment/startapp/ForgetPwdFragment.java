@@ -7,12 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.PhoneNumberUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
-import com.hongyu.reward.manager.AccountManager;
-import com.hongyu.reward.interfaces.CommonCallback;
+import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.request.FindPwdRequestBuilder;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
 import com.hongyu.reward.ui.activity.RePwdAuthActivity;
 import com.hongyu.reward.utils.InputUtil;
@@ -76,28 +78,27 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
       mCode.setError(getString(R.string.please_input_auth));
       return;
     }
-
     showLoadingView();
-    AccountManager.getInstance().findPwdVerfiy(phone, code, new CommonCallback() {
+    FindPwdRequestBuilder builder = new FindPwdRequestBuilder(phone, code);
+    builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
-      public void success() {
-        if(!isAdded()){
+      public void onDataCallback(BaseModel data) {
+        if (!isAdded()) {
           return;
         }
         dismissLoadingView();
-        RePwdAuthActivity.launch(getActivity(), phone);
-        getActivity().finish();
-      }
-
-      @Override
-      public void failed(String msg) {
-        if(!isAdded()){
-          return;
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          RePwdAuthActivity.launch(getActivity(), phone);
+          getActivity().finish();
+        } else {
+          if (!isAdded()) {
+            return;
+          }
+          T.show(ResponesUtil.getErrorMsg(data));
         }
-        dismissLoadingView();
-        T.show(msg);
       }
     });
+    builder.build().submit();
   }
 
   private void sendCode() {
@@ -108,25 +109,25 @@ public class ForgetPwdFragment extends BaseLoadFragment implements View.OnClickL
     }
 
     showLoadingView();
-    AccountManager.getInstance().getCode(phone, new GetAuthCodeRequestBuilder.CallBack() {
-      @Override
-      public void success() {
-        if(!isAdded()){
-          return;
-        }
-        dismissLoadingView();
-        startTiming();
-      }
 
+    GetAuthCodeRequestBuilder builder = new GetAuthCodeRequestBuilder(phone);
+    builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
-      public void failed(String msg) {
-        if(!isAdded()){
+      public void onDataCallback(BaseModel data) {
+        if (!isAdded()) {
           return;
         }
         dismissLoadingView();
-        T.show(msg);
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          startTiming();
+          T.show(R.string.auth_tip);
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
+        }
       }
     });
+    builder.build().submit();
+
   }
 
   private void startTiming() {

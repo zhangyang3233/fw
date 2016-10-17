@@ -119,7 +119,7 @@
             android:name=".ui.activity.personal.WithdrawActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
-            android:name=".ui.activity.personal.ScoreActivity"
+            android:name=".ui.activity.personal.PointActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.personal.MessageListActivity"

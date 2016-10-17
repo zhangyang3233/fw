@@ -221,6 +221,6 @@ public class OrderModel implements BaseDataModel {
   }
 
   public boolean isMePublish(){
-    return AccountManager.getInstance().getUserInfo().getUser_id().equals(user_id);
+    return AccountManager.getInstance().getUser().getUser_id().equals(user_id);
   }
 }

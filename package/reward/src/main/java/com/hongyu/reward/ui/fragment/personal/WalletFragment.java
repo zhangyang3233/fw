@@ -9,7 +9,6 @@ import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.ui.activity.personal.WithdrawActivity;
-import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.CommonTextView;
 import com.hongyu.reward.widget.RoundImageView;
 
@@ -26,28 +25,10 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
 
   @Override
   protected void onStartLoading() {
-    showLoadingView();
-    AccountManager.getInstance().requestUserInfo(new AccountManager.GetUserInfoCallback() {
-      @Override
-      public void getUserInfoSuccess(LoginModel.UserInfo userInfo) {
-        if (!isAdded()) {
-          return;
-        }
-        dismissLoadingView();
-        mTvName.setText(userInfo.getNickname());
-        mTvPrice.setText(String.valueOf(userInfo.getCash()));
-        mHeadImg.loadNetworkImageByUrl(userInfo.getHead_img());
-      }
-
-      @Override
-      public void getUserInfoFailed(String msg) {
-        if (!isAdded()) {
-          return;
-        }
-        dismissLoadingView();
-        T.show(msg);
-      }
-    });
+    LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
+    mTvName.setText(userInfo.getNickname());
+    mTvPrice.setText(String.valueOf(userInfo.getCash()));
+    mHeadImg.loadNetworkImageByUrl(userInfo.getHead_img());
   }
 
   @Override

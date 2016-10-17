@@ -41,7 +41,6 @@ public class BaseApplication extends Application {
    */
   private void initGlobalConfig() {
     GlobalConfig.setAppContext(this);
-    GlobalConfig.setDebug(BuildConfig.DEBUG);
   }
 
   /**

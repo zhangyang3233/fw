@@ -16,7 +16,6 @@ import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.EditUserInfoRequestBuilder;
-import com.hongyu.reward.request.GetUserInfoRequestBuilder;
 import com.hongyu.reward.ui.activity.personal.EditNicknameActivity;
 import com.hongyu.reward.ui.activity.personal.EditUserGenderActivity;
 import com.hongyu.reward.utils.T;
@@ -33,7 +32,6 @@ import java.io.File;
  * Created by zhangyang131 on 16/10/10.
  */
 public class PersonInfoSettingFragment extends BaseLoadFragment implements View.OnClickListener {
-  LoginModel.UserInfo userInfo;
   View headLayout;
   RoundImageView header_icon;
   CommonTextView nickname_layout;
@@ -60,26 +58,8 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
 
   @Override
   protected void onStartLoading() {
-    showLoadingView();
-    GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
-    builder.setDataCallback(new DataCallback<LoginModel>() {
-      @Override
-      public void onDataCallback(LoginModel data) {
-        if (isAdded()) {
-          dismissLoadingView();
-        }
-        if (ResponesUtil.checkModelCodeOK(data)) {
-          PersonInfoSettingFragment.this.userInfo = data.getData();
-          if(isAdded()){
-            refreshData(data.getData());
-          }
-        } else if(isAdded()){
-          T.show(ResponesUtil.getErrorMsg(data));
-        }
-
-      }
-    });
-    builder.build().submit();
+    LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
+    refreshData(userInfo);
   }
 
   private void refreshData(LoginModel.UserInfo data) {
@@ -119,7 +99,7 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
         break;
       case R.id.gender_layout:
         EditUserGenderActivity.launch(getActivity(),
-            AccountManager.getInstance().getUserInfo().getGender());
+            AccountManager.getInstance().getUser().getGender());
         break;
 
     }

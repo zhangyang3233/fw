@@ -64,7 +64,7 @@ public class EditGenderFragment extends BaseLoadFragment implements View.OnClick
   }
 
   private void selectGender(final int gender) {
-    if (AccountManager.getInstance().getUserInfo().getGender() == gender) {
+    if (AccountManager.getInstance().getUser().getGender() == gender) {
       return;
     }
     showLoadingView();
@@ -77,7 +77,8 @@ public class EditGenderFragment extends BaseLoadFragment implements View.OnClick
           dismissLoadingView();
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
-          AccountManager.getInstance().getUserInfo().setGender(gender);
+          AccountManager.getInstance().getUser().setGender(gender);
+          AccountManager.getInstance().getUser().save();
           freshUIByGender();
           EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_GENDER_CHANGED));
         } else if (isAdded()) {
@@ -89,7 +90,7 @@ public class EditGenderFragment extends BaseLoadFragment implements View.OnClick
   }
 
   private void freshUIByGender() {
-    if (AccountManager.getInstance().getUserInfo().getGender() == 0) { // 男
+    if (AccountManager.getInstance().getUser().getGender() == 0) { // 男
       mMaleSelect.setVisibility(View.VISIBLE);
       mFemaleSelect.setVisibility(View.GONE);
     } else {

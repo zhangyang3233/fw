@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.http.request.JSONObjectRequestBuilder;
 import com.fw.zycoder.http.volley.ApiContext;
-import com.fw.zycoder.utils.GlobalConfig;
 import com.hongyu.reward.config.Constants;
+import com.hongyu.reward.manager.AccountManager;
 
 import org.json.JSONObject;
 
@@ -39,7 +39,7 @@ public abstract class JSONObjectHttpRequestBuilder extends JSONObjectRequestBuil
     super.setParams(params);
     // 除了获取token的接口之外所有的请求都加上token参数
     if (!(Constants.Server.API_PREFIX + Constants.Server.API_GET_TOKEN).equals(getUrl())) {
-      String token = GlobalConfig.getToken();
+      String token = AccountManager.getInstance().getToken();
       params.put(Constants.Pref.TOKEN, token);
     }
   }

@@ -15,7 +15,7 @@ import com.hongyu.reward.widget.RoundImageView;
 /**
  * Created by zhangyang131 on 16/9/21.
  */
-public class ScoreFragment extends BaseLoadFragment implements View.OnClickListener {
+public class PointFragment extends BaseLoadFragment implements View.OnClickListener {
 
   private CommonTextView mCellScoreShop;
   private TextView mTvName;
@@ -24,28 +24,10 @@ public class ScoreFragment extends BaseLoadFragment implements View.OnClickListe
 
   @Override
   protected void onStartLoading() {
-    showLoadingView();
-    AccountManager.getInstance().requestUserInfo(new AccountManager.GetUserInfoCallback() {
-      @Override
-      public void getUserInfoSuccess(LoginModel.UserInfo userInfo) {
-        if (!isAdded()) {
-          return;
-        }
-        dismissLoadingView();
-        mTvName.setText(userInfo.getNickname());
-        mTvScore.setText(String.valueOf(userInfo.getScore()));
-        mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
-      }
-
-      @Override
-      public void getUserInfoFailed(String msg) {
-        if (!isAdded()) {
-          return;
-        }
-        dismissLoadingView();
-        T.show(msg);
-      }
-    });
+    LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
+    mTvName.setText(userInfo.getNickname());
+    mTvScore.setText(String.valueOf(userInfo.getScore()));
+    mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
   }
 
   @Override

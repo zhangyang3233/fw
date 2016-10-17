@@ -6,21 +6,21 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
-import com.hongyu.reward.ui.fragment.personal.ScoreFragment;
+import com.hongyu.reward.ui.fragment.personal.PointFragment;
 
 /**
  * Created by zhangyang131 on 16/9/21.
  */
-public class ScoreActivity extends BaseSingleFragmentActivity {
+public class PointActivity extends BaseSingleFragmentActivity {
 
   public static void launch(Context context) {
-    Intent i = new Intent(context, ScoreActivity.class);
+    Intent i = new Intent(context, PointActivity.class);
     context.startActivity(i);
   }
 
   @Override
   protected Class<? extends Fragment> getSingleContentFragmentClass() {
-    return ScoreFragment.class;
+    return PointFragment.class;
   }
 
   @Override

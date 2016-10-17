@@ -9,6 +9,9 @@ import com.umeng.message.entity.UMessage;
  * Created by zhangyang131 on 16/10/9.
  */
 public class CustomNotificationClickHandler extends UmengNotificationClickHandler {
+  private static CustomNotificationClickHandler instance;
+
+
 
   @Override
   public void handleMessage(Context context, final UMessage uMessage) {

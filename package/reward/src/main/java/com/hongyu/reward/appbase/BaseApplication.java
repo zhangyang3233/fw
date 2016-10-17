@@ -22,11 +22,11 @@ public class BaseApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
+    initGlobalConfig();
     LitePalApplication.initialize(this);
     long t1 = System.currentTimeMillis();
     initLeakCanary();
     // initErrorPage();
-    initGlobalConfig();
     initLog();
     LocationManager.getInstance().init(this);
     LocationManager.getInstance().start();
@@ -53,7 +53,6 @@ public class BaseApplication extends Application {
    */
   private void initGlobalConfig() {
     GlobalConfig.setAppContext(this);
-    GlobalConfig.setDebug(BuildConfig.DEBUG);
   }
 
   /**

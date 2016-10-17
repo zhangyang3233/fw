@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.PhoneNumberUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
-import com.hongyu.reward.manager.AccountManager;
-import com.hongyu.reward.interfaces.CommonCallback;
+import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.request.SetPwdRequestBuilder;
 import com.hongyu.reward.ui.activity.RePwdAuthActivity;
 import com.hongyu.reward.utils.InputUtil;
 import com.hongyu.reward.utils.T;
@@ -74,26 +76,23 @@ public class RePwdAuthFragment extends BaseLoadFragment implements View.OnClickL
     }
 
     showLoadingView();
-    AccountManager.getInstance().setPwd(phone, repwd, new CommonCallback() {
+    SetPwdRequestBuilder builder = new SetPwdRequestBuilder(phone, repwd);
+    builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
-      public void success() {
-        if(!isAdded()){
+      public void onDataCallback(BaseModel data) {
+        if (!isAdded()) {
           return;
         }
         dismissLoadingView();
-        T.show(R.string.reset_pwd_success);
-        getActivity().finish();
-      }
-
-      @Override
-      public void failed(String msg) {
-        if(!isAdded()){
-          return;
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          T.show(R.string.reset_pwd_success);
+          getActivity().finish();
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
         }
-        dismissLoadingView();
-        T.show(msg);
       }
     });
+    builder.build().submit();
   }
 
   @Override

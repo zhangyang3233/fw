@@ -129,6 +129,9 @@ public class PushModel implements BaseDataModel{
         pm.setTitle(uMessage.title);
         pm.setUrl(uMessage.url);
         PushInfo pi = new PushInfo();
+        if(uMessage.extra == null){
+            return pm;
+        }
         pi.setTitle(uMessage.extra.get("title"));
         pi.setContent(uMessage.extra.get("content"));
         pi.setOrder_id(uMessage.extra.get("order_id"));

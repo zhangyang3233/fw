@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.fw.zycoder.utils.AppUtils;
 import com.fw.zycoder.utils.GlobalConfig;
+import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.hongyu.reward.model.PushModel;
 import com.umeng.message.UmengMessageHandler;
@@ -13,6 +14,8 @@ import com.umeng.message.entity.UMessage;
  * Created by zhangyang131 on 16/10/9.
  */
 public class CustomMessageHandler extends UmengMessageHandler implements Runnable{
+  private static final String TAG = "appmsg";
+  private static CustomMessageHandler instance;
   UMessage uMessage;
   Thread thread;
   // public static final int STATUS_PENDING_RECEIVE = 0; // 待领取
@@ -27,10 +30,10 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
 
   @Override
   public void handleMessage(Context context, UMessage uMessage) {
-    super.handleMessage(context, uMessage);
-    // 收到通知
+    Log.i(TAG, "收到通知:" + uMessage.title);
     this.uMessage = uMessage;
     initThread();
+    super.handleMessage(context, uMessage);
   }
 
   @Override
@@ -65,7 +68,7 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
 
   private void dealWithUMessage(UMessage uMessage) {
     PushModel pm = PushModel.parse(uMessage);
-    if(pm == null){
+    if(pm == null || pm.getPush() == null){
       return;
     }
     PushModel.PushInfo pi = pm.getPush();
@@ -81,6 +84,8 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
       } else if (pi.getStatus().equals("32")) { // 订单已经被取消
         PushDeal.orderCanceled(pi);
       }
+    }else if(pi.getType().equals("2")){ // 领取的任务被拒绝
+      PushDeal.orderIsRefuse(pi);
     }
   }
 

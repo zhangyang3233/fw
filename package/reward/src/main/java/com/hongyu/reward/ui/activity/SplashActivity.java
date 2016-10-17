@@ -7,10 +7,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.fw.zycoder.utils.MainThreadPostUtils;
+import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.appbase.BaseSlideActivity;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.interfaces.AppInitFinishCallback;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.AppInitManager;
+import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.utils.WXUtil;
 
@@ -25,6 +28,7 @@ public class SplashActivity extends BaseSlideActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     delayedLaunch();
+    AppInitManager.getInstance().init(null);
     initWX();
   }
 
@@ -44,23 +48,19 @@ public class SplashActivity extends BaseSlideActivity {
         if (isDestroyed()) {
           return;
         }
-        if (AppInitManager.getInstance().isInited()) {
-          jumpToNextActivity();
-        } else {
-          AppInitManager.getInstance().addInitListener(new AppInitFinishCallback() {
-            @Override
-            public void initFinish() {
-              AppInitManager.getInstance().removeInitListener(this);
-              jumpToNextActivity();
-            }
-          });
-        }
+
+        AppInitManager.getInstance().init(new AppInitFinishCallback() {
+          @Override
+          public void initFinish() {
+            jumpToNextActivity();
+          }
+        });
       }
     }, getDelayedTime());
   }
 
   private void jumpToNextActivity() {
-    if (AccountManager.getInstance().needToShowWelcome()) {
+    if (needToShowWelcome()) {
       WelcomeActivity.launch(this);
     } else if (AccountManager.getInstance().isLogin()) {
       TabHostActivity.launch(this);
@@ -68,6 +68,15 @@ public class SplashActivity extends BaseSlideActivity {
       LoginActivity.launch(this);
     }
     finish();
+  }
+
+  public boolean needToShowWelcome() {
+    int v = SPUtil.getInt(Constants.Pref.GUIDE_KEY, 0);
+    if (WelcomeFragment.GUIDE_VERSION > v) { // 如果有新的guide页面就应该看看新的
+      SPUtil.putInt(Constants.Pref.GUIDE_KEY, WelcomeFragment.GUIDE_VERSION);
+      return true;
+    }
+    return false;
   }
 
   @Override

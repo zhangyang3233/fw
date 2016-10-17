@@ -1,5 +1,11 @@
 package com.hongyu.reward.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.fw.zycoder.utils.GlobalConfig;
+import com.hongyu.reward.config.Constants;
+
 /**
  * Created by zhangyang131 on 16/9/8.
  */
@@ -116,6 +122,26 @@ public class LoginModel extends BaseModel {
 
     public void setLock_cash(float lock_cash) {
       this.lock_cash = lock_cash;
+    }
+
+    /**
+     * 将个人信息持久化到本地
+     */
+    public void save() {
+      SharedPreferences pref = GlobalConfig.getAppContext()
+          .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
+      SharedPreferences.Editor editor = pref.edit();
+      editor.putString(Constants.App.APP_USERID, getUser_id());
+      editor.putString("head_img", getHead_img());
+      editor.putString("username", getUsername());
+      editor.putString("nickname", getNickname());
+      editor.putString("avatar", getAvatar());
+      editor.putString("phone", getPhone());
+      editor.putInt("gender", getGender());
+      editor.putFloat("score", getScore());
+      editor.putFloat("cash", getCash());
+      editor.putFloat("lock_cash", getLock_cash());
+      editor.commit();
     }
   }
 }

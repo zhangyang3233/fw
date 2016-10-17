@@ -7,11 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.PhoneNumberUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
-import com.hongyu.reward.manager.AccountManager;
+import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.utils.T;
@@ -90,27 +92,24 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
       return;
     }
 
-
-    AccountManager.getInstance().register(phone, repwd, code,
-        new RegisterRequestBuilder.CallBack() {
-
-          @Override
-          public void success() {
-            if(!isAdded()){
-              return;
-            }
-            T.show(getString(R.string.register_success));
-            getActivity().finish();
-          }
-
-          @Override
-          public void failed(String error) {
-            if(!isAdded()){
-              return;
-            }
-            T.show(error);
-          }
-        });
+    showLoadingView();
+    final RegisterRequestBuilder builder = new RegisterRequestBuilder(phone, code, repwd);
+    builder.setDataCallback(new DataCallback<BaseModel>() {
+      @Override
+      public void onDataCallback(BaseModel data) {
+        if (!isAdded()) {
+          return;
+        }
+        dismissLoadingView();
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          T.show(getString(R.string.register_success));
+          getActivity().finish();
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
+        }
+      }
+    });
+    builder.build().submit();
   }
 
 
@@ -127,19 +126,21 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
     }
 
     showLoadingView();
-    AccountManager.getInstance().getCode(phone, new GetAuthCodeRequestBuilder.CallBack() {
-      @Override
-      public void success() {
-        dismissLoadingView();
-        startTiming();
-      }
 
+    GetAuthCodeRequestBuilder builder = new GetAuthCodeRequestBuilder(phone);
+    builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
-      public void failed(String msg) {
-        dismissLoadingView();
-        T.show(msg);
+      public void onDataCallback(BaseModel data) {
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          startTiming();
+          T.show(R.string.auth_tip);
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
+        }
       }
     });
+    builder.build().submit();
+
   }
 
   private void startTiming() {

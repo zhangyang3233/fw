@@ -30,7 +30,6 @@ public class CoreService extends Service {
   public void onCreate() {
     super.onCreate();
     onStartListen();
-    AppInitManager.getInstance().init();
   }
 
   /**

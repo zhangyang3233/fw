@@ -7,8 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.request.LoginRequestBuilder;
@@ -75,27 +77,27 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
 
 
     showLoadingView();
-    AccountManager.getInstance().login(phone, pwd, new LoginRequestBuilder.LoginCallback() {
-      @Override
-      public void loginSuccess(LoginModel.UserInfo userInfo) {
-        if(!isAdded()){
-          return;
-        }
-        dismissLoadingView();
-        T.show(R.string.login_success);
-        gotoMainPage();
-        getActivity().finish();
-      }
 
+
+    LoginRequestBuilder builder = new LoginRequestBuilder(phone, pwd);
+    builder.setDataCallback(new DataCallback<LoginModel>() {
       @Override
-      public void loginFailed(String errorMsg) {
-        if(!isAdded()){
+      public void onDataCallback(final LoginModel data) {
+        if (!isAdded()) {
           return;
         }
         dismissLoadingView();
-        T.show(errorMsg);
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          AccountManager.getInstance().saveUser(data.getData());
+          T.show(R.string.login_success);
+          gotoMainPage();
+          getActivity().finish();
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
+        }
       }
     });
+    builder.build().submit();
   }
 
   private void gotoMainPage() {
