@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.model.AdModel;
@@ -79,10 +80,16 @@ public class BannerPagerAdapter extends PagerAdapter {
   public Object instantiateItem(ViewGroup viewPager, final int position) {
     View view = LayoutInflater.from(context).inflate(R.layout.layout_header_ad, null);
     NetImageView image = (NetImageView) view.findViewById(R.id.iv_ad_img);
-
+    TextView tip = (TextView) view.findViewById(R.id.tip);
     image.setScaleType(ScaleType.FIT_XY);
-
     image.loadNetworkImageByUrl(getItem(position).position_img);
+    String tipStr = getItem(position).getPosition_text();
+    if(TextUtils.isEmpty(tipStr)){
+      tip.setVisibility(View.GONE);
+    }else{
+      tip.setVisibility(View.VISIBLE);
+      tip.setText(getItem(position).getPosition_text());
+    }
     viewPager.addView(view);
 
     image.setOnClickListener(new OnClickListener() {

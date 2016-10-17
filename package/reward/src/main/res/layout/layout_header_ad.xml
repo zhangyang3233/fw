@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="160dp">
 
     <com.hongyu.reward.widget.NetImageView
         android:id="@+id/iv_ad_img"
@@ -9,5 +10,18 @@
         android:layout_height="160dp"
         android:contentDescription="@string/image_desc"
         android:scaleType="fitXY" />
-
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="#66000000"
+        android:textColor="#dddddd"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="今天天气不错"
+        />
 </RelativeLayout>
