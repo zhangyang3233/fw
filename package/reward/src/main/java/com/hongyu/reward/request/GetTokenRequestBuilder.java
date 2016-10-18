@@ -15,15 +15,14 @@ public class GetTokenRequestBuilder extends BaseHttpRequestBuilder<TokenModel> {
   private static final String DEVICE_CODE = "device_code";
   private static final String PUSH_CODE = "push_code";
   private String devive_type;
-  private String device_code;
-  private String push_code;
+  private String device_code; // token
+  private String push_code; // pushCode
 
   public GetTokenRequestBuilder() {
     this.devive_type = "2";
     this.device_code = SystemUtil.getDeviceId(GlobalConfig.getAppContext().getApplicationContext());
-    this.push_code = AccountManager.getInstance().getToken();
+    this.push_code = AccountManager.getInstance().getPushCode();
   }
-
 
   @Override
   protected String getApiUrl() {

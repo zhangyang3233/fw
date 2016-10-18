@@ -87,6 +87,12 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
     builder.build().submit();
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+    refreshUI(AccountManager.getInstance().getUser());
+  }
+
   private void refreshUI(LoginModel.UserInfo userInfo) {
     mTvName.setText(userInfo.getNickname());
     mTvPrice.setText(userInfo.getCash() + "元");

@@ -19,7 +19,6 @@ public class RefreshOrderManager {
     public static class Prog{
         int step;
         boolean isPublish;
-        int status;
         String orderId;
 
         public Prog() {
@@ -51,14 +50,6 @@ public class RefreshOrderManager {
             }
         }
 
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
         public String getOrderId() {
             return orderId;
         }
@@ -81,15 +72,20 @@ public class RefreshOrderManager {
                 if (ResponesUtil.checkModelCodeOK(data)) {
                     if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) {
                         prog.setOrderId(data.getData().getOrder_id());
-                        prog.setStatus(data.getData().getStatus());
                         prog.setPublish(true);
+                        EventBus.getDefault().post(prog);
+                        return;
                     }
                 }
-                prog.stepOver();
+                checkReceive(prog);
             }
         });
         builder.build().submit();
 
+
+    }
+
+    private static void checkReceive(final Prog prog) {
         GetReceiveOrderRequestBuilder builder2 = new GetReceiveOrderRequestBuilder();
         builder2.setDataCallback(new DataCallback<OrderIdRequestModel>() {
             @Override
@@ -97,11 +93,10 @@ public class RefreshOrderManager {
                 if (ResponesUtil.checkModelCodeOK(data)) {
                     if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) { // 有接受订单
                         prog.setOrderId(data.getData().getOrder_id());
-                        prog.setStatus(data.getData().getStatus());
                         prog.setPublish(false);
                     }
                 }
-                prog.stepOver();
+                EventBus.getDefault().post(prog);
             }
         });
         builder2.build().submit();

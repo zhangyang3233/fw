@@ -6,15 +6,18 @@ import com.fw.zycoder.utils.AppUtils;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.PushModel;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhangyang131 on 16/10/9.
  */
 public class CustomMessageHandler extends UmengMessageHandler implements Runnable{
-  private static final String TAG = "appmsg";
+  private static final String TAG = "umeng";
   private static CustomMessageHandler instance;
   UMessage uMessage;
   Thread thread;
@@ -32,6 +35,7 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
   public void handleMessage(Context context, UMessage uMessage) {
     Log.i(TAG, "收到通知:" + uMessage.title);
     this.uMessage = uMessage;
+    EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
     initThread();
     super.handleMessage(context, uMessage);
   }

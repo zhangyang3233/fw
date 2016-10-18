@@ -89,11 +89,11 @@ public class SettingFragment extends BaseLoadFragment
         UpdatePwdActivity.launch(getActivity());
         break;
       case R.id.setting_help:
-        BrowserActivity.launch(getActivity(), Constants.Server.API_PREFIX + "/page/html?id=9",
+        BrowserActivity.launch(getActivity(), Constants.Server.API_PREFIX + "/page/html?id=2",
             "帮助中心");
         break;
       case R.id.setting_terms:
-        BrowserActivity.launch(getActivity(), Constants.Server.API_PREFIX + "/page/html?id=6",
+        BrowserActivity.launch(getActivity(), Constants.Server.API_PREFIX + "/page/html?id=3",
             "法律条款");
         break;
       case R.id.setting_about_us:

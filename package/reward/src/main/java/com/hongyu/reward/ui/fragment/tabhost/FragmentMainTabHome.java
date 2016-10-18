@@ -215,7 +215,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
       return;
     }
     if (mNoticeView != null) {
-      if (prog == null || prog.getStatus() == RefreshOrderManager.NONE) {
+      if (prog == null ||  TextUtils.isEmpty(prog.getOrderId())) {
         mNoticeView.hide();
       } else {
         mNoticeView.show(prog);

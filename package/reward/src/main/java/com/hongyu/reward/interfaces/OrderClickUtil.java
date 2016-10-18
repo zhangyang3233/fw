@@ -7,6 +7,8 @@ import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
+import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
+import com.hongyu.reward.ui.activity.order.ReceiveOrderFinishedActivity;
 import com.hongyu.reward.ui.activity.order.ReceiveWaitActivity;
 import com.hongyu.reward.ui.activity.order.RewardPublishWaitActivity;
 import com.hongyu.reward.ui.activity.order.RewardStartActivity;
@@ -62,6 +64,11 @@ public class OrderClickUtil {
         }
         break;
       case OrderModel.STATUS_FINISHED: // 已经完成
+        if (orderModel.isMePublish()) {
+          PublishFinishedCommentActivity.launch(context, orderModel.getOrder_id());
+        }else{
+          ReceiveOrderFinishedActivity.launch(context, orderModel.getOrder_id());
+        }
         break;
       case OrderModel.STATUS_INVALID:// 失效
         break;

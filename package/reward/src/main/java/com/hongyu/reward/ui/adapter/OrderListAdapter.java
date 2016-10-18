@@ -12,6 +12,7 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.ui.activity.order.ReceiveOrderFinishedActivity;
+import com.hongyu.reward.ui.activity.order.ReceiveWaitActivity;
 import com.hongyu.reward.ui.activity.order.RewardPublishWaitActivity;
 import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
@@ -47,7 +48,7 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
   public static void gelleryToPage(Context context, OrderModel model, int isme) {
     switch (model.getStatus()) {
       case OrderModel.STATUS_FINISHED: // 已完成
-        if(isme == 0){
+        if(isme == OrderModel.IS_ME){
           PublishFinishedCommentActivity.launch(context, model.getOrder_id());
         }else{
           ReceiveOrderFinishedActivity.launch(context, model.getOrder_id());
@@ -58,14 +59,17 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
             model.getImg());
         break;
       case OrderModel.STATUS_PENDING_PAY: // 待付款
-        if (isme == 1) return;
-        RewardStartActivity.launch(context, model.getOrder_id(),model.getShop_name(), model.getPrice());
+        if (isme == OrderModel.NOT_ME) {
+          ReceiveWaitActivity.launch(context, model.getOrder_id());
+        }else{
+          RewardStartActivity.launch(context, model.getOrder_id(),model.getShop_name(), model.getPrice());
+        }
         break;
       case OrderModel.STATUS_PENDING_COMMENT: // 待评论
-        if(isme == 0){ // 0我发出的 1我收到的
+        if(isme == OrderModel.IS_ME){ // 0我发出的 1我收到的
           PublishFinishedCommentActivity.launch(context, model.getOrder_id());
         }else{
-
+          ReceiveOrderFinishedActivity.launch(context, model.getOrder_id());
         }
         break;
       case OrderModel.STATUS_RECEIVED: // 已经领取

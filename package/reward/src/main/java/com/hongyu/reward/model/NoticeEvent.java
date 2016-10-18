@@ -7,6 +7,7 @@ public class NoticeEvent extends BaseModel {
     public static final int USER_IMG_CHANGED = 1;
     public static final int USER_NICKNAME_CHANGED = 2;
     public static final int USER_GENDER_CHANGED = 3;
+    public static final int ORDER_STATUS_CHANGED = 4;
     private int type;
     private String data;
 

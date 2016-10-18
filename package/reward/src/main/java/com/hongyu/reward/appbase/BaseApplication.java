@@ -7,6 +7,7 @@ import com.fw.zycoder.errorpage.CustomActivityOnCrash;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
+import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.manager.CoreService;
 import com.hongyu.reward.manager.LocationManager;
 import com.squareup.leakcanary.LeakCanary;
@@ -31,6 +32,7 @@ public class BaseApplication extends Application {
     LocationManager.getInstance().init(this);
     LocationManager.getInstance().start();
     startCoreService();
+    AppInitManager.getInstance().init(null);
   }
 
 

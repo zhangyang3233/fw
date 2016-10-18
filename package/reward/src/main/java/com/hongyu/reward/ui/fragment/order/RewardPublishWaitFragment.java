@@ -12,9 +12,9 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
-import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.AddRewardModel;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.request.AddRewardRequestBuilder;
@@ -271,12 +271,12 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
+        EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
         if(!isAdded()){
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show(R.string.cancel_reward_order_success);
-          EventBus.getDefault().post(new RefreshOrderManager.Prog());
           getActivity().finish();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));

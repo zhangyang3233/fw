@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.fw.zycoder.utils.Log;
+import com.hongyu.reward.model.NoticeEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -30,6 +34,7 @@ public class CoreService extends Service {
   public void onCreate() {
     super.onCreate();
     onStartListen();
+    EventBus.getDefault().register(this);
   }
 
   /**
@@ -52,7 +57,9 @@ public class CoreService extends Service {
   @Override
   public void onDestroy() {
     super.onDestroy();
+    EventBus.getDefault().unregister(this);
     onStopListen();
+
   }
 
   public void onStartListen() {
@@ -69,9 +76,24 @@ public class CoreService extends Service {
   private class MyTask implements Runnable {
     @Override
     public void run() {
-      Log.i("MyTask", "MyTask执行中....");
-      RefreshOrderManager.getStatusOrder();
+      checkOrder();
     }
   }
 
+  private void checkOrder() {
+    if(AccountManager.getInstance().isLogin()){
+      Log.i("MyTask", "MyTask执行中....");
+      RefreshOrderManager.getStatusOrder();
+    }else{
+      Log.i("MyTask", "未登录....");
+    }
+  }
+
+
+  @Subscribe
+  public void onEventMainThread(NoticeEvent event) {
+    if(event.getType() == NoticeEvent.ORDER_STATUS_CHANGED){
+      checkOrder();
+    }
+  }
 }

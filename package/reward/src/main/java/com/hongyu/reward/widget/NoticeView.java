@@ -17,9 +17,8 @@ import com.hongyu.reward.manager.RefreshOrderManager;
 public class NoticeView extends RelativeLayout implements View.OnClickListener {
   private Context mContext;
   private TextView notice_tip;
-  String publishedOrderId;
+  String orderId;
   boolean isPublish;
-  int status;
 
   public NoticeView(Context context) {
     super(context);
@@ -43,9 +42,8 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
 
   public void show(RefreshOrderManager.Prog prog) {
     setVisibility(View.VISIBLE);
-    this.publishedOrderId = prog.getOrderId();
+    this.orderId = prog.getOrderId();
     this.isPublish = prog.isPublish();
-    this.status = prog.getStatus();
     if (isPublish) {
       notice_tip.setText(R.string.notice_publish);
     } else {
@@ -55,24 +53,11 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
 
   public void hide() {
     setVisibility(View.GONE);
-    this.publishedOrderId = null;
+    this.orderId = null;
   }
 
   @Override
   public void onClick(View v) {
-//    if (isPublish) { // 发布的任务
-//      if (status == 0) {
-//        RewardPublishWaitActivity.launch(mContext, publishedOrderId, null, null);
-//      } else if (status == 10) {
-//        SelectPersonActivity.launch(mContext, publishedOrderId, null, null);
-//      }
-//    } else {// 接受任务
-//      if (status == 20) { // 待付款
-//        ReceiveWaitActivity.launch(mContext, publishedOrderId, null, null, null, null, null);
-//      } else if (status == 10) {
-//        T.show("待悬赏人确认订单中...");
-//      }
-//    }
-    OrderClickUtil.orderOnClick(mContext, publishedOrderId);
+    OrderClickUtil.orderOnClick(mContext, orderId);
   }
 }

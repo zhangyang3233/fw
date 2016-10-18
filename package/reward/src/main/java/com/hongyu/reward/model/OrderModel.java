@@ -6,6 +6,8 @@ import com.hongyu.reward.manager.AccountManager;
  * Created by zhangyang131 on 16/9/19.
  */
 public class OrderModel implements BaseDataModel {
+  public static final int IS_ME = 0;
+  public static final int NOT_ME = 1;
   public static final String IMMEDIATE = "0";
   public static final String APPOINTMENT = "1";
   // 订单状态

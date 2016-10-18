@@ -65,6 +65,7 @@ public class BrowserFragment extends BaseBrowserFragment {
         // 后端配置了标题mTitle，不再显示jsTitle;
         // 后配没有配置mTitle，显示jsTitle;
         if (mTitle != null && !mTitle.equals("")) {
+          getActivity().setTitle(mTitle);
           return;
         }
 

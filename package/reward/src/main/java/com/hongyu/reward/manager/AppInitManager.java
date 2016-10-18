@@ -29,6 +29,7 @@ public class AppInitManager {
   public static final int STATUS_FINISHED = 2;
   private static AppInitManager instance;
   private int status = STATUS_NONE;
+  PushAgent mPushAgent;
   private ArrayList<AppInitFinishCallback> observe = new ArrayList<>();
 
   public static synchronized AppInitManager getInstance() {
@@ -90,13 +91,15 @@ public class AppInitManager {
   }
 
   private PushAgent getPushAgent() {
-    PushAgent mPushAgent = PushAgent.getInstance(GlobalConfig.getAppContext());
-    mPushAgent.setDebugMode(BuildConfig.IS_SHOW_LOG);
-    UmengMessageHandler umengMessageHandler = new CustomMessageHandler();
-    UmengNotificationClickHandler notificationClickHandler =
-        new CustomNotificationClickHandler();
-    mPushAgent.setMessageHandler(umengMessageHandler);
-    mPushAgent.setNotificationClickHandler(notificationClickHandler);
+    if(mPushAgent == null){
+      mPushAgent = PushAgent.getInstance(GlobalConfig.getAppContext());
+      mPushAgent.setDebugMode(BuildConfig.IS_SHOW_LOG);
+      UmengMessageHandler umengMessageHandler = new CustomMessageHandler();
+      UmengNotificationClickHandler notificationClickHandler =
+              new CustomNotificationClickHandler();
+      mPushAgent.setMessageHandler(umengMessageHandler);
+      mPushAgent.setNotificationClickHandler(notificationClickHandler);
+    }
     return mPushAgent;
   }
 

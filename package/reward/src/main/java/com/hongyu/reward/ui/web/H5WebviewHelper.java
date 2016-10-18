@@ -31,8 +31,8 @@ public class H5WebviewHelper {
     settings.setPluginState(WebSettings.PluginState.ON);
     settings.setBuiltInZoomControls(true);
     settings.setLoadWithOverviewMode(true);
-    settings.setUseWideViewPort(true);
-
+//    settings.setUseWideViewPort(true);
+//
     webView.requestFocus();
     webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
     webView.setMapTrackballToArrowKeys(false);

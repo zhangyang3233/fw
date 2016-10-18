@@ -12,6 +12,7 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.model.ReceiveOrderInfo;
@@ -170,6 +171,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show("领取成功");
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
           setLoadingViewCancelable(true);
           setLoadingCancelListener(new DialogInterface.OnCancelListener() {
             @Override

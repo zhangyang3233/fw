@@ -11,7 +11,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
-import com.hongyu.reward.manager.RefreshOrderManager;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.PublishReqeustModel;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.PublishRequestBuilder;
@@ -189,11 +189,7 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
           RewardPublishWaitActivity.launch(getActivity(), data.getData().getOrder_id(),
               shopInfo.getShop_name(), shopInfo.getImg());
           T.show(R.string.public_success);
-          RefreshOrderManager.Prog prog = new RefreshOrderManager.Prog();
-          prog.setOrderId(data.getData().getOrder_id());
-          prog.setPublish(true);
-          prog.setStatus(0);
-          EventBus.getDefault().post(prog);
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
           getActivity().finish();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
