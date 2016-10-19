@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.hongyu.reward.model.AdListModel;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.request.GetAdListRequestBuilder;
 import com.hongyu.reward.ui.activity.TabHostActivity;
+import com.hongyu.reward.ui.activity.personal.MessageListActivity;
 import com.hongyu.reward.ui.city.CityPickerActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
@@ -46,9 +48,11 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
   private View mRewardPublish;
   private NoticeView mNoticeView;
   private LinearLayout left_container;
+  private LinearLayout right_container;
   private View mRewardget;
   private TextView title;
   private TextView leftBtn;
+  private ImageView rightBtn;
 
   @Override
   protected void onStartLoading() {}
@@ -91,6 +95,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     mRewardPublish = mContentView.findViewById(R.id.reward_publish);
     mRewardget = mContentView.findViewById(R.id.reward_get);
     left_container = (LinearLayout) mContentView.findViewById(R.id.left_container);
+    right_container = (LinearLayout) mContentView.findViewById(R.id.right_container);
     title = (TextView) mContentView.findViewById(R.id.title);
     mRewardPublish.setOnClickListener(this);
     mRewardget.setOnClickListener(this);
@@ -98,6 +103,19 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     title.setText(R.string.main_tag_text_home);
     RefreshOrderManager.getStatusOrder();
     initLeftBtn();
+    initRightBtn();
+  }
+
+  private void initRightBtn(){
+    rightBtn = new ImageView(getActivity());
+    rightBtn.setImageResource(R.mipmap.xf);
+    rightBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        MessageListActivity.launch(getActivity());
+      }
+    });
+    right_container.addView(rightBtn);
   }
 
   private void initLeftBtn() {

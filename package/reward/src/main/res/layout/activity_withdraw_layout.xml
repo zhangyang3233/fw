@@ -110,10 +110,24 @@
     </LinearLayout>
 
     <View style="@style/divider_theme_gray" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/guize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_alignParentRight="true"
+            android:text="提现规则"
+            android:textColor="#39b2fc"
+            android:textSize="@dimen/text_h2" />
+    </RelativeLayout>
 
     <View
         style="@style/divider_theme_gray"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="25dp" />
 
     <LinearLayout
         android:id="@+id/btn_alipay"

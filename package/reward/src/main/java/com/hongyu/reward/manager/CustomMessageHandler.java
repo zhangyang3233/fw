@@ -33,6 +33,9 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
 
   @Override
   public void handleMessage(Context context, UMessage uMessage) {
+    if(!AccountManager.getInstance().isLogin()){
+      return;
+    }
     Log.i(TAG, "收到通知:" + uMessage.title);
     this.uMessage = uMessage;
     EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));

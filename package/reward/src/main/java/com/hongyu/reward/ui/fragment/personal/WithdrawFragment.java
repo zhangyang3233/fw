@@ -8,9 +8,11 @@ import android.widget.TextView;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.ui.activity.AlipayInfoActivity;
+import com.hongyu.reward.ui.activity.BrowserActivity;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.RoundImageView;
 
@@ -21,6 +23,7 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
   private RoundImageView mHeadImg;
   private TextView mTvName;
   private TextView mTvPrice;
+  private TextView mGuizeTv;
   private EditText mWithdraw;
   private View mBtnAlipay;
   private View mIvAlipay;
@@ -33,10 +36,10 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
     priceMax = userInfo.getCash();
     mTvName.setText(userInfo.getNickname());
     mTvPrice.setText(String.valueOf(userInfo.getCash()));
-    if(priceMax < 500){
+    if(priceMax < 1000){
       mWithdraw.setHint("本次可提现" + priceMax + "元");
     }else{
-      mWithdraw.setHint("本次可提现" + 500 + "元");
+      mWithdraw.setHint("本次可提现" + 1000 + "元");
     }
     mHeadImg.loadNetworkImageByUrl(userInfo.getHead_img());
   }
@@ -50,6 +53,7 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
     mHeadImg = (RoundImageView) mContentView.findViewById(R.id.header_icon);
     mTvName = (TextView) mContentView.findViewById(R.id.name);
     mTvPrice = (TextView) mContentView.findViewById(R.id.price);
+    mGuizeTv = (TextView) mContentView.findViewById(R.id.guize);
 
     mWithdraw = (EditText) mContentView.findViewById(R.id.withdraw_price);
     mBtnAlipay = mContentView.findViewById(R.id.btn_alipay);
@@ -58,6 +62,7 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
 
     mBtnAlipay.setOnClickListener(this);
     mBtnStartWithdraw.setOnClickListener(this);
+    mGuizeTv.setOnClickListener(this);
   }
 
   @Override
@@ -73,6 +78,10 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
           AlipayInfoActivity.launch(getActivity(), getInputPrice());
           getActivity().finish();
         }
+        break;
+      case R.id.guize:
+        BrowserActivity.launch(getActivity(), Constants.Server.API_PREFIX + "/page/html?id=4",
+                "提现规则");
         break;
     }
   }
