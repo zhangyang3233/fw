@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:reward="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_main_bg_color"
     android:orientation="vertical">
 
@@ -24,9 +24,9 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:src="@mipmap/defalut_head_img"
-            reward:riv_corner_radius="40dp"
             reward:riv_border_color="@color/white"
-            reward:riv_border_width="1dp" />
+            reward:riv_border_width="1dp"
+            reward:riv_corner_radius="40dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,9 +37,9 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="刘嘉玲"
                 android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h1" />
+                android:textSize="@dimen/text_h1"
+                tools:text="刘嘉玲" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,9 +59,9 @@
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="200"
                     android:textColor="@color/text_orange"
-                    android:textSize="@dimen/text_h1" />
+                    android:textSize="@dimen/text_h1"
+                    tools:text="200" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,5 +90,23 @@
         reward:leftimg="@mipmap/defalut_head_img" />
 
     <View style="@style/divider_theme_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="积分详情"
+        android:textSize="16sp" />
+
+    <View style="@style/divider_theme_gray" />
+
+    <com.handmark.pulltorefresh.library.RefreshableListView
+        android:id="@+id/common_fragment_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:orientation="vertical" />
 
 </LinearLayout>
