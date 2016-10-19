@@ -44,7 +44,7 @@ public class AccountManager {
   }
 
   public void removeLogoutListener(LogoutListener logoutListener) {
-    if (mLogoutListeners == null) {
+    if (mLogoutListeners != null) {
       mLogoutListeners.remove(logoutListener);
     }
   }

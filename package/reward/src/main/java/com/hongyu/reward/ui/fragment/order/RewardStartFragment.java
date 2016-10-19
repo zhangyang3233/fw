@@ -18,6 +18,7 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.model.ReceiveModel;
@@ -30,6 +31,8 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.RoundImageView;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 发起人看到的界面
@@ -206,6 +209,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
         if(ResponesUtil.checkModelCodeOK(data)){
           T.show("取消订单成功");
           getActivity().finish();
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
         }else{
           T.show(ResponesUtil.getErrorMsg(data));
         }

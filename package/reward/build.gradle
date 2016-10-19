@@ -136,6 +136,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.1@aar'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'org.greenrobot:eventbus:3.0.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

@@ -161,6 +161,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
             dismissLoadingView();
             T.show("订单已经自动取消");
             getActivity().finish();
+            EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
           }
         });
         builder.build().submit();
@@ -278,6 +279,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show(R.string.cancel_reward_order_success);
           getActivity().finish();
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
         }

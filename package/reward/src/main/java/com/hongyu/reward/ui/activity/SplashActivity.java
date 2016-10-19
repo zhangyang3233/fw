@@ -33,7 +33,7 @@ public class SplashActivity extends BaseSlideActivity {
   }
 
   private void initWX() {
-    WXUtil.getInstance().registWX(this);
+    WXUtil.getInstance().registWX(getApplicationContext());
   }
 
 
