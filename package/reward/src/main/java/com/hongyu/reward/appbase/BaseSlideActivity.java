@@ -9,7 +9,6 @@ import android.view.KeyEvent;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.interfaces.LogoutListener;
-import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.ScreenManager;
 import com.umeng.message.PushAgent;
 import com.zycoder.sliding.SlidingHelper;
@@ -27,7 +26,6 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     super.onCreate(savedInstanceState);
     setContentView(getLayoutId());
     SlidingHelper.onCreate(this);
-    AccountManager.getInstance().addLogoutListener(this);
     PushAgent.getInstance(this).onAppStart();
     ScreenManager.getScreenManager().pushActivity(this);
   }
@@ -60,7 +58,6 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     super.onDestroy();
     mIsDestroyed = true;
     SlidingHelper.onDestroy(this);
-    AccountManager.getInstance().removeLogoutListener(this);
     ScreenManager.getScreenManager().popActivity(this);
   }
 
@@ -124,7 +121,6 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
 
   @Override
   public void onLogout() {
-    finish();
   }
 
 

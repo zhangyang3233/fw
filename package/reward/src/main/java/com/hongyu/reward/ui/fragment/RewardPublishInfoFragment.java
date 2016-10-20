@@ -161,9 +161,9 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
       T.show(R.string.tip_diners_count_not_be_0);
       return false;
     }
-    int reward_money_count = 0;
+    double reward_money_count = 0;
     try {
-      reward_money_count = Integer.parseInt(reward_money_info.getText().toString());
+      reward_money_count = Double.parseDouble(reward_money_info.getText().toString());
     } catch (NumberFormatException e) {
 
     }

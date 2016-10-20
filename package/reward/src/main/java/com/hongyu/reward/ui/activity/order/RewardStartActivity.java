@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.order.RewardStartFragment;
 
 /**
@@ -29,7 +30,7 @@ public class RewardStartActivity extends BaseSingleFragmentActivity {
     intent.putExtra(TABLE_NUM, table_num);
     intent.putExtra(TABLE_WAIT, table_wait);
     intent.putExtra(TABLE_PRE, table_pre);
-    context.startActivity(intent);
+    AccountManager.launchAfterLogin(context, intent);
   }
 
   public static void launch(Context context, String order_id, String shop_name, String shop_img) {
@@ -37,7 +38,7 @@ public class RewardStartActivity extends BaseSingleFragmentActivity {
     intent.putExtra(ORDER_ID, order_id);
     intent.putExtra(SHOP_NAME, shop_name);
     intent.putExtra(SHOP_IMG, shop_img);
-    context.startActivity(intent);
+    AccountManager.launchAfterLogin(context, intent);
   }
 
   @Override

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.fw.zycoder.utils.GlobalConfig;
 import com.hongyu.reward.R;
+import com.hongyu.reward.config.ResultCode;
 import com.hongyu.reward.model.BaseModel;
 
 import org.json.JSONObject;
@@ -31,6 +32,8 @@ public class ResponesUtil {
     String msg;
     if (null == model) {
       msg = GlobalConfig.getAppContext().getString(R.string.common_net_word_error);
+    } else if (model.getCode() == ResultCode.code_1004) {
+      msg = "登录失效, 请重新登录";
     } else if (TextUtils.isEmpty(model.getMessage())) {
       msg = GlobalConfig.getAppContext().getString(R.string.common_error_unknown);
     } else {

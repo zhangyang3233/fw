@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.order.OrderFinishFragment;
 
 /**
@@ -16,7 +17,7 @@ public class OrderFinishActivity extends BaseSingleFragmentActivity {
     public static void launch(Context context, String orderId){
         Intent i = new Intent(context, OrderFinishActivity.class);
         i.putExtra(ORDER_ID, orderId);
-        context.startActivity(i);
+        AccountManager.launchAfterLogin(context, i);
     }
 
     @Override

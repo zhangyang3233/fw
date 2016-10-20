@@ -33,7 +33,7 @@
 
     <View style="@style/divider_theme_gray" />
 
-    <EditText
+    <com.hongyu.reward.widget.MoneyEditTextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -41,7 +41,7 @@
         android:background="@drawable/cell_round_gray_edit"
         android:gravity="center_vertical"
         android:hint="填写悬赏金额"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:paddingLeft="12dp"
         android:singleLine="true"
         android:textColorHint="@color/light_gray_text" />

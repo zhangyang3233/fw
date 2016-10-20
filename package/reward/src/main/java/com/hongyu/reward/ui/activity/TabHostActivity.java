@@ -15,7 +15,6 @@ import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
 import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.interfaces.LogoutListener;
-import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.manager.ScreenManager;
 import com.hongyu.reward.model.AppLocation;
@@ -56,7 +55,6 @@ public class TabHostActivity extends FragmentActivity
     setContentView(R.layout.activity_classic);
     initView();
     getLocation();
-    AccountManager.getInstance().addLogoutListener(this);
     ScreenManager.getScreenManager().pushActivity(this);
   }
 
@@ -151,15 +149,13 @@ public class TabHostActivity extends FragmentActivity
 
   @Override
   public void onLogout() {
-    LoginActivity.launch(this);
-    finish();
+    // TODO
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
     ScreenManager.getScreenManager().popActivity(this);
-    AccountManager.getInstance().removeLogoutListener(this);
     if (LocationManager.getInstance().isStarted()) {
       LocationManager.getInstance().stop();
     }

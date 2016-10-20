@@ -1,6 +1,7 @@
 package com.hongyu.reward.manager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
@@ -10,6 +11,7 @@ import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.model.LoginModel;
+import com.hongyu.reward.ui.activity.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -138,6 +140,14 @@ public class AccountManager {
     if (!TextUtils.isEmpty(pushCode)) {
       this.pushCode = pushCode;
       SPUtil.putString("PushCode", pushCode);
+    }
+  }
+
+  public static void launchAfterLogin(Context context, Intent pendingIntent){
+    if(getInstance().isLogin()){
+      context.startActivity(pendingIntent);
+    }else{
+      LoginActivity.launch(context, pendingIntent);
     }
   }
 }

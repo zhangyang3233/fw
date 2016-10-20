@@ -94,16 +94,13 @@
             android:textColor="@color/text_gray_dark"
             android:textSize="@dimen/text_h2" />
 
-        <EditText
+        <com.hongyu.reward.widget.MoneyEditTextView
             android:id="@+id/withdraw_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:background="@color/total_transparent"
             android:hint="本次可提现"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:inputType="numberDecimal"
             android:textColor="@color/text_gray_dark"
             android:textColorHint="@color/text_hint"
             android:textSize="@dimen/text_h2" />

@@ -110,7 +110,7 @@ public class AddRewardDialog extends AbsDialogFragment implements View.OnClickLi
       Add_20.setBackgroundResource(R.drawable.common_button_yellow);
       Add_50.setBackgroundResource(R.drawable.common_button_main);
     }
-    DecimalFormat df = new DecimalFormat("##.#");
+    DecimalFormat df = new DecimalFormat("##.##");
     price.setText(df.format(currentPrice + addPrice));
   }
 

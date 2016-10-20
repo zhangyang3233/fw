@@ -8,9 +8,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.http.request.GsonRequestBuilder;
 import com.fw.zycoder.http.volley.ApiContext;
 import com.hongyu.reward.config.Constants;
-import com.hongyu.reward.config.ResultCode;
 import com.hongyu.reward.manager.AccountManager;
-import com.hongyu.reward.model.BaseModel;
 
 /**
  * Created by zhangyang131 on 16/9/8.
@@ -22,12 +20,6 @@ public abstract class BaseHttpRequestBuilder<T> extends AppBaseHttpRequestBuilde
     public void onDataCallback(T data) {
       if (null != BaseHttpRequestBuilder.this.mNetWorkCallback) {
         BaseHttpRequestBuilder.this.mNetWorkCallback.onDataCallback(data);
-      }
-
-      if (data != null && data instanceof BaseModel
-              && ((BaseModel) data).getCode() == ResultCode.code_1004) { // 无效的登录状态
-        com.hongyu.reward.utils.T.show("登录失效, 请重新登录");
-        AccountManager.getInstance().logout();
       }
     }
   };

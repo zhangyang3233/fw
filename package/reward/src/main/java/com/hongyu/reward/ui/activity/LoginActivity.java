@@ -17,7 +17,12 @@ import com.hongyu.reward.ui.fragment.startapp.LoginFragment;
 public class LoginActivity extends BaseSingleFragmentActivity {
 
   public static void launch(Context context) {
+    launch(context, null);
+  }
+
+  public static void launch(Context context, Intent pendingIntent) {
     Intent i = new Intent(context, LoginActivity.class);
+    i.putExtra("pendingIntent", pendingIntent);
     context.startActivity(i);
   }
 
@@ -25,7 +30,6 @@ public class LoginActivity extends BaseSingleFragmentActivity {
   protected String getTitleText() {
     return getResources().getString(R.string.login);
   }
-
 
   @Override
   protected Class<? extends Fragment> getSingleContentFragmentClass() {

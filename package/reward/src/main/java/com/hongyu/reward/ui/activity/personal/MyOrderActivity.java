@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.AppBaseActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.personal.MyCreateOrderListFragment;
 import com.hongyu.reward.ui.fragment.personal.MyReceiveOrderListFragment;
 import com.hongyu.reward.widget.AppSwitchTitleView;
@@ -24,7 +25,7 @@ public class MyOrderActivity extends AppBaseActivity
 
   public static void launch(Context context) {
     Intent i = new Intent(context, MyOrderActivity.class);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

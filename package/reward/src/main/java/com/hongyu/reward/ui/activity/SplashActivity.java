@@ -11,7 +11,6 @@ import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.appbase.BaseSlideActivity;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.interfaces.AppInitFinishCallback;
-import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 import com.hongyu.reward.utils.T;
@@ -62,10 +61,8 @@ public class SplashActivity extends BaseSlideActivity {
   private void jumpToNextActivity() {
     if (needToShowWelcome()) {
       WelcomeActivity.launch(this);
-    } else if (AccountManager.getInstance().isLogin()) {
-      TabHostActivity.launch(this);
     } else {
-      LoginActivity.launch(this);
+      TabHostActivity.launch(this);
     }
     finish();
   }

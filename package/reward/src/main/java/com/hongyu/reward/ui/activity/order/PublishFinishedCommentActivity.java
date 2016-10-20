@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.order.PublishFinishedCommentFragment;
 
 /**
@@ -17,7 +18,7 @@ public class PublishFinishedCommentActivity extends BaseSingleFragmentActivity {
    String good, String score, String headImg**/) {
     Intent i = new Intent(context, PublishFinishedCommentActivity.class);
     i.putExtra(ORDER_ID, order_id);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

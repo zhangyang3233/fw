@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.order.SelectPersonFragment;
 
 /**
@@ -20,7 +21,7 @@ public class SelectPersonActivity extends BaseSingleFragmentActivity {
     i.putExtra(ORDER_ID, order_id);
     i.putExtra(SHOP_NAME, shop_name);
     i.putExtra(SHOP_IMG, shop_img);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

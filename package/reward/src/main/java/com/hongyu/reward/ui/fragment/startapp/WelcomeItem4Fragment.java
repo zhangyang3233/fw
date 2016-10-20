@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseFragment;
-import com.hongyu.reward.ui.activity.LoginActivity;
+import com.hongyu.reward.ui.activity.TabHostActivity;
 
 
 /**
@@ -28,7 +28,7 @@ public class WelcomeItem4Fragment extends BaseFragment implements View.OnClickLi
 
   @Override
   public void onClick(View v) {
-    LoginActivity.launch(getActivity());
+    TabHostActivity.launch(getActivity());
     getActivity().finish();
   }
 }

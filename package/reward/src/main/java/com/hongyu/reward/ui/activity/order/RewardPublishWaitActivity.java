@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.order.RewardPublishWaitFragment;
 
 /**
@@ -18,7 +19,7 @@ public class RewardPublishWaitActivity extends BaseSingleFragmentActivity {
     i.putExtra(RewardPublishWaitFragment.SHOP_NAME, shopName);
     i.putExtra(RewardPublishWaitFragment.ORDER_ID, order_id);
     i.putExtra(RewardPublishWaitFragment.SHOP_IMG, shop_img);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

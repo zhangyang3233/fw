@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.ShopOrderListFragment;
 
 /**
@@ -19,7 +20,7 @@ public class ShopOrderListActivity extends BaseSingleFragmentActivity {
     Intent i = new Intent(context, ShopOrderListActivity.class);
     i.putExtra(SHOP_NAME, shopName);
     i.putExtra(SHOP_ID, shopId);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

@@ -87,7 +87,7 @@
         reward:isclick="true"
         reward:labeltext="悬赏积分商城"
         reward:leftbg="@color/total_transparent"
-        reward:leftimg="@mipmap/defalut_head_img" />
+        reward:leftimg="@mipmap/integration_mall" />
 
     <View style="@style/divider_theme_gray" />
 
@@ -106,7 +106,6 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
         android:orientation="vertical" />
 
 </LinearLayout>

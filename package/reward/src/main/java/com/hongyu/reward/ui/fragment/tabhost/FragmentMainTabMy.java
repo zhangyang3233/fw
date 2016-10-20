@@ -1,5 +1,6 @@
 package com.hongyu.reward.ui.fragment.tabhost;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +13,12 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.GetUserInfoRequestBuilder;
+import com.hongyu.reward.ui.activity.LoginActivity;
 import com.hongyu.reward.ui.activity.PersonInfoSettingActivity;
 import com.hongyu.reward.ui.activity.personal.ContactActivity;
 import com.hongyu.reward.ui.activity.personal.MessageListActivity;
@@ -40,7 +43,7 @@ import org.greenrobot.eventbus.Subscribe;
  * @version 1.1.0
  * @since 2016-7-18 下午12:12:25
  */
-public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickListener {
+public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickListener, LogoutListener {
   TextView mTitle;
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
@@ -59,6 +62,18 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   private TextView mTvPrice;
   private TextView mTvScore;
 
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
+    AccountManager.getInstance().addLogoutListener(this);
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    AccountManager.getInstance().removeLogoutListener(this);
+  }
+
   protected void checkLazyLoad() {
     if (isVisible && isPrepared) {
       loadingData();
@@ -68,36 +83,46 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   @Override
   protected void loadingData() {
     showLoadingView();
-    GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
-    builder.setDataCallback(new DataCallback<LoginModel>() {
-      @Override
-      public void onDataCallback(LoginModel data) {
-        if (!isAdded()) {
-          return;
+    if(AccountManager.getInstance().isLogin()){
+      GetUserInfoRequestBuilder builder = new GetUserInfoRequestBuilder();
+      builder.setDataCallback(new DataCallback<LoginModel>() {
+        @Override
+        public void onDataCallback(LoginModel data) {
+          if (!isAdded()) {
+            return;
+          }
+          dismissLoadingView();
+          if (ResponesUtil.checkModelCodeOK(data)) {
+            AccountManager.getInstance().saveUser(data.getData());
+          }
+          refreshUI();
         }
-        dismissLoadingView();
-        if (ResponesUtil.checkModelCodeOK(data)) {
-          AccountManager.getInstance().saveUser(data.getData());
-          refreshUI(data.getData());
-        } else {
-          refreshUI(AccountManager.getInstance().getUser());
-        }
-      }
-    });
-    builder.build().submit();
+      });
+      builder.build().submit();
+    }else{
+      refreshUI();
+    }
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    refreshUI(AccountManager.getInstance().getUser());
+    refreshUI();
   }
 
-  private void refreshUI(LoginModel.UserInfo userInfo) {
-    mTvName.setText(userInfo.getNickname());
-    mTvPrice.setText(userInfo.getCash() + "元");
-    mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
-    mTvScore.setText(userInfo.getScore() + "积分");
+  private void refreshUI() {
+    LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
+    if(userInfo != null){
+      mTvName.setText(userInfo.getNickname());
+      mTvPrice.setText(userInfo.getCash() + "元");
+      mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
+      mTvScore.setText(userInfo.getPoint() + "积分");
+    }else{
+      mTvName.setText("未登录");
+      mTvPrice.setText(null);
+      mHeadImag.setImageResource(R.mipmap.defalut_head_img);
+      mTvScore.setText(null);
+    }
   }
 
   @Override
@@ -148,6 +173,10 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
 
   @Override
   public void onClick(View v) {
+    if(!AccountManager.getInstance().isLogin()){
+      LoginActivity.launch(getActivity());
+      return;
+    }
     switch (v.getId()) {
       case R.id.my_order: // 我的订单
         MyOrderActivity.launch(getActivity());
@@ -186,7 +215,6 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
 
   }
 
-
   @Subscribe
   public void onEventMainThread(NoticeEvent noticeEvent) {
     if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
@@ -206,6 +234,11 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   public void onDestroy() {
     super.onDestroy();
     EventBus.getDefault().unregister(this);
+  }
+
+  @Override
+  public void onLogout() {
+    refreshUI();
   }
 }
 

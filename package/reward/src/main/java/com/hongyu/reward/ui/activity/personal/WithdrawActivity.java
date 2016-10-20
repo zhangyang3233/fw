@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.personal.WithdrawFragment;
 
 /**
@@ -15,7 +16,7 @@ public class WithdrawActivity extends BaseSingleFragmentActivity {
 
   public static void launch(Context context) {
     Intent i = new Intent(context, WithdrawActivity.class);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

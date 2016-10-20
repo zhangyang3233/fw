@@ -37,7 +37,7 @@ public class PointFragment extends AsyncLoadListFragment<BillDetailModel.BillIte
     super.onResume();
     LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
     mTvName.setText(userInfo.getNickname());
-    mTvScore.setText(String.valueOf(userInfo.getScore()));
+    mTvScore.setText(String.valueOf(userInfo.getPoint()));
     mHeadImag.loadNetworkImageByUrl(userInfo.getHead_img());
   }
 

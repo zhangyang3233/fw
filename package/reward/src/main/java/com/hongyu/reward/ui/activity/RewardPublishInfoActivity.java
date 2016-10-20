@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.fragment.RewardPublishInfoFragment;
 
@@ -18,7 +19,7 @@ public class RewardPublishInfoActivity extends BaseSingleFragmentActivity {
   public static void launch(Context context, ShopListMode.ShopInfo shopInfo) {
     Intent i = new Intent(context, RewardPublishInfoActivity.class);
     i.putExtra(ShopListMode.ShopInfo.class.getSimpleName(), shopInfo);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

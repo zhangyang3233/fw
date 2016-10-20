@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.AlipayInfoFragment;
 
 /**
@@ -18,7 +19,7 @@ public class AlipayInfoActivity extends BaseSingleFragmentActivity {
   public static void launch(Context context, float price) {
     Intent i = new Intent(context, AlipayInfoActivity.class);
     i.putExtra(PRICE, price);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

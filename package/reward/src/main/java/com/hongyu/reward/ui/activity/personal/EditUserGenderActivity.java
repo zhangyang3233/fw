@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.ui.fragment.personal.EditGenderFragment;
 
 /**
@@ -16,7 +17,7 @@ public class EditUserGenderActivity extends BaseSingleFragmentActivity {
   public static void launch(Context context, int gender) {
     Intent i = new Intent(context, EditUserGenderActivity.class);
     i.putExtra(GENDER, gender);
-    context.startActivity(i);
+    AccountManager.launchAfterLogin(context, i);
   }
 
   @Override

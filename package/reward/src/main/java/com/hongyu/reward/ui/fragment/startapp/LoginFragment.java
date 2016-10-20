@@ -1,6 +1,8 @@
 package com.hongyu.reward.ui.fragment.startapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +17,6 @@ import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.ui.activity.ForgetPwdActivity;
-import com.hongyu.reward.ui.activity.TabHostActivity;
 import com.hongyu.reward.utils.InputUtil;
 import com.hongyu.reward.utils.T;
 
@@ -28,8 +29,21 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
   private EditText mPwd;
   private Button mBtnLogin;
   private TextView mBtnForgetPwd;
+  private Intent pendingIntent;
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    getData();
+  }
 
+  private void getData() {
+    Bundle b = getArguments();
+    if(b == null){
+      return;
+    }
+    pendingIntent = b.getParcelable("pendingIntent");
+  }
 
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
@@ -87,11 +101,10 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
           return;
         }
         dismissLoadingView();
-        if (ResponesUtil.checkModelCodeOK(data)) {
+        if (ResponesUtil.checkModelCodeOK(data)) { // 登录成功
           AccountManager.getInstance().saveUser(data.getData());
           T.show(R.string.login_success);
-          gotoMainPage();
-          getActivity().finish();
+          onLoginSuccess();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
         }
@@ -100,8 +113,10 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
     builder.build().submit();
   }
 
-  private void gotoMainPage() {
-    TabHostActivity.launch(getActivity());
+  private void onLoginSuccess() {
+    if(pendingIntent != null){
+      getActivity().startActivity(pendingIntent);
+    }
     getActivity().finish();
   }
 
