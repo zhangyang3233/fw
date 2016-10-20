@@ -12,6 +12,7 @@ import com.hongyu.reward.appbase.BaseSlideActivity;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.interfaces.AppInitFinishCallback;
 import com.hongyu.reward.manager.AppInitManager;
+import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.utils.WXUtil;
@@ -28,6 +29,8 @@ public class SplashActivity extends BaseSlideActivity {
     super.onCreate(savedInstanceState);
     delayedLaunch();
     AppInitManager.getInstance().init(null);
+    LocationManager.getInstance().init(this);
+    LocationManager.getInstance().start();
     initWX();
   }
 

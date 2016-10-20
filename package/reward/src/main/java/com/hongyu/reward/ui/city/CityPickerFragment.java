@@ -60,7 +60,7 @@ public class CityPickerFragment extends BaseLoadFragment implements View.OnClick
   }
 
   private void getLocation() {
-    AppLocation appLocation = LocationManager.getInstance().getLocalLocationInfo();
+    AppLocation appLocation = LocationManager.getInstance().getLocation();
     if (appLocation == null) {
       LocationManager.getInstance().addLocationListener(getLocationListener());
       LocationManager.getInstance().start();

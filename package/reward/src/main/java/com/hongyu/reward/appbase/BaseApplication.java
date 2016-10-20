@@ -9,7 +9,6 @@ import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.manager.CoreService;
-import com.hongyu.reward.manager.LocationManager;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.litepal.LitePalApplication;
@@ -29,8 +28,6 @@ public class BaseApplication extends Application {
     initLeakCanary();
     // initErrorPage();
     initLog();
-    LocationManager.getInstance().init(this);
-    LocationManager.getInstance().start();
     startCoreService();
     AppInitManager.getInstance().init(null);
   }

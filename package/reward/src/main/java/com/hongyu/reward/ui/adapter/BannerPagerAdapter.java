@@ -40,7 +40,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
   public static void gelleryToPage(Context context, AdModel adModel) {
     if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http://")) {
-      BrowserActivity.launch(context, adModel.position_url);
+      BrowserActivity.launch(context, adModel.position_url, adModel.getPosition_text());
     }
   }
 

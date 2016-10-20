@@ -13,11 +13,8 @@ import android.view.WindowManager;
 
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
-import com.hongyu.reward.interfaces.GetLocationListener;
-import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.manager.ScreenManager;
-import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.ui.adapter.MainPagerAdapter;
 import com.hongyu.reward.utils.DoubleClickUtil;
 import com.hongyu.reward.utils.T;
@@ -29,15 +26,12 @@ import com.umeng.message.PushAgent;
 /**
  * Created by zhangyang131 on 16/8/29.
  */
-public class TabHostActivity extends FragmentActivity
-    implements
-      LogoutListener,
-      GetLocationListener {
+public class TabHostActivity extends FragmentActivity {
 
   private ViewPager mViewPager;
   private MainPagerAdapter mPagerAdapter;
   private BottomBar mBottomBar;
-//  private DrawerLayout mDrawerLayout;
+  // private DrawerLayout mDrawerLayout;
 
   public static void launch(Context context) {
     Intent intent = new Intent(context, TabHostActivity.class);
@@ -54,16 +48,16 @@ public class TabHostActivity extends FragmentActivity
     initWindow();
     setContentView(R.layout.activity_classic);
     initView();
-    getLocation();
+    setView();
     ScreenManager.getScreenManager().pushActivity(this);
   }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-    if(getParentActivityIntent()!=null){
+    if (getParentActivityIntent() != null) {
       Bundle b = getParentActivityIntent().getExtras();
-      if(b != null) {
+      if (b != null) {
         Log.e("push", "TabHostActivity onNewIntent" + b.getString("aaa"));
       }
     }
@@ -96,41 +90,33 @@ public class TabHostActivity extends FragmentActivity
         mViewPager.setCurrentItem(position, false);
       }
     });
-//    initDrawerView();
+    // initDrawerView();
   }
 
-  private void getLocation() {
-    LocationManager.getInstance().start();
-    if (LocationManager.getInstance().getLocalLocationInfo() != null) { // 已经获取到位置信息
-      setView();
-    } else { // 没有获取到位置信息
-      LocationManager.getInstance().addLocationListener(this);
-    }
-  }
 
   private void setView() {
     mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
     mViewPager.setAdapter(mPagerAdapter);
   }
 
-//  private void initDrawerView() {
-//    mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
-//    mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
-//      @Override
-//      public void onDrawerSlide(View drawerView, float slideOffset) {}
-//
-//      @Override
-//      public void onDrawerOpened(View drawerView) {}
-//
-//      @Override
-//      public void onDrawerClosed(View drawerView) {}
-//
-//      @Override
-//      public void onDrawerStateChanged(int newState) {
-//
-//      }
-//    });
-//  }
+  // private void initDrawerView() {
+  // mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
+  // mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+  // @Override
+  // public void onDrawerSlide(View drawerView, float slideOffset) {}
+  //
+  // @Override
+  // public void onDrawerOpened(View drawerView) {}
+  //
+  // @Override
+  // public void onDrawerClosed(View drawerView) {}
+  //
+  // @Override
+  // public void onDrawerStateChanged(int newState) {
+  //
+  // }
+  // });
+  // }
 
   @TargetApi(19)
   private void initWindow() {
@@ -147,10 +133,7 @@ public class TabHostActivity extends FragmentActivity
     mViewPager.setCurrentItem(index, false);
   }
 
-  @Override
-  public void onLogout() {
-    // TODO
-  }
+
 
   @Override
   protected void onDestroy() {
@@ -160,17 +143,6 @@ public class TabHostActivity extends FragmentActivity
       LocationManager.getInstance().stop();
     }
   }
-
-
-
-  @Override
-  public void onSuccess(AppLocation locationInfo) {
-    LocationManager.getInstance().removeLocationListener(this);
-    setView();
-  }
-
-  @Override
-  public void onFailed(String msg) {}
 
 
   @Override

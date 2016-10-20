@@ -61,6 +61,15 @@
                 <category android:name="activity_category" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".demos.lc.LCActivity"
+            android:label="理财"
+            android:theme="@style/AppTheme.Detail">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="activity_category" />
+            </intent-filter>
+        </activity>
 
         <!-- others -->
         <activity

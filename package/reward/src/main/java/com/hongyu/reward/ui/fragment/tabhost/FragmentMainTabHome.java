@@ -106,7 +106,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     initRightBtn();
   }
 
-  private void initRightBtn(){
+  private void initRightBtn() {
     rightBtn = new ImageView(getActivity());
     rightBtn.setImageResource(R.mipmap.xf);
     rightBtn.setOnClickListener(new View.OnClickListener() {
@@ -129,13 +129,15 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
             CityPickerActivity.REQUEST_CODE_PICK_CITY);
       }
     });
-    String currentCity = LocationManager.getLocationCity();
-    if (TextUtils.isEmpty(currentCity)) { // 没有定位过城市
-      final AppLocation location = LocationManager.getInstance().getLocalLocationInfo();
+
+    final AppLocation location = LocationManager.getInstance().getLocation();
+    final String savedCity = LocationManager.getSavedCity();
+    if (TextUtils.isEmpty(savedCity)) { // 没有定位过城市
       if (location != null && !TextUtils.isEmpty(location.getCity())) {
         leftBtn.setText(location.getCity());
         LocationManager.saveCity(location.getCity());
       } else {
+        leftBtn.setText("定位中");
         LocationManager.getInstance().addLocationListener(new GetLocationListener() {
           @Override
           public void onSuccess(AppLocation locationInfo) {
@@ -152,48 +154,57 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
         LocationManager.getInstance().start();
       }
     } else { // 以前定位过城市
-      leftBtn.setText(currentCity);
-      LocationManager.getInstance().addLocationListener(new GetLocationListener() {
-        @Override
-        public void onSuccess(final AppLocation locationInfo) {
-          if (!isAdded()) {
-            return;
+      leftBtn.setText(savedCity);
+      if (location == null) {
+        LocationManager.getInstance().addLocationListener(new GetLocationListener() {
+          @Override
+          public void onSuccess(final AppLocation newLocation) {
+            if (!isAdded()) {
+              return;
+            }
+            LocationManager.getInstance().removeLocationListener(this);
+            if (!newLocation.getCity().equals(savedCity)) { // 获取的城市和当前城市不相同
+              showCityChangedDialog(newLocation);
+            }
           }
-          LocationManager.getInstance().removeLocationListener(this);
-          if (!locationInfo.getCity().equals(LocationManager.getLocationCity())) { // 获取的城市和当前城市不相同
-            CommonTwoBtnDialogFragment dialog = new CommonTwoBtnDialogFragment();
-            Spanny sp = new Spanny("定位到您所在城市:\n");
-            sp.append(locationInfo.getCity(),
-                new ForegroundColorSpan(getResources().getColor(R.color.colorPrimaryDark)));
-            dialog.setContent(sp);
-            dialog.setLeft(getString(R.string.dialog_cancel),
-                new CommonTwoBtnDialogFragment.OnClickListener() {
-                  @Override
-                  public void onClick(Dialog dialog) {
-                    dialog.dismiss();
-                  }
-                });
-            dialog.setRight(getString(R.string.city_changed),
-                new CommonTwoBtnDialogFragment.OnClickListener() {
-                  @Override
-                  public void onClick(Dialog dialog) {
-                    dialog.dismiss();
-                    leftBtn.setText(locationInfo.getCity());
-                    LocationManager.saveCity(locationInfo.getCity());
-                  }
-                });
-            dialog.show(getChildFragmentManager(), FragmentMainTabHome.class.getSimpleName());
-          }
-        }
 
-        @Override
-        public void onFailed(String msg) {
-
+          @Override
+          public void onFailed(String msg) {}
+        });
+        LocationManager.getInstance().start();
+      } else {
+        if (!location.getCity().equals(savedCity)) { // 获取的城市和当前城市不相同
+          showCityChangedDialog(location);
         }
-      });
-      LocationManager.getInstance().start();
+      }
+
     }
     left_container.addView(leftBtn);
+  }
+
+  private void showCityChangedDialog(final AppLocation locationInfo) {
+    CommonTwoBtnDialogFragment dialog = new CommonTwoBtnDialogFragment();
+    Spanny sp = new Spanny("定位到您所在城市:\n");
+    sp.append(locationInfo.getCity(),
+        new ForegroundColorSpan(getResources().getColor(R.color.colorPrimaryDark)));
+    dialog.setContent(sp);
+    dialog.setLeft(getString(R.string.dialog_cancel),
+        new CommonTwoBtnDialogFragment.OnClickListener() {
+          @Override
+          public void onClick(Dialog dialog) {
+            dialog.dismiss();
+          }
+        });
+    dialog.setRight(getString(R.string.city_changed),
+        new CommonTwoBtnDialogFragment.OnClickListener() {
+          @Override
+          public void onClick(Dialog dialog) {
+            dialog.dismiss();
+            leftBtn.setText(locationInfo.getCity());
+            LocationManager.saveCity(locationInfo.getCity());
+          }
+        });
+    dialog.show(getChildFragmentManager(), FragmentMainTabHome.class.getSimpleName());
   }
 
 
@@ -233,7 +244,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
       return;
     }
     if (mNoticeView != null) {
-      if (prog == null ||  TextUtils.isEmpty(prog.getOrderId())) {
+      if (prog == null || TextUtils.isEmpty(prog.getOrderId())) {
         mNoticeView.hide();
       } else {
         mNoticeView.show(prog);
@@ -249,7 +260,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
       String selectCity = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
       if (!TextUtils.isEmpty(selectCity)) {
         leftBtn.setText(selectCity);
-          LocationManager.saveCity(selectCity);
+        LocationManager.saveCity(selectCity);
       }
     }
   }
