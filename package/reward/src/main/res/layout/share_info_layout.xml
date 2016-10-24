@@ -7,14 +7,29 @@
     android:paddingBottom="15dp"
     android:paddingTop="10dp">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="快来向朋友们炫耀一下吧"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:text="@string/dialog_cancel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="5dp"
+            android:text="快来向朋友们炫耀一下吧"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,6 +56,7 @@
             android:layout_toLeftOf="@+id/tv2"
             android:layout_toRightOf="@id/tv1"
             android:background="@drawable/cell_round_gray_edit_1dp_stroke"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
 
@@ -79,6 +95,7 @@
             android:layout_toLeftOf="@+id/tv4"
             android:layout_toRightOf="@id/tv3"
             android:background="@drawable/cell_round_gray_edit_1dp_stroke"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
 
@@ -90,4 +107,14 @@
             android:layout_centerVertical="true"
             android:text="分钟!" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/ok"
+        style="@style/App.Comm.Button"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="分享"
+        android:textSize="@dimen/h2" />
+
 </LinearLayout>

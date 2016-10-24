@@ -1,6 +1,7 @@
 package com.hongyu.reward.utils;
 
-import com.fw.zycoder.customtoast.SuperToast;
+import android.widget.Toast;
+
 import com.fw.zycoder.utils.GlobalConfig;
 
 /**
@@ -8,11 +9,12 @@ import com.fw.zycoder.utils.GlobalConfig;
  */
 public class T {
   public static void show(CharSequence text) {
-    SuperToast.cancelAllSuperToasts();
-    SuperToast st = SuperToast
-        .create(GlobalConfig.getAppContext(), text, SuperToast.Duration.MEDIUM);
-    st.setBackground(SuperToast.Background.ORANGE);
-    st.show();
+//    SuperToast.cancelAllSuperToasts();
+//    SuperToast st = SuperToast
+//        .create(GlobalConfig.getAppContext(), text, SuperToast.Duration.MEDIUM);
+//    st.setBackground(SuperToast.Background.ORANGE);
+//    st.show();
+    Toast.makeText(GlobalConfig.getAppContext(), text, Toast.LENGTH_SHORT).show();
   }
 
   public static void show(int textResourceId) {

@@ -67,7 +67,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -95,11 +95,11 @@
 
             <View
                 style="@style/divider_theme_gray"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="6dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:background="@drawable/cell_round_click_no"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -130,10 +130,12 @@
                     tools:text="2人" />
 
             </RelativeLayout>
-
+            <View
+                style="@style/divider_theme_gray"
+                />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:background="@drawable/cell_round_click_no"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -169,8 +171,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/cell_white_round_all">
 
                 <TextView
@@ -187,6 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:paddingTop="-3dp"
                     android:text="10:00"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="60sp" />
@@ -216,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="14dp"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp">
 

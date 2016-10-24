@@ -48,4 +48,5 @@
     <dimen name="side_letter_bar_letter_size">12sp</dimen>
     <dimen name="side_letter_bar_width">36dp</dimen>
     <dimen name="city_text_size">16sp</dimen>
+    <dimen name="banner_tip_high">36dp</dimen>
 </resources>

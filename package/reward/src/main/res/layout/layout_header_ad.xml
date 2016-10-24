@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/tip"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/banner_tip_high"
         android:layout_alignParentBottom="true"
         android:background="#66000000"
         android:textColor="#dddddd"

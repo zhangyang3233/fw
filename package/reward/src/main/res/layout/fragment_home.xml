@@ -21,13 +21,11 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:background="@color/white"
-        android:paddingBottom="10dp"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="160dp">
 
             <com.hongyu.reward.widget.BannerView
                 android:id="@+id/banner_layout"
@@ -38,98 +36,129 @@
                 android:id="@+id/notice_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:visibility="gone" />
 
 
         </RelativeLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/reward_publish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#FF6666"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/icon_publish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:src="@mipmap/home_icon_reward_publish" />
+
+                <TextView
+                    android:id="@+id/icon_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/icon_publish"
+                    android:text="发布悬赏"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_h0" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reward_get"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#FFD300"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/icon_receive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:src="@mipmap/home_icon_reward_receive" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/icon_receive"
+                    android:text="领取悬赏"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_h0" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/reward_publish"
+            android:id="@+id/list_top"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#FF6666"
-            android:padding="10dp"
-            android:clickable="true">
-
-            <ImageView
-                android:id="@+id/icon_publish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/home_icon_reward_publish" />
-
-            <TextView
-                android:id="@+id/icon_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@id/icon_publish"
-                android:layout_marginTop="5dp"
-                android:text="发布悬赏"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_h0" />
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:background="#eeeeee"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/icon_publish"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:text="@string/show_tip_publish"/>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="选择悬赏餐厅" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:paddingRight="15dp"
+                android:text="更多>>" />
+
+            <View style="@style/divider_theme_gray" />
+
+            <View
+                style="@style/divider_theme_gray"
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/reward_get"
+        <com.handmark.pulltorefresh.library.RefreshableListView
+            android:id="@+id/common_fragment_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="#FFD300"
-            android:clickable="true"
-            android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/icon_receive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/home_icon_reward_receive" />
+            android:background="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:orientation="vertical" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="领取悬赏"
-                android:layout_toRightOf="@id/icon_receive"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_h0" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/icon_receive"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:text="@string/show_tip_receive"/>
-        </RelativeLayout>
     </LinearLayout>
-
 
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="@mipmap/shadow_top" />
+        android:background="@mipmap/shadow_top"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -53,8 +53,6 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   private FiveStarSingle mScoreView;
   private View mReceiveBtn;
 
-  private OrderModel order;
-
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -101,7 +99,6 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   }
 
   private void refreshData(OrderModel order) {
-    this.order = order;
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(order.getNickname());
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");

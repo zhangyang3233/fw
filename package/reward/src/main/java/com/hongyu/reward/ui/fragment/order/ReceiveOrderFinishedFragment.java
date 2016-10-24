@@ -27,10 +27,11 @@ import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.StatusUtil;
 import com.hongyu.reward.utils.T;
-import com.hongyu.reward.utils.WXUtil;
 import com.hongyu.reward.widget.CommentTagView;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
+import com.hongyu.reward.wxapi.WXEntryActivity;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -84,12 +85,14 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   private CommentTagModel tags;
   int mSelectScore;
   ArrayList<String> tagsStr;
+  IWXAPI api;
 
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     order_id = getArguments().getString(PublishFinishedCommentActivity.ORDER_ID);
+    api = WXEntryActivity.registWX(getActivity());
   }
 
   @Override
@@ -322,7 +325,6 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
         } else {
           showShareDialog();
         }
-
         break;
     }
   }
@@ -337,13 +339,10 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   }
 
   private void share(int which) {
-    if (which == 1) {
-      T.show("分享到微信");
-      WXUtil.getInstance().receiveShare(shop_name.getText().toString());
-    } else if (which == 2) {
-      T.show("分享到朋友圈");
-    } else if (which == 3) {
-      T.show("分享到QQ");
+    if (which == 1) {//分享到微信
+      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 1);
+    } else if (which == 2) { //分享到朋友圈
+      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2);
     }
   }
 
@@ -423,5 +422,9 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
     builder.build().submit();
   }
 
-
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    api = null;
+  }
 }

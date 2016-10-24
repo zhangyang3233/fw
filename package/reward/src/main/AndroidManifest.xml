@@ -206,6 +206,13 @@
             android:name=".ui.activity.BillActivity"
             android:theme="@style/AppTheme.Detail"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name="com.hongyu.reward.wxapi.WXEntryActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true">
+        </activity>
 
         <!-- 核心服务类 -->
         <service
@@ -238,11 +245,7 @@
             android:name="UMENG_CHANNEL"
             android:value="Unknown"></meta-data>
 
-        <activity
-            android:name="wxapi.WXEntryActivity"
-            android:label="@string/app_name_reward"
-            android:exported="true">
-        </activity>
+
     </application>
 
 

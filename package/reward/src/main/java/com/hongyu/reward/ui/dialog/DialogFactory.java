@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.fw.zycoder.utils.DisplayUtil;
@@ -130,6 +131,61 @@ public class DialogFactory {
     });
   }
 
+
+  /**
+   * 设置悬赏金额
+   *
+   * @param context
+   * @param listen
+   */
+  public static void showShareInputView(Context context, final OnWhichBackStringListener listen) {
+    LayoutInflater factory = LayoutInflater.from(context);
+    final View view = factory.inflate(R.layout.share_info_layout, null);
+
+    final Dialog builder = new AlertDialog.Builder(context, R.style.DialogStyle).create();
+    builder.show();
+    builder.setContentView(view);
+
+    builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+    Window window = builder.getWindow();
+    window.setGravity(Gravity.BOTTOM);
+    window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    window.setWindowAnimations(R.style.dialog_sheet_window_anim);
+
+    final EditText edit_1 = (EditText) view.findViewById(R.id.edit_1);
+    final EditText edit_2 = (EditText) view.findViewById(R.id.edit_2);
+    Button ok = (Button) view.findViewById(R.id.ok);
+    View cancel = view.findViewById(R.id.cancel);
+
+    WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+    lp.width = DisplayUtil.getScreenWidth(context);
+    builder.getWindow().setAttributes(lp);
+
+    InputMethodManager imm =
+            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+    ok.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String num1 = edit_1.getText().toString().trim();
+        String num2 = edit_2.getText().toString().trim();
+        builder.dismiss();
+        listen.onConfirmClick(new String[] {num1, num2});
+      }
+    });
+
+    cancel.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+      }
+    });
+  }
+
   /**
    * 输入排号信息
    *
@@ -221,7 +277,7 @@ public class DialogFactory {
 
     View wechat = view.findViewById(R.id.wechat);
     View wechats = view.findViewById(R.id.wechats);
-    View qq = view.findViewById(R.id.qq);
+//    View qq = view.findViewById(R.id.qq);
 
     WindowManager windowManager = builder.getWindow().getWindowManager();
     Display display = windowManager.getDefaultDisplay();
@@ -245,13 +301,13 @@ public class DialogFactory {
       }
     });
 
-    qq.setOnClickListener(new android.view.View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        builder.dismiss();
-        listen.onConfirmClick(3);
-      }
-    });
+//    qq.setOnClickListener(new android.view.View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        builder.dismiss();
+//        listen.onConfirmClick(3);
+//      }
+//    });
 
   }
 

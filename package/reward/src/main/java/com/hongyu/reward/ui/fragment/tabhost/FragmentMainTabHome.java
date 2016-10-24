@@ -12,18 +12,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
+import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.Spanny;
 import com.hongyu.reward.R;
-import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.appbase.AsyncLoadListFragment;
+import com.hongyu.reward.appbase.adapter.DataAdapter;
+import com.hongyu.reward.appbase.fetcher.BaseFetcher;
+import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.interfaces.CityChangedListener;
 import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.AdListModel;
 import com.hongyu.reward.model.AppLocation;
+import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.GetAdListRequestBuilder;
+import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
 import com.hongyu.reward.ui.activity.TabHostActivity;
 import com.hongyu.reward.ui.activity.personal.MessageListActivity;
+import com.hongyu.reward.ui.adapter.ShopListAdapter;
 import com.hongyu.reward.ui.city.CityPickerActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
@@ -32,6 +40,9 @@ import com.hongyu.reward.widget.NoticeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * fragment - home - 主页
@@ -43,27 +54,100 @@ import org.greenrobot.eventbus.Subscribe;
  * @author centos
  * @since 2016-7-18 上午6:38:00
  */
-public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClickListener {
+public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.ShopInfo>
+    implements
+      View.OnClickListener {
   private BannerView mBannerView;
   private View mRewardPublish;
   private NoticeView mNoticeView;
   private LinearLayout left_container;
   private LinearLayout right_container;
   private View mRewardget;
+  private View list_top;
   private TextView title;
   private TextView leftBtn;
   private ImageView rightBtn;
+  private CityChangedListener cityChangedListener;
 
   @Override
-  protected void onStartLoading() {}
+  protected int getPageSize() {
+    return 3;
+  }
+
+  @Override
+  protected boolean needLoadMore() {
+    return false;
+  }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    cityChangedListener = new CityChangedListener() {
+      @Override
+      public void onCityChanged(String oldCity, String newCity) {
+        onPullDownToRefresh();
+      }
+    };
+    LocationManager.getInstance().addCitiChangedListener(cityChangedListener);
+  }
+
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    LocationManager.getInstance().removeCityChangedListener(cityChangedListener);
+  }
+
+  @Override
+  protected BaseFetcher<ShopListMode.ShopInfo> newFetcher() {
+    return new BaseFetcher<ShopListMode.ShopInfo>() {
+      @Override
+      protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
+        AppLocation location = LocationManager.getInstance().getLocation();
+        if (location == null) {
+          return null;
+        }
+        String locationStr = location.toString();
+        String city = LocationManager.getSavedCity();
+        if (city.equals(location.getCity())) { // 当前城市一致,传坐标
+          city = null;
+        } else { // 当前城市和选择的城市不一致, 传城市
+          locationStr = null;
+        }
+        ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page),
+            locationStr, city, null);
+        if (listMode == null) {
+          return null;
+        } else if (CollectionUtils.isEmpty(listMode.getData())) {
+          return new ArrayList();
+        } else {
+          return listMode.getData();
+        }
+      }
+    };
+  }
+
+  @Override
+  protected DataAdapter<ShopListMode.ShopInfo> newContentAdapter() {
+    ShopListAdapter adapter = new ShopListAdapter();
+    adapter.setmOnItemClickListener(new ShopListAdapter.OnItemClickListener() {
+      @Override
+      public void itemOnClick(ShopListMode.ShopInfo mode) {
+        RewardPublishInfoActivity.launch(getActivity(), mode);
+      }
+    });
+    return adapter;
+  }
 
   @Override
   protected void loadingData() {
+    super.loadingData();
     initAd();
   }
 
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
+    super.onInflated(contentView, savedInstanceState);
     initView();
   }
 
@@ -97,8 +181,10 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
     left_container = (LinearLayout) mContentView.findViewById(R.id.left_container);
     right_container = (LinearLayout) mContentView.findViewById(R.id.right_container);
     title = (TextView) mContentView.findViewById(R.id.title);
+    list_top = mContentView.findViewById(R.id.list_top);
     mRewardPublish.setOnClickListener(this);
     mRewardget.setOnClickListener(this);
+    list_top.setOnClickListener(this);
     mNoticeView = (NoticeView) mContentView.findViewById(R.id.notice_view);
     title.setText(R.string.main_tag_text_home);
     RefreshOrderManager.getStatusOrder();
@@ -212,6 +298,7 @@ public class FragmentMainTabHome extends BaseLoadFragment implements View.OnClic
   public void onClick(View v) {
     switch (v.getId()) {
       case R.id.reward_publish:
+      case R.id.list_top:
         switchTabTo(1);
         break;
       case R.id.reward_get:

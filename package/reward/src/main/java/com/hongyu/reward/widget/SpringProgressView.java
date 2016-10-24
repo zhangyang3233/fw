@@ -134,7 +134,7 @@ public class SpringProgressView extends View {
       mWidth = 0;
     }
     if (heightSpecMode == MeasureSpec.AT_MOST || heightSpecMode == MeasureSpec.UNSPECIFIED) {
-      mHeight = dipToPx(15);
+      mHeight = dipToPx(13);
     } else {
       mHeight = heightSpecSize;
     }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,10 +28,11 @@ import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.StatusUtil;
 import com.hongyu.reward.utils.T;
-import com.hongyu.reward.utils.WXUtil;
 import com.hongyu.reward.widget.CommentTagView;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
+import com.hongyu.reward.wxapi.WXEntryActivity;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -86,15 +86,13 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
   private CommentTagModel tags;
   int mSelectScore;
   ArrayList<String> tagsStr;
-
-  View importPanel;
-  EditText edit_1;
-  EditText edit_2;
+  IWXAPI api;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     order_id = getArguments().getString(PublishFinishedCommentActivity.ORDER_ID);
+    api = WXEntryActivity.registWX(getActivity());
   }
 
   @Override
@@ -136,7 +134,6 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
             tip_content.setText("您的匿名评价");
             mBtnEval.setText("分享");
             tip_bottom.setText("分享成功即可获得1000积分奖励，积分未来可抵现悬赏！");
-            showShareLayout();
           } else {
             showEval();
           }
@@ -148,14 +145,6 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
     buider2.build().submit();
 
 
-  }
-
-  private void showShareLayout() {
-    if (importPanel == null) {
-      importPanel = ((ViewStub) mContentView.findViewById(R.id.stub_import)).inflate();
-      edit_1 = (EditText) importPanel.findViewById(R.id.edit_1);
-      edit_2 = (EditText) importPanel.findViewById(R.id.edit_2);
-    }
   }
 
   private void showEval() {
@@ -336,31 +325,39 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
         if (!hasEval) {
           evaluate();
         } else {
-          showShareDialog();
+          showShareDialog1();
         }
-
         break;
     }
   }
 
-  private void showShareDialog() {
+  private void showShareDialog1() {
+    DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener() {
+      @Override
+      public void onConfirmClick(String[] content) {
+        showShareDialog2(content[0], content[1]);
+      }
+    });
+
+  }
+
+  private void showShareDialog2(final String text1, final String text2) {
     DialogFactory.showShareView(getActivity(), new DialogFactory.OnWhichListener() {
       @Override
       public void onConfirmClick(int which) {
-        share(which);
+        share(which, text1, text2);
       }
     });
   }
 
-  private void share(int which) {
-    if (which == 1) {
-      T.show("分享到微信");
-      WXUtil.getInstance().publishShare(order_id, edit_1.getText().toString().trim(),
-          edit_2.getText().toString().trim());
-    } else if (which == 2) {
-      T.show("分享到朋友圈");
-    } else if (which == 3) {
-      T.show("分享到QQ");
+  private void share(int which, String text1, String text2) {
+    if (which == 1) { // 分享到微信
+      T.show("");
+      WXEntryActivity.publishShare(api, order_id, text1,
+              text2, 1);
+    } else if (which == 2) { // 分享到朋友圈
+      WXEntryActivity.publishShare(api, order_id, text1,
+              text2, 2);
     }
   }
 
@@ -440,5 +437,10 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
     builder.build().submit();
   }
 
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    api = null;
+  }
 
 }

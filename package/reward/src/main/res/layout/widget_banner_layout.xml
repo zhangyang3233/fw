@@ -11,7 +11,7 @@
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/banner_tip_high"
         android:layout_marginRight="8dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />

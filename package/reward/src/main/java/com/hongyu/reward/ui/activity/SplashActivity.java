@@ -15,7 +15,8 @@ import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 import com.hongyu.reward.utils.T;
-import com.hongyu.reward.utils.WXUtil;
+import com.hongyu.reward.wxapi.WXEntryActivity;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 
 /**
  * Created by zhangyang131 on 16/7/22.
@@ -29,15 +30,15 @@ public class SplashActivity extends BaseSlideActivity {
     super.onCreate(savedInstanceState);
     delayedLaunch();
     AppInitManager.getInstance().init(null);
-    LocationManager.getInstance().init(this);
+    LocationManager.getInstance().init(getApplicationContext());
     LocationManager.getInstance().start();
     initWX();
   }
 
   private void initWX() {
-    WXUtil.getInstance().registWX(getApplicationContext());
+    IWXAPI api = WXEntryActivity.registWX(this);
+    api.registerApp(Constants.WX.AppID);
   }
-
 
   private void delayedLaunch() {
     MainThreadPostUtils.postDelayed(new Runnable() {
