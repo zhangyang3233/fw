@@ -8,7 +8,7 @@ public class ReceiveModel extends BaseModel {
   public String receive_id;
   // 领赏人id 321
   public String receive_uid;
-  public String head_img;
+  public String img;
   // 订单号 100011
   public String order_id;
   // 排号 10
@@ -27,12 +27,12 @@ public class ReceiveModel extends BaseModel {
   public String good;
   public float score = 0;
 
-  public String getHead_img() {
-    return head_img;
+  public String getImg() {
+    return img;
   }
 
-  public void setHead_img(String head_img) {
-    this.head_img = head_img;
+  public void setImg(String img) {
+    this.img = img;
   }
 
   public String getReceive_id() {

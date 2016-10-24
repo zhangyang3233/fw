@@ -10,22 +10,16 @@ import com.hongyu.reward.model.BaseModel;
 public class CommentRequsetBuilder extends BaseHttpRequestBuilder<BaseModel> {
   private static final String ORDER_ID = "order_id";
   private static final String SCORE = "score";
-  private static final String TAG = "tag";
-  private static final String CONTENT = "content";
+//  private static final String TAG = "tag";
+//  private static final String CONTENT = "content";
   private String order_id;
   private String score;
-  private String tag;
-  private String content;
+//  private String tag;
+//  private String content;
 
-  public CommentRequsetBuilder(String order_id, String score, String tag, String content) {
+  public CommentRequsetBuilder(String order_id, String score) {
     this.order_id = order_id;
     this.score = score;
-    if(tag == null){
-      this.tag = "";
-    }else{
-      this.tag = tag;
-    }
-    this.content = content;
   }
 
   @Override
@@ -43,7 +37,7 @@ public class CommentRequsetBuilder extends BaseHttpRequestBuilder<BaseModel> {
     super.setParams(params);
     checkNullAndSet(params, ORDER_ID, order_id);
     checkNullAndSet(params, SCORE, score);
-    params.put(TAG, tag);
-    checkNullAndSet(params, CONTENT, content);
+//    params.put(TAG, tag);
+//    checkNullAndSet(params, CONTENT, content);
   }
 }

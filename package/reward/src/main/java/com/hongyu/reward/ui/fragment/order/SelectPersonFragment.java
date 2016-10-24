@@ -120,7 +120,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
       mTvName.setText(receive.getNickname());
       mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
       mScoreView.setData(receive.getGcr(), false);
-      mIvHeader.loadNetworkImageByUrl(receive.getHead_img());
+      mIvHeader.loadNetworkImageByUrl(receive.getImg());
       mTvTableNum.setText(String.valueOf(receive.getRank_num()));
       mTvTableWait.setText(String.valueOf(receive.getWait_num()));
       mTvTablePre.setText(String.valueOf(receive.getTable_num()));

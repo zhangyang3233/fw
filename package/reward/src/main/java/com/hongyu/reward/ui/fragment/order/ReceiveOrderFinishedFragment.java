@@ -4,42 +4,30 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
-import com.fw.zycoder.utils.CollectionUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
-import com.hongyu.reward.model.CommentTagModel;
 import com.hongyu.reward.model.OrderCommentModel;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.request.CommentRequsetBuilder;
-import com.hongyu.reward.request.GetCommentTagRequestBuilder;
 import com.hongyu.reward.request.GetOrderCommentRequestBuider;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.StatusUtil;
 import com.hongyu.reward.utils.T;
-import com.hongyu.reward.widget.CommentTagView;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 import com.hongyu.reward.wxapi.WXEntryActivity;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Created by zhangyang131 on 16/10/3.
@@ -72,19 +60,13 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   private ImageView mIvStar_3;
   private ImageView mIvStar_2;
   private ImageView mIvStar_1;
-  private TagFlowLayout flow_layout;
-  TagAdapter<CommentTagModel.CommentTag> adapter;
-  TagAdapter<String> hasEvalAdapter;
   private TextView mTvStar;
+  private TextView tip_content;
   private View starCommentLayout;
 
-  private EditText mEtContent;
-  private TextView content_tv;
-  private TextView tip_content;
+  private TextView cost;
   private Button mBtnEval;
-  private CommentTagModel tags;
   int mSelectScore;
-  ArrayList<String> tagsStr;
   IWXAPI api;
 
 
@@ -125,15 +107,9 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
         if (ResponesUtil.checkModelCodeOK(data)) {
           if (data.getData() != null && !TextUtils.isEmpty(data.getData().getScore())) { // 评论过
             hasEval = true;
-            tagsStr = data.getData().getTag();
             showStar(Integer.parseInt(data.getData().getScore()));
-            content_tv.setVisibility(View.VISIBLE);
-            content_tv.setText(data.getData().getContent());
-            mEtContent.setVisibility(View.GONE);
-            tip_content.setText("您的匿名评价");
             mBtnEval.setText("分享");
             tip_bottom.setText("分享成功即可获得1000积分奖励，积分未来可抵现悬赏！");
-          } else {
             showEval();
           }
         } else {
@@ -147,29 +123,16 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   }
 
   private void showEval() {
-    showLoadingView();
-    GetCommentTagRequestBuilder builder1 = new GetCommentTagRequestBuilder();
-    builder1.setDataCallback(new DataCallback<JSONObject>() {
-      @Override
-      public void onDataCallback(JSONObject data) {
-        if (!isAdded()) {
-          return;
-        }
-        dismissLoadingView();
-        if (ResponesUtil.checkModelCodeOK(data)) {
-          JSONObject evaluate = data.optJSONObject("data");
-          tags = CommentTagModel.parse(evaluate);
-          freshTags();
-        } else {
-          T.show(ResponesUtil.getErrorMsg(data));
-        }
-      }
-    });
-    builder1.build().submit();
+    if (hasEval) { // 没有评论过
+      setTitle("订单详情");
+      tip_content.setText("您的匿名评价");
+    }
   }
 
   private void refreshData(OrderModel order) {
     if (order != null) {
+      cost.setText("￥" + order.getPrice());
+      header_icon.loadNetworkImageByUrl(order.getHead_img(), R.mipmap.defalut_head_img);
       shop_name.setText(order.getShop_name());
       time.setText(order.getDate());
       status.setText(StatusUtil.getMsgByStatus(order.getStatus()));
@@ -180,53 +143,14 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
       } else {
         btn_appointment.setText("预约");
       }
-      name.setText(order.getNickname());
-      gcr.setText(order.getGcr());
+      name.setText("悬赏人：" + order.getNickname());
+      gcr.setText("好评率：" + order.getGcr());
       order_num.setText("成交: " + order.getOrder_num() + "单");
-      score.setData(order.getGcr(), true);
+      score.setData(order.getGcr(), false);
     }
 
   }
 
-  private void freshTags() {
-    if (!hasEval) { // 没有评论过
-      if (tags == null) {
-        return;
-      }
-      switch (mSelectScore) {
-        case 1:
-          adapter.setTagDatas(tags.getC1());
-          break;
-        case 2:
-          adapter.setTagDatas(tags.getC2());
-          break;
-        case 3:
-          adapter.setTagDatas(tags.getC3());
-          break;
-        case 4:
-          adapter.setTagDatas(tags.getC4());
-          break;
-        case 5:
-          adapter.setTagDatas(tags.getC5());
-          break;
-      }
-      adapter.notifyDataChanged();
-    } else { // 评论过
-      setTitle("订单详情");
-      hasEvalAdapter = new TagAdapter<String>() {
-        @Override
-        public View getView(FlowLayout parent, int position, String tag) {
-          CommentTagView tagView = CommentTagView.newInstance(getActivity());
-          tagView.setText(tag);
-          return tagView;
-        }
-      };
-      hasEvalAdapter.setTagDatas(tagsStr);
-      flow_layout.setAdapter(hasEvalAdapter);
-      flow_layout.setOnSelectListener(null);
-      flow_layout.setMaxSelectCount(0);
-    }
-  }
 
 
   @Override
@@ -255,27 +179,18 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
 
 
     mTvStar = (TextView) mContentView.findViewById(R.id.star);
+    tip_content = (TextView) mContentView.findViewById(R.id.tip_content);
+    tip_content.setText("请给悬赏人打分");
     starCommentLayout = mContentView.findViewById(R.id.comment_layout);
     mIvStar_1 = (ImageView) starCommentLayout.findViewById(R.id.star1);
     mIvStar_2 = (ImageView) starCommentLayout.findViewById(R.id.star2);
     mIvStar_3 = (ImageView) starCommentLayout.findViewById(R.id.star3);
     mIvStar_4 = (ImageView) starCommentLayout.findViewById(R.id.star4);
     mIvStar_5 = (ImageView) starCommentLayout.findViewById(R.id.star5);
-    flow_layout = (TagFlowLayout) mContentView.findViewById(R.id.flow_layout);
-    adapter = new TagAdapter<CommentTagModel.CommentTag>() {
-      @Override
-      public View getView(FlowLayout parent, int position,
-          CommentTagModel.CommentTag tagModel) {
-        CommentTagView tagView = CommentTagView.newInstance(getActivity());
-        tagView.setText(tagModel.getTag());
-        return tagView;
-      }
-    };
-    flow_layout.setAdapter(adapter);
-    mEtContent = (EditText) mContentView.findViewById(R.id.content);
-    content_tv = (TextView) mContentView.findViewById(R.id.content_tv);
-    tip_content = (TextView) mContentView.findViewById(R.id.tip_content);
     mBtnEval = (Button) mContentView.findViewById(R.id.evaluate);
+    ViewStub stub = (ViewStub) mContentView.findViewById(R.id.money_title_stub);
+    cost = (TextView) stub.inflate().findViewById(R.id.cost);
+
     mBtnEval.setText("评价");
     initClickListener();
     showStar(5);
@@ -288,7 +203,6 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
     mIvStar_3.setOnClickListener(this);
     mIvStar_4.setOnClickListener(this);
     mIvStar_5.setOnClickListener(this);
-    mEtContent.setOnClickListener(this);
   }
 
   @Override
@@ -339,9 +253,9 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   }
 
   private void share(int which) {
-    if (which == 1) {//分享到微信
+    if (which == 1) {// 分享到微信
       WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 1);
-    } else if (which == 2) { //分享到朋友圈
+    } else if (which == 2) { // 分享到朋友圈
       WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2);
     }
   }
@@ -386,25 +300,13 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
         break;
     }
     mTvStar.setText(String.valueOf(mSelectScore));
-    freshTags();
   }
 
 
   private void evaluate() {
-    StringBuilder tagstr = new StringBuilder();
-    Set<Integer> tagIndex = flow_layout.getSelectedList();
-    if (!CollectionUtils.isEmpty(tagIndex)) {
-      for (int a : tagIndex) {
-        if (!TextUtils.isEmpty(tagstr)) {
-          tagstr.append(",");
-        }
-        tagstr.append(String.valueOf(adapter.getItem(a).getId()));
-      }
-    }
     String score = mTvStar.getText().toString().trim();
-    String content = mEtContent.getText().toString().trim();
     CommentRequsetBuilder builder =
-        new CommentRequsetBuilder(order_id, score, tagstr.toString(), content);
+        new CommentRequsetBuilder(order_id, score);
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
@@ -412,7 +314,7 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
-          T.show("评论成功");
+          T.show("打分成功");
           requestLoad();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
