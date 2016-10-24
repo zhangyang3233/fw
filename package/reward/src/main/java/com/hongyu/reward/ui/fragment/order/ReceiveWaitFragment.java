@@ -35,6 +35,7 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     // ui
     private NetImageView mIvShop;
     private TextView mTvShopName;
+    private TextView mAddress;
     private TextView mTvName;
     private TextView mTvOrderNum;
     private TextView mTvGcr;
@@ -79,6 +80,7 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     private void refreshUI(OrderInfoModel data) {
         OrderModel order = data.getData().getOrder();
         mTvShopName.setText(order.getShop_name());
+        mAddress.setText(order.getShop_address());
         mIvShop.loadNetworkImageByUrl(order.getImg());
         mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
         mTvName.setText(data.getData().getOrder().getNickname());
@@ -107,6 +109,7 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     private void initView() {
         mIvShop = (NetImageView) mContentView.findViewById(R.id.image);
         mTvShopName = (TextView) mContentView.findViewById(R.id.shop_name);
+        mAddress = (TextView) mContentView.findViewById(R.id.address);
         mTvName = (TextView) mContentView.findViewById(R.id.name);
         mTvGcr = (TextView) mContentView.findViewById(R.id.gcr);
         mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);

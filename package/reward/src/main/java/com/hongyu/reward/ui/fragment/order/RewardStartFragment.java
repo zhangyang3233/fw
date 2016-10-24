@@ -52,6 +52,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
   // ui
   private NetImageView mIvShop;
   private TextView mTvShopName;
+  private TextView mAddress;
   private TextView mTvName;
   private TextView mTvOrderNum;
   private TextView mTvGcr;
@@ -103,6 +104,8 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     OrderModel order = data.getData().getOrder();
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(data.getData().getOrder().getNickname());
+    mTvShopName.setText(data.getData().getOrder().getShop_name());
+    mAddress.setText(data.getData().getOrder().getShop_address());
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
     mScoreView.setData(order.getGcr(), false);
     price = order.getPrice();
@@ -128,6 +131,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
   private void initView() {
     mIvShop = (NetImageView) mContentView.findViewById(R.id.image);
     mTvShopName = (TextView) mContentView.findViewById(R.id.shop_name);
+    mAddress = (TextView) mContentView.findViewById(R.id.address);
     mTvName = (TextView) mContentView.findViewById(R.id.name);
     mTvGcr = (TextView) mContentView.findViewById(R.id.gcr);
     mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);

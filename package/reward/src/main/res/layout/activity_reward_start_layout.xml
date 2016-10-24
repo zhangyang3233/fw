@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hongyu.reward.widget.OverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,28 +15,50 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <com.hongyu.reward.widget.NetImageView
                 android:id="@+id/image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_margin="10dp"
-                android:contentDescription="@string/image_desc"
                 android:scaleType="fitXY"
                 android:src="@mipmap/defalut_image" />
 
-            <TextView
-                android:id="@+id/shop_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                tools:text="味千拉面"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h0" />
+                android:orientation="vertical"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_h1"
+                    tools:text="味千拉面" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:textColor="@color/text_gray_light"
+                    android:textSize="@dimen/text_h2"
+                    tools:text="北京市北京市北京市北京存北京码头北京码头2组省委家属院172但远2楼102号" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <View style="@style/divider_theme_gray" />
@@ -44,14 +66,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/cell_reward_round_all"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/task_status"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:background="@drawable/cell_reward_round_top"
                 android:gravity="center"
                 android:text="@string/task_continue"
@@ -60,21 +85,21 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="90dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <com.hongyu.reward.widget.RoundImageView
                     android:id="@+id/header_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_margin="10dp"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/defalut_head_img"
-                    reward:riv_corner_radius="40dp"
                     reward:riv_border_color="@color/white"
-                    reward:riv_border_width="1dp" />
+                    reward:riv_border_width="1dp"
+                    reward:riv_corner_radius="40dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,7 +156,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -171,7 +196,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -190,9 +215,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
-                    tools:text="5"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h1" />
+                    android:textSize="@dimen/text_h1"
+                    tools:text="5" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -211,7 +236,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -253,38 +278,41 @@
                 android:id="@+id/call"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@drawable/common_button_blue"
-                android:textSize="@dimen/text_h1"
-                android:textColor="@color/white"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="15dp"
-                android:text="电话联系对方" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_button_blue"
+                android:text="电话联系对方"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_h1" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:orientation="horizontal">
+            android:paddingRight="10dp">
 
             <Button
                 android:id="@+id/order_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
                 style="@style/ButtonCancel"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1.0"
                 android:background="@drawable/common_button_yellow"
-                android:text="取消"/>
+                android:text="取消" />
+
             <Button
                 android:id="@+id/order_finish"
-                android:layout_weight="1.0"
-                android:layout_marginLeft="10dp"
                 style="@style/App.Comm.Button"
-                android:text="完成任务"/>
+                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1.0"
+                android:text="完成任务" />
         </LinearLayout>
     </LinearLayout>
 
-</ScrollView>
+</com.hongyu.reward.widget.OverScrollView>
