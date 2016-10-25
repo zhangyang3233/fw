@@ -96,6 +96,7 @@
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.RewardPublishWaitActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.ShopOrderListActivity"
@@ -105,6 +106,7 @@
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.RewardStartActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.personal.MyOrderActivity"
@@ -144,9 +146,11 @@
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.PublishFinishedCommentActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.SelectPersonActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.city.CityPickerActivity"
@@ -167,6 +171,7 @@
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.ReceiveOrderFinishedActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Detail"></activity>
          <activity
             android:name=".ui.activity.PayResultActivity"

@@ -12,6 +12,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.OrderDeal;
 import com.hongyu.reward.model.AddRewardModel;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.NoticeEvent;
@@ -27,6 +28,9 @@ import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.SpringProgressView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by zhangyang131 on 16/9/13.
@@ -51,6 +55,9 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
   private Button add_price;
   private CountDownTimer timer;
   private SpringProgressView progress_view;
+  private Timer checkTimer;
+  private TimerTask checkTask;
+
 
   private void initView() {
     image = (NetImageView) mContentView.findViewById(R.id.image);
@@ -64,6 +71,49 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     progress_view.setMaxCount(600);
     cancel = (Button) mContentView.findViewById(R.id.cancel);
     add_price = (Button) mContentView.findViewById(R.id.add_price);
+    initCheck();
+  }
+
+  /**
+   * 为了避免收不到通知，每30秒检测一次
+   */
+  private void initCheck() {
+    final long interval = 30 * 1000;
+    checkTimer = new Timer();
+    checkTask = new TimerTask() {
+      @Override
+      public void run() {
+        checkOrderStatus();
+      }
+    };
+    checkTimer.schedule(checkTask, interval, interval);
+  }
+
+
+
+  private void checkOrderStatus() {
+    if (!isAdded()) {
+      return;
+    }
+
+    GetOrderInfoRequestBuilder b = new GetOrderInfoRequestBuilder(order_id);
+    b.setDataCallback(new DataCallback<OrderInfoModel>() {
+      @Override
+      public void onDataCallback(OrderInfoModel data) {
+        if (!isAdded()) {
+          return;
+        }
+        if (ResponesUtil.checkModelCodeOK(data)) {
+          OrderModel order = data.getData().getOrder();
+
+          if (order != null && order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE) {
+            OrderDeal.jumpActivityByOrder(getActivity(), order);
+            getActivity().finish();
+          }
+        }
+      }
+    });
+    b.build().submit();
   }
 
   @Override
@@ -73,7 +123,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     builder.setDataCallback(new DataCallback<OrderInfoModel>() {
       @Override
       public void onDataCallback(OrderInfoModel data) {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         cancel.setOnClickListener(RewardPublishWaitFragment.this);
@@ -138,7 +188,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     timer = new CountDownTimer(time * 1000, 1000) {
       @Override
       public void onTick(long millisUntilFinished) {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         setTimeCountDown((int) (millisUntilFinished) / 1000);
@@ -146,7 +196,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
 
       @Override
       public void onFinish() {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         setTimeCountDown(0);
@@ -155,7 +205,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         builder.setDataCallback(new DataCallback<BaseModel>() {
           @Override
           public void onDataCallback(BaseModel data) {
-            if(!isAdded()){
+            if (!isAdded()) {
               return;
             }
             dismissLoadingView();
@@ -226,7 +276,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         builder.setDataCallback(new DataCallback<AddRewardModel>() {
           @Override
           public void onDataCallback(AddRewardModel data) {
-            if(!isAdded()){
+            if (!isAdded()) {
               return;
             }
             if (ResponesUtil.checkModelCodeOK(data)) {
@@ -273,7 +323,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
       @Override
       public void onDataCallback(BaseModel data) {
         EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
@@ -291,9 +341,13 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
   @Override
   public void onDestroy() {
     super.onDestroy();
-    if(timer != null ){
+    if (timer != null) {
       timer.cancel();
     }
     timer = null;
+    if (checkTimer != null) {
+      checkTimer.cancel();
+    }
+    checkTimer = null;
   }
 }

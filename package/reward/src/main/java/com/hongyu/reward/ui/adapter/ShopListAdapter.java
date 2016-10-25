@@ -44,7 +44,7 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
         GlobalConfig.getAppContext().getString(R.string.reward_count, model.getOrder_num()));
     holder.name.setText(model.getShop_name());
     holder.km.setText(
-        GlobalConfig.getAppContext().getString(R.string.shop_distance, model.getDistance()));
+        GlobalConfig.getAppContext().getString(R.string.shop_distance, model.getDistanceStr()));
     holder.time
         .setText(GlobalConfig.getAppContext().getString(R.string.save_time, model.getSave_time()));
     if (mOnItemClickListener != null) {

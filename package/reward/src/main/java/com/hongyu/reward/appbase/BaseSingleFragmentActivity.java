@@ -22,5 +22,9 @@ public abstract class BaseSingleFragmentActivity extends AppBaseActivity {
     }
   }
 
+  public BaseFragment getFragment(){
+    return mFragment;
+  }
+
   protected abstract Class<? extends Fragment> getSingleContentFragmentClass();
 }

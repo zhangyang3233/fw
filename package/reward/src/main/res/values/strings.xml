@@ -66,7 +66,7 @@
     <string name="title_select_reward">选择商家悬赏</string>
     <string name="title_get_award">选择领赏商家</string>
     <string name="reward_count">悬赏人数：%1$s人</string>
-    <string name="shop_distance">距离您：%1$s米内</string>
+    <string name="shop_distance">距离您：%1$sm</string>
     <string name="save_time">平均节省：%1$s分钟</string>
     <string name="show_tip_publish">饿得不行了？赶时间？请客户？\n不能等位，但就是想吃！\n即刻发布悬赏，所有在排队的好心人都会来帮你！</string>
     <string name="show_tip_receive">不是很着急？\n吧你的派对号让给需要的人吧！\n技能帮助别人，还能笑赚点，为什么不呢？</string>

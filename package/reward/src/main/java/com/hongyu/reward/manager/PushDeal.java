@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hongyu.reward.appbase.BaseFragment;
+import com.hongyu.reward.appbase.BaseSingleFragmentActivity;
 import com.hongyu.reward.model.PushModel;
 import com.hongyu.reward.ui.activity.OrderDetailActivity;
 import com.hongyu.reward.ui.activity.TabHostActivity;
@@ -26,7 +28,6 @@ public class PushDeal {
    */
   public static void orderIsReceived(final PushModel.PushInfo pushInfo) {
     final Activity activity = ScreenManager.getScreenManager().currentActivity();
-
     SingleBtnDialogFragment dialog = new SingleBtnDialogFragment();
     dialog.setContent(pushInfo.getContent());
     dialog.setCancelable(false);
@@ -49,7 +50,6 @@ public class PushDeal {
     }
 
   }
-
 
   /**
    * 领取的任务被悬赏人拒绝了

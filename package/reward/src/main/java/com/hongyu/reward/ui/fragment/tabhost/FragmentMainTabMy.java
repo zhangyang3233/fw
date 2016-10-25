@@ -27,6 +27,7 @@ import com.hongyu.reward.ui.activity.personal.MyOrderActivity;
 import com.hongyu.reward.ui.activity.personal.PointActivity;
 import com.hongyu.reward.ui.activity.personal.SettingActivity;
 import com.hongyu.reward.ui.activity.personal.WalletActivity;
+import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.CommonTextView;
 import com.hongyu.reward.widget.RoundImageView;
 
@@ -94,6 +95,8 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
           dismissLoadingView();
           if (ResponesUtil.checkModelCodeOK(data)) {
             AccountManager.getInstance().saveUser(data.getData());
+          }else{
+            T.show(ResponesUtil.getErrorMsg(data));
           }
           refreshUI();
         }

@@ -111,8 +111,6 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         String city = LocationManager.getSavedCity();
         if (city.equals(location.getCity())) { // 当前城市一致,传坐标
           city = null;
-        } else { // 当前城市和选择的城市不一致, 传城市
-          locationStr = null;
         }
         ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page),
             locationStr, city, null);

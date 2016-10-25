@@ -1,6 +1,9 @@
 package com.hongyu.reward.model;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -62,9 +65,31 @@ public class ShopListMode extends BaseModel {
       this.shop_name = shop_name;
     }
 
+    public String getDistanceStr() {
+      if (TextUtils.isEmpty(distance)) {
+        return distance;
+      }
+      int m;
+      try {
+        m = Integer.parseInt(distance);
+        if (m < 1000) {
+          return String.valueOf(m);
+        } else {
+          DecimalFormat df = new DecimalFormat("###0.00");
+          double d1 = m / 1000f;
+          return String.valueOf(df.format(d1) + "k");
+        }
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
+      }
+      return distance;
+    }
+
     public String getDistance() {
       return distance;
     }
+
+
 
     public void setDistance(String distance) {
       this.distance = distance;
