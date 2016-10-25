@@ -12,6 +12,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
         android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         reward:cardBackgroundColor="@color/cardview_light_background"
         reward:cardCornerRadius="3dp"
         reward:cardUseCompatPadding="true"
