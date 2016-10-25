@@ -118,8 +118,18 @@ public class DialogFactory {
       @Override
       public void onClick(View v) {
         String num = content.getText().toString().trim();
-        builder.dismiss();
-        listen.onConfirmClick(new String[] {num});
+        float money;
+        try{
+          money = Float.parseFloat(num);
+          if(money < 10){
+            content.setError("赏金必须大于10元");
+            return;
+          }
+          builder.dismiss();
+          listen.onConfirmClick(new String[] {num});
+        }catch (Exception e){
+          content.setError("请输入赏金");
+        }
       }
     });
 

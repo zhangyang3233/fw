@@ -14,92 +14,93 @@ import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.SignResultModel;
 import com.hongyu.reward.pay.PayAsyncTask;
 import com.hongyu.reward.request.PayRequestBuilder;
+import com.hongyu.reward.ui.activity.PayResultActivity;
 import com.hongyu.reward.ui.activity.order.PaySureActivity;
-import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.utils.T;
 
 /**
  * Created by zhangyang131 on 16/10/3.
  */
 public class PaySureFragment extends BaseLoadFragment implements OnClickListener {
-    private String orderId;
-    private String price;
-    private Button mBtnPay;
-    private TextView mTvPrice;
+  private String orderId;
+  private String price;
+  private Button mBtnPay;
+  private TextView mTvPrice;
 
-    private void getData() {
-        orderId = getArguments().getString(PaySureActivity.ORDER_ID);
-        price = getArguments().getString(PaySureActivity.PRICE);
-    }
+  private void getData() {
+    orderId = getArguments().getString(PaySureActivity.ORDER_ID);
+    price = getArguments().getString(PaySureActivity.PRICE);
+  }
 
 
-    @Override
-    protected void onStartLoading() {
-        refreshData();
-    }
+  @Override
+  protected void onStartLoading() {
+    refreshData();
+  }
 
-    private void refreshData() {
-        mTvPrice.setText("￥" + price);
-        mBtnPay.setText("确认支付￥" + price);
-    }
+  private void refreshData() {
+    mTvPrice.setText("￥" + price);
+    mBtnPay.setText("确认支付￥" + price);
+  }
 
-    @Override
-    protected void onInflated(View contentView, Bundle savedInstanceState) {
-        initView();
-    }
+  @Override
+  protected void onInflated(View contentView, Bundle savedInstanceState) {
+    initView();
+  }
 
-    private void initView() {
-        mTvPrice = (TextView) mContentView.findViewById(R.id.price);
-        mBtnPay = (Button) mContentView.findViewById(R.id.ok);
-        mBtnPay.setOnClickListener(this);
-    }
+  private void initView() {
+    mTvPrice = (TextView) mContentView.findViewById(R.id.price);
+    mBtnPay = (Button) mContentView.findViewById(R.id.ok);
+    mBtnPay.setOnClickListener(this);
+  }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getData();
-    }
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    getData();
+  }
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_pay_sure_layout;
-    }
+  @Override
+  protected int getLayoutResId() {
+    return R.layout.activity_pay_sure_layout;
+  }
 
-    @Override
-    public void onClick(View v) {
-        showLoadingView();
-        PayRequestBuilder builder = new PayRequestBuilder(orderId);
-        builder.setDataCallback(new DataCallback<SignResultModel>() {
-            @Override
-            public void onDataCallback(SignResultModel data) {
-                if (!isAdded()) {
-                    return;
-                }
-                dismissLoadingView();
-                if (ResponesUtil.checkModelCodeOK(data)) { // 请求成功
-                    pay(data.getData());
-                } else {
-                    T.show(ResponesUtil.getErrorMsg(data));
-                }
-            }
+  @Override
+  public void onClick(View v) {
+    showLoadingView();
+    PayRequestBuilder builder = new PayRequestBuilder(orderId);
+    builder.setDataCallback(new DataCallback<SignResultModel>() {
+      @Override
+      public void onDataCallback(SignResultModel data) {
+        if (!isAdded()) {
+          return;
+        }
+        dismissLoadingView();
+        if (ResponesUtil.checkModelCodeOK(data)) { // 请求成功
+          pay(data.getData());
+        } else {
+          T.show(ResponesUtil.getErrorMsg(data));
+        }
+      }
+    });
+    builder.build().submit();
+  }
+
+  private void pay(final String data) {
+    PayAsyncTask payAsyncTask =
+        new PayAsyncTask(getActivity(), data, new PayAsyncTask.PayResultCallback() {
+          @Override
+          public void paySuccess() {
+            T.show("支付成功");
+            PayResultActivity.launch(getActivity(), true, orderId);
+            getActivity().finish();
+          }
+
+          @Override
+          public void payFailed(String msg) {
+            PayResultActivity.launch(getActivity(), false, orderId);
+          }
         });
-        builder.build().submit();
-    }
-
-    private void pay(final String data) {
-        PayAsyncTask payAsyncTask = new PayAsyncTask(getActivity(), data, new PayAsyncTask.PayResultCallback() {
-            @Override
-            public void paySuccess() {
-                T.show("支付成功");
-                PublishFinishedCommentActivity.launch(getActivity(), orderId);
-                getActivity().finish();
-            }
-
-            @Override
-            public void payFailed(String msg) {
-                T.show(msg);
-            }
-        });
-        payAsyncTask.execute();
-    }
+    payAsyncTask.execute();
+  }
 }

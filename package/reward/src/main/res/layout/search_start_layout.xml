@@ -3,14 +3,16 @@
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#eeeeee"
     android:orientation="vertical">
 
     <com.hongyu.reward.widget.HotSearchView
         android:id="@+id/hot_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:background="@android:color/white"
+        android:padding="10dp"
+        android:visibility="gone"
         reward:auto_select_effect="false"
         reward:max_select="0">
 
@@ -19,7 +21,8 @@
     <com.hongyu.reward.widget.HistorySearchView
         android:id="@+id/history_search_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:divider="@null">
 
     </com.hongyu.reward.widget.HistorySearchView>

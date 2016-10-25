@@ -69,7 +69,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/cell_reward_round_all"
             android:orientation="vertical">
 
@@ -156,7 +156,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
-                    android:text="排位号码"
+                    android:text="排队号码"
                     android:textColor="@color/text_gray_dark"
                     android:textSize="@dimen/text_h2" />
 
@@ -196,7 +196,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -236,7 +236,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="44dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -277,20 +277,20 @@
             <Button
                 android:id="@+id/call"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="44dp"
+                android:layout_marginBottom="9dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/common_button_blue"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/common_button"
                 android:text="电话联系对方"
-                android:textColor="@color/white"
+                android:textColor="@color/app_main_title_text_color"
                 android:textSize="@dimen/text_h1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
@@ -302,17 +302,27 @@
                 android:layout_height="45dp"
                 android:layout_weight="1.0"
                 android:background="@drawable/common_button_yellow"
-                android:text="取消" />
+                android:text="取消任务" />
 
             <Button
                 android:id="@+id/order_finish"
                 style="@style/App.Comm.Button"
-                android:layout_height="45dp"
                 android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="完成任务" />
+                android:text="确认完成" />
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_red"
+            android:textSize="12sp"
+            android:paddingBottom="3dp"
+            android:text="*注意：您每天只有2次机会取消正在进行的任务；确定取消前请先与对方电话联系。"/>
     </LinearLayout>
 
 </com.hongyu.reward.widget.OverScrollView>

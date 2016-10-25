@@ -271,35 +271,42 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
     DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener() {
       @Override
       public void onConfirmClick(String[] content) {
-        showShareDialog2(content[0], content[1]);
+        showShareDialog2(content[0], content[1],  order_id);
       }
     });
 
   }
 
-  private void showShareDialog2(final String text1, final String text2) {
+  private void showShareDialog2(final String text1, final String text2, final String order_id) {
     DialogFactory.showShareView(getActivity(), new DialogFactory.OnWhichListener() {
       @Override
       public void onConfirmClick(int which) {
-        share(which, text1, text2);
+        share(which, text1, text2, order_id);
       }
     });
   }
 
-  private void share(int which, String text1, String text2) {
+  private void share(int which, String text1, String text2, final String order_id) {
     if (which == 1) { // 分享到微信
       T.show("");
       WXEntryActivity.publishShare(api, order_id, text1,
-              text2, 1);
+              text2, 1, order_id);
     } else if (which == 2) { // 分享到朋友圈
       WXEntryActivity.publishShare(api, order_id, text1,
-              text2, 2);
+              text2, 2, order_id);
     }
   }
 
   private void showStar(int star_num) {
     mSelectScore = star_num;
     switch (mSelectScore) {
+      case 0:
+        mIvStar_1.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_2.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_3.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_4.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_5.setImageResource(R.mipmap.icon_star_gary_h);
+        break;
       case 1:
         mIvStar_1.setImageResource(R.mipmap.icon_star_orange_h);
         mIvStar_2.setImageResource(R.mipmap.icon_star_gary_h);
@@ -343,6 +350,10 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
 
   private void evaluate() {
     String score = mTvStar.getText().toString().trim();
+    if(score.equals("0")){
+      T.show("请给领赏人评价后再提交");
+      return;
+    }
     CommentRequsetBuilder builder =
         new CommentRequsetBuilder(order_id, score);
     builder.setDataCallback(new DataCallback<BaseModel>() {

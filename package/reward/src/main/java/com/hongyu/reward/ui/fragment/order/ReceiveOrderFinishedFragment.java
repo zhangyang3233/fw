@@ -193,7 +193,7 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
 
     mBtnEval.setText("评价");
     initClickListener();
-    showStar(5);
+    showStar(0);
   }
 
   private void initClickListener() {
@@ -254,15 +254,22 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
 
   private void share(int which) {
     if (which == 1) {// 分享到微信
-      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 1);
+      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 1, order_id);
     } else if (which == 2) { // 分享到朋友圈
-      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2);
+      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2, order_id);
     }
   }
 
   private void showStar(int star_num) {
     mSelectScore = star_num;
     switch (mSelectScore) {
+      case 0:
+        mIvStar_1.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_2.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_3.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_4.setImageResource(R.mipmap.icon_star_gary_h);
+        mIvStar_5.setImageResource(R.mipmap.icon_star_gary_h);
+        break;
       case 1:
         mIvStar_1.setImageResource(R.mipmap.icon_star_orange_h);
         mIvStar_2.setImageResource(R.mipmap.icon_star_gary_h);
@@ -305,6 +312,10 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
 
   private void evaluate() {
     String score = mTvStar.getText().toString().trim();
+    if(score.equals("0")){
+      T.show("请给悬赏人评价后再提交");
+      return;
+    }
     CommentRequsetBuilder builder =
         new CommentRequsetBuilder(order_id, score);
     builder.setDataCallback(new DataCallback<BaseModel>() {

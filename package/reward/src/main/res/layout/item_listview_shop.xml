@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/common_selector"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@drawable/common_selector"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -73,5 +73,9 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/divider_theme_gray" />
+    <View
+        android:id="@+id/divider_view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#eeeeee" />
 </LinearLayout>

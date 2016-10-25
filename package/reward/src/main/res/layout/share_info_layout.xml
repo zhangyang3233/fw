@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingBottom="15dp"
-    android:paddingTop="10dp">
+    android:paddingBottom="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/cancel"
@@ -17,6 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="5dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#333"
             android:text="@string/dialog_cancel"
             android:textSize="16sp" />
 
@@ -25,11 +28,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="5dp"
-            android:text="快来向朋友们炫耀一下吧"
+            android:text="向朋友们炫一下吧"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
+    <View
+        style="@style/divider_theme_gray"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="少排了" />
+            android:text="少排" />
 
         <EditText
             android:id="@+id/edit_1"
@@ -84,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="节省了" />
+            android:text="节省" />
 
         <EditText
             android:id="@+id/edit_2"

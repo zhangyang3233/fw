@@ -168,6 +168,9 @@
         <activity
             android:name=".ui.activity.order.ReceiveOrderFinishedActivity"
             android:theme="@style/AppTheme.Detail"></activity>
+         <activity
+            android:name=".ui.activity.PayResultActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.SearchActivity"
             android:theme="@style/AppTheme.Detail"

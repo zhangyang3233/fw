@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
 import com.hongyu.reward.config.Constants;
+import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.request.ShareSuccessRequestBuilder;
 import com.hongyu.reward.utils.T;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -54,7 +58,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     int result = 0;
     switch (resp.errCode) {
       case BaseResp.ErrCode.ERR_OK:
-        result = R.string.errcode_success;
+        submitShareSuccess(resp.transaction);
         break;
       case BaseResp.ErrCode.ERR_USER_CANCEL:
         result = R.string.errcode_cancel;
@@ -67,8 +71,31 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         break;
     }
     Log.i(TAG, "resp:" + resp.errCode + "=+==" + resp.errStr + "====" + resp.transaction);
-    T.show(result);
+    if (result != 0) {
+      T.show(result);
+    }
     this.finish();
+  }
+
+  private void submitShareSuccess(String transaction) {
+    try {
+      String[] data = transaction.split("&");
+      String shareType = data[0];
+      String orderId = data[1];
+      Log.i(transaction);
+      ShareSuccessRequestBuilder builder = new ShareSuccessRequestBuilder(orderId, shareType);
+      builder.setDataCallback(new DataCallback<BaseModel>() {
+        @Override
+        public void onDataCallback(BaseModel data) {
+          if (ResponesUtil.checkModelCodeOK(data)) {
+            T.show("分享成功");
+          }
+        }
+      });
+      builder.build().submit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -80,23 +107,21 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
 
 
-  private static String buildTransaction(String type) {
-    return (type == null)
-            ? String.valueOf(System.currentTimeMillis())
-            : type + System.currentTimeMillis();
+  private static String buildTransaction(String shareType, String orderId) {
+    return shareType + "&" + orderId;
   }
 
-  public static void receiveShare(IWXAPI api, String shopName, int type) {
+  public static void receiveShare(IWXAPI api, String shopName, int type, String orderId) {
     WXWebpageObject webpage = new WXWebpageObject();
     webpage.webpageUrl = Constants.WX.share_app + "shop_name=" + shopName;
     WXMediaMessage msg = new WXMediaMessage(webpage);
     msg.title = "快来使用" + getAppName() + "吧~~~";
     msg.description =
-            "我在 " + shopName + " 排队吃饭，通过维依悬赏APP把排队号给了更紧急，更需要的人，助人为乐，还小赚了一笔！下次需要的时候，我也用悬赏少排队~";
+        "我在 " + shopName + " 排队吃饭，通过维依悬赏APP把排队号给了更紧急，更需要的人，助人为乐，还小赚了一笔！下次需要的时候，我也用悬赏少排队~";
     // Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.send_music_thumb);
     // msg.thumbData = Util.bmpToByteArray(thumb, true);
     SendMessageToWX.Req req = new SendMessageToWX.Req();
-    req.transaction = buildTransaction("webpage");
+    req.transaction = buildTransaction("2", orderId);
     req.message = msg;
     if (type == 1) {
       req.scene = SendMessageToWX.Req.WXSceneSession;
@@ -114,17 +139,17 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
    * @param type 1分享微信， 2分享朋友圈
    */
   public static void publishShare(IWXAPI api, String order_id, String save_seat, String save_time,
-                                  int type) {
+      int type, String orderId) {
     WXWebpageObject webpage = new WXWebpageObject();
     webpage.webpageUrl = Constants.WX.share_shop + "order_id=" + order_id + "&save_time="
-            + save_time + "&save_seat=" + save_seat;
+        + save_time + "&save_seat=" + save_seat;
     WXMediaMessage msg = new WXMediaMessage(webpage);
     msg.title = "快来使用" + getAppName() + "吧~~~";
     msg.description = "我使用" + getAppName() + ", 节省了" + save_time + "分钟!从此吃饭不排队~~~~";
     // Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.send_music_thumb);
     // msg.thumbData = Util.bmpToByteArray(thumb, true);
     SendMessageToWX.Req req = new SendMessageToWX.Req();
-    req.transaction = buildTransaction("webpage");
+    req.transaction = buildTransaction("1", orderId);
     req.message = msg;
     if (type == 1) {
       req.scene = SendMessageToWX.Req.WXSceneSession;

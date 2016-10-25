@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View style="@style/divider_theme_gray" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@mipmap/comm_icon_success"
+            android:id="@+id/icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="赏金支付成功"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h1"
+            android:id="@+id/title" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:gravity="center"
+        android:text="请您对ta人的服务进行评价。评价完成后，\n您将获得1000积分奖励。"
+        android:textColor="@color/text_gray_dark"
+        android:textSize="@dimen/text_h2"
+        android:id="@+id/desc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            style="@style/ButtonCancel"
+            android:layout_weight="1.0"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/common_button_yellow_bg_white"
+            android:text="下次再说" />
+
+        <Button
+            android:id="@+id/to_comment"
+            style="@style/App.Comm.Button"
+            android:layout_weight="1.0"
+            android:text="马上评价" />
+    </LinearLayout>
+</LinearLayout>

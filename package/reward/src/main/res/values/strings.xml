@@ -4,7 +4,7 @@
     <string name="base_default_empty_message">加载失败,请点击重试</string>
     <string name="loading_more_tips">正在加载中…</string>
     <string name="loading_more_error">加载更多失败</string>
-    <string name="base_default_empty_data_message">没有数据,可点击重试</string>
+    <string name="base_default_empty_data_message">暂无相关数据</string>
     <string name="app_wifi_isopen">无法连接到服务器，请检查您的网络连接</string>
     <string name="retry">重试</string>
 
@@ -72,7 +72,7 @@
     <string name="show_tip_receive">不是很着急？\n吧你的派对号让给需要的人吧！\n技能帮助别人，还能笑赚点，为什么不呢？</string>
 
     <!-- 发布悬赏信息详情页 -->
-    <string name="input_reward_info_title">填写悬赏信息</string>
+    <string name="input_reward_info_title">发布悬赏信息</string>
     <string name="not_get_shop_info">未获取到商户信息</string>
     <string name="reward_time_duration">即时悬赏：（%1$s分钟）</string>
     <string name="diners_count">就餐人数</string>
@@ -143,8 +143,12 @@
     <string name="label_save_picture_failed">保存照片失败，请重试！</string>
 
     <!-- 微信分享 -->
-    <string name="errcode_success">发送成功</string>
+    <string name="errcode_success">分享成功</string>
     <string name="errcode_cancel">发送取消</string>
     <string name="errcode_deny">发送被拒绝</string>
     <string name="errcode_unknown">发送返回</string>
+
+    <string name="pay_success">请您对ta人的服务进行评价。评价完成后，您将获得1000积分奖励。</string>
+    <string name="pay_failed">请您重新支付</string>
+
 </resources>

@@ -30,6 +30,7 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
       holder.time = (TextView) convertView.findViewById(R.id.reward_time);
       holder.name = (TextView) convertView.findViewById(R.id.shop_name);
       holder.km = (TextView) convertView.findViewById(R.id.km);
+      holder.divider_view = convertView.findViewById(R.id.divider_view);
       convertView.setTag(holder);
     } else {
       holder = (Holder) convertView.getTag();
@@ -54,8 +55,17 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
         }
       });
     }
+    if(isLastItem(position)){
+      holder.divider_view.setVisibility(View.GONE);
+    }else{
+      holder.divider_view.setVisibility(View.VISIBLE);
+    }
 
     return convertView;
+  }
+
+  private boolean isLastItem(int position) {
+    return position == getCount() -1;
   }
 
   public OnItemClickListener getmOnItemClickListener() {
@@ -76,6 +86,7 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
     private TextView per;
     private TextView time;
     private TextView km;
+    private View divider_view;
     private NetImageView cover;
   }
 }

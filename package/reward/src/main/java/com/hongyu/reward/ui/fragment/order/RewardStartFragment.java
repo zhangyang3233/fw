@@ -24,8 +24,8 @@ import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.model.ReceiveModel;
 import com.hongyu.reward.request.CancelOrderRequestBuilder;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
-import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.activity.order.PaySureActivity;
+import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
@@ -102,14 +102,9 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
 
   private void refreshUI(OrderInfoModel data) {
     OrderModel order = data.getData().getOrder();
-    mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
-    mTvName.setText(data.getData().getOrder().getNickname());
     mTvShopName.setText(data.getData().getOrder().getShop_name());
     mAddress.setText(data.getData().getOrder().getShop_address());
-    mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
-    mScoreView.setData(order.getGcr(), false);
     price = order.getPrice();
-
     if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE){
       mTaskStatus.setText(R.string.task_continue);
     }
@@ -117,6 +112,11 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     ReceiveModel receive = data.getData().getReceive();
     if(receive != null){
       mobileNum = receive.getMobile();
+      mIvHeader.loadNetworkImageByUrl(receive.getImg());
+      mTvGcr.setText("好评率:" + (TextUtils.isEmpty(receive.getGcr()) ? "100%" : receive.getGcr()));
+      mTvName.setText("领赏人："+receive.getNickname());
+      mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
+      mScoreView.setData(receive.getGcr(), false);
       mTvTableNum.setText(String.valueOf(receive.rank_num));
       mTvTableWait.setText(String.valueOf(receive.wait_num));
       mTvTabPre.setText(String.valueOf(receive.table_num));
@@ -149,11 +149,8 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mTvTableNum.setText(table_num);
     mTvTableWait.setText(table_wait);
     mTvTabPre.setText(table_pre);
-
-
     mBtnCall = mContentView.findViewById(R.id.call);
     mBtnCall.setOnClickListener(this);
-
     mTvShopName.setText(shop_name);
     mIvShop.loadNetworkImageByUrl(shop_img);
   }
@@ -173,8 +170,8 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
       case R.id.order_cancel:
         CommonTwoBtnDialogFragment dialogFragment = new CommonTwoBtnDialogFragment();
         Spanny sp = new Spanny();
-        sp.append("大餐近在眼前，确定要取消么？\n");
-        sp.append("＊注意：确认取消前请先与对方电话联系哦", new ForegroundColorSpan(0xfffc4d50), new RelativeSizeSpan(0.8f));
+        sp.append("大餐近在眼前，确定要取消么？\n\n", new RelativeSizeSpan(0.9f));
+        sp.append("＊注意：确认取消前请先与对方电话联系哦", new ForegroundColorSpan(0xfffc4d50), new RelativeSizeSpan(0.7f));
         dialogFragment.setContent(sp);
         Spanny leftsp = new Spanny("确认取消", new ForegroundColorSpan(0xff1887f9));
         dialogFragment.setLeft(leftsp, new CommonTwoBtnDialogFragment.OnClickListener() {
@@ -194,8 +191,22 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
         dialogFragment.show(getChildFragmentManager(),this.getClass().getSimpleName());
         break;
       case R.id.order_finish:
-        PaySureActivity.launch(getActivity(), order_id, price);
-        getActivity().finish();
+        CommonTwoBtnDialogFragment dialogPay = new CommonTwoBtnDialogFragment();
+        dialogPay.setContent("请务必与领赏人当面确认哦，支付赏金后，该任务就完成啦！");
+        dialogPay.setLeft("支付赏金", new CommonTwoBtnDialogFragment.OnClickListener() {
+          @Override
+          public void onClick(Dialog dialog) {
+            PaySureActivity.launch(getActivity(), order_id, price);
+            getActivity().finish();
+          }
+        });
+        dialogPay.setRight("我按错了", new CommonTwoBtnDialogFragment.OnClickListener() {
+          @Override
+          public void onClick(Dialog dialog) {
+            dialog.cancel();
+          }
+        });
+        dialogPay.show(getChildFragmentManager(), this.getClass().getSimpleName());
         break;
     }
   }

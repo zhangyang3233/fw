@@ -244,6 +244,10 @@ public final class Constants {
     // 消息列表
     public static final String API_MESSAGE_LIST = "/message/message_list";
 
+    // 分享后调用增加积分
+    public static final String API_SHARE_POINT = "/share/sharepoint";
+
+
 
     public static final String API_PAY_SIGN = "/pay/sign";
 
