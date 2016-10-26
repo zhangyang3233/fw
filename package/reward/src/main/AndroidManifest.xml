@@ -26,8 +26,10 @@
     <!-- 蓝牙分享所需的权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- 蒲公英 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!-- 百度地图定位-->
     <!-- 这个权限用于进行网络定位-->
@@ -253,6 +255,12 @@
             android:name="UMENG_CHANNEL"
             android:value="Unknown"></meta-data>
 
+        <!-- 蒲公英 -->
+        <activity android:name="com.pgyersdk.activity.FeedbackActivity"/>
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="527aedc1c916cdd5e803eec807e6940a" >
+        </meta-data>
 
     </application>
 

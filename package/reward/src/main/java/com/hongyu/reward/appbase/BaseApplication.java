@@ -3,12 +3,12 @@ package com.hongyu.reward.appbase;
 import android.app.Application;
 import android.content.Intent;
 
-import com.fw.zycoder.errorpage.CustomActivityOnCrash;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.manager.CoreService;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.litepal.LitePalApplication;
@@ -24,14 +24,12 @@ public class BaseApplication extends Application {
     super.onCreate();
     initGlobalConfig();
     LitePalApplication.initialize(this);
-    long t1 = System.currentTimeMillis();
     initLeakCanary();
-    // initErrorPage();
+    initErrorPage();
     initLog();
     startCoreService();
     AppInitManager.getInstance().init(null);
   }
-
 
 
 
@@ -58,13 +56,14 @@ public class BaseApplication extends Application {
    * 初始化崩溃页面
    */
   private void initErrorPage() {
-    CustomActivityOnCrash.install(this);
-    // 程序在后台崩溃是否显示错误页面
-    CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(false);
-    // 是否显示错误详细信息
-    CustomActivityOnCrash.setShowErrorDetails(BuildConfig.DEBUG);
-    // 是否打印log日志
-    CustomActivityOnCrash.setShowErrorLog(BuildConfig.DEBUG);
+    PgyCrashManager.register(this);
+//    CustomActivityOnCrash.install(this);
+//    // 程序在后台崩溃是否显示错误页面
+//    CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(false);
+//    // 是否显示错误详细信息
+//    CustomActivityOnCrash.setShowErrorDetails(BuildConfig.DEBUG);
+//    // 是否打印log日志
+//    CustomActivityOnCrash.setShowErrorLog(BuildConfig.DEBUG);
   }
 
   /**

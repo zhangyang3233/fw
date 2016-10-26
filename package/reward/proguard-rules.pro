@@ -297,3 +297,20 @@
    *;
 }
 # ------------ 微信(完) ------------
+
+# ------------ litepal ------------
+-keep class com.hongyu.reward.model.** {*;}
+-dontwarn org.litepal.*
+-keep class org.litepal.** { *; }
+-keep enum org.litepal.**
+-keep interface org.litepal.** { *; }
+-keep public class * extends org.litepal.**
+-keepattributes *Annotation*
+-keepclassmembers enum * { *; }
+-keepclassmembers class * extends org.litepal.crud.DataSupport{ *; }
+# ------------ litepal(完) ------------
+
+# ------------ 蒲公英 ------------
+-dontwarn com.pgyersdk.**
+-keep class com.pgyersdk.** { *; }
+# ------------ 蒲公英(完) ------------

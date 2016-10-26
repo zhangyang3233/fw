@@ -9,6 +9,9 @@ import android.os.Environment;
  * @since 2015-3-17 上午1:32:12
  */
 public final class Constants {
+  public static final class PGY{
+    public static final String APPID = "527aedc1c916cdd5e803eec807e6940a";
+  }
 
   public static final class WX {
     public static final String AppID = "wx858b0a22ccdace16";

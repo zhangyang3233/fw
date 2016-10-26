@@ -46,7 +46,7 @@ public class PublishRequestBuilder extends BaseHttpRequestBuilder<PublishReqeust
     super.setParams(params);
     checkNullAndSet(params, SHOP_NAME, shop_name);
     checkNullAndSet(params, USERNUM, usernum);
-    checkNullAndSet(params, PRICE, "0.01");
+    checkNullAndSet(params, PRICE, price);
     checkNullAndSet(params, LOCATION, location);
     checkNullAndSet(params, TYPE, type);
     checkNullAndSet(params, MAPUID, mapuid);
