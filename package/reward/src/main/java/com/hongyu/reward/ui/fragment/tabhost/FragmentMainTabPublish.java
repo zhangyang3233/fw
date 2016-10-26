@@ -14,6 +14,7 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.interfaces.CityChangedListener;
+import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.model.ShopListMode;
@@ -75,6 +76,17 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
         AppLocation location = LocationManager.getInstance().getLocation();
         if(location == null){
+          LocationManager.getInstance().addLocationListener(new GetLocationListener() {
+            @Override
+            public void onSuccess(AppLocation locationInfo) {
+              onPullDownToRefresh();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+          });
           return null;
         }
         String locationStr = location.toString();

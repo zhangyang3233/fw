@@ -75,13 +75,11 @@ public class CityPickerFragment extends BaseLoadFragment implements View.OnClick
       mGetLocationListener = new GetLocationListener() {
         @Override
         public void onSuccess(AppLocation locationInfo) {
-          LocationManager.getInstance().removeLocationListener(mGetLocationListener);
           mCityAdapter.updateLocateState(LocateState.SUCCESS, locationInfo.getCity());
         }
 
         @Override
         public void onFailed(String msg) {
-          LocationManager.getInstance().removeLocationListener(mGetLocationListener);
           mCityAdapter.updateLocateState(LocateState.FAILED, null);
         }
       };

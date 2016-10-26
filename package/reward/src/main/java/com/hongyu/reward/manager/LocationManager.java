@@ -148,6 +148,7 @@ public class LocationManager {
             l.onFailed(location.getLocTypeDescription());
           }
         }
+        ls.clear();
       }
     }
 

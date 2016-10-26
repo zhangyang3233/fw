@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.CollectionUtils;
+import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.Spanny;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.AsyncLoadListFragment;
@@ -104,8 +105,24 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
       @Override
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
         AppLocation location = LocationManager.getInstance().getLocation();
+
         if (location == null) {
+          Log.e("asdf", "location == null");
+          LocationManager.getInstance().addLocationListener(new GetLocationListener() {
+            @Override
+            public void onSuccess(AppLocation locationInfo) {
+              Log.e("asdf", "onSuccess:"+locationInfo.toString());
+              onPullDownToRefresh();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+              Log.e("asdf", "onFailed:");
+            }
+          });
           return null;
+        }else{
+          Log.e("asdf", "location: "+location.toString());
         }
         String locationStr = location.toString();
         String city = LocationManager.getSavedCity();
@@ -114,6 +131,7 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         }
         ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page),
             locationStr, city, null);
+        Log.e("asdf", "listMode:"+listMode.getData().size());
         if (listMode == null) {
           return null;
         } else if (CollectionUtils.isEmpty(listMode.getData())) {
@@ -225,7 +243,6 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         LocationManager.getInstance().addLocationListener(new GetLocationListener() {
           @Override
           public void onSuccess(AppLocation locationInfo) {
-            LocationManager.getInstance().removeLocationListener(this);
             leftBtn.setText(location.getCity());
             LocationManager.saveCity(location.getCity());
           }
@@ -246,7 +263,6 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
             if (!isAdded()) {
               return;
             }
-            LocationManager.getInstance().removeLocationListener(this);
             if (!newLocation.getCity().equals(savedCity)) { // 获取的城市和当前城市不相同
               showCityChangedDialog(newLocation);
             }

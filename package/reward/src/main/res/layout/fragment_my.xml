@@ -58,7 +58,10 @@
                         android:id="@+id/nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="张拓鑫" />
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:paddingRight="25dp"
+                        tools:text="张拓鑫jhasdljkfhalskjdfhlkasjdhflkajshdflkjashdflkjahsdlkfjhsld" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -103,10 +106,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="10dp"
                     android:clickable="true"
                     android:contentDescription="@string/image_desc"
-                    android:src="@mipmap/general_icon_more_arrow" />
+                    android:src="@mipmap/comm_icon_go" />
 
             </RelativeLayout>
 

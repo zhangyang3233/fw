@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:paddingRight="20dp"
                 android:layout_marginTop="10dp"
                 android:maxLines="2"
                 android:ellipsize="end"
@@ -145,8 +146,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray_dark"
+                android:maxLines="1"
+                android:paddingRight="20dp"
+                android:ellipsize="end"
                 android:textSize="@dimen/text_h1"
-                tools:text="刘嘉玲" />
+                tools:text="刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲刘嘉玲" />
 
             <LinearLayout
                 android:layout_width="match_parent"
