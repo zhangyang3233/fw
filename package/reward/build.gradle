@@ -19,9 +19,9 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         // 程序内部版本号
-        versionCode 1
+        versionCode 2
         // 对外版本名称
-        versionName "1.0"
+        versionName "1.0.1"
         // dex突破65535的限制
         multiDexEnabled false
         // 默认是self的渠道
@@ -138,7 +138,7 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.pgyersdk:sdk:2.4.0'
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

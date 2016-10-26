@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.Subscribe;
  * @since 2016-7-18 下午12:12:25
  */
 public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickListener, LogoutListener {
+  boolean needRequest;
   TextView mTitle;
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
@@ -94,6 +95,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
           }
           dismissLoadingView();
           if (ResponesUtil.checkModelCodeOK(data)) {
+            needRequest = false;
             AccountManager.getInstance().saveUser(data.getData());
           }else{
             T.show(ResponesUtil.getErrorMsg(data));
@@ -103,6 +105,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
       });
       builder.build().submit();
     }else{
+      needRequest = true;
       refreshUI();
     }
   }
@@ -110,7 +113,11 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   @Override
   public void onResume() {
     super.onResume();
-    refreshUI();
+    if(needRequest){
+      loadingData();
+    }else{
+      refreshUI();
+    }
   }
 
   private void refreshUI() {

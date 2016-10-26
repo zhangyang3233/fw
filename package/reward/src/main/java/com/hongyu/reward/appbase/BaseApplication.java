@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
-import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.manager.CoreService;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.squareup.leakcanary.LeakCanary;
@@ -28,7 +27,7 @@ public class BaseApplication extends Application {
     initErrorPage();
     initLog();
     startCoreService();
-    AppInitManager.getInstance().init(null);
+//    AppInitManager.getInstance().init(null);
   }
 
 

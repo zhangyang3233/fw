@@ -243,6 +243,9 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         LocationManager.getInstance().addLocationListener(new GetLocationListener() {
           @Override
           public void onSuccess(AppLocation locationInfo) {
+            if(location == null){
+              return;
+            }
             leftBtn.setText(location.getCity());
             LocationManager.saveCity(location.getCity());
           }
