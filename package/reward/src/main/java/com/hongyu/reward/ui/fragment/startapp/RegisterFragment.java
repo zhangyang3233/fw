@@ -173,6 +173,9 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
     MainThreadPostUtils.post(new Runnable() {
       @Override
       public void run() {
+        if(!isAdded()){
+          return;
+        }
         if (time == 0) {
           mBtnGetCode.setText(R.string.login_get_auth);
           mBtnGetCode.setClickable(true);

@@ -131,7 +131,6 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         }
         ShopListMode listMode = HttpHelper.getShopList(String.valueOf(page),
             locationStr, city, null);
-        Log.e("asdf", "listMode:"+listMode.getData().size());
         if (listMode == null) {
           return null;
         } else if (CollectionUtils.isEmpty(listMode.getData())) {
