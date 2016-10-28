@@ -12,6 +12,7 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.manager.AccountManager;
+import com.hongyu.reward.manager.AppInitManager;
 import com.hongyu.reward.ui.activity.BrowserActivity;
 import com.hongyu.reward.ui.activity.personal.UpdatePwdActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
@@ -80,6 +81,7 @@ public class SettingFragment extends BaseLoadFragment
         SPUtil.putBoolean(Constants.Pref.AUDIO_CUES, isChecked);
         break;
     }
+    AppInitManager.getInstance().resetPushConfig();
   }
 
   @Override

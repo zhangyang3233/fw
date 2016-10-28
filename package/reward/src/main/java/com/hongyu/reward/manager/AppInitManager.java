@@ -7,12 +7,15 @@ import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
+import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.BuildConfig;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.interfaces.AppInitFinishCallback;
 import com.hongyu.reward.model.TokenModel;
 import com.hongyu.reward.request.GetTokenRequestBuilder;
 import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
@@ -99,8 +102,24 @@ public class AppInitManager {
               new CustomNotificationClickHandler();
       mPushAgent.setMessageHandler(umengMessageHandler);
       mPushAgent.setNotificationClickHandler(notificationClickHandler);
+      mPushAgent.setNotificaitonOnForeground(false);
+      resetPushConfig();
     }
     return mPushAgent;
+  }
+
+  public void resetPushConfig() {
+    getPushAgent();
+    if(SPUtil.getBoolean(Constants.Pref.SHOCK_CUES, true)){
+      mPushAgent.setNotificationPlayVibrate(MsgConstant.NOTIFICATION_PLAY_SERVER);//振动
+    }else{
+      mPushAgent.setNotificationPlayVibrate(MsgConstant.NOTIFICATION_PLAY_SDK_DISABLE);//振动
+    }
+    if(SPUtil.getBoolean(Constants.Pref.AUDIO_CUES, true)){
+      mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SERVER); //声音
+    }else{
+      mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SDK_DISABLE); //声音
+    }
   }
 
 

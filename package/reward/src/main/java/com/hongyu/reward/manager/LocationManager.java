@@ -40,7 +40,7 @@ public class LocationManager {
     return cityChangedListeners.remove(l);
   }
 
-  public static LocationManager getInstance() {
+  public synchronized static LocationManager getInstance() {
     if (instance == null) {
       instance = new LocationManager();
     }
