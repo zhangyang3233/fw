@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="MoneyEditText">
+        <attr name="maxValue" format="integer" />
+    </declare-styleable>
+</resources>

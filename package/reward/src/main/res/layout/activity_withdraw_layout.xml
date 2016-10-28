@@ -94,7 +94,7 @@
             android:textColor="@color/text_gray_dark"
             android:textSize="@dimen/text_h2" />
 
-        <com.hongyu.reward.widget.MoneyEditTextView
+        <com.zy.widgets.text.MoneyEditText
             android:id="@+id/withdraw_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

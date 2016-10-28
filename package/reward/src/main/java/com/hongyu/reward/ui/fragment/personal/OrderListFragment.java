@@ -61,7 +61,7 @@ public class OrderListFragment extends AsyncLoadListFragment<OrderModel> {
 
   @Override
   protected DataAdapter<OrderModel> newContentAdapter() {
-    return new OrderListAdapter(getActivity(), isme);
+    return new OrderListAdapter(getActivity(), isme, type);
   }
 
 

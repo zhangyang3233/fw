@@ -123,6 +123,7 @@ dependencies {
     compile project(':external:customtoast')
     compile project(':external:flowlayout')
     compile project(':framework:http')
+    compile project(':framework:widgets')
     compile project(':external:refreshable')
     compile project(':external:uicomp')
     compile project(':external:dialoghelper')

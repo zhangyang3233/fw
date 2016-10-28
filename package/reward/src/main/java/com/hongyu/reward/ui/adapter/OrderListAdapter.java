@@ -34,10 +34,12 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
   public OnOrderItemClickListener orderItemClickListener;
   private Context context;
   private int isme = 0; // 0我发出的 1我收到的
+  private int orderStatus;
 
-  public OrderListAdapter(Context context, int type) {
+  public OrderListAdapter(Context context, int isme, int orderStatus) {
     this.context = context;
-    this.isme = type;
+    this.isme = isme;
+    this.orderStatus = orderStatus;
     initOrderItemClickListener();
   }
 
@@ -104,7 +106,12 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
     final OrderModel model = getItem(position);
     if (model == null) return null;
 
-    holder.status.setText(StatusUtil.getMsgByStatus(model.getStatus()));
+    if(orderStatus == OrderModel.STATUS_PENDING_COMMENT){
+      holder.status.setText("待评论");
+    }else{
+      holder.status.setText(StatusUtil.getMsgByStatus(model.getStatus()));
+    }
+
     holder.status.setTextColor(StatusUtil.getColorByStatus(model.getStatus()));
 
     holder.time.setText(model.getDate());

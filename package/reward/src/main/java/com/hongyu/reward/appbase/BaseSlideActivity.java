@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import com.hongyu.reward.R;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.manager.ScreenManager;
-import com.umeng.message.PushAgent;
 import com.zycoder.sliding.SlidingHelper;
 import com.zycoder.sliding.component.SlideActivity;
 
@@ -26,7 +25,6 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     super.onCreate(savedInstanceState);
     setContentView(getLayoutId());
     SlidingHelper.onCreate(this);
-    PushAgent.getInstance(this).onAppStart();
     ScreenManager.getScreenManager().pushActivity(this);
   }
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fw.zycoder.appbase.fragment.BaseFragment;
@@ -15,6 +14,8 @@ import com.fw.zycoder.utils.Spanny;
 import java.math.BigDecimal;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import imagetest.wanda.com.widgets.text.MoneyEditText;
 
 /**
  * Created by zhangyang131 on 2016/10/20.
@@ -42,7 +43,7 @@ public class LCFragment extends BaseFragment implements View.OnClickListener {
     long startTime;
 
     Timer timer = new Timer();
-    EditText ed;
+    MoneyEditText ed;
     TextView tv;
     TextView tip;
     Button btn;
@@ -64,7 +65,7 @@ public class LCFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void onInflated(View contentView, Bundle savedInstanceState) {
-        ed = (EditText) mContentView.findViewById(R.id.v1);
+        ed = (MoneyEditText) mContentView.findViewById(R.id.v1);
         tv = (TextView) mContentView.findViewById(R.id.v2);
         btn = (Button) mContentView.findViewById(R.id.v3);
         tip = (TextView) mContentView.findViewById(R.id.v4);
