@@ -1,12 +1,10 @@
 package com.hongyu.reward.request;
 
-import android.text.TextUtils;
-
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.SystemUtil;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.BaseHttpRequestBuilder;
-import com.hongyu.reward.manager.AccountManager;
+import com.hongyu.reward.manager.PushTokenManager;
 import com.hongyu.reward.model.TokenModel;
 
 /**
@@ -23,20 +21,13 @@ public class GetTokenRequestBuilder extends BaseHttpRequestBuilder<TokenModel> {
   public GetTokenRequestBuilder() {
     this.devive_type = "2";
     this.device_code = getDeviceCode();
-    this.push_code = getPushCode();
+    this.push_code = PushTokenManager.getInstance().getPushCode();
   }
 
   private String getDeviceCode(){
     return SystemUtil.getDeviceId(GlobalConfig.getAppContext().getApplicationContext());
   }
 
-  private String getPushCode(){
-    String pushCode = AccountManager.getInstance().getPushCode();
-    if(TextUtils.isEmpty(pushCode)){
-      return getDeviceCode();
-    }
-    return pushCode;
-  }
 
   @Override
   protected String getApiUrl() {

@@ -81,6 +81,7 @@ public final class Constants {
     public static final String PREFERENCES_NAME = "ZDS_REFERENCE";
     public static final String GUIDE_KEY = "guide_key";
     public static final String TOKEN = "token";
+    public static final String PUSHCODE = "PushCode";
     public static final String CURRENT_CITY = "current_city";
 
     public static final String AUDIO_CUES = "audioCues"; // 声音提示

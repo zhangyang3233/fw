@@ -21,9 +21,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
-    <application
-        android:allowBackup="true"
-        tools:replace="android:allowBackup">
+    <application>
 
         <service
             android:name="com.taobao.accs.ChannelService"
@@ -140,8 +138,7 @@
         <provider
             android:name="com.umeng.message.provider.MessageProvider"
             android:authorities="${applicationId}.umeng.message"
-            android:exported="false"
-            android:process=":channel">
+            android:exported="false">
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
     </application>

@@ -10,12 +10,12 @@ import com.fw.zycoder.appbase.fragment.BaseFragment;
 import com.fw.zycoder.demos.R;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.Spanny;
+import com.zy.widgets.text.MoneyEditText;
 
 import java.math.BigDecimal;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import imagetest.wanda.com.widgets.text.MoneyEditText;
 
 /**
  * Created by zhangyang131 on 2016/10/20.

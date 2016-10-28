@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.GlobalConfig;
-import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.model.LoginModel;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
  */
 public class AccountManager {
   private static AccountManager instance;
-  private String token;
-  private String pushCode;
   private LoginModel.UserInfo user;
   private ArrayList<LogoutListener> mLogoutListeners;
 
@@ -70,13 +67,6 @@ public class AccountManager {
     }
   }
 
-  public String getToken() {
-    return token;
-  }
-
-  public String getPushCode() {
-    return pushCode;
-  }
 
   public LoginModel.UserInfo getUser() {
     return user;
@@ -91,19 +81,8 @@ public class AccountManager {
    */
   private void init() {
     initUser();
-    initToken();
-    initPushCode();
   }
 
-  private void initToken() {
-    SharedPreferences pref = GlobalConfig.getAppContext()
-        .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
-    token = pref.getString(Constants.Pref.TOKEN, "");
-  }
-
-  private void initPushCode() {
-    pushCode = SPUtil.getString("PushCode", "");
-  }
 
   private void initUser() {
     SharedPreferences pref = GlobalConfig.getAppContext()
@@ -124,24 +103,6 @@ public class AccountManager {
     }
   }
 
-  public void saveToken(String token) {
-    if (TextUtils.isEmpty(token)) {
-      return;
-    }
-    this.token = token;
-    SharedPreferences pref = GlobalConfig.getAppContext()
-        .getSharedPreferences(Constants.Pref.USER_INFO, Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = pref.edit();
-    editor.putString(Constants.Pref.TOKEN, token);
-    editor.commit();
-  }
-
-  public void savePushCode(String pushCode) {
-    if (!TextUtils.isEmpty(pushCode)) {
-      this.pushCode = pushCode;
-      SPUtil.putString("PushCode", pushCode);
-    }
-  }
 
   public static void launchAfterLogin(Context context, Intent pendingIntent){
     if(getInstance().isLogin()){
