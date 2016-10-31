@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import com.hongyu.reward.R;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.manager.ScreenManager;
+import com.umeng.analytics.MobclickAgent;
 import com.zycoder.sliding.SlidingHelper;
 import com.zycoder.sliding.component.SlideActivity;
 
@@ -41,6 +42,16 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
     if (this.mFragment != null) {
       this.mFragment.onNewIntent(intent);
     }
+  }
+
+
+  public void onResume() {
+    super.onResume();
+    MobclickAgent.onResume(this);
+  }
+  public void onPause() {
+    super.onPause();
+    MobclickAgent.onPause(this);
   }
 
   public boolean isDestroyed() {

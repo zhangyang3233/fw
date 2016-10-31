@@ -38,6 +38,7 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
     isAtt = true;
+    initTimer();
     timer.schedule(timerTask, 5000, 5000);
   }
 
@@ -69,7 +70,6 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
     magicIndicator = (MagicIndicator) mView.findViewById(R.id.magic_indicator);
     circleNavigator = new CircleNavigator(mContext);
     addView(mView);
-    initTimer();
   }
 
   private void initTimer() {

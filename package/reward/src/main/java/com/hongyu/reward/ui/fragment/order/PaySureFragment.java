@@ -10,13 +10,16 @@ import android.widget.TextView;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.SignResultModel;
 import com.hongyu.reward.pay.PayAsyncTask;
 import com.hongyu.reward.request.PayRequestBuilder;
 import com.hongyu.reward.ui.activity.PayResultActivity;
 import com.hongyu.reward.ui.activity.order.PaySureActivity;
+import com.hongyu.reward.utils.PayEventUtil;
 import com.hongyu.reward.utils.T;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by zhangyang131 on 16/10/3.
@@ -92,12 +95,14 @@ public class PaySureFragment extends BaseLoadFragment implements OnClickListener
           @Override
           public void paySuccess() {
             T.show("支付成功");
+            PayEventUtil.paySuccessEvent(getActivity(), price);
             PayResultActivity.launch(getActivity(), true, orderId);
             getActivity().finish();
           }
 
           @Override
           public void payFailed(String msg) {
+            MobclickAgent.onEvent(getActivity(), Constants.APP_EVENT.EVENT_PAY_FAILED);
             PayResultActivity.launch(getActivity(), false, orderId);
           }
         });

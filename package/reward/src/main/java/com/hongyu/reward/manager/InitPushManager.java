@@ -22,7 +22,6 @@ public class InitPushManager {
   private static InitPushManager instance;
   public static final String TAG = InitPushManager.class.getSimpleName();
   PushAgent mPushAgent;
-  private PushCodeChanged mPushCodeChanged;
 
   private InitPushManager() {
     mPushAgent = getPushAgent();
@@ -34,11 +33,6 @@ public class InitPushManager {
     }
     return instance;
   }
-
-  public void setPushCodeChanged(PushCodeChanged mPushCodeChanged) {
-    this.mPushCodeChanged = mPushCodeChanged;
-  }
-
 
   public void register() {
     mPushAgent.register(new IUmengRegisterCallback() {
@@ -54,6 +48,7 @@ public class InitPushManager {
             PushTokenManager.getInstance().setPushCode(pushCode);
             break;
           case 2: // 没变（获取到的和本地是一样的）
+            PushTokenManager.getInstance().setPushCode(pushCode);
             break;
         }
       }
@@ -128,7 +123,4 @@ public class InitPushManager {
     }
   }
 
-  public interface PushCodeChanged {
-    void PushCodeChanged();
-  }
 }

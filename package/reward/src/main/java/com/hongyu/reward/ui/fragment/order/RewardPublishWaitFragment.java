@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.manager.OrderDeal;
 import com.hongyu.reward.model.AddRewardModel;
@@ -26,6 +27,7 @@ import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.SpringProgressView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -327,6 +329,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
+          MobclickAgent.onEvent(getActivity(), Constants.APP_EVENT.EVENT_PUBLISH_CANCEL);
           T.show(R.string.cancel_reward_order_success);
           getActivity().finish();
           EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));

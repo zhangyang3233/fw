@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.PublishReqeustModel;
@@ -20,6 +21,7 @@ import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.NetImageView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -186,6 +188,7 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
         }
         dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {// 发布成功
+          MobclickAgent.onEvent(getActivity(), Constants.APP_EVENT.EVENT_PUBLISH_REWARD);
           RewardPublishWaitActivity.launch(getActivity(), data.getData().getOrder_id(),
               shopInfo.getShop_name(), shopInfo.getImg());
           T.show(R.string.public_success);

@@ -21,6 +21,7 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.BottomBar;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
 
@@ -182,5 +183,14 @@ public class TabHostActivity extends FragmentActivity {
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     intent.addCategory(Intent.CATEGORY_HOME);
     this.startActivity(intent);
+  }
+
+  public void onResume() {
+    super.onResume();
+    MobclickAgent.onResume(this);
+  }
+  public void onPause() {
+    super.onPause();
+    MobclickAgent.onPause(this);
   }
 }

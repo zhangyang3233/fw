@@ -12,6 +12,7 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.ShareSuccessRequestBuilder;
 import com.hongyu.reward.utils.T;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -22,6 +23,8 @@ import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhangyang131 on 16/10/13.
@@ -78,6 +81,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
   }
 
   private void submitShareSuccess(String transaction) {
+    T.show("分享成功");
     try {
       String[] data = transaction.split("&");
       String shareType = data[0];
@@ -88,7 +92,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         @Override
         public void onDataCallback(BaseModel data) {
           if (ResponesUtil.checkModelCodeOK(data)) {
-            T.show("分享成功");
+            EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_POINT_CHANGED));
           }
         }
       });

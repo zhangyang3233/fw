@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderCommentModel;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
@@ -28,6 +30,9 @@ import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 import com.hongyu.reward.wxapi.WXEntryActivity;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhangyang131 on 16/10/3.
@@ -244,6 +249,10 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
   }
 
   private void showShareDialog() {
+    if(!isWXAppInstalledAndSupported()){
+      T.show("微信不可用，请检查微信是否安装。");
+      return;
+    }
     DialogFactory.showShareView(getActivity(), new DialogFactory.OnWhichListener() {
       @Override
       public void onConfirmClick(int which) {
@@ -258,6 +267,14 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
     } else if (which == 2) { // 分享到朋友圈
       WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2, order_id);
     }
+  }
+
+  private boolean isWXAppInstalledAndSupported() {
+    IWXAPI msgApi = WXAPIFactory.createWXAPI(getActivity(), Constants.WX.AppID);
+    msgApi.registerApp(Constants.WX.AppID);
+    boolean sIsWXAppInstalledAndSupported = msgApi.isWXAppInstalled()
+            && msgApi.isWXAppSupportAPI();
+    return sIsWXAppInstalledAndSupported;
   }
 
   private void showStar(int star_num) {
@@ -326,6 +343,7 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show("打分成功");
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_POINT_CHANGED));
           requestLoad();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));

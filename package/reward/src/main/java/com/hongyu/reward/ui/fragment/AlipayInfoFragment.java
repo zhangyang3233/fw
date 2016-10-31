@@ -15,6 +15,7 @@ import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.request.WithdrawalsRequestBuilder;
 import com.hongyu.reward.ui.activity.AlipayInfoActivity;
 import com.hongyu.reward.ui.activity.WithdrawalFinishActivity;
+import com.hongyu.reward.utils.PayEventUtil;
 import com.hongyu.reward.utils.T;
 
 /**
@@ -75,6 +76,7 @@ public class AlipayInfoFragment extends BaseLoadFragment implements View.OnClick
         }
         dismissLoadingView();
         if(ResponesUtil.checkModelCodeOK(data)){
+          PayEventUtil.withdrawalsEvent(getActivity(), price);
           WithdrawalFinishActivity.launch(getActivity());
           getActivity().finish();
         }else{

@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.fw.zycoder.http.callback.DataCallback;
+import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.SPUtil;
+import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.appbase.BaseSlideActivity;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
@@ -19,9 +21,11 @@ import com.hongyu.reward.model.TokenModel;
 import com.hongyu.reward.request.GetTokenRequestBuilder;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
+import com.hongyu.reward.utils.PayEventUtil;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.wxapi.WXEntryActivity;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by zhangyang131 on 16/7/22.
@@ -33,6 +37,8 @@ public class SplashActivity extends BaseSlideActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Log.e(PayEventUtil.getDeviceInfo(this));
+    MobclickAgent.setDebugMode(BuildConfig.IS_DEBUG);
     LocationManager.getInstance().init(getApplicationContext());
     LocationManager.getInstance().start();
     initWX();

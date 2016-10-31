@@ -15,10 +15,6 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 import com.hongyu.reward.widget.StarMultiple;
-import com.hongyu.reward.widget.TagView;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.json.JSONObject;
 
@@ -31,8 +27,8 @@ public class MyEvaluateFragment extends BaseLoadFragment {
   private TextView mTvOrderNum;
   private TextView mTvGcr;
   private FiveStarSingle mScoreView;
-  private TagFlowLayout mFlowLayout;
-  private TagAdapter adapter;
+//  private TagFlowLayout mFlowLayout;
+//  private TagAdapter adapter;
   private StarMultiple mStarMultiple;
 
   @Override
@@ -63,8 +59,8 @@ public class MyEvaluateFragment extends BaseLoadFragment {
     mTvGcr.setText("好评率：" + data.getGcr());
     mTvOrderNum.setText("成交：" + data.getOrder_num() + "单");
     mScoreView.setData(data.getScore(), false);
-    adapter.setTagDatas(data.getTag_list());
-    adapter.notifyDataChanged();
+//    adapter.setTagDatas(data.getTag_list());
+//    adapter.notifyDataChanged();
     mStarMultiple.setData(data.getScore_list());
     mStarMultiple.setVisibility(View.VISIBLE);
     mHeadImg.loadNetworkImageByUrl(AccountManager.getInstance().getUser().getHead_img());
@@ -76,23 +72,23 @@ public class MyEvaluateFragment extends BaseLoadFragment {
   }
 
   private void initView() {
-    mFlowLayout = (TagFlowLayout) mContentView.findViewById(R.id.flow_layout);
+//    mFlowLayout = (TagFlowLayout) mContentView.findViewById(R.id.flow_layout);
     mHeadImg = (RoundImageView) mContentView.findViewById(R.id.header_icon);
     mTvName = (TextView) mContentView.findViewById(R.id.name);
     mTvGcr = (TextView) mContentView.findViewById(R.id.gcr);
     mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);
     mScoreView = (FiveStarSingle) mContentView.findViewById(R.id.my_score);
     mStarMultiple = (StarMultiple) mContentView.findViewById(R.id.star_multiple);
-    adapter = new TagAdapter<MyEvaluateReceiveModel.TagModel>() {
-      @Override
-      public View getView(FlowLayout parent, int position,
-          MyEvaluateReceiveModel.TagModel tagModel) {
-        TagView tagView = TagView.newInstance(getActivity());
-        tagView.setTagModel(getItem(position));
-        return tagView;
-      }
-    };
-    mFlowLayout.setAdapter(adapter);
+//    adapter = new TagAdapter<MyEvaluateReceiveModel.TagModel>() {
+//      @Override
+//      public View getView(FlowLayout parent, int position,
+//          MyEvaluateReceiveModel.TagModel tagModel) {
+//        TagView tagView = TagView.newInstance(getActivity());
+//        tagView.setTagModel(getItem(position));
+//        return tagView;
+//      }
+//    };
+//    mFlowLayout.setAdapter(adapter);
   }
 
   @Override

@@ -2,6 +2,8 @@ package com.hongyu.reward.ui.fragment.personal;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,17 +20,42 @@ import com.hongyu.reward.utils.T;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by zhangyang131 on 16/10/10.
  */
 public class EditNicknameFragment extends BaseLoadFragment {
   EditText edit_text;
+  private static InputFilter emojiFilter = new InputFilter() {
+    Pattern emoji = Pattern.compile(
+        "[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
+        Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
+
+    @Override
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest,
+        int dstart,
+        int dend) {
+      Matcher emojiMatcher = emoji.matcher(source);
+      if (emojiMatcher.find()) {
+        return "";
+      }
+      return null;
+
+
+    }
+  };
+  public static InputFilter[] emojiFilters = {emojiFilter};
+
 
 
   @Override
   protected void onStartLoading() {
 
   }
+
+
 
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
@@ -37,6 +64,10 @@ public class EditNicknameFragment extends BaseLoadFragment {
 
   private void initView() {
     edit_text = (EditText) mContentView.findViewById(R.id.edit_text);
+
+
+    edit_text.setFilters(emojiFilters);
+
     edit_text.setOnTouchListener(new View.OnTouchListener() {
 
       @Override
@@ -72,11 +103,11 @@ public class EditNicknameFragment extends BaseLoadFragment {
 
     }
     String nickName = edit_text.getText().toString();
-    if (TextUtils.isEmpty(nickName)) {
+    if (TextUtils.isEmpty(nickName) || TextUtils.isEmpty(nickName.trim())) {
       edit_text.setError("昵称不能为空");
     } else {
       EditUserInfoRequestBuilder builder = new EditUserInfoRequestBuilder();
-      builder.setNickname(nickName);
+      builder.setNickname(nickName.trim());
       builder.setDataCallback(new DataCallback<BaseModel>() {
         @Override
         public void onDataCallback(BaseModel data) {

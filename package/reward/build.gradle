@@ -53,6 +53,7 @@ android {
             jniDebuggable false
             // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
             buildConfigField "boolean", "IS_SHOW_LOG", "false"
+            buildConfigField "boolean", "IS_DEBUG", "false"
             // 版本名称后缀
             versionNameSuffix "-release"
             // 使用zipAlign优化压缩包
@@ -82,6 +83,9 @@ android {
             jniDebuggable true
             zipAlignEnabled false
             shrinkResources false
+            // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
+            buildConfigField "boolean", "IS_SHOW_LOG", "true"
+            buildConfigField "boolean", "IS_DEBUG", "true"
         }
     }
 
@@ -137,6 +141,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'me.relex:circleindicator:1.2.1@aar'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.pgyersdk:sdk:2.4.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'

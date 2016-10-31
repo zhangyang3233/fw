@@ -15,6 +15,7 @@
         android:gravity="center_vertical"
         android:hint="请输入昵称"
         android:padding="15dp"
+        android:maxLength="20"
         android:singleLine="true"
         android:textColor="@color/text_gray_dark"
         android:drawableRight="@mipmap/comm_icon_delete"

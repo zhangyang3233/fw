@@ -1,7 +1,6 @@
 package com.hongyu.reward.ui.fragment.tabhost;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -216,10 +215,6 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
     }
   }
 
-  private void goToActivity(Intent intent) {
-    startActivity(intent);
-  }
-
   @Override
   protected void onStartLoading() {
 
@@ -229,6 +224,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   public void onEventMainThread(NoticeEvent noticeEvent) {
     if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
         || noticeEvent.getType() == NoticeEvent.USER_NICKNAME_CHANGED
+        || noticeEvent.getType() == NoticeEvent.USER_POINT_CHANGED
         || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
       loadingData();
     }

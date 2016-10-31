@@ -107,6 +107,11 @@ public class WithdrawFragment extends BaseLoadFragment implements View.OnClickLi
       T.show("您最多可提现:"+priceMax+", 请重新输入");
       return false;
     }
+
+    if(getInputPrice()<=0){
+      mWithdraw.setError("提现金额必须大于0");
+      return false;
+    }
     return true;
   }
 }

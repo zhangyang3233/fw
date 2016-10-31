@@ -13,8 +13,12 @@ import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.CollectionUtils;
+import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
+import com.fw.zycoder.utils.MainThreadPostUtils;
+import com.fw.zycoder.utils.NetworkUtil;
 import com.fw.zycoder.utils.Spanny;
+import com.fw.zycoder.utils.StringUtil;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
@@ -35,7 +39,9 @@ import com.hongyu.reward.ui.activity.personal.MessageListActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
 import com.hongyu.reward.ui.city.CityPickerActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
+import com.hongyu.reward.utils.EmptyTipsUtil;
 import com.hongyu.reward.utils.T;
+import com.hongyu.reward.widget.AppEmptyView;
 import com.hongyu.reward.widget.BannerView;
 import com.hongyu.reward.widget.NoticeView;
 
@@ -99,6 +105,40 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
     LocationManager.getInstance().removeCityChangedListener(cityChangedListener);
   }
 
+
+
+  protected void onNoFetchResult() {
+    EmptyTipsUtil.showEmptyTips(mContentListView,
+        StringUtil.getString(getEmptyTipsString()), R.mipmap.empty_icon_small,
+        new AppEmptyView.OnEmptyRefreshListener() {
+          @Override
+          public void onRefresh() {
+            if (!NetworkUtil.isNetworkConnected(GlobalConfig.getAppContext())) {
+              MainThreadPostUtils.toast(R.string.app_wifi_isopen);
+            }
+            requestLoad();
+          }
+        });
+  }
+
+  /**
+   * called when init data failed
+   */
+  protected void onLoadingFailed() {
+    EmptyTipsUtil.showEmptyTips(mContentListView,
+        StringUtil.getString(getEmptyTipsString()), R.mipmap.empty_icon_small,
+        new AppEmptyView.OnEmptyRefreshListener() {
+          @Override
+          public void onRefresh() {
+            if (!NetworkUtil.isNetworkConnected(GlobalConfig.getAppContext())) {
+              MainThreadPostUtils.toast(R.string.app_wifi_isopen);
+            }
+            requestLoad();
+          }
+        });
+  }
+
+
   @Override
   protected BaseFetcher<ShopListMode.ShopInfo> newFetcher() {
     return new BaseFetcher<ShopListMode.ShopInfo>() {
@@ -111,7 +151,7 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
           LocationManager.getInstance().addLocationListener(new GetLocationListener() {
             @Override
             public void onSuccess(AppLocation locationInfo) {
-              Log.e("asdf", "onSuccess:"+locationInfo.toString());
+              Log.e("asdf", "onSuccess:" + locationInfo.toString());
               onPullDownToRefresh();
             }
 
@@ -121,8 +161,8 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
             }
           });
           return null;
-        }else{
-          Log.e("asdf", "location: "+location.toString());
+        } else {
+          Log.e("asdf", "location: " + location.toString());
         }
         String locationStr = location.toString();
         String city = LocationManager.getSavedCity();
@@ -175,8 +215,16 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
+          EmptyTipsUtil.hideEmptyTips(mBannerView);
           mBannerView.setData(data.getData());
         } else {
+          EmptyTipsUtil.showEmptyTips(mBannerView, "点击重新加载", 0,
+              new AppEmptyView.OnEmptyRefreshListener() {
+                @Override
+                public void onRefresh() {
+                  initAd();
+                }
+              });
           T.show(ResponesUtil.getErrorMsg(data));
         }
       }
@@ -242,7 +290,7 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         LocationManager.getInstance().addLocationListener(new GetLocationListener() {
           @Override
           public void onSuccess(AppLocation locationInfo) {
-            if(location == null){
+            if (location == null) {
               return;
             }
             leftBtn.setText(location.getCity());

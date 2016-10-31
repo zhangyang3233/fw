@@ -16,6 +16,7 @@ import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.Spanny;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.NoticeEvent;
@@ -31,6 +32,7 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.RoundImageView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -222,6 +224,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
         }
         dismissLoadingView();
         if(ResponesUtil.checkModelCodeOK(data)){
+          MobclickAgent.onEvent(getActivity(), Constants.APP_EVENT.EVENT_PUBLISH_CANCEL_BY_RECEIVED);
           T.show("取消订单成功");
           getActivity().finish();
           EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));

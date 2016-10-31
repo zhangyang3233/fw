@@ -12,11 +12,13 @@ import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.PhoneNumberUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.utils.T;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by zhangyang131 on 16/9/10.
@@ -82,9 +84,19 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
       mPwd.setError(getString(R.string.login_pwd_must_be_not_empty));
       return;
     }
+    if (pwd.length()<6) {
+      mPwd.setError(getString(R.string.login_pwd_less_6));
+      return;
+    }
+
     if (TextUtils.isEmpty(repwd)) {
       mRepwd.setError(getString(R.string.login_pwd_must_be_not_empty));
       return;
+    }
+
+    if(!pwd.equals(repwd)){
+      mRepwd.setError(getString(R.string.pwd_not_equals));
+      return ;
     }
 
     if (!PhoneNumberUtils.isPhoneNum(phone)) {
@@ -97,6 +109,9 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
+        if(ResponesUtil.checkModelCodeOK(data)){
+          MobclickAgent.onEvent(getActivity(), Constants.APP_EVENT.EVENT_REGISTER_SUCCESS);
+        }
         if (!isAdded()) {
           return;
         }

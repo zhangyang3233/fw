@@ -112,6 +112,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_gray_dark"
                         android:textSize="@dimen/text_h1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         tools:text="刘嘉玲" />
 
                     <LinearLayout

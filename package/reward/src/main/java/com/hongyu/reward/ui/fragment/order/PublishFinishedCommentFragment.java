@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.fw.zycoder.http.callback.DataCallback;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.OrderCommentModel;
@@ -29,6 +30,7 @@ import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 import com.hongyu.reward.wxapi.WXEntryActivity;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.json.JSONObject;
 
@@ -268,6 +270,10 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
   }
 
   private void showShareDialog1() {
+    if(!isWXAppInstalledAndSupported()){
+      T.show("微信不可用，请检查微信是否安装。");
+      return;
+    }
     DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener() {
       @Override
       public void onConfirmClick(String[] content) {
@@ -275,6 +281,14 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
       }
     });
 
+  }
+
+  private boolean isWXAppInstalledAndSupported() {
+    IWXAPI msgApi = WXAPIFactory.createWXAPI(getActivity(), Constants.WX.AppID);
+    msgApi.registerApp(Constants.WX.AppID);
+    boolean sIsWXAppInstalledAndSupported = msgApi.isWXAppInstalled()
+            && msgApi.isWXAppSupportAPI();
+    return sIsWXAppInstalledAndSupported;
   }
 
   private void showShareDialog2(final String text1, final String text2, final String order_id) {

@@ -14,6 +14,7 @@ import com.hongyu.reward.model.OrderListModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.ui.adapter.OrderListAdapter;
 import com.hongyu.reward.utils.EmptyTipsUtil;
+import com.hongyu.reward.widget.AppEmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,12 @@ public class OrderListFragment extends AsyncLoadListFragment<OrderModel> {
   protected void onNoFetchResult() {
     EmptyTipsUtil.showEmptyTips(mContentListView,
         StringUtil.getString(getEmptyTipsString()),
-        null);
+        new AppEmptyView.OnEmptyRefreshListener() {
+          @Override
+          public void onRefresh() {
+            requestLoad();
+          }
+        });
   }
 
   @Override

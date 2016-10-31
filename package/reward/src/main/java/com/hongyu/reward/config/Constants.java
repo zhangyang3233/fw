@@ -9,6 +9,16 @@ import android.os.Environment;
  * @since 2015-3-17 上午1:32:12
  */
 public final class Constants {
+
+  public static final class APP_EVENT{
+    public static final String EVENT_PUBLISH_REWARD = "publish_reward";
+    public static final String EVENT_PUBLISH_CANCEL = "publish_cancel";
+    public static final String EVENT_PUBLISH_CANCEL_BY_RECEIVED = "publish_cancel_by_received";
+    public static final String EVENT_PAY_SUCCESS_SUM = "publish_pay_success_sum";
+    public static final String EVENT_PAY_FAILED = "publish_pay_failed";
+    public static final String EVENT_REGISTER_SUCCESS = "register_success";
+    public static final String EVENT_WITHDRAWALS_SUM = "withdrawals_sum";
+  }
   public static final class PGY{
     public static final String APPID = "527aedc1c916cdd5e803eec807e6940a";
   }

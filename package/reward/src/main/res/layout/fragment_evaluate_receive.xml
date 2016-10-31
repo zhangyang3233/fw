@@ -37,6 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_gray_dark"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="@dimen/text_h1"
                 tools:text="刘嘉玲" />
 
@@ -89,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="评价标签"
+            android:text="我的评价"
             android:textColor="@color/text_gray_light"
             android:textSize="@dimen/text_h0" />
 

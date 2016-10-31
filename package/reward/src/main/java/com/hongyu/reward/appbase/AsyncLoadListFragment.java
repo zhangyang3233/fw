@@ -154,6 +154,7 @@ public abstract class AsyncLoadListFragment<M extends Object> extends BaseLoadFr
     }
   }
 
+
   @Override
   protected int getLayoutResId() {
     return R.layout.base_async_load_list_fragment;

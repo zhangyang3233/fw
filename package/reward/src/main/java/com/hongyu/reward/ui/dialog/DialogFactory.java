@@ -143,7 +143,7 @@ public class DialogFactory {
 
 
   /**
-   * 设置悬赏金额
+   * 分享节省资源
    *
    * @param context
    * @param listen
