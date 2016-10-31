@@ -302,7 +302,6 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
 
   private void share(int which, String text1, String text2, final String order_id) {
     if (which == 1) { // 分享到微信
-      T.show("");
       WXEntryActivity.publishShare(api, order_id, text1,
               text2, 1, order_id);
     } else if (which == 2) { // 分享到朋友圈
