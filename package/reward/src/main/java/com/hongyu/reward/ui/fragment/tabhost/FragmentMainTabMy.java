@@ -1,6 +1,5 @@
 package com.hongyu.reward.ui.fragment.tabhost;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -62,18 +61,6 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   private TextView mTvName;
   private TextView mTvPrice;
   private TextView mTvScore;
-
-  @Override
-  public void onAttach(Context context) {
-    super.onAttach(context);
-    AccountManager.getInstance().addLogoutListener(this);
-  }
-
-  @Override
-  public void onDetach() {
-    super.onDetach();
-    AccountManager.getInstance().removeLogoutListener(this);
-  }
 
   protected void checkLazyLoad() {
     if (isVisible && isPrepared) {
@@ -224,7 +211,9 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   public void onEventMainThread(NoticeEvent noticeEvent) {
     if (noticeEvent.getType() == NoticeEvent.USER_IMG_CHANGED
         || noticeEvent.getType() == NoticeEvent.USER_NICKNAME_CHANGED
+        || noticeEvent.getType() == NoticeEvent.USER_LOGINED
         || noticeEvent.getType() == NoticeEvent.USER_POINT_CHANGED
+        || noticeEvent.getType() == NoticeEvent.USER_MONEY_CHANGED
         || noticeEvent.getType() == NoticeEvent.USER_GENDER_CHANGED) {
       loadingData();
     }
@@ -233,6 +222,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    AccountManager.getInstance().addLogoutListener(this);
     EventBus.getDefault().register(this);
   }
 
@@ -240,6 +230,7 @@ public class FragmentMainTabMy extends BaseLoadFragment implements View.OnClickL
   public void onDestroy() {
     super.onDestroy();
     EventBus.getDefault().unregister(this);
+    AccountManager.getInstance().removeLogoutListener(this);
   }
 
   @Override

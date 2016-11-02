@@ -25,6 +25,11 @@ public class WalletFragment extends BaseLoadFragment implements View.OnClickList
 
   @Override
   protected void onStartLoading() {
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
     LoginModel.UserInfo userInfo = AccountManager.getInstance().getUser();
     mTvName.setText(userInfo.getNickname());
     mTvPrice.setText(String.valueOf(userInfo.getCash()));

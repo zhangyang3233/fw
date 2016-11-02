@@ -99,7 +99,7 @@ public class InitPushManager {
         new CustomNotificationClickHandler();
     mPushAgent.setMessageHandler(umengMessageHandler);
     mPushAgent.setNotificationClickHandler(notificationClickHandler);
-    mPushAgent.setNotificaitonOnForeground(false);
+    mPushAgent.setNotificaitonOnForeground(true);
     resetPushConfig();
     return mPushAgent;
   }

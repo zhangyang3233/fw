@@ -34,6 +34,10 @@ public class ResponesUtil {
       msg = GlobalConfig.getAppContext().getString(R.string.common_net_word_error);
     } else if (model.getCode() == ResultCode.code_1004) {
       msg = "登录失效, 请重新登录";
+    } else if (model.getCode() == ResultCode.code_2006) {
+      msg = "该账号不存在";
+    } else if (model.getCode() == ResultCode.code_4005) {
+      msg = "error：仅能在周五进行提现操作";
     } else if (TextUtils.isEmpty(model.getMessage())) {
       msg = GlobalConfig.getAppContext().getString(R.string.common_error_unknown);
     } else {
@@ -46,6 +50,10 @@ public class ResponesUtil {
     String msg;
     if (null == data) {
       msg = GlobalConfig.getAppContext().getString(R.string.common_net_word_error);
+    } else if(data.optInt("code", 0) == ResultCode.code_2006){
+      msg = "该账号不存在";
+    } else if(data.optInt("code", 0) == ResultCode.code_4005){
+      msg = "error：仅能在周五进行提现操作";
     } else {
       msg = data.optString("message",
           GlobalConfig.getAppContext().getString(R.string.common_error_unknown));

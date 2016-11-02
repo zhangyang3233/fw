@@ -3,7 +3,6 @@ package com.hongyu.reward.ui.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -53,6 +52,7 @@ public class SplashActivity extends BaseSlideActivity {
         @Override
         public void onDataCallback(TokenModel data) {
           if (ResponesUtil.checkModelCodeOK(data) && !TextUtils.isEmpty(data.getToken())) {
+            Log.i("init", "token: "+data.getToken());
             PushTokenManager.getInstance().setToken(data.getToken());
             jumpToNextActivity();
           }else{
@@ -63,6 +63,7 @@ public class SplashActivity extends BaseSlideActivity {
       builder.build().submit();
       return;
     }
+    Log.i("init", "token2: "+localToken);
     jumpToNextActivity();
   }
 
@@ -115,20 +116,6 @@ public class SplashActivity extends BaseSlideActivity {
     return false;
   }
 
-  public long getDelayedTime() {
-    SharedPreferences sp = getPreferences(MODE_PRIVATE);
-    boolean isFirstLuanch = sp.getBoolean(IS_FIRST_LAUNCH, true);
-    if (isFirstLuanch) {
-      SharedPreferences.Editor ed = sp.edit();
-      ed.putBoolean(IS_FIRST_LAUNCH, false);
-      ed.commit();
-      return 0;
-    }
-    return 2000;
-  }
-
-
-
   @TargetApi(23)
   @Override
   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -145,46 +132,5 @@ public class SplashActivity extends BaseSlideActivity {
       }
     }
   }
-
-
-  // private void showPermissionDeniedDialog() {
-  // if (showDialogCount > 0) {
-  // CommonTwoBtnDialogFragment dialog = new CommonTwoBtnDialogFragment();
-  // dialog.setContent("没有获取到系统位置信息授权,无法定位您当前位置,是否重新获取?");
-  // dialog.setLeft("取消", new CommonTwoBtnDialogFragment.OnClickListener() {
-  // @Override
-  // public void onClick(Dialog dialog) {
-  // System.exit(0);
-  // }
-  // });
-  // dialog.setRight("重新获取", new CommonTwoBtnDialogFragment.OnClickListener() {
-  // @Override
-  // public void onClick(Dialog dialog) {
-  // dialog.dismiss();
-  // getPersimmions();
-  // }
-  // });
-  // dialog.show(getSupportFragmentManager(), getClass().getSimpleName());
-  // } else {
-  // CommonTwoBtnDialogFragment dialog = new CommonTwoBtnDialogFragment();
-  // dialog.setContent("是否已禁用获取位置权限?\n请到设置页面允许");
-  // dialog.setLeft("取消", new CommonTwoBtnDialogFragment.OnClickListener() {
-  // @Override
-  // public void onClick(Dialog dialog) {
-  // System.exit(0);
-  // }
-  // });
-  // dialog.setRight("重新获取", new CommonTwoBtnDialogFragment.OnClickListener() {
-  // @Override
-  // public void onClick(Dialog dialog) {
-  // dialog.dismiss();
-  // getPersimmions();
-  // }
-  // });
-  // dialog.show(getSupportFragmentManager(), getClass().getSimpleName());
-  // }
-  // showDialogCount++;
-  //
-  // }
 
 }

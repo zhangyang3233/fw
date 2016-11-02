@@ -14,6 +14,7 @@ import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderCommentModel;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
@@ -32,6 +33,7 @@ import com.hongyu.reward.wxapi.WXEntryActivity;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -219,7 +221,7 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
     mBtnEval = (Button) mContentView.findViewById(R.id.evaluate);
     tip_content = (TextView) mContentView.findViewById(R.id.tip_content);
     initClickListener();
-    showStar(5);
+    showStar(0);
   }
 
   private void initClickListener() {
@@ -377,6 +379,7 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show("评价成功");
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_POINT_CHANGED));
           requestLoad();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));

@@ -15,10 +15,13 @@ import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.LoginModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.LoginRequestBuilder;
 import com.hongyu.reward.ui.activity.ForgetPwdActivity;
 import com.hongyu.reward.utils.InputUtil;
 import com.hongyu.reward.utils.T;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -114,6 +117,7 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
   }
 
   private void onLoginSuccess() {
+    EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_LOGINED));
     if(pendingIntent != null){
       getActivity().startActivity(pendingIntent);
     }

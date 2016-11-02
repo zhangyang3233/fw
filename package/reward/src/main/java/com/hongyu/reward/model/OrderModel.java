@@ -135,6 +135,9 @@ public class OrderModel implements BaseDataModel {
   }
 
   public int getStatus() {
+    if(30 == status && !isComment.equals("1")){
+      return 40;
+    }
     return status;
   }
 
@@ -223,6 +226,9 @@ public class OrderModel implements BaseDataModel {
   }
 
   public boolean isMePublish(){
-    return AccountManager.getInstance().getUser().getUser_id().equals(user_id);
+    if(AccountManager.getInstance().getUser() != null){
+      return AccountManager.getInstance().getUser().getUser_id().equals(user_id);
+    }
+    return false;
   }
 }

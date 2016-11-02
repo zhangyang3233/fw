@@ -253,7 +253,7 @@
 
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Unknown"></meta-data>
+            android:value="${CHANNEL_CODE}"></meta-data>
 
         <!-- 蒲公英 -->
         <activity android:name="com.pgyersdk.activity.FeedbackActivity"/>

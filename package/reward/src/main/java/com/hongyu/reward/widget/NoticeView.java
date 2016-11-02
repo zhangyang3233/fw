@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.fw.zycoder.utils.ViewUtils;
 import com.hongyu.reward.R;
+import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.interfaces.OrderClickUtil;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.manager.RefreshOrderManager;
 
 /**
@@ -37,6 +39,12 @@ public class NoticeView extends RelativeLayout implements View.OnClickListener {
     notice_tip = (TextView) view.findViewById(R.id.notice_tip);
     view.setOnClickListener(this);
     addView(view);
+    AccountManager.getInstance().addLogoutListener(new LogoutListener() {
+      @Override
+      public void onLogout() {
+        hide();
+      }
+    });
   }
 
 

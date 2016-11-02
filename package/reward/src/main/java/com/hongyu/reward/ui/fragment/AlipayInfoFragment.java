@@ -12,11 +12,14 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.WithdrawalsRequestBuilder;
 import com.hongyu.reward.ui.activity.AlipayInfoActivity;
 import com.hongyu.reward.ui.activity.WithdrawalFinishActivity;
 import com.hongyu.reward.utils.PayEventUtil;
 import com.hongyu.reward.utils.T;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhangyang131 on 16/10/17.
@@ -76,6 +79,7 @@ public class AlipayInfoFragment extends BaseLoadFragment implements View.OnClick
         }
         dismissLoadingView();
         if(ResponesUtil.checkModelCodeOK(data)){
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.USER_MONEY_CHANGED));
           PayEventUtil.withdrawalsEvent(getActivity(), price);
           WithdrawalFinishActivity.launch(getActivity());
           getActivity().finish();

@@ -71,6 +71,7 @@ public class PushTokenManager {
 
 
   private void checkBind() {
+    Log.i(TAG, "checkBind");
     if (TextUtils.isEmpty(mToken) || TextUtils.isEmpty(mPushCode)) {
       return;
     }

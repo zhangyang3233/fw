@@ -19,9 +19,9 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         // 程序内部版本号
-        versionCode 3
+        versionCode 4
         // 对外版本名称
-        versionName "1.0.2"
+        versionName "1.0.3"
         // dex突破65535的限制
         multiDexEnabled false
         // 默认是self的渠道
@@ -48,7 +48,7 @@ android {
             // 混淆文件的位置
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 是否可以debug
-            debuggable true
+            debuggable false
             // 是否可以debug jni
             jniDebuggable false
             // 在BuildConfig生成一个名字叫 IS_SHOW_LOG boolean类型的变量,值为false(这里复写了defaultConfig里面的值)
@@ -91,7 +91,7 @@ android {
 
     // 多渠道打包
     productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        flavor -> flavor.manifestPlaceholders = [CHANNEL_CODE: name]
     }
 
     // 移除lint检查的error
@@ -102,6 +102,12 @@ android {
 
     // 构建变体
     productFlavors {
+        yingyongbao {}
+        baidu {}
+        xiaomi {}
+        huawei {}
+        wandoujia {}
+        anzhi {}
         personal {}
     }
 }

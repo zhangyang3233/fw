@@ -13,7 +13,6 @@ import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
-import com.hongyu.reward.manager.OrderDeal;
 import com.hongyu.reward.model.AddRewardModel;
 import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.NoticeEvent;
@@ -22,8 +21,10 @@ import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.request.AddRewardRequestBuilder;
 import com.hongyu.reward.request.CancelOrderRequestBuilder;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
+import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
 import com.hongyu.reward.ui.dialog.AddRewardDialog;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
+import com.hongyu.reward.ui.dialog.SingleBtnDialogFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.SpringProgressView;
@@ -106,11 +107,20 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
-          OrderModel order = data.getData().getOrder();
-
+          final OrderModel order = data.getData().getOrder();
           if (order != null && order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE) {
-            OrderDeal.jumpActivityByOrder(getActivity(), order);
-            getActivity().finish();
+            SingleBtnDialogFragment dialog = new SingleBtnDialogFragment();
+            dialog.setContent("您发布的悬赏有人申请领赏了");
+            dialog.setCancelable(false);
+            dialog.setBtn("查看", new SingleBtnDialogFragment.OnClickListener() {
+              @Override
+              public void onClick(Dialog dialog) {
+                dialog.dismiss();
+                SelectPersonActivity.launch(getActivity(), order.getOrder_id(), null, null);
+                  getActivity().finish();
+              }
+            });
+            dialog.show(getFragmentManager(), getClass().getSimpleName());
           }
         }
       }
@@ -148,7 +158,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
       e.printStackTrace();
     }
     dinner_count_info.setText(getString(R.string.order_user_num, order.getUsernum()));
-    reward_money_info.setText(getString(R.string.order_price, price));
+    reward_money_info.setText(getString(R.string.order_price, String.valueOf(price)));
     shop_name_tv.setText(order.getShop_name());
     address.setText(order.getShop_address());
     image.loadNetworkImageByUrl(order.getImg());
@@ -157,17 +167,17 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     } else {
       order_type.setText(R.string.immediate);
     }
-    startCountDownTimer(order.getEnd_time());
+    startCountDownTimer(order.getBegin_time(), order.getEnd_time());
   }
 
-  private void startCountDownTimer(String totalTime) {
+  private void startCountDownTimer(String currentTime, String totalTime) {
     long time;
     if (TextUtils.isEmpty(totalTime)) {
       T.show("系统异常");
       return;
     } else {
       try {
-        time = Long.parseLong(totalTime) - (System.currentTimeMillis() / 1000);
+        time = Long.parseLong(totalTime) - Long.parseLong(currentTime);
       } catch (NumberFormatException e) {
         T.show("系统异常");
         return;
@@ -211,9 +221,15 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
               return;
             }
             dismissLoadingView();
-            T.show("订单已经自动取消");
-            getActivity().finish();
             EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
+            SingleBtnDialogFragment dialogFragment = new SingleBtnDialogFragment();
+            dialogFragment.setContent("您发布的悬赏还没有人申请领赏");
+            dialogFragment.setBtn("再发一次", new SingleBtnDialogFragment.OnClickListener() {
+              @Override
+              public void onClick(Dialog dialog) {
+                getActivity().finish();
+              }
+            });
           }
         });
         builder.build().submit();
