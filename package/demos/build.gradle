@@ -123,8 +123,8 @@ dependencies {
     compile project(':framework:appbase')
     compile project(':framework:widgets')
     compile project(':external:dialoghelper')
-    compile 'io.reactivex:rxjava:1.0.9'
-    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

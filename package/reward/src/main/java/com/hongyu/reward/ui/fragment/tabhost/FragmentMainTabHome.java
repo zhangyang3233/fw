@@ -42,7 +42,7 @@ import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.utils.EmptyTipsUtil;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.AppEmptyView;
-import com.hongyu.reward.widget.BannerView;
+import com.hongyu.reward.widget.BannerView2;
 import com.hongyu.reward.widget.NoticeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,7 +64,7 @@ import java.util.List;
 public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.ShopInfo>
     implements
       View.OnClickListener {
-  private BannerView mBannerView;
+  private BannerView2 mBannerView;
   private View mRewardPublish;
   private NoticeView mNoticeView;
   private LinearLayout left_container;
@@ -238,7 +238,7 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
   }
 
   private void initView() {
-    mBannerView = (BannerView) mContentView.findViewById(R.id.banner_layout);
+    mBannerView = (BannerView2) mContentView.findViewById(R.id.convenientBanner);
     mRewardPublish = mContentView.findViewById(R.id.reward_publish);
     mRewardget = mContentView.findViewById(R.id.reward_get);
     left_container = (LinearLayout) mContentView.findViewById(R.id.left_container);
@@ -414,5 +414,17 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
         LocationManager.saveCity(selectCity);
       }
     }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    mBannerView.startTurning(5000);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    mBannerView.stopTurning();
   }
 }
