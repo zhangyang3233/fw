@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fw.zycoder.utils.StringUtil;
 import com.fw.zycoder.utils.ViewUtils;
 import com.hongyu.reward.R;
 
@@ -65,7 +64,7 @@ public class AppEmptyView extends LinearLayout {
   }
 
   private void initText() {
-    mText = StringUtil.getString(R.string.base_default_empty_message);
+    mText = getContext().getString(R.string.base_default_empty_message);
   }
 
   private void initListener() {

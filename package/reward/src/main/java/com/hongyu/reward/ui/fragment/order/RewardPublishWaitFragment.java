@@ -117,7 +117,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
               public void onClick(Dialog dialog) {
                 dialog.dismiss();
                 SelectPersonActivity.launch(getActivity(), order.getOrder_id(), null, null);
-                  getActivity().finish();
+                getActivity().finish();
               }
             });
             dialog.show(getFragmentManager(), getClass().getSimpleName());

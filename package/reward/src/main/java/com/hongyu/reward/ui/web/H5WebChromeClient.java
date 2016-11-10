@@ -10,9 +10,14 @@ import android.webkit.WebView;
 public class H5WebChromeClient extends WebChromeClient {
 
   private TitleReceivedListener mTitleReceivedListener;
+  private ProgressReceivedListener mProgressReceivedListener;
 
   public void setTitleReceivedListener(TitleReceivedListener titleReceivedListener) {
     mTitleReceivedListener = titleReceivedListener;
+  }
+
+  public void setProgressReceivedListener(ProgressReceivedListener mProgressReceivedListener) {
+    this.mProgressReceivedListener = mProgressReceivedListener;
   }
 
   @Override
@@ -24,5 +29,17 @@ public class H5WebChromeClient extends WebChromeClient {
 
   public interface TitleReceivedListener {
     void onReceivedTitle(WebView view, String title);
+  }
+
+  public interface ProgressReceivedListener {
+    void onProgressChanged(WebView view, int newProgress);
+  }
+
+  @Override
+  public void onProgressChanged(WebView view, int newProgress) {
+    super.onProgressChanged(view, newProgress);
+    if(mProgressReceivedListener != null){
+      mProgressReceivedListener.onProgressChanged(view, newProgress);
+    }
   }
 }

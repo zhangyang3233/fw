@@ -12,6 +12,7 @@ public class H5WebviewHelper {
 
   public static void initWebView(final WebView webView,
       H5WebChromeClient.TitleReceivedListener listener,
+      H5WebChromeClient.ProgressReceivedListener listener2,
       H5WebViewClient.PageStatusChangeListener pageStatusChangeListener) {
     if (webView == null) {
       return;
@@ -19,6 +20,7 @@ public class H5WebviewHelper {
     H5WebViewClient webViewClient = new H5WebViewClient();
     H5WebChromeClient webChromeClient = new H5WebChromeClient();
     webChromeClient.setTitleReceivedListener(listener);
+    webChromeClient.setProgressReceivedListener(listener2);
     webViewClient.setPageStatusChangeListener(pageStatusChangeListener);
     WebSettings settings = webView.getSettings();
     settings.setJavaScriptEnabled(true);
@@ -31,8 +33,8 @@ public class H5WebviewHelper {
     settings.setPluginState(WebSettings.PluginState.ON);
     settings.setBuiltInZoomControls(true);
     settings.setLoadWithOverviewMode(true);
-//    settings.setUseWideViewPort(true);
-//
+    // settings.setUseWideViewPort(true);
+    //
     webView.requestFocus();
     webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
     webView.setMapTrackballToArrowKeys(false);

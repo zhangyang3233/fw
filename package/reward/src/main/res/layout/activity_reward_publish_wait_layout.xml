@@ -202,6 +202,19 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_alignParentBottom="true"/>
+
+                <!--<ProgressBar-->
+                    <!--android:id="@+id/progress_view"-->
+                    <!--style="?android:attr/progressBarStyleHorizontal"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="17dp"-->
+                    <!--tools:progress="600"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:layout_below="@+id/time_count_down"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:progressDrawable="@drawable/h5_progress_bar_bg2"-->
+                    <!--android:max="600" />-->
             </RelativeLayout>
 
             <TextView

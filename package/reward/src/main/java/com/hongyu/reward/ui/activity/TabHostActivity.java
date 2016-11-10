@@ -2,6 +2,7 @@ package com.hongyu.reward.ui.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -13,11 +14,15 @@ import android.view.WindowManager;
 
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
+import com.hongyu.reward.interfaces.GetLocationListener;
 import com.hongyu.reward.manager.LocationManager;
 import com.hongyu.reward.manager.ScreenManager;
+import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.ui.adapter.MainPagerAdapter;
+import com.hongyu.reward.ui.dialog.SingleBtnDialogFragment;
 import com.hongyu.reward.utils.DoubleClickUtil;
 import com.hongyu.reward.utils.T;
+import com.hongyu.reward.widget.AppLoadingView;
 import com.hongyu.reward.widget.BottomBar;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -188,9 +193,43 @@ public class TabHostActivity extends FragmentActivity {
   public void onResume() {
     super.onResume();
     MobclickAgent.onResume(this);
+    checkLocationDialog();
   }
   public void onPause() {
     super.onPause();
     MobclickAgent.onPause(this);
+  }
+
+  private void checkLocationDialog(){
+    if(LocationManager.getInstance().getLocation() == null){
+      final AppLoadingView appLoadingView = new AppLoadingView(this);
+      appLoadingView.setLoadingText("正在获取定位");
+      LocationManager.getInstance().addLocationListener(new GetLocationListener() {
+        @Override
+        public void onSuccess(AppLocation locationInfo) {
+          appLoadingView.dismiss();
+        }
+
+        @Override
+        public void onFailed(String msg) {
+          appLoadingView.dismiss();
+          showGetLocationError();
+        }
+      });
+      appLoadingView.show();
+    }
+  }
+
+  private void showGetLocationError() {
+    SingleBtnDialogFragment dialog = new SingleBtnDialogFragment();
+    dialog.setContent("获取定位失败。");
+    dialog.setBtn("重新获取", new SingleBtnDialogFragment.OnClickListener() {
+      @Override
+      public void onClick(Dialog dialog) {
+        dialog.dismiss();
+        checkLocationDialog();
+      }
+    });
+    dialog.show(getSupportFragmentManager(), getClass().getSimpleName());
   }
 }

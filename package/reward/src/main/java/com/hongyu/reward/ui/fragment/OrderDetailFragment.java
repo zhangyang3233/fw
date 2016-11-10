@@ -50,6 +50,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   private TextView mTvName;
   private TextView mTvOrderNum;
   private TextView mTvGcr;
+  private TextView mTip;
   private FiveStarSingle mScoreView;
   private View mReceiveBtn;
 
@@ -86,7 +87,6 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
         if(!isAdded()){
           return;
         }
-        mReceiveBtn.setOnClickListener(OrderDetailFragment.this);
         dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {
           refreshData(data.getData().getOrder());
@@ -107,6 +107,14 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mAddress.setText(order.getShop_address());
     mScoreView.setData(order.getGcr(), false);
     mTvNum.setText(order.getUsernum() + "人");
+    if(order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE){ // 该订单已经被人领取
+      mReceiveBtn.setEnabled(false);
+      mTip.setText("*抱歉，该任务刚被人领取，请返回列表获取最新任务。");
+    }else{
+      mReceiveBtn.setEnabled(true);
+      mReceiveBtn.setOnClickListener(OrderDetailFragment.this);
+      mTip.setText("*我们为悬赏人保留最长10分钟的考虑时间，请您耐心等待。");
+    }
   }
 
   @Override
@@ -122,6 +130,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mTvName = (TextView) mContentView.findViewById(R.id.name);
     mAddress = (TextView) mContentView.findViewById(R.id.address);
     mTvGcr = (TextView) mContentView.findViewById(R.id.gcr);
+    mTip = (TextView) mContentView.findViewById(R.id.tip);
     mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);
     mScoreView = (FiveStarSingle) mContentView.findViewById(R.id.my_score);
     mIvHeader = (RoundImageView) mContentView.findViewById(R.id.header_icon);

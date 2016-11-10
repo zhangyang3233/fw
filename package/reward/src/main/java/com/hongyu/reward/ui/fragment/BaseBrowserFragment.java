@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.fw.zycoder.utils.NetworkUtil;
 import com.hongyu.reward.R;
@@ -16,7 +17,7 @@ public class BaseBrowserFragment extends BaseLoadFragment {
 
   protected WebView mWebView;
   protected AppEmptyView mAppEmptyView;
-
+  protected ProgressBar mH5progressBar;
   protected String mUrl;
 
 
@@ -84,7 +85,5 @@ public class BaseBrowserFragment extends BaseLoadFragment {
     }
     return false;
   }
-
-
 
 }

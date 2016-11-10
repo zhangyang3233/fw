@@ -19,49 +19,49 @@ import rx.functions.Func1;
  */
 
 public class RxAndroidFragment extends BaseFragment implements View.OnClickListener {
-    TextView tv;
-    Button btn;
+  TextView tv;
+  Button btn;
 
-    @Override
-    protected void onInflated(View contentView, Bundle savedInstanceState) {
-        tv = (TextView) mContentView.findViewById(R.id.v1);
-        btn = (Button) mContentView.findViewById(R.id.v2);
-        btn.setOnClickListener(this);
-    }
+  @Override
+  protected void onInflated(View contentView, Bundle savedInstanceState) {
+    tv = (TextView) mContentView.findViewById(R.id.v1);
+    btn = (Button) mContentView.findViewById(R.id.v2);
+    btn.setOnClickListener(this);
+  }
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_rxandroid;
-    }
+  @Override
+  protected int getLayoutResId() {
+    return R.layout.fragment_rxandroid;
+  }
 
-    // 创建字符串
-    private String[] getStringArr() {
-        return new String[]{"A", "B", "C", "D", "E", "F", "G"};
-    }
+  // 创建字符串
+  private String[] getStringArr() {
+    return new String[] {"A", "B", "C", "D", "E", "F", "G"};
+  }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.v2:
-                start();
-                break;
-        }
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.v2:
+        start();
+        break;
     }
+  }
 
-    private void start() {
-        Observable.from(getStringArr()).map(new Func1<String, String>() {
-            @Override
-            public String call(String s) {
-                return "字母是：" + s;
-            }
-        })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        Log.i(s);
-                    }
-                });
-    }
+  private void start() {
+    Observable.from(getStringArr()).map(new Func1<String, String>() {
+      @Override
+      public String call(String s) {
+        return "字母是：" + s;
+      }
+    })
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<String>() {
+          @Override
+          public void call(String s) {
+            Log.i(s);
+          }
+        });
+  }
 
 }
