@@ -31,7 +31,7 @@
     <!-- 蒲公英 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <!-- 百度地图定位-->
+    <!-- 高德定位-->
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 这个权限用于访问GPS定位-->
@@ -261,6 +261,10 @@
             android:name="PGYER_APPID"
             android:value="527aedc1c916cdd5e803eec807e6940a" >
         </meta-data>
+        <service android:name="com.amap.api.location.APSService"></service>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="61e6f511055f75b6e02cd3965f70b3b8"/>
 
     </application>
 

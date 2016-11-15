@@ -14,7 +14,7 @@ import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.appbase.BaseSlideActivity;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
-import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.manager.PushTokenManager;
 import com.hongyu.reward.model.TokenModel;
 import com.hongyu.reward.request.GetTokenRequestBuilder;

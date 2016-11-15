@@ -96,6 +96,7 @@ public final class Constants {
 
     public static final String AUDIO_CUES = "audioCues"; // 声音提示
     public static final String SHOCK_CUES = "shockCues"; // 震动提示
+    public static final String PUSH_NEW_ORDER = "PUSH_NEW_ORDER"; // 震动提示
 
   }
 
@@ -268,5 +269,6 @@ public final class Constants {
 
     // 退出登录
     public static final String API_LOGOUT = "";
+    public static final String API_UPLOAD_LOCATION = "/member/uploadlocation";
   }
 }

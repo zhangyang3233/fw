@@ -84,7 +84,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<OrderInfoModel>() {
       @Override
       public void onDataCallback(OrderInfoModel data) {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         dismissLoadingView();
@@ -107,10 +107,16 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mAddress.setText(order.getShop_address());
     mScoreView.setData(order.getGcr(), false);
     mTvNum.setText(order.getUsernum() + "人");
-    if(order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE){ // 该订单已经被人领取
+    if (order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE) { // 该订单已经被人领取
       mReceiveBtn.setEnabled(false);
-      mTip.setText("*抱歉，该任务刚被人领取，请返回列表获取最新任务。");
-    }else{
+      if (order.getStatus() == OrderModel.STATUS_INVALID
+          || order.getStatus() == OrderModel.STATUS_CANCEL
+          || order.getStatus() == OrderModel.STATUS_APPEND) {
+        mTip.setText("*抱歉，该任务已经取消，请返回列表获取最新任务。");
+      } else {
+        mTip.setText("*抱歉，该任务已被人领取，请返回列表获取最新任务。");
+      }
+    } else {
       mReceiveBtn.setEnabled(true);
       mReceiveBtn.setOnClickListener(OrderDetailFragment.this);
       mTip.setText("*我们为悬赏人保留最长10分钟的考虑时间，请您耐心等待。");
@@ -172,7 +178,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     builder.setDataCallback(new DataCallback<BaseModel>() {
       @Override
       public void onDataCallback(BaseModel data) {
-        if(!isAdded()){
+        if (!isAdded()) {
           return;
         }
         if (ResponesUtil.checkModelCodeOK(data)) {
@@ -196,14 +202,15 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
 
   /**
    * 悬赏人确认接受该订单的接单请求
+   * 
    * @param order 订单信息
-     */
+   */
   @Subscribe
   public void onEventMainThread(ReceiveOrderInfo order) {
     if (!isAdded()) {
       return;
     }
-    ReceiveWaitActivity.launch(getActivity(),order.getOrderId());
+    ReceiveWaitActivity.launch(getActivity(), order.getOrderId());
     getActivity().finish();
   }
 }

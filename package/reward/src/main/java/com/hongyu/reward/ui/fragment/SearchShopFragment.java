@@ -7,7 +7,7 @@ import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
-import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;

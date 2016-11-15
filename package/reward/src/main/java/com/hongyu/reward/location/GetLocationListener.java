@@ -1,4 +1,4 @@
-package com.hongyu.reward.interfaces;
+package com.hongyu.reward.location;
 
 import com.hongyu.reward.model.AppLocation;
 

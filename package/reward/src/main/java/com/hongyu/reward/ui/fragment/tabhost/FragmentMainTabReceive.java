@@ -3,24 +3,32 @@ package com.hongyu.reward.ui.fragment.tabhost;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.fw.zycoder.utils.CollectionUtils;
+import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.interfaces.CityChangedListener;
-import com.hongyu.reward.interfaces.GetLocationListener;
-import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.location.GetLocationListener;
+import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.model.AppLocation;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.SearchActivity;
 import com.hongyu.reward.ui.activity.ShopOrderListActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +49,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
   ImageView mRightBtn;
+  ToggleButton switch_view;
   CityChangedListener cityChangedListener;
 
 
@@ -54,6 +63,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
     mTitle = (TextView) mContentView.findViewById(R.id.title);
     mRightContainer = (LinearLayout) mContentView.findViewById(R.id.right_container);
     mLeftContainer = (LinearLayout) mContentView.findViewById(R.id.left_container);
+    switch_view = (ToggleButton) mContentView.findViewById(R.id.switch_view);
     initTitle();
   }
 
@@ -68,6 +78,17 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
         SearchActivity.launch(getActivity(), false);
       }
     });
+    switch_view.setChecked(getReceiveNewOrderPush());
+    switch_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        SPUtil.putBoolean(Constants.Pref.PUSH_NEW_ORDER, isChecked);
+      }
+    });
+  }
+
+  private boolean getReceiveNewOrderPush(){
+    return SPUtil.getBoolean(Constants.Pref.PUSH_NEW_ORDER, true);
   }
 
   @Override
@@ -131,21 +152,30 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
       }
     };
     LocationManager.getInstance().addCitiChangedListener(cityChangedListener);
+    EventBus.getDefault().register(this);
   }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
     LocationManager.getInstance().removeCityChangedListener(cityChangedListener);
+    EventBus.getDefault().unregister(this);
   }
 
   @Override
   protected int getLayoutResId() {
-    return R.layout.tab_title_load_list_fragment;
+    return R.layout.receive_list_fragment;
   }
 
   @Override
   protected int getPageSize() {
     return 10;
+  }
+
+  @Subscribe
+  public void onEventMainThread(NoticeEvent noticeEvent) {
+    if(noticeEvent.getType() == NoticeEvent.TAB2_NEED_FRESH){
+      requestLoad();
+    }
   }
 }

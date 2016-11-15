@@ -38,7 +38,6 @@ public class InitPushManager {
     mPushAgent.register(new IUmengRegisterCallback() {
       @Override
       public void onSuccess(String pushCode) {
-
         switch (checkPushCode(pushCode)) {
           case 0: // 失败(本地和获取到的都为空)
             registerOnDelayed(); // 重新去注册
@@ -99,7 +98,6 @@ public class InitPushManager {
         new CustomNotificationClickHandler();
     mPushAgent.setMessageHandler(umengMessageHandler);
     mPushAgent.setNotificationClickHandler(notificationClickHandler);
-    mPushAgent.setNotificaitonOnForeground(true);
     resetPushConfig();
     return mPushAgent;
   }

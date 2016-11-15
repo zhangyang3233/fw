@@ -14,10 +14,11 @@ import android.view.WindowManager;
 
 import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
-import com.hongyu.reward.interfaces.GetLocationListener;
-import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.location.GetLocationListener;
+import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.manager.ScreenManager;
 import com.hongyu.reward.model.AppLocation;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.ui.adapter.MainPagerAdapter;
 import com.hongyu.reward.ui.dialog.SingleBtnDialogFragment;
 import com.hongyu.reward.utils.DoubleClickUtil;
@@ -28,6 +29,9 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 /**
@@ -59,6 +63,7 @@ public class TabHostActivity extends FragmentActivity {
     setView();
     PgyUpdateManager.register(this);
     ScreenManager.getScreenManager().pushActivity(this);
+    EventBus.getDefault().register(this);
   }
 
   @Override
@@ -148,31 +153,30 @@ public class TabHostActivity extends FragmentActivity {
   protected void onDestroy() {
     super.onDestroy();
     ScreenManager.getScreenManager().popActivity(this);
-    if (LocationManager.getInstance().isStarted()) {
-      LocationManager.getInstance().stop();
-    }
+    LocationManager.getInstance().stop();
+    EventBus.getDefault().unregister(this);
   }
 
-//  @Override
-//  protected void onResume() {
-//    super.onResume();
-//    // 自定义摇一摇的灵敏度，默认为950，数值越小灵敏度越高。
-//    PgyFeedbackShakeManager.setShakingThreshold(1000);
-//
-//    // 以对话框的形式弹出
-////    PgyFeedbackShakeManager.register(this);
-//
-//    // 以Activity的形式打开，这种情况下必须在AndroidManifest.xml配置FeedbackActivity
-//    // 打开沉浸式,默认为false
-//    // FeedbackActivity.setBarImmersive(true);
-//    PgyFeedbackShakeManager.register(this, false);
-//  }
-//
-//  @Override
-//  protected void onPause() {
-//    super.onPause();
-//    PgyFeedbackShakeManager.unregister();
-//  }
+  // @Override
+  // protected void onResume() {
+  // super.onResume();
+  // // 自定义摇一摇的灵敏度，默认为950，数值越小灵敏度越高。
+  // PgyFeedbackShakeManager.setShakingThreshold(1000);
+  //
+  // // 以对话框的形式弹出
+  //// PgyFeedbackShakeManager.register(this);
+  //
+  // // 以Activity的形式打开，这种情况下必须在AndroidManifest.xml配置FeedbackActivity
+  // // 打开沉浸式,默认为false
+  // // FeedbackActivity.setBarImmersive(true);
+  // PgyFeedbackShakeManager.register(this, false);
+  // }
+  //
+  // @Override
+  // protected void onPause() {
+  // super.onPause();
+  // PgyFeedbackShakeManager.unregister();
+  // }
 
   @Override
   public void onBackPressed() {
@@ -195,13 +199,14 @@ public class TabHostActivity extends FragmentActivity {
     MobclickAgent.onResume(this);
     checkLocationDialog();
   }
+
   public void onPause() {
     super.onPause();
     MobclickAgent.onPause(this);
   }
 
-  private void checkLocationDialog(){
-    if(LocationManager.getInstance().getLocation() == null){
+  private void checkLocationDialog() {
+    if (LocationManager.getInstance().getLocation() == null) {
       final AppLoadingView appLoadingView = new AppLoadingView(this);
       appLoadingView.setLoadingText("正在获取定位");
       LocationManager.getInstance().addLocationListener(new GetLocationListener() {
@@ -231,5 +236,14 @@ public class TabHostActivity extends FragmentActivity {
       }
     });
     dialog.show(getSupportFragmentManager(), getClass().getSimpleName());
+  }
+
+
+  @Subscribe
+  public void onEventMainThread(NoticeEvent noticeEvent) {
+    if (noticeEvent.getType() == NoticeEvent.NEW_ORDER_CREATE) {
+      switchPage(2);
+      EventBus.getDefault().post(new NoticeEvent(NoticeEvent.TAB2_NEED_FRESH));
+    }
   }
 }

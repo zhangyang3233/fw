@@ -6,6 +6,8 @@ import com.fw.zycoder.utils.AppUtils;
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
+import com.fw.zycoder.utils.SPUtil;
+import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.PushModel;
 import com.umeng.message.UmengMessageHandler;
@@ -18,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class CustomMessageHandler extends UmengMessageHandler implements Runnable{
   private static final String TAG = "umeng";
+  private static final String PUSHTAG = "PUSHTAG";
   private static CustomMessageHandler instance;
   UMessage uMessage;
   Thread thread;
@@ -33,14 +36,33 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
 
   @Override
   public void handleMessage(Context context, UMessage uMessage) {
+    Log.i(PUSHTAG, "收到通知:" + uMessage.title);
     if(!AccountManager.getInstance().isLogin()){
       return;
     }
-    Log.i(TAG, "收到通知:" + uMessage.title);
+    if(isNewOrderNotify(uMessage)){
+      if(isNeedNotify() && AppUtils.isBackground(GlobalConfig.getAppContext())){
+        super.handleMessage(context, uMessage);
+      }
+      return;
+    }
     this.uMessage = uMessage;
     EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
     initThread();
     super.handleMessage(context, uMessage);
+  }
+
+  private boolean isNeedNotify() {
+    return SPUtil.getBoolean(Constants.Pref.PUSH_NEW_ORDER, true);
+  }
+
+  private boolean isNewOrderNotify(UMessage uMessage) {
+    PushModel pm = PushModel.parse(uMessage);
+    if(pm == null || pm.getPush() == null || pm.getPush().getType() == null || !pm.getPush().getType().equals("3")){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   @Override
@@ -93,8 +115,30 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
       }
     }else if(pi.getType().equals("2")){ // 领取的任务被拒绝
       PushDeal.orderIsRefuse(pi);
+    }else if(pi.getType().equals("3")){
+      Log.i("pushtag", pi.toString());
     }
   }
-
+//  {
+//    "msg_id": "uu23468147917442431501",
+//          "display_type": "notification",
+//          "random_min": 0,
+//          "body": {
+//    "ticker": "附近有新的悬赏任务",
+//            "title": "附近有新的悬赏任务",
+//            "text": "点击查看",
+//            "play_vibrate": "true",
+//            "play_lights": "true",
+//            "play_sound": "true",
+//            "after_open": "go_app"
+//  },
+//    "extra": {
+//    "title": "附近有新的悬赏任务",
+//            "content": "附近有新的悬赏任务.订单号:101203",
+//            "order_id": 101203,
+//            "type": "3",
+//            "status": "0"
+//  }
+//  }
 
 }

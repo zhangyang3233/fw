@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
-import com.hongyu.reward.interfaces.GetLocationListener;
-import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.location.GetLocationListener;
+import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.ui.city.adapter.CityListAdapter;
 import com.hongyu.reward.ui.city.adapter.ResultListAdapter;

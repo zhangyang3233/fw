@@ -14,8 +14,8 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
 import com.hongyu.reward.interfaces.CityChangedListener;
-import com.hongyu.reward.interfaces.GetLocationListener;
-import com.hongyu.reward.manager.LocationManager;
+import com.hongyu.reward.location.GetLocationListener;
+import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
@@ -41,7 +41,6 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
   ImageView mRightBtn;
-
 
   @Override
   protected void onInflated(View contentView, Bundle savedInstanceState) {
@@ -147,4 +146,7 @@ public class FragmentMainTabPublish extends AsyncLoadListFragment<ShopListMode.S
   protected int getPageSize() {
     return 10;
   }
+
+
+
 }
