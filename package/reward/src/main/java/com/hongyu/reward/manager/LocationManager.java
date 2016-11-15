@@ -4,6 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.Poi;
 import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.config.Constants;
@@ -19,7 +24,7 @@ import java.util.List;
  */
 public class LocationManager {
   private static LocationManager instance;
-  private AMapLocationClient mLocationClient = null;
+  private LocationClient mLocationClient = null;
   private MyLocationListener myListener = new MyLocationListener();
   private ArrayList<GetLocationListener> ls = new ArrayList<>();
   private AppLocation locationInfo;

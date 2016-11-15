@@ -31,7 +31,7 @@
     <!-- 蒲公英 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <!-- 高德地图定位-->
+    <!-- 百度地图定位-->
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 这个权限用于访问GPS定位-->
@@ -50,7 +50,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- SD卡读取权限，用户写入离线定位数据-->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
 
 
     <!-- Required  一些系统要求的权限，如访问网络等-->
@@ -235,13 +234,11 @@
             </intent-filter>
         </service>
 
-        <service android:name="com.amap.api.location.APSService"></service>
-
         <!-- 百度定位服务 -->
-        <!--<service-->
-            <!--android:name="com.baidu.location.f"-->
-            <!--android:enabled="true"-->
-            <!--android:process=":remote"></service>-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -264,9 +261,7 @@
             android:name="PGYER_APPID"
             android:value="527aedc1c916cdd5e803eec807e6940a" >
         </meta-data>
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="weiyixuanshang"/>
+
     </application>
 
 
