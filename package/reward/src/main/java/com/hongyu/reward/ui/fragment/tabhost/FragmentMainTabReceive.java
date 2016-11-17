@@ -7,7 +7,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.fw.zycoder.utils.CollectionUtils;
 import com.fw.zycoder.utils.SPUtil;
@@ -23,9 +22,12 @@ import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.model.AppLocation;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.ShopListMode;
+import com.hongyu.reward.request.ChangedOpenNewOrderPushRequestBuilder;
+import com.hongyu.reward.request.ChangedOpenNewOrderPushRequestBuilder.PushType;
 import com.hongyu.reward.ui.activity.SearchActivity;
 import com.hongyu.reward.ui.activity.ShopOrderListActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
+import com.hongyu.reward.widget.SwitchButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,7 +51,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
   LinearLayout mRightContainer;
   LinearLayout mLeftContainer;
   ImageView mRightBtn;
-  ToggleButton switch_view;
+  SwitchButton switch_view;
   CityChangedListener cityChangedListener;
 
 
@@ -63,7 +65,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
     mTitle = (TextView) mContentView.findViewById(R.id.title);
     mRightContainer = (LinearLayout) mContentView.findViewById(R.id.right_container);
     mLeftContainer = (LinearLayout) mContentView.findViewById(R.id.left_container);
-    switch_view = (ToggleButton) mContentView.findViewById(R.id.switch_view);
+    switch_view = (SwitchButton) mContentView.findViewById(R.id.switch_view);
     initTitle();
   }
 
@@ -83,11 +85,16 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         SPUtil.putBoolean(Constants.Pref.PUSH_NEW_ORDER, isChecked);
+        ChangedOpenNewOrderPushRequestBuilder builder =
+            new ChangedOpenNewOrderPushRequestBuilder(isChecked
+                ? PushType.on
+                : PushType.off);
+        builder.build().submit();
       }
     });
   }
 
-  private boolean getReceiveNewOrderPush(){
+  private boolean getReceiveNewOrderPush() {
     return SPUtil.getBoolean(Constants.Pref.PUSH_NEW_ORDER, true);
   }
 
@@ -97,7 +104,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
       @Override
       protected List<ShopListMode.ShopInfo> fetchHttpData(int limit, int page) {
         AppLocation location = LocationManager.getInstance().getLocation();
-        if(location == null){
+        if (location == null) {
           LocationManager.getInstance().addLocationListener(new GetLocationListener() {
             @Override
             public void onSuccess(AppLocation locationInfo) {
@@ -113,11 +120,11 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
         }
         String locationStr = location.toString();
         String city = LocationManager.getSavedCity();
-        if(city.equals(location.getCity())){ // 当前城市一致,传坐标
-          city = null;
-        }
+        // if(city.equals(location.getCity())){ // 当前城市一致,传坐标
+        // city = null;
+        // }
         ShopListMode listMode = HttpHelper.getReceiveShopList(String.valueOf(page),
-                locationStr,city, null);
+            locationStr, city, null);
         if (listMode == null) {
           return null;
         } else if (CollectionUtils.isEmpty(listMode.getData())) {
@@ -174,7 +181,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
 
   @Subscribe
   public void onEventMainThread(NoticeEvent noticeEvent) {
-    if(noticeEvent.getType() == NoticeEvent.TAB2_NEED_FRESH){
+    if (noticeEvent.getType() == NoticeEvent.TAB2_NEED_FRESH) {
       requestLoad();
     }
   }

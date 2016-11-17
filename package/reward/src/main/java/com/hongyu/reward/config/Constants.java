@@ -262,7 +262,7 @@ public final class Constants {
     // 分享后调用增加积分
     public static final String API_SHARE_POINT = "/share/sharepoint";
 
-
+    public static final String API_SET_PUSH_ON_OFF = "/member/push";
 
     public static final String API_PAY_SIGN = "/pay/sign";
 

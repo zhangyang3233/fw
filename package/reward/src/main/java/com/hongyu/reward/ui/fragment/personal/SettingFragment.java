@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ToggleButton;
 
 import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.R;
@@ -17,6 +16,7 @@ import com.hongyu.reward.ui.activity.BrowserActivity;
 import com.hongyu.reward.ui.activity.personal.UpdatePwdActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.widget.CommonTextView;
+import com.hongyu.reward.widget.SwitchButton;
 
 /**
  * Created by zhangyang131 on 16/9/22.
@@ -30,8 +30,8 @@ public class SettingFragment extends BaseLoadFragment
   private CommonTextView mSettingHelp;
   private CommonTextView mSettingTerms;
   private CommonTextView mSettingAboutUs;
-  private ToggleButton mBtnVibration;
-  private ToggleButton mBtnSound;
+  private SwitchButton mBtnVibration;
+  private SwitchButton mBtnSound;
   private boolean audioCues;
   private boolean shockCues;
 
@@ -48,8 +48,8 @@ public class SettingFragment extends BaseLoadFragment
   private void initView() {
     audioCues = SPUtil.getBoolean(Constants.Pref.AUDIO_CUES, true);
     shockCues = SPUtil.getBoolean(Constants.Pref.SHOCK_CUES, true);
-    mBtnSound = (ToggleButton) mContentView.findViewById(R.id.sound);
-    mBtnVibration = (ToggleButton) mContentView.findViewById(R.id.vibration);
+    mBtnSound = (SwitchButton) mContentView.findViewById(R.id.sound);
+    mBtnVibration = (SwitchButton) mContentView.findViewById(R.id.vibration);
     mSettingPwd = (CommonTextView) mContentView.findViewById(R.id.setting_update_pwd);
     mSettingHelp = (CommonTextView) mContentView.findViewById(R.id.setting_help);
     mSettingTerms = (CommonTextView) mContentView.findViewById(R.id.setting_terms);

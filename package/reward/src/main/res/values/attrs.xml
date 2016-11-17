@@ -33,4 +33,12 @@
         <attr name="isclick" format="boolean" />
         <attr name="labeltext" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <attr name="onColor" format="color" />
+        <attr name="offColor" format="color" />
+        <attr name="btnColor" format="color" />
+        <attr name="btnStrokeWidth" format="dimension" />
+        <attr name="checked" format="boolean" />
+    </declare-styleable>
 </resources>
