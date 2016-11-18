@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -283,7 +284,8 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
     final String savedCity = LocationManager.getSavedCity();
     if (TextUtils.isEmpty(savedCity)) { // 没有定位过城市
       if (location != null && !TextUtils.isEmpty(location.getCity())) {
-        leftBtn.setText(location.getCity());
+        Spanny spanny = new Spanny().append(location.getCity(),new ImageSpan(getActivity(), R.mipmap.arrow_down));
+        leftBtn.setText(spanny);
         LocationManager.saveCity(location.getCity());
       } else {
         leftBtn.setText("定位中");
@@ -293,7 +295,8 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
             if (location == null) {
               return;
             }
-            leftBtn.setText(location.getCity());
+            Spanny spanny = new Spanny().append(location.getCity(),new ImageSpan(getActivity(), R.mipmap.arrow_down));
+            leftBtn.setText(spanny);
             LocationManager.saveCity(location.getCity());
           }
 

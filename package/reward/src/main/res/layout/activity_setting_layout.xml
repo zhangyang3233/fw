@@ -21,7 +21,7 @@
             android:textColor="@color/text_gray_dark"
             android:textSize="@dimen/text_h2" />
 
-        <com.hongyu.reward.widget.SwitchButton
+        <com.zy.widgets.text.SwitchButton
             android:id="@+id/sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:textColor="@color/text_gray_dark"
             android:textSize="@dimen/text_h2" />
 
-        <com.hongyu.reward.widget.SwitchButton
+        <com.zy.widgets.text.SwitchButton
             android:id="@+id/vibration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

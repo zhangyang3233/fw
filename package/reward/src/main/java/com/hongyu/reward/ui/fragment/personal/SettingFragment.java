@@ -16,7 +16,7 @@ import com.hongyu.reward.ui.activity.BrowserActivity;
 import com.hongyu.reward.ui.activity.personal.UpdatePwdActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.widget.CommonTextView;
-import com.hongyu.reward.widget.SwitchButton;
+import com.zy.widgets.text.SwitchButton;
 
 /**
  * Created by zhangyang131 on 16/9/22.

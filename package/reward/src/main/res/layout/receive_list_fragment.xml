@@ -27,7 +27,7 @@
             android:textSize="18sp"
             android:text="附近有悬赏发布通知我" />
 
-        <com.hongyu.reward.widget.SwitchButton
+        <com.zy.widgets.text.SwitchButton
             android:id="@+id/switch_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

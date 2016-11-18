@@ -27,7 +27,7 @@ import com.hongyu.reward.request.ChangedOpenNewOrderPushRequestBuilder.PushType;
 import com.hongyu.reward.ui.activity.SearchActivity;
 import com.hongyu.reward.ui.activity.ShopOrderListActivity;
 import com.hongyu.reward.ui.adapter.ShopListAdapter;
-import com.hongyu.reward.widget.SwitchButton;
+import com.zy.widgets.text.SwitchButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
