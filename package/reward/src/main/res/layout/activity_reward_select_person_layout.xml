@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hongyu.reward.widget.OverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zy.widgets.text.OverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -288,4 +288,4 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-</com.hongyu.reward.widget.OverScrollView>
+</com.zy.widgets.text.OverScrollView>

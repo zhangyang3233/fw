@@ -1,4 +1,4 @@
-package com.hongyu.reward.widget;
+package com.zy.widgets.text;
 
 import android.content.Context;
 import android.util.AttributeSet;

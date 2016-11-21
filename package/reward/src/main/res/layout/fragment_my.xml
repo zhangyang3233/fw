@@ -16,7 +16,7 @@
         <include layout="@layout/fragment_title_layout" />
     </RelativeLayout>
 
-    <com.hongyu.reward.widget.OverScrollView
+    <com.zy.widgets.text.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -209,6 +209,6 @@
                 style="@style/divider_theme_gray"
                 android:layout_marginBottom="30dp" />
         </LinearLayout>
-    </com.hongyu.reward.widget.OverScrollView>
+    </com.zy.widgets.text.OverScrollView>
 
 </LinearLayout>

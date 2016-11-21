@@ -5,7 +5,7 @@
     android:background="@color/app_main_bg_color"
     android:orientation="vertical">
 
-    <com.hongyu.reward.widget.OverScrollView
+    <com.zy.widgets.text.OverScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -178,5 +178,5 @@
                 android:textColor="@color/text_gray_more"
                 android:textSize="@dimen/text_h4" />
         </LinearLayout>
-    </com.hongyu.reward.widget.OverScrollView>
+    </com.zy.widgets.text.OverScrollView>
 </LinearLayout>

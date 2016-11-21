@@ -1,14 +1,16 @@
-package com.hongyu.reward.widget;
+package com.zy.widgets.text;
 
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
 public class OverScrollView extends ScrollView {
+  private static final String TAG = OverScrollView.class.getSimpleName();
 
   private static final float ELASTICITY_COEFFICIENT = 0.4f;
 
@@ -89,7 +91,7 @@ public class OverScrollView extends ScrollView {
   }
 
   private void initScrollView() {
-
+    // 去掉过度滑动的阴影绘制
     if (Build.VERSION.SDK_INT >= 9) {
       setOverScrollMode(View.OVER_SCROLL_NEVER);
     } else {
@@ -169,49 +171,51 @@ public class OverScrollView extends ScrollView {
             break;
           }
 
-
           final float y = ev.getY(activePointerIndex);
-          //
+          // 算出移动的Y轴距离
           int deltaY = (int) (mLastMotionY - y);
-          // ¼µĴλ
+          // 更新最后有效触控点位置
           mLastMotionY = y;
 
+          // 如果过度滑动已经超出最大过度滑动距离 && deltaY 所指的方向还在使距离增大，则令 deltaY 为0
           if (Math.abs(overScrollDistance) >= OVERSCROLL_MAX_HEIGHT
               && overScrollDistance * deltaY > 0) {
             deltaY = 0;
           }
-
-
+          Log.i(TAG, String.valueOf(deltaY));
+          // 异常处理， 如果用户在顶部过度滑动小量值，然后迅速反方向恢复滑动，这时候可能让偏移量恢复过度，此时让布局自动调整正常状态
           if (overScrollDistance * (overScrollDistance + deltaY) < 0) {
             mContentLayout.smoothScrollToNormal();
             overScrollDistance = 0;
             break;
           }
 
+          // 异常处理，同上，在底部的处理
           if ((!isOnBottom() && overScrollDistance > 0) || (!isOnTop() && overScrollDistance < 0)) {
             mContentLayout.smoothScrollToNormal();
             overScrollDistance = 0;
             break;
           }
 
+          // 计算弹性系数
           if (overScrollDistance * deltaY > 0) {
             deltaY = (int) (deltaY * ELASTICITY_COEFFICIENT);
           }
 
-          if (overScrollDistance == 0) {
-            deltaY = (int) (deltaY * ELASTICITY_COEFFICIENT * 0.5f);
-          }
+          // // 在零界点减速 0.5
+          // if (overScrollDistance == 0) {
+          // deltaY = (int) (deltaY * ELASTICITY_COEFFICIENT * 0.5f);
+          // }
 
           if (overScrollDistance == 0 && deltaY == 0) {
             break;
           }
 
-          // չ룬Ϊ20
-          if (Math.abs(deltaY) > 20) {
-            deltaY = deltaY > 0 ? 20 : -20;
-          }
+          // 过度滑动速度控制
+          // if (Math.abs(deltaY) > 20) {
+          // deltaY = deltaY > 0 ? 20 : -20;
+          // }
 
-          // ¼ܾ
           overScrollDistance += deltaY;
 
           if (isOnTop() && overScrollDistance > 0 && !isOnBottom()) {
@@ -251,11 +255,17 @@ public class OverScrollView extends ScrollView {
     return super.onTouchEvent(ev);
   }
 
-
   private void onSecondaryPointerUp(MotionEvent ev) {
+    // 获取抬起手指的这个事件的 pointIndex： 将 pointIndex 信息从 Action 中分离出来， 同时右移 8 位即是该index值
     final int pointerIndex = (ev.getAction()
         & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
     final int pointerId = ev.getPointerId(pointerIndex);
+    // pointIndex：当前按下的手指按时间先后顺序进行排序的序号
+    // 先后按下：A, B , C , D, E
+    // 则index：0, 1 , 2 , 3, 4
+    // 后AB松开：C, D，E
+    // 则index： 0, 1, 2
+
     if (pointerId == mActivePointerId) {
       // This was our active pointer going up. Choose a new
       // active pointer and adjust accordingly.
@@ -281,21 +291,22 @@ public class OverScrollView extends ScrollView {
 
 
   private void initOverScrollLayout() {
-    // Ϊtrue,ͼʱ߶Ȳ䵽ScrollViewĸ߶
+    // 当子控件的高度没有达到ScrollView的高度， 让子控件的高度和ScrollView一样，需要在子控件 match_parent
+    // 的基础上设置setFillViewport(true), 否则单纯的给子控件设置match_parent是没有效果的
     setFillViewport(true);
     if (mContentLayout == null) {
-      // ȡScrollViewͼ
-      View child = getChildAt(0);
-      // ʼԹͼ
+      int childCount = getChildCount();
+      if (childCount > 1) {
+        throw new IllegalStateException("ScrollView can host only one direct child");
+      }
       mContentLayout = new OverScrollWarpLayout(getContext());
-      // ƳScrollViewͼ
-      this.removeAllViews();
-      // ԭScrollViewͼ뵽Թͼ
-      mContentLayout.addView(child);
-      // ӵԹͼΪScrollViewͼ
+      if (childCount == 1) {
+        View child = getChildAt(0);
+        this.removeAllViews();
+        mContentLayout.addView(child);
+      }
       this.addView(mContentLayout,
           new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
     }
     // mIsUseOverScroll = true;
   }
@@ -337,15 +348,13 @@ public class OverScrollView extends ScrollView {
     }
   }
 
-  @Override
-  protected boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-      int scrollY, int scrollRangeX, int scrollRangeY,
-      int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
-    // Log.v("test", "deltaY "+deltaY+" scrollY "+scrollY);
-    return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX,
-        scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
-  }
 
+  /**
+   * @param l 变化后的X轴位置
+   * @param t 变化后的Y轴的位置
+   * @param oldl 原先的X轴的位置
+   * @param oldt 原先的Y轴的位置
+   */
   @Override
   protected void onScrollChanged(int l, int t, int oldl, int oldt) {
     if (mScrollListener != null && overScrollDistance == 0) {
@@ -354,6 +363,12 @@ public class OverScrollView extends ScrollView {
     super.onScrollChanged(l, t, oldl, oldt);
   }
 
+  /**
+   * @param scrollX 距离原点的X轴的距离
+   * @param scrollY 距离原点的Y轴的距离
+   * @param clampedX 当ScrollView滑动到左右侧边界的时候值为true
+   * @param clampedY 当ScrollView滑动到上下边界的时候值为true
+   */
   @Override
   protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX,
       boolean clampedY) {
@@ -362,7 +377,12 @@ public class OverScrollView extends ScrollView {
     }
     if (clampedY && !isOnTouch && isInertance) {
       mContentLayout.smoothScrollBy(0, inertanceY);
-      mContentLayout.smoothScrollToNormal();
+      postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          mContentLayout.smoothScrollToNormal();
+        }
+      }, 100);
       inertanceY = 0;
     }
     super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
@@ -423,7 +443,7 @@ public class OverScrollView extends ScrollView {
 
   @Override
   public void fling(int velocityY) {
-    inertanceY = 50 * velocityY / 5000;
+    inertanceY = velocityY / 100;
     super.fling(velocityY);
   }
 
