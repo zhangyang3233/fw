@@ -50,9 +50,9 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
   public static void gelleryToPage(Context context, OrderModel model, int isme) {
     switch (model.getStatus()) {
       case OrderModel.STATUS_FINISHED: // 已完成
-        if(isme == OrderModel.IS_ME){
+        if (isme == OrderModel.IS_ME) {
           PublishFinishedCommentActivity.launch(context, model.getOrder_id());
-        }else{
+        } else {
           ReceiveOrderFinishedActivity.launch(context, model.getOrder_id());
         }
         break;
@@ -61,23 +61,24 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
             model.getImg());
         break;
       case OrderModel.STATUS_PENDING_PAY: // 待付款
+      case OrderModel.STATUS_CANCEL: // 已经取消
         if (isme == OrderModel.NOT_ME) {
           ReceiveWaitActivity.launch(context, model.getOrder_id());
-        }else{
-          RewardStartActivity.launch(context, model.getOrder_id(),model.getShop_name(), model.getPrice());
+        } else {
+          RewardStartActivity.launch(context, model.getOrder_id(), model.getShop_name(),
+              model.getPrice());
         }
         break;
       case OrderModel.STATUS_PENDING_COMMENT: // 待评论
-        if(isme == OrderModel.IS_ME){ // 0我发出的 1我收到的
+        if (isme == OrderModel.IS_ME) { // 0我发出的 1我收到的
           PublishFinishedCommentActivity.launch(context, model.getOrder_id());
-        }else{
+        } else {
           ReceiveOrderFinishedActivity.launch(context, model.getOrder_id());
         }
         break;
       case OrderModel.STATUS_RECEIVED: // 已经领取
         SelectPersonActivity.launch(context, model.getOrder_id(), model.getShop_name(),
             model.getImg());
-        break;
     }
   }
 
@@ -106,9 +107,9 @@ public class OrderListAdapter extends DataAdapter<OrderModel> {
     final OrderModel model = getItem(position);
     if (model == null) return null;
 
-    if(orderStatus == OrderModel.STATUS_PENDING_COMMENT){
+    if (orderStatus == OrderModel.STATUS_PENDING_COMMENT) {
       holder.status.setText("待评论");
-    }else{
+    } else {
       holder.status.setText(StatusUtil.getMsgByStatus(model.getStatus()));
     }
 

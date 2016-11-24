@@ -62,6 +62,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
   private RoundImageView mIvHeader;
   private FiveStarSingle mScoreView;
   private View mBtnCall;
+  private View option_layout;
 
   private TextView mTvTableNum;
   private TextView mTvTableWait;
@@ -104,11 +105,15 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
 
   private void refreshUI(OrderInfoModel data) {
     OrderModel order = data.getData().getOrder();
-    mTvShopName.setText(data.getData().getOrder().getShop_name());
-    mAddress.setText(data.getData().getOrder().getShop_address());
+    mTvShopName.setText(order.getShop_name());
+    mAddress.setText("地址："+order.getShop_address());
     price = order.getPrice();
+    mIvShop.loadNetworkImageByUrl(order.getImg());
     if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE){
       mTaskStatus.setText(R.string.task_continue);
+    }else if(order.getStatus() == OrderModel.STATUS_CANCEL){
+      mTaskStatus.setText(R.string.task_canceled);
+      option_layout.setVisibility(View.GONE);
     }
 
     ReceiveModel receive = data.getData().getReceive();
@@ -146,6 +151,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mTvTabPre = (TextView) mContentView.findViewById(R.id.table_per_num);
     order_cancel = (Button) mContentView.findViewById(R.id.order_cancel);
     order_finish = (Button) mContentView.findViewById(R.id.order_finish);
+    option_layout = mContentView.findViewById(R.id.option_layout);
     order_cancel.setOnClickListener(this);
     order_finish.setOnClickListener(this);
     mTvTableNum.setText(table_num);

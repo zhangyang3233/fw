@@ -101,6 +101,7 @@
     <string name="task_start">任务开始</string>
     <string name="call_tip">是否要电话联系对方？</string>
     <string name="task_continue">任务进行中</string>
+    <string name="task_canceled">任务已取消</string>
     <string name="task_receive_wait">任务状态:待悬赏人确认完成</string>
 
     <!-- 个人中心 -->

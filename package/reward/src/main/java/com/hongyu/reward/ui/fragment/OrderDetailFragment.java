@@ -104,7 +104,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");
     mIvHeader.loadNetworkImageByUrl(order.getHead_img());
     mIvShop.loadNetworkImageByUrl(order.getImg());
-    mAddress.setText(order.getShop_address());
+    mAddress.setText("地址："+order.getShop_address());
     mScoreView.setData(order.getGcr(), false);
     mTvNum.setText(order.getUsernum() + "人");
     if (order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE) { // 该订单已经被人领取

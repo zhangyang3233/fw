@@ -79,7 +79,7 @@
                 android:layout_height="45dp"
                 android:background="@drawable/cell_reward_round_top"
                 android:gravity="center"
-                android:text="@string/task_continue"
+                tools:text="@string/task_continue"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_h1" />
 
@@ -291,6 +291,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/option_layout"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:orientation="horizontal"

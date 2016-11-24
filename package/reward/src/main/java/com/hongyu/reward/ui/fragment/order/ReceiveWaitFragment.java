@@ -80,7 +80,7 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     private void refreshUI(OrderInfoModel data) {
         OrderModel order = data.getData().getOrder();
         mTvShopName.setText(order.getShop_name());
-        mAddress.setText(order.getShop_address());
+        mAddress.setText("地址："+order.getShop_address());
         mIvShop.loadNetworkImageByUrl(order.getImg());
         mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
         mTvName.setText(data.getData().getOrder().getNickname());
@@ -91,6 +91,8 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
 
         if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE){
             mTaskStatus.setText(R.string.task_continue);
+        }else if(order.getStatus() == OrderModel.STATUS_CANCEL){
+            mTaskStatus.setText(R.string.task_canceled);
         }
 
         ReceiveModel receive = data.getData().getReceive();

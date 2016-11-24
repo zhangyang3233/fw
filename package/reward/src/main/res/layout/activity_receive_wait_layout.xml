@@ -72,7 +72,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/cell_reward_round_top"
                 android:gravity="center"
-                android:text="@string/task_receive_wait"
+                tools:text="@string/task_receive_wait"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_h1" />
 

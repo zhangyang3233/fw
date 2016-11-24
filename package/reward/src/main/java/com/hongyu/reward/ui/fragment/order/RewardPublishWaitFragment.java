@@ -160,7 +160,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
     dinner_count_info.setText(getString(R.string.order_user_num, order.getUsernum()));
     reward_money_info.setText(getString(R.string.order_price, String.valueOf(price)));
     shop_name_tv.setText(order.getShop_name());
-    address.setText(order.getShop_address());
+    address.setText("地址："+order.getShop_address());
     image.loadNetworkImageByUrl(order.getImg());
     if (OrderModel.APPOINTMENT.equals(order.getType())) {
       order_type.setText(R.string.appointment);

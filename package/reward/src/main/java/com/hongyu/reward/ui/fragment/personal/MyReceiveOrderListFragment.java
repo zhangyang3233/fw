@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by zhangyang131 on 16/9/20.
  */
 public class MyReceiveOrderListFragment extends PagerFragment {
-  private static final String[] CHANNELS = new String[] {"全部", "已领取", "待付款", "待评价", "完成"};
+  private static final String[] CHANNELS = new String[] {"全部订单", "待支付", "带评价", "已完成", "已取消"};
   MagicIndicator magicIndicator;
   OrderPagerAdapter adapter;
 
@@ -53,17 +53,17 @@ public class MyReceiveOrderListFragment extends PagerFragment {
       case 0: // 全部
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_ALL);
         break;
-      case 1: // 已经领取,待确认
-        bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_RECEIVED);
-        break;
-      case 2: // 待支付
+      case 1: // 待支付
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_PENDING_PAY);
         break;
-      case 3: // 待评价
+      case 2: // 待评价
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_PENDING_COMMENT);
         break;
-      case 4: // 完成
+      case 3: // 已完成
         bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_FINISHED);
+        break;
+      case 4: // 已取消
+        bundle.putInt(OrderListFragment.TYPE, OrderModel.STATUS_CANCEL);
         break;
     }
     return bundle;
@@ -99,7 +99,7 @@ public class MyReceiveOrderListFragment extends PagerFragment {
         colorTransitionPagerTitleView
             .setSelectedColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
         colorTransitionPagerTitleView.setText(CHANNELS[index]);
-        colorTransitionPagerTitleView.setTextSize(17);
+        colorTransitionPagerTitleView.setTextSize(15);
         colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {

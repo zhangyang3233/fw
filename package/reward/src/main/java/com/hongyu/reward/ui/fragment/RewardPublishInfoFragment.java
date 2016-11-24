@@ -67,7 +67,7 @@ public class RewardPublishInfoFragment extends BaseLoadFragment implements View.
     }
     image.loadNetworkImageByUrl(shopInfo.getImg());
     shop_name.setText(shopInfo.getShop_name());
-    address.setText(shopInfo.getAddress());
+    address.setText("地址："+shopInfo.getAddress());
     reward_type.setText(getString(R.string.reward_type));
     order_type.setText(getString(R.string.reward_time_duration, String.valueOf(10)));
     diners_count.setText(getString(R.string.diners_count));

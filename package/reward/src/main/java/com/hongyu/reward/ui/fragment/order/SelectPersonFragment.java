@@ -108,7 +108,7 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
       this.shop_name = orderModel.getShop_name();
       this.shop_img = orderModel.getImg();
       mTvShopName.setText(shop_name);
-      address.setText(orderModel.getShop_address());
+      address.setText("地址："+orderModel.getShop_address());
       mIvShop.loadNetworkImageByUrl(shop_img);
     }
   }
