@@ -180,9 +180,9 @@ public class SwitchButton extends CompoundButton implements ValueAnimator.Animat
     sHeight = sBottom - sTop; // 田径场的高度
     sCenterY = (sBottom + sTop) / 2; // 田径场的Y轴中心坐标
 
-    RectF sRectF = new RectF(sLeft, sTop, sBottom, sBottom);
+    RectF sRectF = new RectF(sLeft, sTop, sLeft+(sBottom - sTop), sBottom);
     sPath.arcTo(sRectF, 90, 180);
-    sRectF.left = sRight - sBottom;
+    sRectF.left = sRight - (sBottom - sTop);
     sRectF.right = sRight;
     sPath.arcTo(sRectF, 270, 180);
     sPath.close(); // path准备田径场的路径
