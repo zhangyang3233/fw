@@ -1,4 +1,4 @@
-include ':external:image:imageblur'
+include ':external:image:imageblur', ':testapp'
 include ':external:PushSDK'
 include ':external:refreshable'
 include ':external:image:circleimageview'

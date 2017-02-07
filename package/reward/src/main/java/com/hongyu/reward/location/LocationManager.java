@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.CollectionUtils;
+import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.SPUtil;
@@ -106,7 +107,14 @@ public class LocationManager implements LocationListenerDelegate {
   }
 
   public void start() {
-    mLocationClient.start();
+    try {
+      if(mLocationClient == null){
+        init(GlobalConfig.getAppContext());
+      }
+      mLocationClient.start();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void stop() {

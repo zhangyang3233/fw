@@ -121,8 +121,8 @@ public class DialogFactory {
         float money;
         try{
           money = Float.parseFloat(num);
-          if(money < 10){
-            content.setError("赏金必须大于10元");
+          if(money < 1){
+            content.setError("赏金必须大于1元");
             return;
           }
           builder.dismiss();

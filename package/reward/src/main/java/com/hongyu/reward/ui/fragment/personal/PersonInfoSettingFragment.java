@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.ImageUtil;
+import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
@@ -132,12 +133,14 @@ public class PersonInfoSettingFragment extends BaseLoadFragment implements View.
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
+    Log.i("img", "requestCode"+requestCode+"resultCode:"+resultCode);
     if (resultCode == Activity.RESULT_OK) {
       mPicHelper.onGetActivityResult(requestCode, data);
     }
   }
 
   private void uploadNewAvatar(String imgPath) {
+    Log.i("img", "根据照片地址选照片："+imgPath);
     // 照片地址
     // mTempHeadPath
     File imageFile = new File(imgPath);

@@ -2,10 +2,10 @@ package com.fw.zycoder.demos;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 
 import com.fw.zycoder.appbase.activity.BaseSlideActivity;
+import com.fw.zycoder.utils.MainThreadPostUtils;
 
 /**
  * Created by zhangyang131 on 16/7/22.
@@ -21,8 +21,7 @@ public class SplashActivity extends BaseSlideActivity {
             replaceFragment(f);
         }
 
-        Handler a = new Handler();
-        a.postDelayed(new Runnable() {
+        MainThreadPostUtils.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(isFinishing()){

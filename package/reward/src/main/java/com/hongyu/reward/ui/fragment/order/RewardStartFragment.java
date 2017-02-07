@@ -2,6 +2,7 @@ package com.hongyu.reward.ui.fragment.order;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
@@ -63,6 +65,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
   private FiveStarSingle mScoreView;
   private View mBtnCall;
   private View option_layout;
+  ImageView call_img;
 
   private TextView mTvTableNum;
   private TextView mTvTableWait;
@@ -109,11 +112,18 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mAddress.setText("地址："+order.getShop_address());
     price = order.getPrice();
     mIvShop.loadNetworkImageByUrl(order.getImg());
-    if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE){
+    if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE || order.getStatus() == OrderModel.STATUS_PENDING_PAY){
       mTaskStatus.setText(R.string.task_continue);
+      ((AnimationDrawable)call_img.getDrawable()).start();
     }else if(order.getStatus() == OrderModel.STATUS_CANCEL){
       mTaskStatus.setText(R.string.task_canceled);
       option_layout.setVisibility(View.GONE);
+      call_img.setImageResource(R.mipmap.call_3);
+      mBtnCall.setEnabled(false);
+      mBtnCall.setAlpha(0.5f);
+    }else{
+      mTaskStatus.setText(R.string.task_continue);
+      ((AnimationDrawable)call_img.getDrawable()).start();
     }
 
     ReceiveModel receive = data.getData().getReceive();
@@ -158,10 +168,12 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mTvTableWait.setText(table_wait);
     mTvTabPre.setText(table_pre);
     mBtnCall = mContentView.findViewById(R.id.call);
+    call_img = (ImageView) mContentView.findViewById(R.id.call_img);
     mBtnCall.setOnClickListener(this);
     mTvShopName.setText(shop_name);
     mIvShop.loadNetworkImageByUrl(shop_img);
   }
+
 
   @Override
   protected int getLayoutResId() {

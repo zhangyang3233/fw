@@ -40,7 +40,7 @@
         android:layout_margin="18dp"
         android:background="@drawable/cell_round_gray_edit"
         android:gravity="center_vertical"
-        android:hint="输入赏金（10元起）"
+        android:hint="输入赏金"
         android:inputType="numberDecimal"
         android:paddingLeft="12dp"
         android:singleLine="true"

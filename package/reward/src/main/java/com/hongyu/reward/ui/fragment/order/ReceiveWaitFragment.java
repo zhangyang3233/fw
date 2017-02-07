@@ -93,6 +93,8 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
             mTaskStatus.setText(R.string.task_continue);
         }else if(order.getStatus() == OrderModel.STATUS_CANCEL){
             mTaskStatus.setText(R.string.task_canceled);
+        }else{
+            mTaskStatus.setText(R.string.task_continue);
         }
 
         ReceiveModel receive = data.getData().getReceive();

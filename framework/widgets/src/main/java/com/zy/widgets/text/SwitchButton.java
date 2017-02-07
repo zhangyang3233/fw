@@ -123,6 +123,9 @@ public class SwitchButton extends CompoundButton implements ValueAnimator.Animat
   }
 
   public void setChecked(boolean checked, boolean withAnim) {
+    if(isChecked == checked){
+      return;
+    }
     stopAnimation();
     if (withAnim) {
       startMyAnimation(true);

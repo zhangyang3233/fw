@@ -1,5 +1,7 @@
 package com.hongyu.reward.request;
 
+import android.text.TextUtils;
+
 import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.SystemUtil;
 import com.hongyu.reward.config.Constants;
@@ -42,8 +44,9 @@ public class GetTokenRequestBuilder extends BaseHttpRequestBuilder<TokenModel> {
   @Override
   protected void setParams(Params params) {
     super.setParams(params);
+    String pushCodeStr = TextUtils.isEmpty(push_code)?"push_code_unsigned":push_code;
     checkNullAndSet(params, DEVICE_CODE, device_code);
     checkNullAndSet(params, DEVICE_TYPE, devive_type);
-    checkNullAndSet(params, PUSH_CODE, push_code);
+    checkNullAndSet(params, PUSH_CODE, pushCodeStr);
   }
 }
