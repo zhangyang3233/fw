@@ -51,7 +51,6 @@ public class ScreenManager {
                 activity.finish();
             }
             activityStack.removeElement(activity);
-            activity = null;
         }
     }
 

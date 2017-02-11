@@ -141,13 +141,19 @@ public class PushDeal {
 
 
   private static void showDialog(DialogFragment dialog){
-    final Activity activity = ScreenManager.getScreenManager().currentActivity();
-    if (activity instanceof TabHostActivity) {
-      dialog.show(((TabHostActivity) activity).getSupportFragmentManager(),
-              activity.getClass().getSimpleName());
-    } else if (activity instanceof AppCompatActivity) {
-      dialog.show(((AppCompatActivity) activity).getSupportFragmentManager(),
-              activity.getClass().getSimpleName());
+    try{
+      final Activity activity = ScreenManager.getScreenManager().currentActivity();
+      if(!activity.isFinishing()){
+        if (activity instanceof TabHostActivity) {
+          dialog.show(((TabHostActivity) activity).getSupportFragmentManager(),
+                  activity.getClass().getSimpleName());
+        } else if (activity instanceof AppCompatActivity) {
+          dialog.show(((AppCompatActivity) activity).getSupportFragmentManager(),
+                  activity.getClass().getSimpleName());
+        }
+      }
+    }catch (Exception e){
+      e.printStackTrace();
     }
   }
 }

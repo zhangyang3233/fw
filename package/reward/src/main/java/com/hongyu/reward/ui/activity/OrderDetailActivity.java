@@ -44,8 +44,10 @@ public class OrderDetailActivity extends BaseSingleFragmentActivity {
     return getIntent().getStringExtra(SHOP_NAME);
   }
 
+
   @Override
-  public boolean getCanFlingBack() {
-    return true;
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    mFragment.onActivityResult(requestCode, resultCode, data);
   }
 }

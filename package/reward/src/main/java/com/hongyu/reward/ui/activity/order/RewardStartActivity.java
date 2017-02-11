@@ -51,8 +51,4 @@ public class RewardStartActivity extends BaseSingleFragmentActivity {
     return getString(R.string.task_start);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

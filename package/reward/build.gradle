@@ -102,12 +102,12 @@ android {
 
     // 构建变体
     productFlavors {
-        yingyongbao {}
-        baidu {}
-        xiaomi {}
-        huawei {}
-        wandoujia {}
-        anzhi {}
+//        yingyongbao {}
+//        baidu {}
+//        xiaomi {}
+//        huawei {}
+//        wandoujia {}
+//        anzhi {}
         personal {}
     }
 }
@@ -129,7 +129,6 @@ dependencies {
     compile project(':external:utils')
     compile project(':external:nfc')
     compile project(':external:errorpage')
-    compile project(':external:sliding')
     compile project(':external:customtoast')
     compile project(':external:flowlayout')
     compile project(':framework:http')

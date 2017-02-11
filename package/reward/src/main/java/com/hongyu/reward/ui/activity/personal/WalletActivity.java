@@ -30,8 +30,4 @@ public class WalletActivity extends BaseSingleFragmentActivity {
     return getString(R.string.my_wallet);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

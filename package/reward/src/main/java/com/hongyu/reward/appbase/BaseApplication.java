@@ -8,7 +8,6 @@ import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.BuildConfig;
 import com.hongyu.reward.manager.CoreService;
 import com.hongyu.reward.manager.InitPushManager;
-import com.pgyersdk.crash.PgyCrashManager;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.litepal.LitePalApplication;
@@ -56,7 +55,7 @@ public class BaseApplication extends Application {
    * 初始化崩溃页面
    */
   private void initErrorPage() {
-    PgyCrashManager.register(this);
+//    PgyCrashManager.register(this);
 //    CustomActivityOnCrash.install(this);
 //    // 程序在后台崩溃是否显示错误页面
 //    CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(false);

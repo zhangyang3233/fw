@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.hongyu.reward.widget.NetImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/defalut_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_h0"
+                tools:text="味千拉面" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingRight="20dp"
+                android:textColor="@color/text_gray_light"
+                android:textSize="@dimen/text_h3"
+                tools:text="北京市北京市北京市北京存北京码头北京码头2组省委家属院172但远2楼102号" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_gray_dark"
+            android:text="就餐人数：" />
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="点击填写"
+            android:inputType="number"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/edit_bg"
+            android:layout="@+id/tip22"
+            android:layout_toLeftOf="@+id/tip12"
+            android:layout_toRightOf="@id/tip1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tip12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_gray_dark"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="桌等待" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_gray_dark"
+            android:text="您前面有：" />
+
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tip2"
+            android:layout_toLeftOf="@+id/tip22"
+            android:gravity="center"
+            android:hint="点击填写"
+            android:inputType="number"
+            android:background="@drawable/edit_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tip22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_gray_dark"
+            android:layout_marginLeft="10dp"
+            android:text="桌等待" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:layout_marginTop="1dp"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/text_gray_dark"
+            android:layout_marginTop="15dp"
+            android:text="排队号码：" />
+
+        <EditText
+            android:id="@+id/edit3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/tip3"
+            android:hint="请如实输入您的排号，例如&quot;大桌&quot;或&quot;A302&quot;等"
+            android:inputType="textMultiLine"
+            android:maxHeight="150dp"
+            android:minHeight="100dp"
+            android:maxLines="2"
+            android:gravity="top"
+            android:background="@drawable/edit_bg"
+            android:padding="10dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_button"
+        android:text="生成我的排号单"
+        android:textColor="#541b1b"
+        android:layout_margin="15dp"
+        />
+</LinearLayout>

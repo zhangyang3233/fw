@@ -13,6 +13,8 @@ public class NoticeEvent extends BaseModel {
     public static final int USER_MONEY_CHANGED = 6;
     public static final int NEW_ORDER_CREATE = 7;
     public static final int TAB2_NEED_FRESH = 8;
+    public static final int RECEIVE_REQUEST_SUCCESS = 9;
+    public static final int REGIST_SUCCESS = 10;
     private int type;
     private String data;
 

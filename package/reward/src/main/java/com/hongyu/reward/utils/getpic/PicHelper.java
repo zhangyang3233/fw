@@ -148,7 +148,6 @@ public class PicHelper {
         break;
     }
 
-
   }
 
 
@@ -177,7 +176,6 @@ public class PicHelper {
     } else {
       activity.startActivityForResult(intent, requestCodeCropAPicture);
     }
-
   }
 
   /**

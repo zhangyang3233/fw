@@ -80,6 +80,13 @@ public class OrderListFragment extends AsyncLoadListFragment<OrderModel> {
 
   @Override
   protected int getEmptyTipsString() {
+    if(type == 20){
+      return R.string.order_empty_20;
+    }else if(type == 30){
+      return R.string.order_empty_30;
+    }else if(type == 40){
+      return R.string.order_empty_40;
+    }
     return R.string.order_empty;
   }
 

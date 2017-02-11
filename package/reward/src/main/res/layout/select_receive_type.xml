@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="提供排位号给悬赏人"
+            android:textColor="@color/text_gray_dark"
+            android:textSize="@dimen/text_h0" />
+    </RelativeLayout>
+
+    <View style="@style/divider_theme_gray" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/handwriting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:src="@mipmap/txphd" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#333"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="@string/handwriting" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/getpic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:src="@mipmap/psphd" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:layout_marginTop="10dp"
+                android:text="@string/getpic" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

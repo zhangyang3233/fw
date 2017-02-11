@@ -22,8 +22,8 @@ import com.hongyu.reward.request.AddRewardRequestBuilder;
 import com.hongyu.reward.request.CancelOrderRequestBuilder;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
-import com.hongyu.reward.ui.dialog.AddRewardDialog;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
+import com.hongyu.reward.ui.dialog.DialogFactory;
 import com.hongyu.reward.ui.dialog.SingleBtnDialogFragment;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.NetImageView;
@@ -284,13 +284,12 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
   }
 
   private void showAddRewardDialog() {
-    AddRewardDialog dialog = AddRewardDialog.newInstance(price);
-    dialog.setAddPriceListener(new AddRewardDialog.AddPriceListener() {
+    DialogFactory.showAddPriceDialog(getContext(), price, new DialogFactory.AddPriceListener() {
       @Override
       public void addPrice(float addPrice) {
         showLoadingView();
         AddRewardRequestBuilder builder =
-            new AddRewardRequestBuilder(order_id, String.valueOf(addPrice));
+                new AddRewardRequestBuilder(order_id, String.valueOf(addPrice));
         builder.setDataCallback(new DataCallback<AddRewardModel>() {
           @Override
           public void onDataCallback(AddRewardModel data) {
@@ -310,7 +309,6 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         builder.build().submit();
       }
     });
-    dialog.show(getChildFragmentManager(), getClass().getSimpleName());
   }
 
   private void showCancelDialog() {

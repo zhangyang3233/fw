@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.fw.zycoder.utils.ViewUtils;
 import com.hongyu.reward.R;
-import com.zycoder.sliding.utils.ActivityUtils;
+import com.hongyu.reward.utils.ActivityUtils;
 
 /**
  * Created by zhangyang131 on 16/9/20.

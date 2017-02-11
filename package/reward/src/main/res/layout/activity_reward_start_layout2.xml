@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zy.widgets.text.OverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:reward="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f3f3f3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.hongyu.reward.widget.NetImageView
+                    android:id="@+id/image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/defalut_image" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/shop_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_h0"
+                        tools:text="味千拉面" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:paddingRight="20dp"
+                        android:textColor="@color/text_gray_light"
+                        android:textSize="@dimen/text_h3"
+                        tools:text="北京市北京市北京市北京存北京码头北京码头2组省委家属院172但远2楼102号" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/xuxian"
+                android:layerType="software" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.hongyu.reward.widget.RoundImageView
+                    android:id="@+id/header_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/defalut_head_img"
+                    reward:riv_border_color="@color/white"
+                    reward:riv_border_width="1dp"
+                    reward:riv_corner_radius="40dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/text_gray_dark"
+                        android:textSize="@dimen/text_h1"
+                        tools:text="刘嘉玲" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/gcr"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_gray_dark"
+                            android:textSize="@dimen/text_h2"
+                            tools:text="好评率:90%" />
+
+                        <TextView
+                            android:id="@+id/order_num"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_gray_dark"
+                            android:textSize="@dimen/text_h2"
+                            tools:text="成交:5000单" />
+                    </LinearLayout>
+
+                    <com.hongyu.reward.widget.FiveStarSingle
+                        android:id="@+id/my_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/xuxian"
+                android:layerType="software" />
+
+            <LinearLayout
+                android:id="@+id/write_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/jcrs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="就餐人数 04"
+                        android:textColor="@color/dark_gray_text"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/ddzs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="您前面还有06桌等待"
+                        android:textColor="@color/dark_gray_text"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/pwh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLength="10"
+                    android:paddingBottom="25dp"
+                    android:paddingTop="35dp"
+                    android:text="大桌1074"
+                    android:textColor="#000000"
+                    android:textSize="36sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/photo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="205dp"
+                android:visibility="gone">
+
+                <com.hongyu.reward.widget.NetImageView
+                    android:id="@+id/photo_img"
+                    android:layout_width="205dp"
+                    android:layout_height="205dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/app_logo" />
+                <TextView
+                    android:layout_width="205dp"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="点击查看大图"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:background="#99000000"
+                    android:textColor="#eeeeee"
+                    android:layout_alignParentBottom="true"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/call"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:id="@+id/call_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/anim_call" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/call_img"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="电话联系对方"
+                    android:textColor="#28a3f4"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <Button
+                android:id="@+id/order_cancel"
+                style="@style/ButtonCancel"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/common_button_yellow"
+                android:text="取消任务" />
+
+            <Button
+                android:id="@+id/order_finish"
+                style="@style/App.Comm.Button"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1.0"
+                android:text="确认完成" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="*注意：您每天只有2次机会取消正在进行的任务；确定取消前请先与对方电话联系。"
+            android:textColor="@color/text_red"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</com.zy.widgets.text.OverScrollView>

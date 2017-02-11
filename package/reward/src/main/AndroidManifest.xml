@@ -54,6 +54,8 @@
 
     <!-- Required  一些系统要求的权限，如访问网络等-->
     <uses-permission android:name="com.hongyu.reward.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- 根据 umeng 添加 -->
     <!-- Dpush 权限包含在短信sdk权限中 -->
@@ -105,6 +107,8 @@
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.OrderDetailActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
             android:name=".ui.activity.order.RewardStartActivity"
@@ -217,12 +221,22 @@
             android:theme="@style/AppTheme.Detail"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
+            android:name=".ui.activity.PreViewActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
             android:name="com.hongyu.reward.wxapi.WXEntryActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".ui.activity.PhotoViewActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+        </activity>
+        <activity android:name=".ui.activity.order.InputWaitNumActivity"
+            android:theme="@style/AppTheme.Detail"/>
 
         <!-- 核心服务类 -->
         <service

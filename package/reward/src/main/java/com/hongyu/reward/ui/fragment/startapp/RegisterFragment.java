@@ -15,10 +15,13 @@ import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.BaseModel;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.GetAuthCodeRequestBuilder;
 import com.hongyu.reward.request.RegisterRequestBuilder;
 import com.hongyu.reward.utils.T;
 import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhangyang131 on 16/9/10.
@@ -67,9 +70,9 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
   }
 
   private void register() {
-    String phone = mPhone.getText().toString().trim();
+    final String phone = mPhone.getText().toString().trim();
     String code = mCode.getText().toString().trim();
-    String pwd = mPwd.getText().toString().trim();
+    final String pwd = mPwd.getText().toString().trim();
     String repwd = mRepwd.getText().toString().trim();
     // PhoneNumberUtils
     if (TextUtils.isEmpty(phone)) {
@@ -119,6 +122,7 @@ public class RegisterFragment extends BaseLoadFragment implements View.OnClickLi
         if (ResponesUtil.checkModelCodeOK(data)) {
           T.show(getString(R.string.register_success));
           getActivity().finish();
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.REGIST_SUCCESS, pwd+","+phone));
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
         }

@@ -20,6 +20,7 @@ import com.hongyu.reward.model.ReceiveModel;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
 import com.hongyu.reward.request.GetReceivePersonInfoRequestBuilder;
 import com.hongyu.reward.request.UserReceiveRequestBuilder;
+import com.hongyu.reward.ui.activity.PhotoViewActivity;
 import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
@@ -50,10 +51,13 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
   private View mBtnSelect;
   private View mBtnNoSelect;
 
-
   private TextView mTvTableNum;
   private ReceiveModel receive;
   private OrderModel orderModel;
+
+  private View write_layout;
+  private View photo_layout;
+  private NetImageView photo_img;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,12 +112,12 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
       this.shop_name = orderModel.getShop_name();
       this.shop_img = orderModel.getImg();
       mTvShopName.setText(shop_name);
-      address.setText("地址："+orderModel.getShop_address());
+      address.setText("地址：" + orderModel.getShop_address());
       mIvShop.loadNetworkImageByUrl(shop_img);
     }
   }
 
-  private void refreshData(ReceiveModel receive) {
+  private void refreshData(final ReceiveModel receive) {
     if (receive != null) {
       this.receive = receive;
       mTvGcr.setText("好评率:" + (TextUtils.isEmpty(receive.getGcr()) ? "100%" : receive.getGcr()));
@@ -121,9 +125,23 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
       mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
       mScoreView.setData(receive.getGcr(), false);
       mIvHeader.loadNetworkImageByUrl(receive.getImg());
-      mTvTableNum.setText(String.valueOf(receive.getRank_num()));
-      mTvTableWait.setText(String.valueOf(receive.getWait_num()));
-      mTvTablePre.setText(String.valueOf(receive.getTable_num()));
+      if(TextUtils.isEmpty(receive.getTicket_img())){
+        write_layout.setVisibility(View.VISIBLE);
+        photo_layout.setVisibility(View.GONE);
+        mTvTableNum.setText(String.valueOf(receive.getRank_num()));
+        mTvTableWait.setText("您前面还有"+String.valueOf(receive.getWait_num())+"桌等待");
+        mTvTablePre.setText("就餐人数 "+String.valueOf(receive.getTable_num()));
+      }else{
+        write_layout.setVisibility(View.GONE);
+        photo_layout.setVisibility(View.VISIBLE);
+        photo_img.loadNetworkImageByUrl(receive.getTicket_img());
+        photo_img.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            PhotoViewActivity.launch(getActivity(), receive.getTicket_img());
+          }
+        });
+      }
     }
   }
 
@@ -143,9 +161,13 @@ public class SelectPersonFragment extends BaseLoadFragment implements View.OnCli
     mScoreView = (FiveStarSingle) mContentView.findViewById(R.id.my_score);
     mIvHeader = (RoundImageView) mContentView.findViewById(R.id.header_icon);
 
-    mTvTableNum = (TextView) mContentView.findViewById(R.id.table_num);
-    mTvTableWait = (TextView) mContentView.findViewById(R.id.table_wait);
-    mTvTablePre = (TextView) mContentView.findViewById(R.id.table_pre);
+    write_layout = mContentView.findViewById(R.id.write_layout);
+    photo_layout = mContentView.findViewById(R.id.photo_layout);
+    photo_img = (NetImageView) mContentView.findViewById(R.id.photo_img);
+
+    mTvTableNum = (TextView) mContentView.findViewById(R.id.pwh);
+    mTvTableWait = (TextView) mContentView.findViewById(R.id.ddzs);
+    mTvTablePre = (TextView) mContentView.findViewById(R.id.jcrs);
 
     mBtnNoSelect = mContentView.findViewById(R.id.noselect);
     mBtnSelect = mContentView.findViewById(R.id.select);

@@ -32,8 +32,4 @@ public class RewardPublishWaitActivity extends BaseSingleFragmentActivity {
     return getString(R.string.wait_for_reward);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

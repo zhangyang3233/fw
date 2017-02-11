@@ -111,10 +111,6 @@ public class SplashActivity extends BaseSlideActivity {
     return false;
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return false;
-  }
 
   @TargetApi(23)
   @Override

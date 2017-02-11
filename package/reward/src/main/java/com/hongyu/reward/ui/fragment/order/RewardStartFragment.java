@@ -27,6 +27,7 @@ import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.model.ReceiveModel;
 import com.hongyu.reward.request.CancelOrderRequestBuilder;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
+import com.hongyu.reward.ui.activity.PhotoViewActivity;
 import com.hongyu.reward.ui.activity.order.PaySureActivity;
 import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
@@ -60,7 +61,10 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
   private TextView mTvName;
   private TextView mTvOrderNum;
   private TextView mTvGcr;
-  private TextView mTaskStatus;
+  private View write_layout;
+  private View photo_layout;
+  private NetImageView photo_img;
+//  private TextView mTaskStatus;
   private RoundImageView mIvHeader;
   private FiveStarSingle mScoreView;
   private View mBtnCall;
@@ -113,20 +117,20 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     price = order.getPrice();
     mIvShop.loadNetworkImageByUrl(order.getImg());
     if(order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE || order.getStatus() == OrderModel.STATUS_PENDING_PAY){
-      mTaskStatus.setText(R.string.task_continue);
+//      mTaskStatus.setText(R.string.task_continue);
       ((AnimationDrawable)call_img.getDrawable()).start();
     }else if(order.getStatus() == OrderModel.STATUS_CANCEL){
-      mTaskStatus.setText(R.string.task_canceled);
+//      mTaskStatus.setText(R.string.task_canceled);
       option_layout.setVisibility(View.GONE);
       call_img.setImageResource(R.mipmap.call_3);
       mBtnCall.setEnabled(false);
       mBtnCall.setAlpha(0.5f);
     }else{
-      mTaskStatus.setText(R.string.task_continue);
+//      mTaskStatus.setText(R.string.task_continue);
       ((AnimationDrawable)call_img.getDrawable()).start();
     }
 
-    ReceiveModel receive = data.getData().getReceive();
+    final ReceiveModel receive = data.getData().getReceive();
     if(receive != null){
       mobileNum = receive.getMobile();
       mIvHeader.loadNetworkImageByUrl(receive.getImg());
@@ -134,9 +138,24 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
       mTvName.setText("领赏人："+receive.getNickname());
       mTvOrderNum.setText("成交:" + receive.getOrder_num() + "单");
       mScoreView.setData(receive.getGcr(), false);
-      mTvTableNum.setText(String.valueOf(receive.rank_num));
-      mTvTableWait.setText(String.valueOf(receive.wait_num));
-      mTvTabPre.setText(String.valueOf(receive.table_num));
+
+      if(TextUtils.isEmpty(receive.getTicket_img())){
+        write_layout.setVisibility(View.VISIBLE);
+        photo_layout.setVisibility(View.GONE);
+        mTvTableNum.setText(String.valueOf(receive.rank_num));
+        mTvTableWait.setText("您前面还有" +String.valueOf(receive.wait_num) + "桌等待");
+        mTvTabPre.setText("就餐人数 " + String.valueOf(receive.table_num));
+      }else{
+        write_layout.setVisibility(View.GONE);
+        photo_layout.setVisibility(View.VISIBLE);
+        photo_img.loadNetworkImageByUrl(receive.getTicket_img());
+        photo_img.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            PhotoViewActivity.launch(getActivity(), receive.getTicket_img());
+          }
+        });
+      }
     }
   }
 
@@ -154,19 +173,22 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
     mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);
     mScoreView = (FiveStarSingle) mContentView.findViewById(R.id.my_score);
     mIvHeader = (RoundImageView) mContentView.findViewById(R.id.header_icon);
-    mTaskStatus = (TextView) mContentView.findViewById(R.id.task_status);
+//    mTaskStatus = (TextView) mContentView.findViewById(R.id.task_status);
+    write_layout =  mContentView.findViewById(R.id.write_layout);
+    photo_layout =  mContentView.findViewById(R.id.photo_layout);
+    photo_img = (NetImageView) mContentView.findViewById(R.id.photo_img);
 
-    mTvTableNum = (TextView) mContentView.findViewById(R.id.table_num);
-    mTvTableWait = (TextView) mContentView.findViewById(R.id.table_wait);
-    mTvTabPre = (TextView) mContentView.findViewById(R.id.table_per_num);
+    mTvTableNum = (TextView) mContentView.findViewById(R.id.pwh);
+    mTvTableWait = (TextView) mContentView.findViewById(R.id.ddzs);
+    mTvTabPre = (TextView) mContentView.findViewById(R.id.jcrs);
     order_cancel = (Button) mContentView.findViewById(R.id.order_cancel);
     order_finish = (Button) mContentView.findViewById(R.id.order_finish);
     option_layout = mContentView.findViewById(R.id.option_layout);
     order_cancel.setOnClickListener(this);
     order_finish.setOnClickListener(this);
     mTvTableNum.setText(table_num);
-    mTvTableWait.setText(table_wait);
-    mTvTabPre.setText(table_pre);
+    mTvTableWait.setText("您前面还有"+table_wait+"桌等待");
+    mTvTabPre.setText("就餐人数 "+table_pre);
     mBtnCall = mContentView.findViewById(R.id.call);
     call_img = (ImageView) mContentView.findViewById(R.id.call_img);
     mBtnCall.setOnClickListener(this);
@@ -177,7 +199,7 @@ public class RewardStartFragment extends BaseLoadFragment implements View.OnClic
 
   @Override
   protected int getLayoutResId() {
-    return R.layout.activity_reward_start_layout;
+    return R.layout.activity_reward_start_layout2;
   }
 
 

@@ -29,8 +29,4 @@ public class PointActivity extends BaseSingleFragmentActivity {
     return getString(R.string.score_center);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

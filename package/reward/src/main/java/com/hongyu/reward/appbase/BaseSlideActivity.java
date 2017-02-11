@@ -7,38 +7,35 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
+import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
 import com.hongyu.reward.interfaces.LogoutListener;
 import com.hongyu.reward.manager.ScreenManager;
 import com.umeng.analytics.MobclickAgent;
-import com.zycoder.sliding.SlidingHelper;
-import com.zycoder.sliding.component.SlideActivity;
 
 /**
  * @author zhangyang
  */
-public class BaseSlideActivity extends AppCompatActivity implements SlideActivity, LogoutListener {
+public class BaseSlideActivity extends AppCompatActivity implements LogoutListener {
   protected BaseFragment mFragment;
   private boolean mIsDestroyed = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(getLayoutId());
-    SlidingHelper.onCreate(this);
     ScreenManager.getScreenManager().pushActivity(this);
+    Log.v("activity生命周期", this.getClass().getSimpleName()+" --> onCreate");
+    setContentView(getLayoutId());
   }
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
     super.onWindowFocusChanged(hasFocus);
-    SlidingHelper.onWindowFocusChanged(this, hasFocus);
   }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-    SlidingHelper.onNewIntent(this);
     if (this.mFragment != null) {
       this.mFragment.onNewIntent(intent);
     }
@@ -46,12 +43,26 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
 
 
   public void onResume() {
+    Log.v("activity生命周期", this.getClass().getSimpleName()+" --> onResume");
     super.onResume();
     MobclickAgent.onResume(this);
   }
   public void onPause() {
+    Log.v("activity生命周期", this.getClass().getSimpleName()+" --> onPause");
     super.onPause();
     MobclickAgent.onPause(this);
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    Log.v("activity生命周期", this.getClass().getSimpleName()+" --> onStart");
+  }
+
+  @Override
+  protected void onStop() {
+    Log.v("activity生命周期", this.getClass().getSimpleName()+" --> onStop");
+    super.onStop();
   }
 
   public boolean isDestroyed() {
@@ -64,16 +75,15 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
 
   @Override
   protected void onDestroy() {
+    Log.v("activity生命周期", this.getClass().getSimpleName()+" --> onDestroy");
     super.onDestroy();
     mIsDestroyed = true;
-    SlidingHelper.onDestroy(this);
     ScreenManager.getScreenManager().popActivity(this);
   }
 
   @Override
   public void finish() {
     super.finish();
-    SlidingHelper.finish(this);
   }
 
 
@@ -82,23 +92,7 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
    * notice: id : fragment_container , sliding_pane_layout is need in layout
    */
   protected int getLayoutId() {
-    return R.layout.sample_layout;
-  }
-
-  /**
-   * @return this activity is need right fling close
-   */
-  @Override
-  public boolean getCanFlingBack() {
-    return false;
-  }
-
-  /**
-   * @return under this activity is need relative move
-   */
-  @Override
-  public boolean getCanRelativeMove() {
-    return false;
+    return R.layout.baselayout;
   }
 
   protected void replaceFragment(Fragment newFragment) {
@@ -125,12 +119,14 @@ public class BaseSlideActivity extends AppCompatActivity implements SlideActivit
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     return this.mFragment != null && this.mFragment.onKeyDown(keyCode, event)
         ? true
-        : super.onKeyDown(keyCode, event);
+      : super.onKeyDown(keyCode, event);
   }
 
   @Override
   public void onLogout() {
   }
+
+
 
 
 }

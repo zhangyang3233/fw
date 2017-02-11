@@ -29,13 +29,4 @@ public class WithdrawActivity extends BaseSingleFragmentActivity {
     return getString(R.string.apply_get_money);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
-
-  @Override
-  public boolean getCanRelativeMove() {
-    return true;
-  }
 }

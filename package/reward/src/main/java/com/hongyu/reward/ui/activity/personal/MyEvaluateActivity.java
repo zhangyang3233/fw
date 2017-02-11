@@ -29,8 +29,4 @@ public class MyEvaluateActivity extends BaseSingleFragmentActivity {
     return getString(R.string.my_evaluate_title);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

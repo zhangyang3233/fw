@@ -3,7 +3,9 @@ package com.hongyu.reward.ui.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,10 +15,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.fw.zycoder.utils.DisplayUtil;
 import com.hongyu.reward.R;
 import com.hongyu.reward.utils.T;
+
+import java.text.DecimalFormat;
 
 public class DialogFactory {
 
@@ -119,15 +124,15 @@ public class DialogFactory {
       public void onClick(View v) {
         String num = content.getText().toString().trim();
         float money;
-        try{
+        try {
           money = Float.parseFloat(num);
-          if(money < 1){
+          if (money < 1) {
             content.setError("赏金必须大于1元");
             return;
           }
           builder.dismiss();
           listen.onConfirmClick(new String[] {num});
-        }catch (Exception e){
+        } catch (Exception e) {
           content.setError("请输入赏金");
         }
       }
@@ -157,7 +162,7 @@ public class DialogFactory {
     builder.setContentView(view);
 
     builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-            | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
     Window window = builder.getWindow();
@@ -175,7 +180,7 @@ public class DialogFactory {
     builder.getWindow().setAttributes(lp);
 
     InputMethodManager imm =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
     ok.setOnClickListener(new android.view.View.OnClickListener() {
@@ -287,7 +292,7 @@ public class DialogFactory {
 
     View wechat = view.findViewById(R.id.wechat);
     View wechats = view.findViewById(R.id.wechats);
-//    View qq = view.findViewById(R.id.qq);
+    // View qq = view.findViewById(R.id.qq);
 
     WindowManager windowManager = builder.getWindow().getWindowManager();
     Display display = windowManager.getDefaultDisplay();
@@ -311,13 +316,13 @@ public class DialogFactory {
       }
     });
 
-//    qq.setOnClickListener(new android.view.View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//        builder.dismiss();
-//        listen.onConfirmClick(3);
-//      }
-//    });
+    // qq.setOnClickListener(new android.view.View.OnClickListener() {
+    // @Override
+    // public void onClick(View v) {
+    // builder.dismiss();
+    // listen.onConfirmClick(3);
+    // }
+    // });
 
   }
 
@@ -333,4 +338,155 @@ public class DialogFactory {
     void onFinish(String indexNum, String waitNum, String pNum);
   }
 
+
+  /**
+   * 提供排位号给悬赏人
+   *
+   * @param context
+   * @param listen
+   */
+  public static void showReceiveTypeView(Context context, final OnWhichListener listen) {
+    LayoutInflater factory = LayoutInflater.from(context);
+    final View view = factory.inflate(R.layout.select_receive_type, null);
+
+    final Dialog builder = new AlertDialog.Builder(context, R.style.DialogStyle).create();
+    builder.show();
+    builder.setContentView(view);
+
+    builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+    Window window = builder.getWindow();
+    window.setGravity(Gravity.BOTTOM);
+    window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    window.setWindowAnimations(R.style.dialog_sheet_window_anim);
+
+    View cancel = view.findViewById(R.id.cancel);
+    View getpic_layout = view.findViewById(R.id.getpic_layout);
+    View handwriting_layout = view.findViewById(R.id.handwriting_layout);
+
+    WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+    lp.width = DisplayUtil.getScreenWidth(context);
+    builder.getWindow().setAttributes(lp);
+
+
+    cancel.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+      }
+    });
+    getpic_layout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+        listen.onConfirmClick(1);
+      }
+    });
+    handwriting_layout.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+        listen.onConfirmClick(0);
+      }
+    });
+  }
+
+
+  public static void showAddPriceDialog(Context context, final float currentPrice, final AddPriceListener listener) {
+    LayoutInflater factory = LayoutInflater.from(context);
+    final View view = factory.inflate(R.layout.dialog_add_price, null);
+
+    final Dialog builder = new AlertDialog.Builder(context, R.style.DialogStyle).create();
+    builder.show();
+    builder.setContentView(view);
+
+    // 软键盘把dialog整个推上去
+    builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    builder.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+    Window window = builder.getWindow();
+    window.setGravity(Gravity.BOTTOM);
+    window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    window.setWindowAnimations(R.style.dialog_sheet_window_anim);
+
+    TextView add = (TextView) view.findViewById(R.id.add);
+    final TextView price = (TextView) view.findViewById(R.id.price);
+    final EditText edit_input = (EditText) view.findViewById(R.id.edit_input);
+    add.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        float addPrice = 0;
+        try{
+          addPrice = Float.parseFloat(edit_input.getText().toString());
+        }catch(Exception e){
+          e.printStackTrace();
+        }
+        edit_input.setText(String.valueOf(addPrice+1));
+      }
+    });
+
+    edit_input.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+        float addPrice = 0;
+        try{
+          addPrice = Float.parseFloat(s.toString());
+        }catch(Exception e){
+          e.printStackTrace();
+        }
+        DecimalFormat df = new DecimalFormat("##.##");
+        price.setText(df.format(currentPrice + addPrice));
+      }
+    });
+
+    View ok = view.findViewById(R.id.ok);
+    View cancel = view.findViewById(R.id.cancel);
+
+    WindowManager.LayoutParams lp = builder.getWindow().getAttributes();
+    lp.width = DisplayUtil.getScreenWidth(context);
+    builder.getWindow().setAttributes(lp);
+
+    InputMethodManager imm =
+        (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+    ok.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        float addPrice = 0;
+        try{
+          addPrice = Float.parseFloat(edit_input.getText().toString());
+        }catch(Exception e){
+          e.printStackTrace();
+        }
+        listener.addPrice(addPrice);
+        builder.dismiss();
+      }
+    });
+
+    cancel.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        builder.dismiss();
+      }
+    });
+  }
+
+
+  public interface AddPriceListener {
+    void addPrice(float addPrice);
+  }
 }

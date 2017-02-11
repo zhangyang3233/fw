@@ -3,253 +3,226 @@
     xmlns:reward="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f3f3f3">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_main_bg_color"
         android:orientation="vertical">
 
-        <View style="@style/divider_theme_gray" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.hongyu.reward.widget.NetImageView
-                android:id="@+id/image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:contentDescription="@string/image_desc"
-                android:scaleType="fitXY"
-                android:src="@mipmap/defalut_image" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/shop_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h0"
-                    tools:text="味千拉面" />
-
-                <TextView
-                    android:id="@+id/address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLines="2"
-                    android:textColor="@color/text_gray_light"
-                    android:textSize="@dimen/text_h2"
-                    tools:text="北京市北京市北京市北京存北京码头北京码头2组省委家属院172但远2楼102号" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View style="@style/divider_theme_gray" />
-
-        <View
-            style="@style/divider_theme_gray"
-            android:layout_marginTop="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.hongyu.reward.widget.RoundImageView
-                android:id="@+id/header_icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:contentDescription="@null"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/defalut_head_img"
-                reward:riv_border_color="@color/white"
-                reward:riv_border_width="1dp"
-                reward:riv_corner_radius="40dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_gray_dark"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:textSize="@dimen/text_h1"
-                    tools:text="刘嘉玲" />
+                <com.hongyu.reward.widget.NetImageView
+                    android:id="@+id/image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/defalut_image" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/gcr"
-                        android:layout_width="0dp"
+                        android:id="@+id/shop_name"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/text_gray_dark"
-                        android:textSize="@dimen/text_h2"
-                        tools:text="好评率:90%" />
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_h0"
+                        tools:text="味千拉面" />
 
                     <TextView
-                        android:id="@+id/order_num"
-                        android:layout_width="0dp"
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/text_gray_dark"
-                        android:textSize="@dimen/text_h2"
-                        tools:text="成交:5000单" />
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:paddingRight="20dp"
+                        android:textColor="@color/text_gray_light"
+                        android:textSize="@dimen/text_h3"
+                        tools:text="北京市北京市北京市北京存北京码头北京码头2组省委家属院172但远2楼102号" />
                 </LinearLayout>
 
-                <com.hongyu.reward.widget.FiveStarSingle
-                    android:id="@+id/my_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/xuxian"
+                android:layerType="software" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.hongyu.reward.widget.RoundImageView
+                    android:id="@+id/header_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="10dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/defalut_head_img"
+                    reward:riv_border_color="@color/white"
+                    reward:riv_border_width="1dp"
+                    reward:riv_corner_radius="40dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/text_gray_dark"
+                        android:textSize="@dimen/text_h1"
+                        tools:text="刘嘉玲" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/gcr"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_gray_dark"
+                            android:textSize="@dimen/text_h2"
+                            tools:text="好评率:90%" />
+
+                        <TextView
+                            android:id="@+id/order_num"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_gray_dark"
+                            android:textSize="@dimen/text_h2"
+                            tools:text="成交:5000单" />
+                    </LinearLayout>
+
+                    <com.hongyu.reward.widget.FiveStarSingle
+                        android:id="@+id/my_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/xuxian"
+                android:layerType="software" />
+
+            <LinearLayout
+                android:id="@+id/write_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/jcrs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_gray_text"
+                        android:textSize="16sp"
+                        tools:text="就餐人数 04" />
+
+                    <TextView
+                        android:id="@+id/ddzs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/dark_gray_text"
+                        android:textSize="16sp"
+                        tools:text="您前面还有06桌等待" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/pwh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLength="10"
+                    android:paddingBottom="25dp"
+                    android:paddingTop="35dp"
+                    android:textColor="#000000"
+                    android:textSize="36sp"
+                    tools:text="大桌1074" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/photo_layout"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="205dp">
+
+                <com.hongyu.reward.widget.NetImageView
+                    android:id="@+id/photo_img"
+                    android:layout_width="205dp"
+                    android:layout_height="205dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/app_logo" />
+                <TextView
+                    android:layout_width="205dp"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="点击查看大图"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:background="#99000000"
+                    android:textColor="#eeeeee"
+                    android:layout_alignParentBottom="true"
+                    />
+            </RelativeLayout>
+
         </LinearLayout>
-
-        <View style="@style/divider_theme_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:gravity="center_vertical"
-                android:text="排位号码"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h2" />
-
-            <TextView
-                android:id="@+id/table_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h0"
-                tools:text="10" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:gravity="center_vertical"
-                android:text="号"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h2" />
-        </LinearLayout>
-
-        <View style="@style/divider_theme_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:gravity="center_vertical"
-                android:text="前面还有"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h2" />
-
-            <TextView
-                android:id="@+id/table_wait"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h0"
-                tools:text="10" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:gravity="center_vertical"
-                android:text="桌等待"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h2" />
-        </LinearLayout>
-
-        <View style="@style/divider_theme_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:gravity="center_vertical"
-                android:text="桌型"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h2" />
-
-            <TextView
-                android:id="@+id/table_pre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h0"
-                tools:text="10" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:gravity="center_vertical"
-                android:text="人桌"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="@dimen/text_h2" />
-        </LinearLayout>
-
-        <View style="@style/divider_theme_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -288,4 +261,15 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+
 </com.zy.widgets.text.OverScrollView>
+
+
+
+
+
+
+
+
+
+

@@ -33,8 +33,4 @@ public class ShopOrderListActivity extends BaseSingleFragmentActivity {
     return getIntent().getStringExtra(SHOP_NAME);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

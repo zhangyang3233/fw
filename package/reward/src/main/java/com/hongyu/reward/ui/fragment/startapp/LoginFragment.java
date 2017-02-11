@@ -22,6 +22,7 @@ import com.hongyu.reward.utils.InputUtil;
 import com.hongyu.reward.utils.T;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 /**
@@ -37,6 +38,7 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    EventBus.getDefault().register(this);
     getData();
   }
 
@@ -77,6 +79,12 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
         ForgetPwdActivity.launch(getActivity());
         break;
     }
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    EventBus.getDefault().unregister(this);
   }
 
   private void login() {
@@ -127,5 +135,21 @@ public class LoginFragment extends BaseLoadFragment implements View.OnClickListe
   @Override
   protected void onStartLoading() {
 
+  }
+
+
+  @Subscribe
+  public void onEventMainThread(NoticeEvent event) {
+    if (!isAdded()) {
+      return;
+    }
+    if(event.getType() == NoticeEvent.REGIST_SUCCESS){
+      showLoadingView();
+      String[] arr = new String[2];
+      arr = event.getData().split(",");
+      mPwd.setText(arr[0]);
+      mPhone.setText(arr[1]);
+      login();
+    }
   }
 }

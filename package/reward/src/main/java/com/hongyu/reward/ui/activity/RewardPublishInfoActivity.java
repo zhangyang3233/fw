@@ -32,8 +32,4 @@ public class RewardPublishInfoActivity extends BaseSingleFragmentActivity {
     return getString(R.string.input_reward_info_title);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

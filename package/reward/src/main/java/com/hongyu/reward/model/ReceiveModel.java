@@ -25,6 +25,8 @@ public class ReceiveModel extends BaseModel {
   public String order_num;
   public String mobile;
   public String good;
+  // 拍摄排位号照片
+  public String ticket_img;
   public float score = 0;
 
   public String getImg() {
@@ -129,5 +131,13 @@ public class ReceiveModel extends BaseModel {
 
   public void setScore(float score) {
     this.score = score;
+  }
+
+  public String getTicket_img() {
+    return ticket_img;
+  }
+
+  public void setTicket_img(String ticket_img) {
+    this.ticket_img = ticket_img;
   }
 }

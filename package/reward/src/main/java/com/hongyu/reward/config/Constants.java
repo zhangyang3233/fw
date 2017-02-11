@@ -163,7 +163,7 @@ public final class Constants {
     public static final String XG_SECRET_KEY = "3ce9be4ede7e527dd640aa68d6cf2910";
 
     // 主域名
-    public static final String API_PREFIX = "http://api.weiyixuanshang.com";
+    public static final String API_PREFIX = "https://api.weiyixuanshang.com";
 
 
     // 请求发送验证码

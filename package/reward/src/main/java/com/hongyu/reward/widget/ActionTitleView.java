@@ -15,7 +15,7 @@ import com.fw.zycoder.utils.GlobalConfig;
 import com.fw.zycoder.utils.StringUtil;
 import com.fw.zycoder.utils.ViewUtils;
 import com.hongyu.reward.R;
-import com.zycoder.sliding.utils.ActivityUtils;
+import com.hongyu.reward.utils.ActivityUtils;
 
 
 /**

@@ -44,11 +44,6 @@ public class BrowserActivity extends BaseSingleFragmentActivity {
   }
 
   @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
-
-  @Override
   protected Class<? extends Fragment> getSingleContentFragmentClass() {
     return BrowserFragment.class;
   }

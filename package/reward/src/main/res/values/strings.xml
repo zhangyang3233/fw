@@ -27,6 +27,9 @@
     <string name="dialog_title_contact">联系人好友</string>
     <string name="dialog_loading">努力加载中&#8230;</string>
     <string name="button_save">保存</string>
+    <string name="choose_type_tip">提供您的排号信息给悬赏人</string>
+    <string name="handwriting">手填排号单</string>
+    <string name="getpic">拍摄排号单</string>
 
     <!-- 登录 -->
     <string name="login">登录</string>
@@ -108,6 +111,9 @@
     <string name="personal_center">个人中心</string>
     <string name="tip_to_open">该功能即将开放,敬请期待!</string>
     <string name="order_empty">暂无相关订单</string>
+    <string name="order_empty_20">暂无待支付订单</string>
+    <string name="order_empty_30">暂无已完成订单</string>
+    <string name="order_empty_40">暂无待评价订单</string>
     <!-- 我的评价页面 -->
     <string name="my_evaluate_title">我的评价</string>
 

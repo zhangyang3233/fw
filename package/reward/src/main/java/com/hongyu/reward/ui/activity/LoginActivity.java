@@ -26,6 +26,8 @@ public class LoginActivity extends BaseSingleFragmentActivity {
     context.startActivity(i);
   }
 
+
+
   @Override
   protected String getTitleText() {
     return getResources().getString(R.string.login);

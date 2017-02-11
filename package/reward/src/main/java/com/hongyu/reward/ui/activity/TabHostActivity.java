@@ -64,6 +64,7 @@ public class TabHostActivity extends FragmentActivity {
     PgyUpdateManager.register(this);
     ScreenManager.getScreenManager().pushActivity(this);
     EventBus.getDefault().register(this);
+    Log.v("activity生命周期", getClass().getSimpleName()+" --> onCreate");
   }
 
   @Override
@@ -147,11 +148,22 @@ public class TabHostActivity extends FragmentActivity {
     mViewPager.setCurrentItem(index, false);
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    Log.v("activity生命周期", getClass().getSimpleName()+" --> onStart");
+  }
 
+  @Override
+  protected void onStop() {
+    super.onStop();
+    Log.v("activity生命周期", getClass().getSimpleName()+" --> onStop");
+  }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
+    Log.v("activity生命周期", getClass().getSimpleName()+" --> onDestroy");
     ScreenManager.getScreenManager().popActivity(this);
     LocationManager.getInstance().stop();
     EventBus.getDefault().unregister(this);
@@ -196,12 +208,14 @@ public class TabHostActivity extends FragmentActivity {
 
   public void onResume() {
     super.onResume();
+    Log.v("activity生命周期", getClass().getSimpleName()+" --> onResume");
     MobclickAgent.onResume(this);
     checkLocationDialog();
   }
 
   public void onPause() {
     super.onPause();
+    Log.v("activity生命周期", getClass().getSimpleName()+" --> onPause");
     MobclickAgent.onPause(this);
   }
 

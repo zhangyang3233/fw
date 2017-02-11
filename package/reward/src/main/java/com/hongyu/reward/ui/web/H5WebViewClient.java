@@ -1,7 +1,9 @@
 package com.hongyu.reward.ui.web;
 
+import android.net.http.SslError;
 import android.text.TextUtils;
 import android.webkit.CookieSyncManager;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -47,5 +49,10 @@ public class H5WebViewClient extends WebViewClient {
     boolean onSchemeDetected(String originalUrl, String uri);
 
     void onPageFinished(WebView view, String url);
+  }
+
+  @Override
+  public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+    handler.proceed();
   }
 }

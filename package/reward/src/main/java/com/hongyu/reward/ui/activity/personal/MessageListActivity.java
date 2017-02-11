@@ -29,8 +29,4 @@ public class MessageListActivity extends BaseSingleFragmentActivity {
     return getString(R.string.msg_center);
   }
 
-  @Override
-  public boolean getCanFlingBack() {
-    return true;
-  }
 }

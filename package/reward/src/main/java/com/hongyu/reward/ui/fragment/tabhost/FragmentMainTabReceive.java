@@ -53,6 +53,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
   ImageView mRightBtn;
   SwitchButton switch_view;
   CityChangedListener cityChangedListener;
+  View receiveCover;
 
 
   @Override
