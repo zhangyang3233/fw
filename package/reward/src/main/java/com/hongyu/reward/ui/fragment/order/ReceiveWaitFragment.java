@@ -91,6 +91,7 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     mTvShopName.setText(order.getShop_name());
     mAddress.setText("地址：" + order.getShop_address());
     mIvShop.loadNetworkImageByUrl(order.getImg());
+    mIvHeader.loadNetworkImageByUrl(data.getData().getOrder().getHead_img());
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(data.getData().getOrder().getNickname());
     mTvOrderNum.setText("成交:" + order.getOrder_num() + "单");

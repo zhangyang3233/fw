@@ -38,8 +38,7 @@
                 android:id="@+id/notice_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:visibility="gone" />
+                android:padding="10dp"/>
 
 
         </RelativeLayout>

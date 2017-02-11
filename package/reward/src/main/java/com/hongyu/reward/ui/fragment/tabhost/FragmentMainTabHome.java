@@ -96,12 +96,14 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
       }
     };
     LocationManager.getInstance().addCitiChangedListener(cityChangedListener);
+    EventBus.getDefault().register(this);
   }
 
 
   @Override
   public void onDestroy() {
     super.onDestroy();
+    EventBus.getDefault().unregister(this);
     LocationManager.getInstance().removeCityChangedListener(cityChangedListener);
   }
 
@@ -381,30 +383,13 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
     activity.switchPage(index);
   }
 
-
-  @Override
-  public void onStart() {
-    super.onStart();
-    EventBus.getDefault().register(this);
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-    EventBus.getDefault().unregister(this);
-  }
-
   @Subscribe
   public void onEventMainThread(RefreshOrderManager.Prog prog) {
     if (!isAdded()) {
       return;
     }
     if (mNoticeView != null) {
-      if (prog == null || TextUtils.isEmpty(prog.getOrderId())) {
-        mNoticeView.hide();
-      } else {
         mNoticeView.show(prog);
-      }
     }
   }
 

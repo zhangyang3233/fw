@@ -3,6 +3,7 @@ package com.hongyu.reward.manager;
 import android.text.TextUtils;
 
 import com.fw.zycoder.http.callback.DataCallback;
+import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.model.OrderIdRequestModel;
 import com.hongyu.reward.request.GetPublishOrderRequestBuilder;
@@ -14,14 +15,13 @@ import org.greenrobot.eventbus.EventBus;
  * Created by zhangyang131 on 16/10/7.
  */
 public class RefreshOrderManager {
-    public static final int NONE = 0;
 
     public static class Prog{
-        int step;
         boolean isPublish;
         String orderId;
 
-        public Prog() {
+        public Prog(boolean isPublish) {
+            this.isPublish = isPublish;
         }
 
         public boolean isPublish() {
@@ -30,24 +30,6 @@ public class RefreshOrderManager {
 
         public void setPublish(boolean publish) {
             isPublish = publish;
-        }
-
-        public int getStep() {
-            return step;
-        }
-
-        public void setStep(int step) {
-            this.step = step;
-        }
-
-        public void stepOver(){
-            synchronized (this){
-                if(step == 1){ // 表示已经是最后一步
-                    EventBus.getDefault().post(this);
-                }else{
-                    step++;
-                }
-            }
         }
 
         public String getOrderId() {
@@ -64,41 +46,51 @@ public class RefreshOrderManager {
         if(!AccountManager.getInstance().isLogin()){
             return;
         }
-        final Prog prog = new Prog();
+
         GetPublishOrderRequestBuilder builder = new GetPublishOrderRequestBuilder();
         builder.setDataCallback(new DataCallback<OrderIdRequestModel>() {
             @Override
             public void onDataCallback(OrderIdRequestModel data) {
+                final Prog prog = new Prog(true);
                 if (ResponesUtil.checkModelCodeOK(data)) {
                     if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) {
                         prog.setOrderId(data.getData().getOrder_id());
-                        prog.setPublish(true);
-                        EventBus.getDefault().post(prog);
-                        return;
+                        Log.i("notice", "有发布：orderID：" + data.getData().getOrder_id());
+                    }else{
+                        Log.i("notice", "无发布");
                     }
-                }
-                checkReceive(prog);
-            }
-        });
-        builder.build().submit();
 
-
-    }
-
-    private static void checkReceive(final Prog prog) {
-        GetReceiveOrderRequestBuilder builder2 = new GetReceiveOrderRequestBuilder();
-        builder2.setDataCallback(new DataCallback<OrderIdRequestModel>() {
-            @Override
-            public void onDataCallback(OrderIdRequestModel data) {
-                if (ResponesUtil.checkModelCodeOK(data)) {
-                    if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) { // 有接受订单
-                        prog.setOrderId(data.getData().getOrder_id());
-                        prog.setPublish(false);
-                    }
+                }else{
+                    Log.i("notice", "检查发布异常："+data!=null?data.getMessage():"data==null!");
                 }
                 EventBus.getDefault().post(prog);
             }
         });
+        Log.i("notice", "检查发布");
+        builder.build().submit();
+        checkReceive();
+    }
+
+    private static void checkReceive() {
+        GetReceiveOrderRequestBuilder builder2 = new GetReceiveOrderRequestBuilder();
+        builder2.setDataCallback(new DataCallback<OrderIdRequestModel>() {
+            @Override
+            public void onDataCallback(OrderIdRequestModel data) {
+                final Prog prog = new Prog(false);
+                if (ResponesUtil.checkModelCodeOK(data)) {
+                    if (data.getData() != null && !TextUtils.isEmpty(data.getData().getOrder_id())) { // 有接受订单
+                        prog.setOrderId(data.getData().getOrder_id());
+                        Log.i("notice", "有接受：orderID：" + data.getData().getOrder_id());
+                    }else{
+                        Log.i("notice", "无接受");
+                    }
+                }else{
+                    Log.i("notice", "检查接受异常："+data!=null?data.getMessage():"data==null!");
+                }
+                EventBus.getDefault().post(prog);
+            }
+        });
+        Log.i("notice", "检查接受");
         builder2.build().submit();
     }
 }

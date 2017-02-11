@@ -20,8 +20,18 @@ public class RewardModel extends BaseModel implements Serializable {
   // 订单号
   public String order_id;
   public String user_id;
+  public String mobile;
   public ArrayList<String> taglist = new ArrayList<String>();
   public float score;
+
+
+  public String getMobile() {
+    return mobile;
+  }
+
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
 
   public String getImg() {
     return img;

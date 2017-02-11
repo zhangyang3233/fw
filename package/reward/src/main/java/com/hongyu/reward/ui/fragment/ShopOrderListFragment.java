@@ -2,12 +2,14 @@ package com.hongyu.reward.ui.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.fw.zycoder.utils.CollectionUtils;
 import com.hongyu.reward.appbase.AsyncLoadListFragment;
 import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.http.HttpHelper;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.RewardListModel;
 import com.hongyu.reward.model.RewardModel;
 import com.hongyu.reward.ui.activity.OrderDetailActivity;
@@ -59,6 +61,10 @@ public class ShopOrderListFragment extends AsyncLoadListFragment<RewardModel> {
     adapter.setmOnItemClickListener(new ShopOrderListAdapter.OnItemClickListener() {
       @Override
       public void itemOnClick(RewardModel mode) {
+        if(mode.getUser_id().equals(AccountManager.getInstance().getUser().getUser_id())){
+          Toast.makeText(getActivity(), "您不可以领取自己发布的悬赏", Toast.LENGTH_LONG).show();
+          return;
+        }
         OrderDetailActivity.launch(getActivity(), mode.getShop_name(), mode.getImg(),
             mode.getOrder_id(), mode.getNickname(), mode.getPrice(), mode.getShop_id(),
             mode.getUser_id());
