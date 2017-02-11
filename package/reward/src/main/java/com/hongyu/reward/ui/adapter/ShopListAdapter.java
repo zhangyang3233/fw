@@ -1,5 +1,6 @@
 package com.hongyu.reward.ui.adapter;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
       holder.name = (TextView) convertView.findViewById(R.id.shop_name);
       holder.km = (TextView) convertView.findViewById(R.id.km);
       holder.divider_view = convertView.findViewById(R.id.divider_view);
+      holder.info_detail_layout = convertView.findViewById(R.id.info_detail_layout);
       convertView.setTag(holder);
     } else {
       holder = (Holder) convertView.getTag();
@@ -40,13 +42,22 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
     if (model == null) return null;
 
     holder.cover.loadNetworkImageByUrl(model.getImg());
-    holder.per.setText(
-        GlobalConfig.getAppContext().getString(R.string.reward_count, model.getOrder_num()));
     holder.name.setText(model.getShop_name());
-    holder.km.setText(
-        GlobalConfig.getAppContext().getString(R.string.shop_distance, model.getDistanceStr()));
-    holder.time
-        .setText(GlobalConfig.getAppContext().getString(R.string.save_time, model.getSave_time()));
+
+    if(!TextUtils.isEmpty(model.getOrder_id())){
+      holder.info_detail_layout.setVisibility(View.GONE);
+      holder.km.setVisibility(View.GONE);
+    }else{
+      holder.km.setVisibility(View.VISIBLE);
+      holder.info_detail_layout.setVisibility(View.VISIBLE);
+      holder.per.setText(
+              GlobalConfig.getAppContext().getString(R.string.reward_count, model.getOrder_num()));
+      holder.km.setText(
+              GlobalConfig.getAppContext().getString(R.string.shop_distance, model.getDistanceStr()));
+      holder.time
+              .setText(GlobalConfig.getAppContext().getString(R.string.save_time, model.getSave_time()));
+    }
+
     if (mOnItemClickListener != null) {
       holder.rootView.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -87,6 +98,7 @@ public class ShopListAdapter extends DataAdapter<ShopListMode.ShopInfo> {
     private TextView time;
     private TextView km;
     private View divider_view;
+    private View info_detail_layout;
     private NetImageView cover;
   }
 }

@@ -31,6 +31,7 @@ public class ShopListMode extends BaseModel {
   }
 
   public static class ShopInfo implements BaseDataModel, Serializable {
+    String order_id;
     String shop_id;
     String shop_name;
     String distance;
@@ -40,6 +41,14 @@ public class ShopListMode extends BaseModel {
     String img;
     String location;
     String order_num;
+
+    public String getOrder_id() {
+      return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+      this.order_id = order_id;
+    }
 
     public String getAddress() {
       return address;

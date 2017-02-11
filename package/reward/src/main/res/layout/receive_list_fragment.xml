@@ -58,9 +58,7 @@
         </LinearLayout>
 
 
-        <!--<include-->
-            <!--android:id="@+id/receive_recover"-->
-            <!--layout="@layout/receive_recover" />-->
+
     </FrameLayout>
 
 </LinearLayout>
