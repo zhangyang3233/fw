@@ -7,18 +7,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fw.zycoder.http.callback.DataCallback;
+import com.fw.zycoder.utils.Spanny;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
-import com.hongyu.reward.model.ReceiveModel;
 import com.hongyu.reward.request.GetOrderInfoRequestBuilder;
-import com.hongyu.reward.ui.activity.PhotoViewActivity;
 import com.hongyu.reward.ui.activity.order.ReceiveWaitActivity;
 import com.hongyu.reward.ui.dialog.CommonTwoBtnDialogFragment;
 import com.hongyu.reward.widget.FiveStarSingle;
@@ -42,18 +42,15 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
   private TextView mTvName;
   private TextView mTvOrderNum;
   private TextView mTvGcr;
-//  private TextView mTaskStatus;
+  // private TextView mTaskStatus;
   private RoundImageView mIvHeader;
   private FiveStarSingle mScoreView;
   private View mBtnCall;
 
-  private TextView mTvTableNum;
-  private TextView mTvTableWait;
+  private TextView mTvCost;
   private TextView mTvTabPre;
 
   View write_layout;
-  View photo_layout;
-  NetImageView photo_img;
   ImageView call_img;
   View call;
 
@@ -100,38 +97,23 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     price = order.getPrice();
 
     if (order.getStatus() == OrderModel.STATUS_PENDING_RECEIVE) {
-//      mTaskStatus.setText(R.string.task_continue);
-      ((AnimationDrawable)call_img.getDrawable()).start();
+      // mTaskStatus.setText(R.string.task_continue);
+      ((AnimationDrawable) call_img.getDrawable()).start();
     } else if (order.getStatus() == OrderModel.STATUS_CANCEL) {
-//      mTaskStatus.setText(R.string.task_canceled);
+      // mTaskStatus.setText(R.string.task_canceled);
       call_img.setImageResource(R.mipmap.call_3);
       mBtnCall.setEnabled(false);
       mBtnCall.setAlpha(0.5f);
     } else {
-//      mTaskStatus.setText(R.string.task_continue);
-      ((AnimationDrawable)call_img.getDrawable()).start();
+      // mTaskStatus.setText(R.string.task_continue);
+      ((AnimationDrawable) call_img.getDrawable()).start();
     }
-
-    final ReceiveModel receive = data.getData().getReceive();
-    if (receive != null) {
-      if (TextUtils.isEmpty(receive.getTicket_img())) {
-        write_layout.setVisibility(View.VISIBLE);
-        photo_layout.setVisibility(View.GONE);
-        mTvTableNum.setText(String.valueOf(receive.rank_num));
-        mTvTableWait.setText("您前面还有" + String.valueOf(receive.wait_num) + "桌等待");
-        mTvTabPre.setText("就餐人数 " + String.valueOf(receive.table_num));
-      } else {
-        write_layout.setVisibility(View.GONE);
-        photo_layout.setVisibility(View.VISIBLE);
-        photo_img.loadNetworkImageByUrl(receive.getTicket_img());
-        photo_img.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            PhotoViewActivity.launch(getActivity(), receive.getTicket_img());
-          }
-        });
-      }
-    }
+    Spanny sp1 = new Spanny("悬赏金额：" );
+    sp1.append(order.getPrice() + "元", new RelativeSizeSpan(1.6f));
+    mTvCost.setText(sp1);
+    Spanny sp2 = new Spanny("就餐人数：" );
+    sp2.append(order.getUsernum() + "人", new RelativeSizeSpan(1.6f));
+    mTvTabPre.setText(sp2);
   }
 
   @Override
@@ -148,14 +130,11 @@ public class ReceiveWaitFragment extends BaseLoadFragment implements View.OnClic
     mTvOrderNum = (TextView) mContentView.findViewById(R.id.order_num);
     mScoreView = (FiveStarSingle) mContentView.findViewById(R.id.my_score);
     mIvHeader = (RoundImageView) mContentView.findViewById(R.id.header_icon);
-//    mTaskStatus = (TextView) mContentView.findViewById(R.id.task_status);
+    // mTaskStatus = (TextView) mContentView.findViewById(R.id.task_status);
 
-    mTvTableNum = (TextView) mContentView.findViewById(R.id.pwh);
-    mTvTableWait = (TextView) mContentView.findViewById(R.id.ddzs);
+    mTvCost = (TextView) mContentView.findViewById(R.id.xsje);
     mTvTabPre = (TextView) mContentView.findViewById(R.id.jcrs);
     write_layout = mContentView.findViewById(R.id.write_layout);
-    photo_layout = mContentView.findViewById(R.id.photo_layout);
-    photo_img = (NetImageView) mContentView.findViewById(R.id.photo_img);
 
     mBtnCall = mContentView.findViewById(R.id.call);
     call_img = (ImageView) mContentView.findViewById(R.id.call_img);

@@ -159,69 +159,30 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="10dp">
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="15dp">
 
                     <TextView
                         android:id="@+id/jcrs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="就餐人数 04"
+                        tools:text="就餐人数 04"
                         android:textColor="@color/dark_gray_text"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/ddzs"
+                        android:id="@+id/xsje"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="您前面还有06桌等待"
+                        tools:text="悬赏金额：50元"
                         android:textColor="@color/dark_gray_text"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/pwh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLength="10"
-                    android:paddingBottom="25dp"
-                    android:paddingTop="35dp"
-                    tools:text="大桌1074"
-                    android:textColor="#000000"
-                    android:textSize="36sp" />
             </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/photo_layout"
-                android:layout_width="match_parent"
-                android:layout_height="205dp"
-                android:visibility="gone">
-
-                <com.hongyu.reward.widget.NetImageView
-                    android:id="@+id/photo_img"
-                    android:layout_width="205dp"
-                    android:layout_height="205dp"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/app_logo" />
-                <TextView
-                    android:layout_width="205dp"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp"
-                    android:text="点击查看大图"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:background="#99000000"
-                    android:textColor="#eeeeee"
-                    android:layout_alignParentBottom="true"
-                    />
-
-            </RelativeLayout>
 
 
             <RelativeLayout
@@ -229,7 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingBottom="15dp">
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp">
 
                 <ImageView
                     android:id="@+id/call_img"

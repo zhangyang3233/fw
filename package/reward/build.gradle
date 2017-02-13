@@ -19,9 +19,9 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         // 程序内部版本号
-        versionCode 5
+        versionCode 6
         // 对外版本名称
-        versionName "1.0.5"
+        versionName "1.0.6"
         // dex突破65535的限制
         multiDexEnabled false
         // 默认是self的渠道
