@@ -65,6 +65,17 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
     CityChangedListener cityChangedListener;
 
 
+    protected void checkLazyLoad() {
+        if (isVisible && isPrepared) {
+            loadingData();
+        }
+    }
+
+    @Override
+    protected void loadingData() {
+        onPullDownToRefresh();
+    }
+
     @Override
     protected void onInflated(View contentView, Bundle savedInstanceState) {
         super.onInflated(contentView, savedInstanceState);

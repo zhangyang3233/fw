@@ -105,7 +105,9 @@ public abstract class BaseFragment extends Fragment {
   }
 
   // 实现fragment的懒加载，在fragment第一次显示的时候，加载数据
-  protected void loadingData() {}
+  protected void loadingData() {
+
+  }
 
   @Override
   public void onDetach() {

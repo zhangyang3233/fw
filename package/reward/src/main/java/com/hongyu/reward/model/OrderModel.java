@@ -45,6 +45,15 @@ public class OrderModel implements BaseDataModel {
   private String order_num;
   private String isComment;
   private String mTvTime;
+  private String refused_user;
+
+  public String getRefused_user() {
+    return refused_user;
+  }
+
+  public void setRefused_user(String refused_user) {
+    this.refused_user = refused_user;
+  }
 
   public String getHead_img() {
     return head_img;

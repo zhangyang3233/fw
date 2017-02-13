@@ -276,12 +276,13 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
       T.show("微信不可用，请检查微信是否安装。");
       return;
     }
-    DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener() {
-      @Override
-      public void onConfirmClick(String[] content) {
-        showShareDialog2(content[0], content[1],  order_id);
-      }
-    });
+//    DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener() {
+//      @Override
+//      public void onConfirmClick(String[] content) {
+//        showShareDialog2(content[0], content[1],  order_id);
+//      }
+//    });
+    showShareDialog2("", "",  order_id);
 
   }
 

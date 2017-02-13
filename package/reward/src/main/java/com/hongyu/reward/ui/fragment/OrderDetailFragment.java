@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.Log;
@@ -18,6 +19,7 @@ import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.hongyu.reward.R;
 import com.hongyu.reward.appbase.BaseLoadFragment;
 import com.hongyu.reward.http.ResponesUtil;
+import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderInfoModel;
 import com.hongyu.reward.model.OrderModel;
@@ -136,8 +138,27 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
       }
     } else {
       mReceiveBtn.setEnabled(true);
-      mReceiveBtn.setOnClickListener(OrderDetailFragment.this);
       mTip.setText("*我们为悬赏人保留最长10分钟的考虑时间，请您耐心等待。");
+
+      String refused = order.getRefused_user();
+      if(!TextUtils.isEmpty(refused)){
+        String[] arr = refused.split(",");
+        if(arr != null && arr.length != 0){
+          String myUserId = AccountManager.getInstance().getUser().getUser_id();
+          for(String refuseUser: arr){
+            if(refuseUser.equals(myUserId)){
+              mReceiveBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  Toast.makeText(getActivity(), "您已经被悬赏人拒绝", Toast.LENGTH_LONG).show();
+                }
+              });
+              return;
+            }
+          }
+        }
+      }
+      mReceiveBtn.setOnClickListener(OrderDetailFragment.this);
     }
   }
 

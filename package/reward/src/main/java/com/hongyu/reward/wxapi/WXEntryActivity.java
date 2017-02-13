@@ -119,9 +119,9 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     WXWebpageObject webpage = new WXWebpageObject();
     webpage.webpageUrl = Constants.WX.share_app + "shop_name=" + shopName;
     WXMediaMessage msg = new WXMediaMessage(webpage);
-    msg.title = "快来使用" + getAppName() + "吧~~~";
+    msg.title = "请叫我活雷锋！";
     msg.description =
-        "我在 " + shopName + " 排队吃饭，通过维依悬赏APP把排队号给了更紧急，更需要的人，助人为乐，还小赚了一笔！下次需要的时候，我也用悬赏少排队~";
+        "把餐厅排队号让给了更需要的人，而我离买保时捷又近了一步！";
     // Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.send_music_thumb);
     // msg.thumbData = Util.bmpToByteArray(thumb, true);
     SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -148,8 +148,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     webpage.webpageUrl = Constants.WX.share_shop + "order_id=" + order_id + "&save_time="
         + save_time + "&save_seat=" + save_seat;
     WXMediaMessage msg = new WXMediaMessage(webpage);
-    msg.title = "快来使用" + getAppName() + "吧~~~";
-    msg.description = "我使用" + getAppName() + ", 节省了" + save_time + "分钟!从此吃饭不排队~~~~";
+    msg.title = "厉害了，word饭桶们";
+    msg.description = "妈妈再也不用担心我为了吃饭而苦逼地排队了！";
     // Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.send_music_thumb);
     // msg.thumbData = Util.bmpToByteArray(thumb, true);
     SendMessageToWX.Req req = new SendMessageToWX.Req();
