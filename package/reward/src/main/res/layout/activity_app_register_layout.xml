@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/total_transparent"
-            android:hint="@string/please_input_pwd"
+            android:hint="@string/please_re_input_pwd"
             android:inputType="textPassword"
             android:maxLength="16"
             android:textColor="@color/text_gray_dark"

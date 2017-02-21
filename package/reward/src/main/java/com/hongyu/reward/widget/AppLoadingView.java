@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fw.zycoder.utils.Log;
 import com.hongyu.reward.R;
 
 
@@ -77,7 +78,7 @@ public class AppLoadingView {
     this.rootView = (inflater.inflate(R.layout.app_loading_view, null));
     this.textView = (TextView) rootView.findViewById(R.id.loading_text);
     this.textView.setText(loadingText);
-    this.dialog = new Dialog(context, R.style.MProgressDialog);
+    this.dialog = new Dialog2(context, R.style.MProgressDialog);
     this.dialog.setContentView(rootView);
     this.dialog.setCancelable(cancelable);
     this.dialog.setOnCancelListener(mListener);
@@ -95,5 +96,29 @@ public class AppLoadingView {
 
   public void setCancelListener(DialogInterface.OnCancelListener listener){
     this.mListener = listener;
+    this.dialog.setOnCancelListener(mListener);
+  }
+
+  class Dialog2 extends Dialog{
+
+    public Dialog2(Context context) {
+      super(context);
+    }
+
+    public Dialog2(Context context, int themeResId) {
+      super(context, themeResId);
+    }
+
+    @Override
+    public void dismiss() {
+      super.dismiss();
+      Log.i("dismiss");
+    }
+
+    @Override
+    public void cancel() {
+      super.cancel();
+      Log.i("cancel");
+    }
   }
 }

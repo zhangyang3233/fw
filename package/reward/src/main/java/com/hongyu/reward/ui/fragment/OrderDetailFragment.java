@@ -48,15 +48,9 @@ import java.io.IOException;
  * 可领取任务详情页
  * Created by zhangyang131 on 16/9/19.
  */
-public class OrderDetailFragment extends BaseLoadFragment implements View.OnClickListener{
-  String shop_name;
-  String shop_address;
-  String shop_img;
+public class OrderDetailFragment extends BaseLoadFragment implements View.OnClickListener {
   String order_id;
-  String nickname;
-  String price;
-  String shop_id;
-  String user_id;
+  boolean is_my_receive;
   private NetImageView mIvShop;
   private TextView mTvShopName;
   private TextView mAddress;
@@ -69,6 +63,11 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   private TextView mTip;
   private FiveStarSingle mScoreView;
   private View mReceiveBtn;
+  private String shop_name;
+  private String shop_address;
+  private String shop_img;
+  private String price;
+  private String nickname;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,18 +83,24 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   }
 
   private void getData() {
-    shop_name = getArguments().getString(OrderDetailActivity.SHOP_NAME);
-    shop_img = getArguments().getString(OrderDetailActivity.SHOP_IMAGE);
     order_id = getArguments().getString(OrderDetailActivity.ORDER_ID);
-    nickname = getArguments().getString(OrderDetailActivity.NICKNAME);
-    price = getArguments().getString(OrderDetailActivity.PRICE);
-    shop_id = getArguments().getString(OrderDetailActivity.SHOP_ID);
-    user_id = getArguments().getString(OrderDetailActivity.USER_ID);
+    is_my_receive = getArguments().getBoolean(OrderDetailActivity.IS_MY_RECEIVE);
   }
 
   @Override
   protected void onStartLoading() {
-    showLoadingView();
+    if(is_my_receive){
+      setLoadingViewCancelable(true);
+      setLoadingCancelListener(new DialogInterface.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialog) {
+          getActivity().finish();
+        }
+      });
+      showLoadingView("待悬赏人确认");
+    }else{
+      showLoadingView();
+    }
     GetOrderInfoRequestBuilder builder = new GetOrderInfoRequestBuilder(order_id);
     builder.setDataCallback(new DataCallback<OrderInfoModel>() {
       @Override
@@ -103,7 +108,9 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
         if (!isAdded()) {
           return;
         }
-        dismissLoadingView();
+        if(!is_my_receive){
+          dismissLoadingView();
+        }
         if (ResponesUtil.checkModelCodeOK(data)) {
           refreshData(data.getData().getOrder());
         } else {
@@ -116,8 +123,15 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
 
   private void refreshData(OrderModel order) {
     shop_name = order.getShop_name();
-    shop_address =order.getShop_address();
-    shop_img =order.getImg();
+    shop_address = order.getShop_address();
+    shop_img = order.getImg();
+    price = order.getPrice();
+    nickname = order.getNickname();
+
+    mTvShopName.setText(shop_name);
+    mTvPrice.setText(price);
+    mTvName.setText(nickname);
+    mIvShop.loadNetworkImageByUrl(shop_img);
 
     mTvGcr.setText("好评率:" + (TextUtils.isEmpty(order.getGcr()) ? "0%" : order.getGcr()));
     mTvName.setText(order.getNickname());
@@ -129,24 +143,36 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mTvNum.setText(order.getUsernum() + "人");
     if (order.getStatus() != OrderModel.STATUS_PENDING_RECEIVE) { // 该订单已经被人领取
       mReceiveBtn.setEnabled(false);
-      if (order.getStatus() == OrderModel.STATUS_INVALID
-          || order.getStatus() == OrderModel.STATUS_CANCEL
-          || order.getStatus() == OrderModel.STATUS_APPEND) {
-        mTip.setText("*抱歉，该任务已经取消，请返回列表获取最新任务。");
-      } else {
-        mTip.setText("*抱歉，该任务已被人领取，请返回列表获取最新任务。");
+      if(is_my_receive){
+        mTip.setText("*我们为悬赏人保留最长10分钟的考虑时间，请您耐心等待。");
+        setLoadingViewCancelable(true);
+        setLoadingCancelListener(new DialogInterface.OnCancelListener() {
+          @Override
+          public void onCancel(DialogInterface dialog) {
+            getActivity().finish();
+          }
+        });
+        showLoadingView("待悬赏人确认");
+      }else{
+        if (order.getStatus() == OrderModel.STATUS_INVALID
+                || order.getStatus() == OrderModel.STATUS_CANCEL
+                || order.getStatus() == OrderModel.STATUS_APPEND) {
+          mTip.setText("*抱歉，该任务已经取消，请返回列表获取最新任务。");
+        } else {
+          mTip.setText("*抱歉，该任务已被人领取，请返回列表获取最新任务。");
+        }
       }
     } else {
       mReceiveBtn.setEnabled(true);
       mTip.setText("*我们为悬赏人保留最长10分钟的考虑时间，请您耐心等待。");
 
       String refused = order.getRefused_user();
-      if(!TextUtils.isEmpty(refused)){
+      if (!TextUtils.isEmpty(refused)) {
         String[] arr = refused.split(",");
-        if(arr != null && arr.length != 0){
+        if (arr != null && arr.length != 0) {
           String myUserId = AccountManager.getInstance().getUser().getUser_id();
-          for(String refuseUser: arr){
-            if(refuseUser.equals(myUserId)){
+          for (String refuseUser : arr) {
+            if (refuseUser.equals(myUserId)) {
               mReceiveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -181,10 +207,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     mIvHeader = (RoundImageView) mContentView.findViewById(R.id.header_icon);
     mReceiveBtn = mContentView.findViewById(R.id.receive);
     mReceiveBtn.setOnClickListener(this);
-    mTvShopName.setText(shop_name);
-    mTvPrice.setText(price);
-    mTvName.setText(nickname);
-    mIvShop.loadNetworkImageByUrl(shop_img);
+
   }
 
   @Override
@@ -207,17 +230,17 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     DialogFactory.showReceiveTypeView(getActivity(), new DialogFactory.OnWhichListener() {
       @Override
       public void onConfirmClick(int which) {
-        switch (which){
+        switch (which) {
           case 0:// 填写排号单
-//            showReceiveDialog();
+            // showReceiveDialog();
             // TODO
             InputWaitNumActivity.launch(getActivity(), order_id, shop_img, shop_name, shop_address);
             break;
           case 1:// 拍摄排号单
             Intent intent = new Intent(
-                    MediaStore.ACTION_IMAGE_CAPTURE);
+                MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                    Uri.fromFile(new File(Consts.A_mShootPath)));
+                Uri.fromFile(new File(Consts.A_mShootPath)));
             // fake solution for some phone can't call the camera
             if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
               startActivityForResult(intent, Consts.REQUEST_CODE_TAKE_A_PICTURE);
@@ -230,45 +253,46 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   }
 
 
-//  private void showReceiveDialog() {
-//    DialogFactory.showNumeralInputView(getActivity(), new DialogFactory.OnDialogActionListener() {
-//      @Override
-//      public void onFinish(String indexNum, String waitNum, String pNum) {
-//        receiveOrder(indexNum, waitNum, pNum);
-//      }
-//    });
-//  }
-//
-//  private void receiveOrder(final String indexNum, final String waitNum, final String pNum) {
-//    ReceiveOrderRequestBuilder builder =
-//        new ReceiveOrderRequestBuilder(order_id, indexNum, waitNum, pNum);
-//    builder.setDataCallback(new DataCallback<BaseModel>() {
-//      @Override
-//      public void onDataCallback(BaseModel data) {
-//        if (!isAdded()) {
-//          return;
-//        }
-//        if (ResponesUtil.checkModelCodeOK(data)) {
-//          T.show("领取成功");
-//          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
-//          setLoadingViewCancelable(true);
-//          setLoadingCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//              getActivity().finish();
-//            }
-//          });
-//          showLoadingView("待悬赏人确认");
-//        } else {
-//          T.show(ResponesUtil.getErrorMsg(data));
-//        }
-//      }
-//    });
-//    builder.build().submit();
-//  }
+  // private void showReceiveDialog() {
+  // DialogFactory.showNumeralInputView(getActivity(), new DialogFactory.OnDialogActionListener() {
+  // @Override
+  // public void onFinish(String indexNum, String waitNum, String pNum) {
+  // receiveOrder(indexNum, waitNum, pNum);
+  // }
+  // });
+  // }
+  //
+  // private void receiveOrder(final String indexNum, final String waitNum, final String pNum) {
+  // ReceiveOrderRequestBuilder builder =
+  // new ReceiveOrderRequestBuilder(order_id, indexNum, waitNum, pNum);
+  // builder.setDataCallback(new DataCallback<BaseModel>() {
+  // @Override
+  // public void onDataCallback(BaseModel data) {
+  // if (!isAdded()) {
+  // return;
+  // }
+  // if (ResponesUtil.checkModelCodeOK(data)) {
+  // T.show("领取成功");
+  // EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
+  // setLoadingViewCancelable(true);
+  // setLoadingCancelListener(new DialogInterface.OnCancelListener() {
+  // @Override
+  // public void onCancel(DialogInterface dialog) {
+  // getActivity().finish();
+  // }
+  // });
+  // showLoadingView("待悬赏人确认");
+  // } else {
+  // T.show(ResponesUtil.getErrorMsg(data));
+  // }
+  // }
+  // });
+  // builder.build().submit();
+  // }
 
   private void receiveOrder(final String imgPath) {
-    PreViewActivity.launch(getActivity(), order_id, shop_name, shop_address, shop_img, null, null, null, imgPath);
+    PreViewActivity.launch(getActivity(), order_id, shop_name, shop_address, shop_img, null, null,
+        null, imgPath);
   }
 
 
@@ -295,7 +319,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     if (!isAdded()) {
       return;
     }
-    if(event.getType() == NoticeEvent.RECEIVE_REQUEST_SUCCESS){
+    if (event.getType() == NoticeEvent.RECEIVE_REQUEST_SUCCESS) {
       setLoadingViewCancelable(true);
       setLoadingCancelListener(new DialogInterface.OnCancelListener() {
         @Override
@@ -304,17 +328,17 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
         }
       });
       showLoadingView("待悬赏人确认");
+      mReceiveBtn.setEnabled(false);
     }
   }
-
 
 
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    Log.i("img", "requestCode"+requestCode+"resultCode:"+resultCode);
-    if(resultCode != Activity.RESULT_OK){
+    Log.i("img", "requestCode" + requestCode + "resultCode:" + resultCode);
+    if (resultCode != Activity.RESULT_OK) {
       return;
     }
     switch (requestCode) {
@@ -331,7 +355,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
           MainThreadPostUtils.toast(R.string.label_save_picture_failed);
           return;
         }
-//        startPhotoZoom(Uri.fromFile(temp));
+        // startPhotoZoom(Uri.fromFile(temp));
         receiveOrder(Consts.mShootPath);
         break;
       case Consts.REQUEST_CODE_CROP_A_PICTURE:// 剪裁图片
@@ -339,8 +363,8 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
         if (data != null) {
           saveCropPic(data);
           // 上传头像
-//          callback.finish(Consts.mTempHeadPath);
-//          Toast.makeText(getActivity(), Consts.mTempHeadPath , Toast.LENGTH_LONG).show();
+          // callback.finish(Consts.mTempHeadPath);
+          // Toast.makeText(getActivity(), Consts.mTempHeadPath , Toast.LENGTH_LONG).show();
           receiveOrder(Consts.mTempHeadPath);
         }
         break;
@@ -407,7 +431,7 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
       if (out != null) {
         try {
           out.close();
-      } catch (IOException e) {
+        } catch (IOException e) {
           e.printStackTrace();
         }
       }

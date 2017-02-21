@@ -188,7 +188,7 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
     private OrderModel getReceiveOrder() {
         GetReceiveOrderRequestBuilder builder = new GetReceiveOrderRequestBuilder();
         OrderIdRequestModel myReceive = builder.build().submitSync().get();
-        return myReceive.getData();
+        return myReceive==null?null:myReceive.getData();
     }
 
     @Nullable

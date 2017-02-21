@@ -3,13 +3,13 @@ package com.hongyu.reward.manager;
 import android.content.Context;
 
 import com.hongyu.reward.model.OrderModel;
+import com.hongyu.reward.ui.activity.OrderDetailActivity;
 import com.hongyu.reward.ui.activity.order.PublishFinishedCommentActivity;
 import com.hongyu.reward.ui.activity.order.ReceiveOrderFinishedActivity;
 import com.hongyu.reward.ui.activity.order.ReceiveWaitActivity;
 import com.hongyu.reward.ui.activity.order.RewardPublishWaitActivity;
 import com.hongyu.reward.ui.activity.order.RewardStartActivity;
 import com.hongyu.reward.ui.activity.order.SelectPersonActivity;
-import com.hongyu.reward.utils.T;
 
 /**
  * Created by zhangyang131 on 2016/10/25.
@@ -17,7 +17,7 @@ import com.hongyu.reward.utils.T;
 public class OrderDeal {
 
   public static void jumpActivityByOrder(Context context, OrderModel orderModel) {
-    if(orderModel == null){
+    if (orderModel == null) {
       return;
     }
     switch (orderModel.getStatus()) {
@@ -32,7 +32,7 @@ public class OrderDeal {
           SelectPersonActivity.launch(context, orderModel.getOrder_id(), orderModel.getShop_name(),
               orderModel.getImg());
         } else {// 别人发起的
-          T.show("等待发起人确认中...");
+          OrderDetailActivity.launch(context, orderModel.getOrder_id(), orderModel.getShop_name(),true);
         }
         break;
       case OrderModel.STATUS_PENDING_PAY: // 待付款

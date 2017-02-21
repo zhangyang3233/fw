@@ -14,23 +14,21 @@ import com.hongyu.reward.ui.fragment.OrderDetailFragment;
  */
 public class OrderDetailActivity extends BaseSingleFragmentActivity {
   public static final String SHOP_NAME = "shopName";
-  public static final String SHOP_IMAGE = "shop_image";
   public static final String ORDER_ID = "order_id";
-  public static final String NICKNAME = "nickname";
-  public static final String PRICE = "price";
-  public static final String SHOP_ID = "shop_id";
-  public static final String USER_ID = "user_id";
+  public static final String IS_MY_RECEIVE = "isMyReceive";
 
-  public static void launch(Context context, String shopName, String shop_image, String order_id,
-      String nickname, String price, String shop_id, String user_id) {
+  public static void launch(Context context,String order_id, String shopName) {
     Intent i = new Intent(context, OrderDetailActivity.class);
     i.putExtra(SHOP_NAME, shopName);
-    i.putExtra(SHOP_IMAGE, shop_image);
     i.putExtra(ORDER_ID, order_id);
-    i.putExtra(NICKNAME, nickname);
-    i.putExtra(PRICE, price);
-    i.putExtra(SHOP_ID, shop_id);
-    i.putExtra(USER_ID, user_id);
+    AccountManager.launchAfterLogin(context, i);
+  }
+
+  public static void launch(Context context,String order_id, String shopName,boolean isMyReceive) {
+    Intent i = new Intent(context, OrderDetailActivity.class);
+    i.putExtra(SHOP_NAME, shopName);
+    i.putExtra(ORDER_ID, order_id);
+    i.putExtra(IS_MY_RECEIVE, isMyReceive);
     AccountManager.launchAfterLogin(context, i);
   }
 

@@ -63,7 +63,8 @@
     <string name="register_now">立即注册</string>
     <string name="register_success">注册成功</string>
     <string name="pwd">密码</string>
-    <string name="please_input_pwd">请输入密码</string>
+    <string name="please_input_pwd">请输入新密码</string>
+    <string name="please_re_input_pwd">请输入新密码</string>
     <string name="please_reinput_pwd">确认密码</string>
 
     <!-- 选择商家悬赏 -->

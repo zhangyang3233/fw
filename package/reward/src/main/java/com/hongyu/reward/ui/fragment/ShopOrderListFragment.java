@@ -65,9 +65,7 @@ public class ShopOrderListFragment extends AsyncLoadListFragment<RewardModel> {
           Toast.makeText(getActivity(), "您不可以领取自己发布的悬赏", Toast.LENGTH_LONG).show();
           return;
         }
-        OrderDetailActivity.launch(getActivity(), mode.getShop_name(), mode.getImg(),
-            mode.getOrder_id(), mode.getNickname(), mode.getPrice(), mode.getShop_id(),
-            mode.getUser_id());
+        OrderDetailActivity.launch(getActivity(),mode.getOrder_id(), mode.getShop_name());
         getActivity().finish();
       }
     });
