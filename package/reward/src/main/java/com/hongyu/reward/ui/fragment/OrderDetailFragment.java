@@ -1,23 +1,18 @@
 package com.hongyu.reward.ui.fragment;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fw.zycoder.http.callback.DataCallback;
-import com.fw.zycoder.utils.Log;
-import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.hongyu.reward.R;
-import com.hongyu.reward.appbase.BaseLoadFragment;
+import com.hongyu.reward.appbase.BaseTakePhotoFragment;
 import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.manager.AccountManager;
 import com.hongyu.reward.model.NoticeEvent;
@@ -35,20 +30,19 @@ import com.hongyu.reward.utils.getpic.Consts;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.NetImageView;
 import com.hongyu.reward.widget.RoundImageView;
+import com.jph.takephoto.model.TResult;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * 可领取任务详情页
  * Created by zhangyang131 on 16/9/19.
  */
-public class OrderDetailFragment extends BaseLoadFragment implements View.OnClickListener {
+public class OrderDetailFragment extends BaseTakePhotoFragment implements View.OnClickListener {
+  private static final String TAG = OrderDetailFragment.class.getSimpleName();
   String order_id;
   boolean is_my_receive;
   private NetImageView mIvShop;
@@ -237,14 +231,15 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
             InputWaitNumActivity.launch(getActivity(), order_id, shop_img, shop_name, shop_address);
             break;
           case 1:// 拍摄排号单
-            Intent intent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(new File(Consts.A_mShootPath)));
-            // fake solution for some phone can't call the camera
-            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-              startActivityForResult(intent, Consts.REQUEST_CODE_TAKE_A_PICTURE);
-            }
+//            Intent intent = new Intent(
+//                MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                Uri.fromFile(new File(Consts.A_mShootPath)));
+//            // fake solution for some phone can't call the camera
+//            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+//              startActivityForResult(intent, Consts.REQUEST_CODE_TAKE_A_PICTURE);
+//            }
+            getTakePhoto().onPickFromCapture(Uri.fromFile(new File(Consts.A_mShootPath)));
             break;
         }
       }
@@ -253,42 +248,6 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
   }
 
 
-  // private void showReceiveDialog() {
-  // DialogFactory.showNumeralInputView(getActivity(), new DialogFactory.OnDialogActionListener() {
-  // @Override
-  // public void onFinish(String indexNum, String waitNum, String pNum) {
-  // receiveOrder(indexNum, waitNum, pNum);
-  // }
-  // });
-  // }
-  //
-  // private void receiveOrder(final String indexNum, final String waitNum, final String pNum) {
-  // ReceiveOrderRequestBuilder builder =
-  // new ReceiveOrderRequestBuilder(order_id, indexNum, waitNum, pNum);
-  // builder.setDataCallback(new DataCallback<BaseModel>() {
-  // @Override
-  // public void onDataCallback(BaseModel data) {
-  // if (!isAdded()) {
-  // return;
-  // }
-  // if (ResponesUtil.checkModelCodeOK(data)) {
-  // T.show("领取成功");
-  // EventBus.getDefault().post(new NoticeEvent(NoticeEvent.ORDER_STATUS_CHANGED));
-  // setLoadingViewCancelable(true);
-  // setLoadingCancelListener(new DialogInterface.OnCancelListener() {
-  // @Override
-  // public void onCancel(DialogInterface dialog) {
-  // getActivity().finish();
-  // }
-  // });
-  // showLoadingView("待悬赏人确认");
-  // } else {
-  // T.show(ResponesUtil.getErrorMsg(data));
-  // }
-  // }
-  // });
-  // builder.build().submit();
-  // }
 
   private void receiveOrder(final String imgPath) {
     PreViewActivity.launch(getActivity(), order_id, shop_name, shop_address, shop_img, null, null,
@@ -332,116 +291,22 @@ public class OrderDetailFragment extends BaseLoadFragment implements View.OnClic
     }
   }
 
-
-
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    Log.i("img", "requestCode" + requestCode + "resultCode:" + resultCode);
-    if (resultCode != Activity.RESULT_OK) {
-      return;
-    }
-    switch (requestCode) {
-      case Consts.REQUEST_CODE_PICK_FROM_GALLERY:
-        Log.i("img", "从相册选择");
-        if (data != null) {// 从相册选择
-          startPhotoZoom(data.getData());
-        }
-        break;
-      case Consts.REQUEST_CODE_TAKE_A_PICTURE:// 拍照
-        Log.i("img", "拍照");
-        final File temp = new File(Consts.mShootPath);
-        if (!temp.exists()) {
-          MainThreadPostUtils.toast(R.string.label_save_picture_failed);
-          return;
-        }
-        // startPhotoZoom(Uri.fromFile(temp));
-        receiveOrder(Consts.mShootPath);
-        break;
-      case Consts.REQUEST_CODE_CROP_A_PICTURE:// 剪裁图片
-        Log.i("img", "剪裁图片");
-        if (data != null) {
-          saveCropPic(data);
-          // 上传头像
-          // callback.finish(Consts.mTempHeadPath);
-          // Toast.makeText(getActivity(), Consts.mTempHeadPath , Toast.LENGTH_LONG).show();
-          receiveOrder(Consts.mTempHeadPath);
-        }
-        break;
-      default:
-        break;
-    }
-  }
-
-  /**
-   * 保存裁剪之后的图片数据
-   *
-   * @param picdata
-   */
-  private void saveCropPic(Intent picdata) {
-    Log.i("img", "saveCropPic");
-    Bundle extras = picdata.getExtras();
-    if (extras != null) {
-      final Bitmap photo = extras.getParcelable("data");
-      saveBitmap(photo);
-    }
-  }
-
-  /**
-   * 裁剪图片方法实现
-   *
-   * @param uri
-   */
-  private void startPhotoZoom(Uri uri) {
-    Intent intent = new Intent("com.android.camera.action.CROP");
-    intent.setDataAndType(uri, "image/*");
-    intent.putExtra("crop", "true");
-    // aspectX aspectY 是宽高的比例
-    intent.putExtra("aspectX", 1);
-    intent.putExtra("aspectY", 1);
-    // outputX outputY 是裁剪图片宽高
-    intent.putExtra("outputX", Consts.WIDTH_HEAD_OUTPUT);
-    intent.putExtra("outputY", Consts.HEIGHT_HEAD_OUTPUT);
-    intent.putExtra("return-data", true);
-    startActivityForResult(intent, Consts.REQUEST_CODE_CROP_A_PICTURE);
-  }
-
-  public void saveBitmap(Bitmap bm) {
-    Log.i("img", "saveBitmap");
-    final File dir = new File(Consts.A_DIRECTORY_TICKET);
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
-    final File f = new File(Consts.A_mTempTicketPath);
-    if (f.exists()) {
-      f.delete();
-    }
-    final File newFile = new File(Consts.A_mTempTicketPath);
-    Log.i("img", "newFile:" + newFile.getAbsolutePath() + "--" + newFile.getName());
-    FileOutputStream out = null;
-    try {
-      out = new FileOutputStream(newFile);
-      bm.compress(Bitmap.CompressFormat.PNG, 100, out);
-      out.flush();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      if (out != null) {
-        try {
-          out.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
+  public void takeSuccess(TResult result) {
+    Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
+    receiveOrder(result.getImage().getOriginalPath());
   }
 
   @Override
-  public void onDestroyView() {
-    super.onDestroyView();
+  public void takeFail(TResult result, String msg) {
+    Log.i(TAG, "takeFail:" + msg);
   }
+
+  @Override
+  public void takeCancel() {
+    Log.i(TAG, getResources().getString(com.jph.takephoto.R.string.msg_operation_canceled));
+  }
+
 
 
 }

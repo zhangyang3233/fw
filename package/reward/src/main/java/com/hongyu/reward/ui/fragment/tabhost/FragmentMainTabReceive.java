@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.fw.zycoder.http.callback.DataCallback;
 import com.fw.zycoder.utils.CollectionUtils;
+import com.fw.zycoder.utils.Log;
 import com.fw.zycoder.utils.MainThreadPostUtils;
 import com.fw.zycoder.utils.SPUtil;
 import com.hongyu.reward.R;
@@ -21,17 +23,18 @@ import com.hongyu.reward.appbase.adapter.DataAdapter;
 import com.hongyu.reward.appbase.fetcher.BaseFetcher;
 import com.hongyu.reward.config.Constants;
 import com.hongyu.reward.http.HttpHelper;
+import com.hongyu.reward.http.ResponesUtil;
 import com.hongyu.reward.interfaces.CityChangedListener;
 import com.hongyu.reward.interfaces.OrderClickUtil;
 import com.hongyu.reward.location.GetLocationListener;
 import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.model.AppLocation;
+import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.OrderIdRequestModel;
 import com.hongyu.reward.model.OrderModel;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.ChangedOpenNewOrderPushRequestBuilder;
-import com.hongyu.reward.request.ChangedOpenNewOrderPushRequestBuilder.PushType;
 import com.hongyu.reward.request.GetReceiveOrderRequestBuilder;
 import com.hongyu.reward.ui.activity.SearchActivity;
 import com.hongyu.reward.ui.activity.ShopOrderListActivity;
@@ -102,18 +105,41 @@ public class FragmentMainTabReceive extends AsyncLoadListFragment<ShopListMode.S
             }
         });
         switch_view.setChecked(getReceiveNewOrderPush());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 在小米 MI5 上，为了避免程序在照相时重启，导致switch自动跳转状态的bug，临时处理方案
         switch_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SPUtil.putBoolean(Constants.Pref.PUSH_NEW_ORDER, isChecked);
-                ChangedOpenNewOrderPushRequestBuilder builder =
-                        new ChangedOpenNewOrderPushRequestBuilder(isChecked
-                                ? PushType.on
-                                : PushType.off);
-                builder.build().submit();
-            }
-        });
+                public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+                    SPUtil.putBoolean(Constants.Pref.PUSH_NEW_ORDER, isChecked);
+                    ChangedOpenNewOrderPushRequestBuilder builder =
+                            new ChangedOpenNewOrderPushRequestBuilder(isChecked
+                    ? ChangedOpenNewOrderPushRequestBuilder.PushType.on
+                    : ChangedOpenNewOrderPushRequestBuilder.PushType.off);
+                    builder.setDataCallback(new DataCallback<BaseModel>() {
+                        @Override
+                        public void onDataCallback(BaseModel data) {
+                            if(ResponesUtil.checkModelCodeOK(data)){
+                                Log.i("push","修改成功"+String.valueOf(isChecked));
+                            }else{
+                                Log.i("push","修改失败"+String.valueOf(isChecked+"："+ResponesUtil.getErrorMsg(data)));
+                            }
+                        }
+                    });
+                    builder.build().submit();
+                }
+            });
+        }
+    @Override
+    public void onPause() {
+        super.onPause();
+        switch_view.setOnCheckedChangeListener(null);
     }
+
+
 
     private boolean getReceiveNewOrderPush() {
         return SPUtil.getBoolean(Constants.Pref.PUSH_NEW_ORDER, true);

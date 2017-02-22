@@ -240,6 +240,18 @@
         <activity android:name=".ui.activity.order.InputWaitNumActivity"
             android:theme="@style/AppTheme.Detail"/>
 
+        <!-- 拍照 -->
+        <activity
+            android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/AppTheme.Detail"/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Detail"/>
+
+
         <!-- 核心服务类 -->
         <service
             android:name=".manager.CoreService"

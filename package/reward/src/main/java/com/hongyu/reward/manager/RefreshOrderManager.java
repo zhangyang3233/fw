@@ -61,9 +61,13 @@ public class RefreshOrderManager {
           }
 
         } else {
-          Log.i("notice", "检查发布异常：" + data != null
-              ? (data.getMessage() == null ? "null" : data.getMessage())
-              : "data.getMessage==null!");
+          if(data == null){
+            Log.i("notice", "检查发布异常：data == null" );
+          }else if(data.getMessage() == null){
+            Log.i("notice", "检查发布异常：data.getMessage() == null" );
+          }else{
+            Log.i("notice", "检查发布异常：" +data.getMessage());
+          }
         }
         EventBus.getDefault().post(prog);
       }
