@@ -49,6 +49,7 @@
             <!--android:layout_weight="1"/>-->
 
             <com.hongyu.reward.widget.BottomView
+                android:id="@+id/receive_tab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"

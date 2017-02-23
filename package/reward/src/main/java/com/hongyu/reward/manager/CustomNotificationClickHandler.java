@@ -24,6 +24,6 @@ public class CustomNotificationClickHandler extends UmengNotificationClickHandle
     if(pm == null || pm.getPush() == null || pm.getPush().getType() == null || !pm.getPush().getType().equals("3")){
       return;
     }
-    EventBus.getDefault().post(new NoticeEvent(NoticeEvent.NEW_ORDER_CREATE));
+    EventBus.getDefault().post(new NoticeEvent(NoticeEvent.NEW_ORDER_CREATE_CLICK));
   }
 }

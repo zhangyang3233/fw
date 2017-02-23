@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.fw.zycoder.utils.Log;
@@ -33,6 +34,9 @@ import com.umeng.message.PushAgent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
+
 
 /**
  * Created by zhangyang131 on 16/8/29.
@@ -42,6 +46,8 @@ public class TabHostActivity extends FragmentActivity {
   private ViewPager mViewPager;
   private MainPagerAdapter mPagerAdapter;
   private BottomBar mBottomBar;
+  private View receiveTab;
+  private Badge mBadge;
   // private DrawerLayout mDrawerLayout;
 
   public static void launch(Context context) {
@@ -51,7 +57,6 @@ public class TabHostActivity extends FragmentActivity {
     }
     context.startActivity(intent);
   }
-
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +69,7 @@ public class TabHostActivity extends FragmentActivity {
     PgyUpdateManager.register(this);
     ScreenManager.getScreenManager().pushActivity(this);
     EventBus.getDefault().register(this);
-    Log.v("activity生命周期", getClass().getSimpleName()+" --> onCreate");
+    Log.v("activity生命周期", getClass().getSimpleName() + " --> onCreate");
   }
 
   @Override
@@ -82,6 +87,18 @@ public class TabHostActivity extends FragmentActivity {
   private void initView() {
     mViewPager = (ViewPager) findViewById(R.id.view_pager);
     mBottomBar = (BottomBar) findViewById(R.id.bottom_bar);
+    receiveTab = mBottomBar.findViewById(R.id.receive_tab);
+    mBadge = new QBadgeView(this).bindTarget(receiveTab);
+    mBadge.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+      @Override
+      public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+        Log.i("dragState", "dragState:" + dragState);
+        if (dragState == Badge.OnDragStateChangedListener.STATE_SUCCEED) {
+          receiveCount = 0;
+          badge.setBadgeNumber(0);
+        }
+      }
+    });
     mViewPager.setOffscreenPageLimit(3);
     mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override
@@ -151,19 +168,19 @@ public class TabHostActivity extends FragmentActivity {
   @Override
   protected void onStart() {
     super.onStart();
-    Log.v("activity生命周期", getClass().getSimpleName()+" --> onStart");
+    Log.v("activity生命周期", getClass().getSimpleName() + " --> onStart");
   }
 
   @Override
   protected void onStop() {
     super.onStop();
-    Log.v("activity生命周期", getClass().getSimpleName()+" --> onStop");
+    Log.v("activity生命周期", getClass().getSimpleName() + " --> onStop");
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    Log.v("activity生命周期", getClass().getSimpleName()+" --> onDestroy");
+    Log.v("activity生命周期", getClass().getSimpleName() + " --> onDestroy");
     ScreenManager.getScreenManager().popActivity(this);
     LocationManager.getInstance().stop();
     EventBus.getDefault().unregister(this);
@@ -208,14 +225,14 @@ public class TabHostActivity extends FragmentActivity {
 
   public void onResume() {
     super.onResume();
-    Log.v("activity生命周期", getClass().getSimpleName()+" --> onResume");
+    Log.v("activity生命周期", getClass().getSimpleName() + " --> onResume");
     MobclickAgent.onResume(this);
     checkLocationDialog();
   }
 
   public void onPause() {
     super.onPause();
-    Log.v("activity生命周期", getClass().getSimpleName()+" --> onPause");
+    Log.v("activity生命周期", getClass().getSimpleName() + " --> onPause");
     MobclickAgent.onPause(this);
   }
 
@@ -255,9 +272,25 @@ public class TabHostActivity extends FragmentActivity {
 
   @Subscribe
   public void onEventMainThread(NoticeEvent noticeEvent) {
-    if (noticeEvent.getType() == NoticeEvent.NEW_ORDER_CREATE) {
+    if (noticeEvent.getType() == NoticeEvent.NEW_ORDER_CREATE_CLICK) {
       switchPage(2);
       EventBus.getDefault().post(new NoticeEvent(NoticeEvent.TAB2_NEED_FRESH));
+    } else if (noticeEvent.getType() == NoticeEvent.NEW_ORDER) {
+      receiveCount++;
+      // if(receiveCount == 0){
+      // mBadge.hide(true);
+      // }else{
+      // mBadge.hide(false);
+      mBadge.setBadgeNumber(receiveCount);
+      // }
+    } else if (noticeEvent.getType() == NoticeEvent.NEW_ORDER_CLEAR) {
+      receiveCount = 0;
+      // mBadge.hide(true);
+      mBadge.setBadgeNumber(receiveCount);
     }
   }
+
+
+
+  int receiveCount = 0;
 }

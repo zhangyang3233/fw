@@ -41,6 +41,12 @@ public class CustomMessageHandler extends UmengMessageHandler implements Runnabl
       return;
     }
     if(isNewOrderNotify(uMessage)){
+      new MainThreadPostUtils().post(new Runnable() {
+        @Override
+        public void run() {
+          EventBus.getDefault().post(new NoticeEvent(NoticeEvent.NEW_ORDER));
+        }
+      });
       if(isNeedNotify() && AppUtils.isBackground(GlobalConfig.getAppContext())){
         super.handleMessage(context, uMessage);
       }
