@@ -43,7 +43,6 @@ public class BottomView extends RelativeLayout {
             .getDisplayMetrics());
     mPaddingBetween =
         a.getDimensionPixelOffset(R.styleable.BottomView_bottom_paddingBetween, defaultPadding);
-
     a.recycle();
 
   }

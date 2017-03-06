@@ -231,14 +231,6 @@ public class OrderDetailFragment extends BaseTakePhotoFragment implements View.O
             InputWaitNumActivity.launch(getActivity(), order_id, shop_img, shop_name, shop_address);
             break;
           case 1:// 拍摄排号单
-//            Intent intent = new Intent(
-//                MediaStore.ACTION_IMAGE_CAPTURE);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                Uri.fromFile(new File(Consts.A_mShootPath)));
-//            // fake solution for some phone can't call the camera
-//            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-//              startActivityForResult(intent, Consts.REQUEST_CODE_TAKE_A_PICTURE);
-//            }
             getTakePhoto().onPickFromCapture(Uri.fromFile(new File(Consts.A_mShootPath)));
             break;
         }

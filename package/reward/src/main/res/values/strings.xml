@@ -12,8 +12,8 @@
     <string name="image_desc">NULL</string>
 
     <string name="main_tag_text_home">首页</string>
-    <string name="main_tag_text_publish">发布任务</string>
-    <string name="main_tag_text_receive">领取任务</string>
+    <string name="main_tag_text_publish">悬赏</string>
+    <string name="main_tag_text_receive">领赏</string>
     <string name="main_tag_text_my">我的</string>
 
     <!-- 对话框 -->

@@ -17,6 +17,7 @@ public class NoticeEvent extends BaseModel {
     public static final int USER_LOGINED = 11;
     public static final int NEW_ORDER = 12;
     public static final int NEW_ORDER_CLEAR = 13;
+    public static final int RED_POINT_NOTIFY = 14;
 
     private int type;
     private String data;

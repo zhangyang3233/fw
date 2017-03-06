@@ -31,6 +31,7 @@ import com.hongyu.reward.location.LocationManager;
 import com.hongyu.reward.manager.RefreshOrderManager;
 import com.hongyu.reward.model.AdListModel;
 import com.hongyu.reward.model.AppLocation;
+import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.model.ShopListMode;
 import com.hongyu.reward.request.GetAdListRequestBuilder;
 import com.hongyu.reward.ui.activity.RewardPublishInfoActivity;
@@ -50,6 +51,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * fragment - home - 主页
@@ -72,8 +76,10 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
   private View mRewardget;
   private View list_top;
   private TextView title;
+//  private TextView red_point;
   private TextView leftBtn;
   private ImageView rightBtn;
+  private Badge mBadge;
   private CityChangedListener cityChangedListener;
 
   @Override
@@ -246,6 +252,9 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
     left_container = (LinearLayout) mContentView.findViewById(R.id.left_container);
     right_container = (LinearLayout) mContentView.findViewById(R.id.right_container);
     title = (TextView) mContentView.findViewById(R.id.title);
+    mBadge = new QBadgeView(getContext()).bindTarget(mRewardget);
+    mBadge.setBadgeBackgroundColor(getResources().getColor(R.color.red_point_color));
+
     list_top = mContentView.findViewById(R.id.list_top);
     mRewardPublish.setOnClickListener(this);
     mRewardget.setOnClickListener(this);
@@ -417,4 +426,13 @@ public class FragmentMainTabHome extends AsyncLoadListFragment<ShopListMode.Shop
     super.onPause();
     mBannerView.stopTurning();
   }
+
+
+  @Subscribe
+  public void onEventMainThread(NoticeEvent noticeEvent) {
+    if (noticeEvent.getType() == NoticeEvent.RED_POINT_NOTIFY) {
+      mBadge.setBadgeNumber(Integer.parseInt(noticeEvent.getData()));
+    }
+  }
+
 }

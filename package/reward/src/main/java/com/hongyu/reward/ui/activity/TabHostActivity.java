@@ -89,16 +89,8 @@ public class TabHostActivity extends FragmentActivity {
     mBottomBar = (BottomBar) findViewById(R.id.bottom_bar);
     receiveTab = mBottomBar.findViewById(R.id.receive_tab);
     mBadge = new QBadgeView(this).bindTarget(receiveTab);
-    mBadge.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-      @Override
-      public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-        Log.i("dragState", "dragState:" + dragState);
-        if (dragState == Badge.OnDragStateChangedListener.STATE_SUCCEED) {
-          receiveCount = 0;
-          badge.setBadgeNumber(0);
-        }
-      }
-    });
+    mBadge.setGravityOffset(21,0,true);
+    mBadge.setBadgeBackgroundColor(getResources().getColor(R.color.red_point_color));
     mViewPager.setOffscreenPageLimit(3);
     mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override
@@ -282,15 +274,24 @@ public class TabHostActivity extends FragmentActivity {
       // }else{
       // mBadge.hide(false);
       mBadge.setBadgeNumber(receiveCount);
+      redPointNotify(receiveCount);
       // }
     } else if (noticeEvent.getType() == NoticeEvent.NEW_ORDER_CLEAR) {
       receiveCount = 0;
-      // mBadge.hide(true);
       mBadge.setBadgeNumber(receiveCount);
+      redPointNotify(receiveCount);
     }
   }
 
-
+  private void redPointNotify(int newPointCount){
+    String data = null;
+    if(newPointCount>99){
+      data = "99+";
+    }else{
+      data = String.valueOf(newPointCount);
+    }
+    EventBus.getDefault().post(new NoticeEvent(NoticeEvent.RED_POINT_NOTIFY, data));
+  }
 
   int receiveCount = 0;
 }
