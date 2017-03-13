@@ -29,10 +29,12 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 import com.hongyu.reward.wxapi.WXEntryActivity;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.hongyu.reward.wxapi.WXEntryActivity.TIMELINE_SUPPORTED_VERSION;
 
 /**
  * Created by zhangyang131 on 16/10/3.
@@ -265,16 +267,20 @@ public class ReceiveOrderFinishedFragment extends BaseLoadFragment
     if (which == 1) {// 分享到微信
       WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 1, order_id);
     } else if (which == 2) { // 分享到朋友圈
-      WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2, order_id);
+      int wxSdkVersion = api.getWXAppSupportAPI();
+      if (wxSdkVersion >= TIMELINE_SUPPORTED_VERSION) {
+        WXEntryActivity.receiveShare(api, shop_name.getText().toString(), 2, order_id);
+      }else{
+        T.show("该版本不支持发送朋友圈");
+      }
     }
   }
 
   private boolean isWXAppInstalledAndSupported() {
     IWXAPI msgApi = WXAPIFactory.createWXAPI(getActivity(), Constants.WX.AppID);
     msgApi.registerApp(Constants.WX.AppID);
-    boolean sIsWXAppInstalledAndSupported = msgApi.isWXAppInstalled()
-            && msgApi.isWXAppSupportAPI();
-    return sIsWXAppInstalledAndSupported;
+    boolean isInstalled = msgApi.isWXAppInstalled();
+    return isInstalled;
   }
 
   private void showStar(int star_num) {

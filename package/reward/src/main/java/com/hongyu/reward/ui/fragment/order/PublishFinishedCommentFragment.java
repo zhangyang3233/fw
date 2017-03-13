@@ -30,13 +30,15 @@ import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.FiveStarSingle;
 import com.hongyu.reward.widget.RoundImageView;
 import com.hongyu.reward.wxapi.WXEntryActivity;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.hongyu.reward.wxapi.WXEntryActivity.TIMELINE_SUPPORTED_VERSION;
 
 /**
  * Created by zhangyang131 on 16/10/3.
@@ -144,8 +146,8 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
         }
         dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {
-//          JSONObject evaluate = data.optJSONObject("data");
-//          tags = CommentTagModel.parse(evaluate);
+          // JSONObject evaluate = data.optJSONObject("data");
+          // tags = CommentTagModel.parse(evaluate);
           resetTitle();
         } else {
           T.show(ResponesUtil.getErrorMsg(data));
@@ -172,8 +174,8 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
     if (receive != null) {
       // header_icon.loadNetworkImageByUrl(receive.getHeadImg());
       header_icon.loadNetworkImageByUrl(receive.getImg(), R.mipmap.defalut_head_img);
-      name.setText("领赏人："+receive.getNickname());
-      gcr.setText("好评率："+receive.getGcr());
+      name.setText("领赏人：" + receive.getNickname());
+      gcr.setText("好评率：" + receive.getGcr());
       order_num.setText("成交：" + receive.getOrder_num() + "单");
       score.setData(receive.getGcr(), false);
     }
@@ -272,26 +274,26 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
   }
 
   private void showShareDialog1() {
-    if(!isWXAppInstalledAndSupported()){
+    if (!isWXAppInstalledAndSupported()) {
       T.show("微信不可用，请检查微信是否安装。");
       return;
     }
-//    DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener() {
-//      @Override
-//      public void onConfirmClick(String[] content) {
-//        showShareDialog2(content[0], content[1],  order_id);
-//      }
-//    });
-    showShareDialog2("", "",  order_id);
+    // DialogFactory.showShareInputView(getActivity(), new DialogFactory.OnWhichBackStringListener()
+    // {
+    // @Override
+    // public void onConfirmClick(String[] content) {
+    // showShareDialog2(content[0], content[1], order_id);
+    // }
+    // });
+    showShareDialog2("", "", order_id);
 
   }
 
   private boolean isWXAppInstalledAndSupported() {
     IWXAPI msgApi = WXAPIFactory.createWXAPI(getActivity(), Constants.WX.AppID);
     msgApi.registerApp(Constants.WX.AppID);
-    boolean sIsWXAppInstalledAndSupported = msgApi.isWXAppInstalled()
-            && msgApi.isWXAppSupportAPI();
-    return sIsWXAppInstalledAndSupported;
+    boolean isInstalled = msgApi.isWXAppInstalled();
+    return isInstalled;
   }
 
   private void showShareDialog2(final String text1, final String text2, final String order_id) {
@@ -303,13 +305,20 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
     });
   }
 
+
+
   private void share(int which, String text1, String text2, final String order_id) {
     if (which == 1) { // 分享到微信
       WXEntryActivity.publishShare(api, order_id, text1,
-              text2, 1, order_id);
+          text2, 1, order_id);
     } else if (which == 2) { // 分享到朋友圈
-      WXEntryActivity.publishShare(api, order_id, text1,
-              text2, 2, order_id);
+      int wxSdkVersion = api.getWXAppSupportAPI();
+      if (wxSdkVersion >= TIMELINE_SUPPORTED_VERSION) {
+        WXEntryActivity.publishShare(api, order_id, text1,
+                text2, 2, order_id);
+      }else{
+        T.show("该版本不支持发送朋友圈");
+      }
     }
   }
 
@@ -366,7 +375,7 @@ public class PublishFinishedCommentFragment extends BaseLoadFragment
 
   private void evaluate() {
     String score = mTvStar.getText().toString().trim();
-    if(score.equals("0")){
+    if (score.equals("0")) {
       T.show("请给领赏人评价后再提交");
       return;
     }

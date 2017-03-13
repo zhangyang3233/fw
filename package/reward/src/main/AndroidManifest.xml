@@ -250,7 +250,18 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Detail"/>
-
+        <!-- 微信支付 -->
+        <activity
+            android:name=".teacher.ui.PayActivity"
+            android:label="@string/app_name"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wx690b9cf56a4ec056"/> //写入你的appid
+            </intent-filter>
+        </activity>
 
         <!-- 核心服务类 -->
         <service

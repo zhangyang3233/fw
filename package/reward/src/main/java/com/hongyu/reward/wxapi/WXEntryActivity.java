@@ -15,14 +15,14 @@ import com.hongyu.reward.model.BaseModel;
 import com.hongyu.reward.model.NoticeEvent;
 import com.hongyu.reward.request.ShareSuccessRequestBuilder;
 import com.hongyu.reward.utils.T;
-import com.tencent.mm.sdk.modelbase.BaseReq;
-import com.tencent.mm.sdk.modelbase.BaseResp;
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,6 +31,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
   public static final String TAG = WXEntryActivity.class.getSimpleName();
+  public static final int TIMELINE_SUPPORTED_VERSION = 0x21020001;
   private IWXAPI api;
 
   @Override

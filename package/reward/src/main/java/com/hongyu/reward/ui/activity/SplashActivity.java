@@ -23,7 +23,7 @@ import com.hongyu.reward.ui.fragment.startapp.WelcomeFragment;
 import com.hongyu.reward.utils.PayEventUtil;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.wxapi.WXEntryActivity;
-import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.umeng.analytics.MobclickAgent;
 
 /**
