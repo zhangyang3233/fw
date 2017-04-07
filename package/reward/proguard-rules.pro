@@ -331,3 +331,44 @@
 -keep class com.soundcloud.android.crop.** { *; }
 -dontwarn com.soundcloud.android.crop.**
 # ------------ 拍照（完） --------------
+
+# ------------ beecloud --------------
+-dontwarn com.alipay.**
+-dontwarn com.baidu.**
+-dontwarn com.tencent.**
+-dontwarn com.switfpass.**
+
+#for paypal
+-dontwarn com.paypal.**
+-dontwarn io.card.payment.**
+-dontwarn okhttp3.**
+-dontwarn okio.**
+
+-keepattributes Signature
+
+#beecloud
+-keep class cn.beecloud.* { *; }
+-keep class cn.beecloud.async.* { *; }
+-keep class cn.beecloud.entity.* { *; }
+
+-keep class com.google.** { *; }
+#支付宝
+-keep class com.alipay.** { *; }
+#微信
+-keep class com.tencent.** { *; }
+#银联
+-keep class com.unionpay.** { *; }
+#百度
+-keep class com.baidu.** { *; }
+-keep class com.dianxinos.** { *; }
+#PayPal
+-keep class com.paypal.** { *; }
+
+-keep interface okhttp3.** { *; }
+-keep interface okio.** { *; }
+
+-keep class okhttp3.** { *; }
+-keep class okio.** { *; }
+
+-keep class com.switfpass.** { *; }
+# ------------ beecloud（完） --------------

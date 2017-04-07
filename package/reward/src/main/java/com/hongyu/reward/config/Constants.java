@@ -10,6 +10,13 @@ import android.os.Environment;
  */
 public final class Constants {
 
+  public static final class BeeCloud{
+    public static final String APP_ID = "25b7569f-6769-4dab-abf8-603ac99e79be";
+    public static final String APP_SECRET = "2c8e4d61-db81-4d3d-aeed-082969c00604";
+    public static final String TEST_SECRET = "b180e400-57c1-4a11-84e9-59afe9e824a9";
+    public static final String MASTER_SECRET = "3c20e152-fe7c-406a-aa4d-6569decf1b4a";
+  }
+
   public static final class APP_EVENT{
     public static final String EVENT_PUBLISH_REWARD = "publish_reward";
     public static final String EVENT_PUBLISH_CANCEL = "publish_cancel";

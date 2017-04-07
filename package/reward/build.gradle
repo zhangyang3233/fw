@@ -19,15 +19,14 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         // 程序内部版本号
-        versionCode 8
+        versionCode 9
         // 对外版本名称
-        versionName "1.2"
+        versionName "1.3"
         // dex突破65535的限制
-        multiDexEnabled false
+        multiDexEnabled true
         // 默认是self的渠道
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "self"]
     }
-
 
     // 签名配置
     signingConfigs {
@@ -138,10 +137,10 @@ dependencies {
     compile project(':external:dialoghelper')
     compile project(':external:magicindicator')
     compile project(':external:PushSDK')
+    compile project(':external:beecloudsdk')
     compile 'q.rorbin:badgeview:1.0.6'
     compile 'com.jph.takephoto:takephoto_library:4.0.3'
     compile 'com.android.support:cardview-v7:23.+'
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile 'org.litepal.android:core:1.3.2'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
