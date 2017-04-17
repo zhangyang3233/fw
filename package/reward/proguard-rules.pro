@@ -333,6 +333,7 @@
 # ------------ 拍照（完） --------------
 
 # ------------ beecloud --------------
+-dontwarn cn.beecloud.**
 -dontwarn com.alipay.**
 -dontwarn com.baidu.**
 -dontwarn com.tencent.**
@@ -347,11 +348,11 @@
 -keepattributes Signature
 
 #beecloud
+-keep class com.google.* { *; }
 -keep class cn.beecloud.* { *; }
 -keep class cn.beecloud.async.* { *; }
 -keep class cn.beecloud.entity.* { *; }
 
--keep class com.google.** { *; }
 #支付宝
 -keep class com.alipay.** { *; }
 #微信

@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="投诉成功"
+            android:text="@string/complaint_success"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -33,7 +33,7 @@
         android:gravity="center"
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
-        android:text="您的投诉我们已经收到，我们会尽快与您联系，帮助您处理问题。"
+        android:text="@string/complaint_feedback_tip"
         android:textColor="@color/text_gray_more"
         android:textSize="18sp" />
 
@@ -43,5 +43,5 @@
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginTop="60dp"
-        android:text="返回首页" />
+        android:text="@string/back_to_home" />
 </LinearLayout>

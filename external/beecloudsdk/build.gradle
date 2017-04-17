@@ -8,7 +8,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion '25.0.1'
     defaultConfig {
-        minSdkVersion 10 //PayPal要求min至小10
+        minSdkVersion 16 //PayPal要求min至小10
         targetSdkVersion 22
         versionCode 30
         versionName "2.9.0"
@@ -49,7 +49,10 @@ dependencies {
     */
 
     //用于paypal
-    compile 'com.paypal.sdk:paypal-android-sdk:2.13.3'
+    compile('com.paypal.sdk:paypal-android-sdk:2.15.3') {
+        exclude group: 'io.card'
+    }
+
     //网络请求库
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }

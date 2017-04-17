@@ -159,5 +159,26 @@
 
     <string name="pay_success">请您对ta人的服务进行评价。评价完成后，您将获得1000积分奖励。</string>
     <string name="pay_failed">请您重新支付</string>
+    <string name="apply_withdrawals">您申请提现</string>
+    <string name="your_account">您的账户</string>
+    <string name="your_full_name">您的全名</string>
+    <string name="next">下一步</string>
+    <string name="phone_number">手机号</string>
+    <string name="password">密码</string>
+    <string name="complaint_tip">提示：请您选择投诉原因，以便我们为您处理。</string>
+    <string name="click_to_send">点击发送</string>
+    <string name="complaint_success">投诉成功</string>
+    <string name="complaint_feedback_tip">您的投诉我们已经收到，我们会尽快与您联系，帮助您处理问题。</string>
+    <string name="back_to_home">返回首页</string>
+    <string name="finish">已完成</string>
+    <string name="real_time">即时</string>
+    <string name="start_evaluate">星评价</string>
+    <string name="your_anonymous_evaluation">您的匿名评价</string>
+    <string name="share">分享</string>
+    <string name="payment_success">赏金支付成功</string>
+    <string name="evaluation_tips">请您对ta人的服务进行评价。评价完成后，\n您将获得1000积分奖励。</string>
+    <string name="next_time_todo">下次再说</string>
+    <string name="immediate_evaluation">马上评价</string>
+    <string name="uppay">银联支付</string>
 
 </resources>

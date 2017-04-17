@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="提示：请您选择投诉原因，以便我们为您处理。"
+            android:text="@string/complaint_tip"
             android:textColor="#FFA530"
             android:textSize="@dimen/text_h2" />
     </RelativeLayout>
@@ -54,5 +54,5 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:text="点击发送" />
+        android:text="@string/click_to_send" />
 </LinearLayout>

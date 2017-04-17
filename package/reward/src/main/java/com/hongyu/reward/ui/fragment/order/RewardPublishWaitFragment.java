@@ -342,6 +342,7 @@ public class RewardPublishWaitFragment extends BaseLoadFragment implements View.
         if (!isAdded()) {
           return;
         }
+        dismissLoadingView();
         if (ResponesUtil.checkModelCodeOK(data)) {
           MobclickAgent.onEvent(getActivity(), Constants.APP_EVENT.EVENT_PUBLISH_CANCEL);
           T.show(R.string.cancel_reward_order_success);

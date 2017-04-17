@@ -269,6 +269,16 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!-- union pay sdk begin -->
+        <activity
+            android:name="cn.beecloud.BCUnionPaymentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity-alias
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

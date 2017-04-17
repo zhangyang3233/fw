@@ -16,6 +16,9 @@ public class BaseModel implements BaseDataModel {
   }
 
   public String getMessage() {
+    if(code == 3011){
+      return "该订单不能重复取消";
+    }
     return message;
   }
 

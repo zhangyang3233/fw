@@ -104,7 +104,7 @@
 	            android:textColor="@color/text_orange"
 	            android:textSize="@dimen/text_h2"
 	            android:layout_alignParentRight="true"
-	            android:text="已完成"
+	            android:text="@string/finish"
 	            android:layout_centerVertical="true"/>
 	    </RelativeLayout>
 	    
@@ -120,7 +120,7 @@
 	            android:layout_height="26dp"
 	            android:textColor="@color/text_orange"
 	            android:textSize="@dimen/text_h2"
-	            android:text="预约"
+	            android:text="@string/real_time"
 	            android:gravity="center"
 	            android:clickable="true"
 	            android:background="@drawable/common_button_orange"
@@ -133,7 +133,7 @@
 	            android:textColor="@color/text_gray_light"
 	            android:textSize="@dimen/text_h2"
 	            android:layout_toRightOf="@id/order_type"
-	            android:text="2016-07-12 12:23"
+	            tools:text="2016-07-12 12:23"
 	            android:layout_marginLeft="10dp"
 	            android:layout_centerVertical="true"/>
 	    </RelativeLayout>
@@ -165,7 +165,7 @@
 	        <TextView 
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text=" 星评价"
+	            android:text="@string/start_evaluate"
 	            android:textColor="@color/text_orange"
 	            android:textSize="@dimen/text_h3"/>
 	    </LinearLayout>
@@ -229,13 +229,13 @@
 			android:layout_marginRight="3dp"
 			android:layout_marginTop="25dp"
 			android:layout_gravity="center_horizontal"
-			android:text="您的匿名评价"/>
+			android:text="@string/your_anonymous_evaluation"/>
         
         <Button style="@style/App.Comm.Button"
 	        android:id="@+id/share"
 	        android:layout_marginLeft="10dp"
 	        android:layout_marginRight="10dp"
 	        android:layout_marginTop="50dp"
-	        android:text="分享"/>
+	        android:text="@string/share"/>
     </LinearLayout>
 </LinearLayout>

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="赏金支付成功"
+            android:text="@string/payment_success"
             android:textColor="@color/text_gray_dark"
             android:textSize="@dimen/text_h1"
             android:id="@+id/title" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:gravity="center"
-        android:text="请您对ta人的服务进行评价。评价完成后，\n您将获得1000积分奖励。"
+        android:text="@string/evaluation_tips"
         android:textColor="@color/text_gray_dark"
         android:textSize="@dimen/text_h2"
         android:id="@+id/desc" />
@@ -56,12 +56,12 @@
             android:layout_weight="1.0"
             android:layout_marginRight="15dp"
             android:background="@drawable/common_button_yellow_bg_white"
-            android:text="下次再说" />
+            android:text="@string/next_time_todo" />
 
         <Button
             android:id="@+id/to_comment"
             style="@style/App.Comm.Button"
             android:layout_weight="1.0"
-            android:text="马上评价" />
+            android:text="@string/immediate_evaluation" />
     </LinearLayout>
 </LinearLayout>

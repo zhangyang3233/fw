@@ -132,6 +132,40 @@
 			android:src="@mipmap/icon_alipay_select"/>
 	</LinearLayout>
 	<View style="@style/divider_theme_gray" />
+
+	<LinearLayout
+		android:id="@+id/btn_uppay"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:clickable="true"
+		android:visibility="gone"
+		android:background="@color/white"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<ImageView
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			android:layout_marginLeft="15dp"
+			android:src="@mipmap/uppay"/>
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:text="@string/uppay"
+			android:layout_marginLeft="10dp"
+			android:textColor="@color/text_gray_dark"
+			android:textSize="@dimen/text_h2"/>
+
+		<ImageView
+			android:id="@+id/up_img"
+			android:layout_width="28dp"
+			android:layout_height="28dp"
+			android:layout_marginRight="15dp"
+			android:src="@mipmap/icon_alipay_select"/>
+	</LinearLayout>
+	<View style="@style/divider_theme_gray" />
 	<Button style="@style/App.Comm.Button"
         android:id="@+id/ok"
         android:layout_marginLeft="15dp"
