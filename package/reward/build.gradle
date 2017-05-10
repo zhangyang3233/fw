@@ -55,7 +55,7 @@ android {
             buildConfigField "boolean", "IS_SHOW_LOG", "false"
             buildConfigField "boolean", "IS_DEBUG", "false"
             // 版本名称后缀
-            versionNameSuffix "-release"
+//            versionNameSuffix "-release"
             // 使用zipAlign优化压缩包
             zipAlignEnabled true
             // 去除没有用到的资源文件
