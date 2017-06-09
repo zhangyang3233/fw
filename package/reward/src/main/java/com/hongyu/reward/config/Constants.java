@@ -139,7 +139,7 @@ public final class Constants {
 
   // 服务器API相关专用
   public final class Server {
-
+    public static final String SIGN_SECRET = "ef8eaf283b0811e7b054eb16ab187607";
     // 可以用此final常量，作为JAVA预编译指令使用
     // 是否是测试环境，如果不是的话，将会使用线上服务器相关配置
     public static final boolean DEVELOP = false;
@@ -277,5 +277,6 @@ public final class Constants {
     // 退出登录
     public static final String API_LOGOUT = "";
     public static final String API_UPLOAD_LOCATION = "/member/uploadlocation";
+    public static final String API_ADD_POINT = "/point/share";
   }
 }

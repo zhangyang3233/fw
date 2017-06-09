@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">DebugKit</string>
+    <string name="pref_header_general">DebugKit</string>
+    <string name="base_info">device_info</string>
+    <string name="app_info">app_info</string>
+    <string name="can_not_find">未知版本</string>
+    <string name="create_error">create_error</string>
+    <string name="create_anr">create_anr</string>
+    <string name="clear_sp">clear_sp</string>
+    <string name="print_log">print_log</string>
+    <string name="start_action">start_action</string>
+    <string name="setting_page">setting_page</string>
+    <string name="setting_page_tip">app系统详情页面</string>
+    <string name="pre_clear_tip">清除app所有数据</string>
+    <string name="pre_anr">生成ANR</string>
+    <string name="pre_create_crash">生成崩溃</string>
+    <string name="debug_setting">调试功能</string>
+    <string name="pre_action">action</string>
+    <string name="print_log_tip">打印log</string>
+    <string name="pre_api_select">API服务器选择</string>
+    <string name="pre_app_setting">app参数调试</string>
+    <string name="device_info_tip">设备参数</string>
+    <string name="app_info_tip">app参数</string>
+    <string name="app_base_info_tip">客户端基本信息</string>
+    <string name="shell_command">pm clear %s</string>
+    <string name="dm_dpi">null</string>
+    <string name="sys_page">sys_page</string>
+</resources>

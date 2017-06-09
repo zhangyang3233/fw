@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/app_base_info_tip">
+
+        <Preference
+            android:key="@string/base_info"
+            android:title="@string/device_info_tip" />
+        <Preference
+            android:key="@string/app_info"
+            android:title="@string/app_info_tip" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pre_app_setting">
+        <debug.xly.com.debugkit.widget.WithEditListPrefernce
+            android:defaultValue="2"
+            android:dialogTitle="@string/pre_api_select"
+            android:key="list_preference"
+            android:title="@string/pre_api_select"
+            android:entries="@array/api_names"
+            android:entryValues="@array/api_select"
+            android:summary="http://api.test3.com" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/print_log"
+            android:title="@string/print_log_tip" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/debug_setting">
+
+        <Preference
+            android:key="@string/setting_page"
+            android:title="@string/setting_page_tip" />
+
+        <Preference
+            android:key="@string/create_error"
+            android:title="@string/pre_create_crash" />
+
+        <Preference
+            android:key="@string/create_anr"
+            android:title="@string/pre_anr" />
+
+        <Preference
+            android:key="@string/clear_sp"
+            android:layout="@layout/preference"
+            android:title="@string/pre_clear_tip" />
+
+        <Preference
+            android:key="@string/start_action"
+            android:title="@string/pre_action" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="工具">
+        <Preference
+            android:key="@string/sys_page"
+            android:title="系统页面跳转查询" />
+    </PreferenceCategory>
+</PreferenceScreen>

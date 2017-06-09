@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="api_names">
+        <item>正式服务器</item>
+        <item>测试服务器1</item>
+        <item>测试服务器2</item>
+        <item>故障服务器</item>
+    </array>
+    <array name="api_select">
+        <item>http://api.test1.com</item>
+        <item>http://api.test2.com</item>
+        <item>http://api.test3.com</item>
+        <item>http://api.test4.com</item>
+    </array>
+    <array name="setting_action">
+        <item>Settings.ACTION_ACCESSIBILITY_SETTINGS</item>
+        <item>Settings.ACTION_ADD_ACCOUNT</item>
+        <item>Settings.ACTION_AIRPLANE_MODE_SETTINGS</item>
+        <item>Settings.ACTION_WIFI_SETTINGS</item>
+        <item>Settings.ACTION_APN_SETTINGS</item>
+        <item>Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS</item>
+        <item>Settings.ACTION_APPLICATION_SETTINGS</item>
+        <item>Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS</item>
+        <item>Settings.ACTION_BLUETOOTH_SETTINGS</item>
+        <item>Settings.ACTION_DATA_ROAMING_SETTINGS</item>
+        <item>Settings.ACTION_DATE_SETTINGS</item>
+        <item>Settings.ACTION_DEVICE_INFO_SETTINGS</item>
+        <item>Settings.ACTION_DISPLAY_SETTINGS</item>
+        <item>Settings.ACTION_DREAM_SETTINGS</item>
+        <item>Settings.ACTION_INPUT_METHOD_SETTINGS</item>
+        <item>Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS</item>
+        <item>Settings.ACTION_INTERNAL_STORAGE_SETTINGS</item>
+        <item>Settings.ACTION_MEMORY_CARD_SETTINGS</item>
+        <item>Settings.ACTION_LOCALE_SETTINGS</item>
+        <item>Settings.ACTION_LOCATION_SOURCE_SETTINGS</item>
+        <item>Settings.ACTION_NETWORK_OPERATOR_SETTINGS</item>
+        <item>Settings.ACTION_NFCSHARING_SETTINGS</item>
+        <item>Settings.ACTION_NFC_SETTINGS</item>
+        <item>Settings.ACTION_PRIVACY_SETTINGS</item>
+        <item>Settings.ACTION_QUICK_LAUNCH_SETTINGS</item>
+        <item>Settings.ACTION_SEARCH_SETTINGS</item>
+        <item>Settings.ACTION_SECURITY_SETTINGS</item>
+        <item>Settings.ACTION_SETTINGS</item>
+        <item>Settings.ACTION_SOUND_SETTINGS</item>
+        <item>Settings.ACTION_SYNC_SETTINGS</item>
+        <item>Settings.ACTION_USER_DICTIONARY_SETTINGS</item>
+        <item>Settings.ACTION_WIFI_IP_SETTINGS</item>
+        <item>Settings.ACTION_WIFI_SETTINGS</item>
+
+
+    </array>
+    <array name="setting_name">
+        <item>辅助功能设置</item>
+        <item>显示添加帐户创建一个新的帐户屏幕</item>
+        <item>飞行模式，无线网和网络设置界面1</item>
+        <item>飞行模式，无线网和网络设置界面2</item>
+        <item> APN 设置界面</item>
+        <item>开发人员选项界面</item>
+        <item>到应用程序界面【所有的】</item>
+        <item>应用程序列表界面【已安装的】</item>
+        <item>系统的蓝牙设置界面</item>
+        <item>到移动网络设置界面</item>
+        <item>日期时间设置界面</item>
+        <item>手机状态界面</item>
+        <item>手机显示界面</item>
+        <item>及以上 没测试:API18</item>
+        <item>语言和输入设备</item>
+        <item>语言选择界面:API11</item>
+        <item>存储设置界面【内部存储】</item>
+        <item>存储设置【记忆卡存储】</item>
+        <item>语言选择界面【仅有English 和 中文两种选择】</item>
+        <item>位置服务界面【管理已安装的应用程序】</item>
+        <item>到显示设置选择网络运营商。</item>
+        <item>显示NFC共享设置:API14</item>
+        <item>显示NFC用户界面,允许NFC打开或关闭:API16</item>
+        <item>到备份和重置界面</item>
+        <item>快速启动设置界面</item>
+        <item>到 搜索设置界面</item>
+        <item>到安全设置界面</item>
+        <item>到设置界面</item>
+        <item>到声音设置界面</item>
+        <item>账户同步界面</item>
+        <item>用户字典界面</item>
+        <item>到IP设定界面</item>
+        <item>Wifi列表设置</item>
+    </array>
+
+</resources>
