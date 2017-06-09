@@ -14,9 +14,9 @@ import java.util.Date;
 
 import debug.xly.com.debugkit.BuildConfig;
 import debug.xly.com.debugkit.R;
+import debug.xly.com.debugkit.util.AppUtil;
 import debug.xly.com.debugkit.util.DeivceInfoUtil;
 import debug.xly.com.debugkit.util.IPUtils;
-import debug.xly.com.debugkit.util.AppUtil;
 import debug.xly.com.debugkit.util.PkgSizeObserver;
 import debug.xly.com.debugkit.widget.InfoGroupLayout;
 
@@ -28,60 +28,57 @@ public class BaseInfoActivity extends AppCompatActivity {
   public static final String TYPE = "type";
   public static final int TYPE_DEVICE = 0;
   public static final int TYPE_APP = 1;
-  InfoGroupLayout containLayout;
+  InfoGroupLayout mContainLayout;
 
   // 屏幕
-
-  String density;// 密度
-  String densityX;// 精确密度
-  String wh;// 分辨率
-  String size;// 屏幕尺寸
+  String mDensity;// 密度
+  String mDensityX;// 精确密度
+  String mResolution;// 分辨率
+  String mSize;// 屏幕尺寸
 
   // 系统
-  String SDK_INFO;
-  String Linux_info;
-  String jidiabenban;
-  String bianyishijian;
+  String mSdkInfo;
+  String mLinuxInfo;
+  String mBasebandVersion;
+  String mCompileTime;
 
   // 硬件
-  String xinghao;
-  String zhizaoshang;
-  String zhuban;
-  String pinpai;
-  String abis;
-
+  String mModel;
+  String mManufacturer;
+  String mMainboard;
+  String mBrand;
+  String mAbis;
 
   // cpu
-  String cpu_count;
-  String cpu_byte;
-  String cpu_type;
-  String cpu_max_rate;
-  String cpu_min_rate;
+  String mCpuCount;
+  String mCpuByte;
+  String mCpuType;
+  String mCpuMaxRate;
+  String mCpuMinRate;
 
   // 本机id
-  String imei;
-  String phoneNum;
-  String sim_card_number;
-  String fuwushang;
+  String mImei;
+  String mPhoneNum;
+  String mSimCardNumber;
+  String mServiceProvider;
 
   // 网络
-  String network;
-  String ipv4;
-  String mac;
+  String mNetwork;
+  String mIpv4;
+  String mMac;
 
   // 内存
-  String neicun;
-  String sdcrad;
+  String mMemory;
+  String mSDCard;
 
   // app
-  String app_version_name;
-  String app_version_int;
-  String app_name;
-  String app_package_name;
-  // String app_size;
-  String packing_time;
-  String app_sha1;
-  String app_md5;
+  String mAppVersionName;
+  String mAppVersionInt;
+  String mAppName;
+  String mAppPackageName;
+  String mPackingTime;
+  String mAppSha1;
+  String mAppMD5;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,26 +92,25 @@ public class BaseInfoActivity extends AppCompatActivity {
       getAppInfos();
       setAppInfo();
     }
-
   }
 
   private void getAppInfos() {
-    app_version_name = "app版本：" + AppUtil.getVersionName(this);
-    app_version_int = "内部版本号：" + AppUtil.getVersionCode(this);
-    app_name = "应用名：" + getResources().getString(R.string.app_name);
-    app_package_name = "包名：" + AppUtil.getAppProcessName(this);
+    mAppVersionName = "app版本：" + AppUtil.getVersionName(this);
+    mAppVersionInt = "内部版本号：" + AppUtil.getVersionCode(this);
+    mAppName = "应用名：" + getResources().getString(R.string.app_name);
+    mAppPackageName = "包名：" + AppUtil.getAppProcessName(this);
     // app_size = "app大小：" + PkgSizeObserver.getPkgSize(this)[2];
-    packing_time = "app打包时间：" + BuildConfig.releaseTime;
-    app_sha1 = "sha1：" + AppUtil.getKeyStoreSign(this, "sha1");
-    app_md5 = "md5：" + AppUtil.getKeyStoreSign(this, "md5");
-    containLayout.put("APP详情", 0, app_name, app_version_name, app_package_name, app_version_int,
-        packing_time, app_sha1, app_md5);
-    containLayout.addDivider();
-    final InfoGroupLayout.OnValueChangedListencer l1 = containLayout.put("app安装大小：");
-    containLayout.addDivider();
-    final InfoGroupLayout.OnValueChangedListencer l2 = containLayout.put("app数据：");
-    containLayout.addDivider();
-    final InfoGroupLayout.OnValueChangedListencer l3 = containLayout.put("app缓存：");
+    mPackingTime = "app打包时间：" + BuildConfig.releaseTime;
+    mAppSha1 = "sha1：" + AppUtil.getKeyStoreSign(this, "sha1");
+    mAppMD5 = "md5：" + AppUtil.getKeyStoreSign(this, "md5");
+    mContainLayout.put("APP详情", 0, mAppName, mAppVersionName, mAppPackageName, mAppVersionInt,
+        mPackingTime, mAppSha1, mAppMD5);
+    mContainLayout.addDivider();
+    final InfoGroupLayout.OnValueChangedListencer l1 = mContainLayout.put("app安装大小：");
+    mContainLayout.addDivider();
+    final InfoGroupLayout.OnValueChangedListencer l2 = mContainLayout.put("app数据：");
+    mContainLayout.addDivider();
+    final InfoGroupLayout.OnValueChangedListencer l3 = mContainLayout.put("app缓存：");
     PkgSizeObserver.getPkgSize(this, new PkgSizeObserver.OnGetValue() {
       @Override
       public void newValue(PackageStats pStats) {
@@ -135,51 +131,52 @@ public class BaseInfoActivity extends AppCompatActivity {
 
   private void setDeviceInfo() {
     // 屏幕尺寸
-    containLayout.put("屏幕", 0, wh, densityX, density, size);
+    mContainLayout.put("屏幕", 0, mResolution, mDensityX, mDensity, mSize);
 
     // 系统
-    containLayout.put("系统", 0, SDK_INFO, jidiabenban, bianyishijian, Linux_info);
+    mContainLayout.put("系统", 0, mSdkInfo, mBasebandVersion, mCompileTime, mLinuxInfo);
 
     // 硬件
-    containLayout.put("硬件", 0, xinghao, pinpai, zhizaoshang, zhuban, imei, neicun, sdcrad, abis);
+    mContainLayout.put("硬件", 0, mModel, mBrand, mManufacturer, mMainboard, mImei, mMemory, mSDCard,
+        mAbis);
 
     // 网络
-    containLayout.put("网络", 0, network, ipv4, mac, fuwushang, phoneNum, sim_card_number);
+    mContainLayout.put("网络", 0, mNetwork, mIpv4, mMac, mServiceProvider, mPhoneNum, mSimCardNumber);
 
     // cpu
-    containLayout.put("cpu", 0, cpu_byte, cpu_count, cpu_max_rate, cpu_min_rate, cpu_type);
+    mContainLayout.put("cpu", 0, mCpuByte, mCpuCount, mCpuMaxRate, mCpuMinRate, mCpuType);
   }
 
   private void getDeviceInfos() {
     // 屏幕
     DisplayMetrics dm = getResources().getDisplayMetrics();
-    density = "密度：" + dm.densityDpi + "dpi/" + getResources().getString(R.string.dm_dpi) + "/"
+    mDensity = "密度：" + dm.densityDpi + "dpi/" + getResources().getString(R.string.dm_dpi) + "/"
         + dm.density + "x";
-    densityX = "精确密度：" + dm.xdpi + "x" + dm.ydpi;
-    wh = "分辨率：" + dm.widthPixels + "x" + dm.heightPixels;
-    size = "屏幕尺寸："
+    mDensityX = "精确密度：" + dm.xdpi + "x" + dm.ydpi;
+    mResolution = "分辨率：" + dm.widthPixels + "x" + dm.heightPixels;
+    mSize = "屏幕尺寸："
         + DeivceInfoUtil.getScreenSizeOfDevice2(getWindowManager().getDefaultDisplay(), dm) + "英寸";
 
     // 系统
-    SDK_INFO = "系统版本：" + android.os.Build.VERSION.RELEASE + "/" + android.os.Build.VERSION.CODENAME
+    mSdkInfo = "系统版本：" + android.os.Build.VERSION.RELEASE + "/" + android.os.Build.VERSION.CODENAME
         + "/API"
         + android.os.Build.VERSION.SDK_INT;
-    jidiabenban = "基带版本：" + android.os.Build.BOARD;
-    Linux_info = "Linux内核：" + DeivceInfoUtil.getLinuxKernalInfoEx();
-    bianyishijian =
+    mBasebandVersion = "基带版本：" + android.os.Build.BOARD;
+    mLinuxInfo = "Linux内核：" + DeivceInfoUtil.getLinuxKernalInfoEx();
+    mCompileTime =
         "编译时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Build.TIME));
 
     // 内存
-    neicun = "内存：" + AppUtil.getAvailMemory(this) + "(可用)/" + AppUtil.getTotalMemory(this)
+    mMemory = "内存：" + AppUtil.getAvailMemory(this) + "(可用)/" + AppUtil.getTotalMemory(this)
         + "(共)";
-    sdcrad = "sdcard：" + AppUtil.getSDAvailableSize(this) + "(可用)/" + AppUtil.getSDTotalSize(this)
+    mSDCard = "sdcard：" + AppUtil.getSDAvailableSize(this) + "(可用)/" + AppUtil.getSDTotalSize(this)
         + "(共)";
 
     // 硬件
-    xinghao = "型号：" + android.os.Build.MODEL;
-    pinpai = "品牌：" + android.os.Build.BRAND;
-    zhizaoshang = "制造商：" + android.os.Build.MANUFACTURER;
-    zhuban = "主板：" + Build.BOARD;
+    mModel = "型号：" + android.os.Build.MODEL;
+    mBrand = "品牌：" + android.os.Build.BRAND;
+    mManufacturer = "制造商：" + android.os.Build.MANUFACTURER;
+    mMainboard = "主板：" + Build.BOARD;
     if (android.os.Build.VERSION.SDK_INT >= 21) {
       String abisStr = "";
       for (int i = 0; i < Build.SUPPORTED_ABIS.length; i++) {
@@ -189,39 +186,39 @@ public class BaseInfoActivity extends AppCompatActivity {
         abisStr += Build.SUPPORTED_ABIS[i];
       }
       if (abisStr != null) {
-        abis = "ABIs：" + abisStr;
+        mAbis = "ABIs：" + abisStr;
       }
     }
 
     // cpu
-    cpu_count = "cpu个数：" + DeivceInfoUtil.getNumCores() + "核";
-    cpu_byte = "cpu位数：" + DeivceInfoUtil.getArchType(this) + "位";
-    cpu_type = "cpu型号：" + DeivceInfoUtil.getCpuName();
-    cpu_max_rate = "cpu最高频率：" + DeivceInfoUtil.cpuFromat(DeivceInfoUtil.getMaxCpuFreq());
-    cpu_min_rate = "cpu最低频率：" + DeivceInfoUtil.cpuFromat(DeivceInfoUtil.getMinCpuFreq());
+    mCpuCount = "cpu个数：" + DeivceInfoUtil.getNumCores() + "核";
+    mCpuByte = "cpu位数：" + DeivceInfoUtil.getArchType(this) + "位";
+    mCpuType = "cpu型号：" + DeivceInfoUtil.getCpuName();
+    mCpuMaxRate = "cpu最高频率：" + DeivceInfoUtil.cpuFromat(DeivceInfoUtil.getMaxCpuFreq());
+    mCpuMinRate = "cpu最低频率：" + DeivceInfoUtil.cpuFromat(DeivceInfoUtil.getMinCpuFreq());
 
     // 本机id
     TelephonyManager tm = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE));
-    imei = "imei：" + tm.getDeviceId();
+    mImei = "imei：" + tm.getDeviceId();
 
     if (tm.getSimState() > TelephonyManager.SIM_STATE_ABSENT) {
       try {
-        fuwushang = "服务商：" + tm.getNetworkOperatorName();
-        phoneNum = "tel：" + tm.getLine1Number(); // 手机号码，有的可得，有的不可得
-        sim_card_number = "sim卡序列号：" + tm.getSimSerialNumber();// String
+        mServiceProvider = "服务商：" + tm.getNetworkOperatorName();
+        mPhoneNum = "tel：" + tm.getLine1Number(); // 手机号码，有的可得，有的不可得
+        mSimCardNumber = "sim卡序列号：" + tm.getSimSerialNumber();// String
       } catch (Exception e) {}
     }
 
 
     // 网络
-    network = "网络：" + AppUtil.getNetworkType(this);
+    mNetwork = "网络：" + AppUtil.getNetworkType(this);
     String ip = IPUtils.getIp(this);
-    ipv4 = "ipv4：" + (ip == null ? "无网络连接" : ip);
-    mac = "mac：" + AppUtil.getMacAddress(this);
+    mIpv4 = "ipv4：" + (ip == null ? "无网络连接" : ip);
+    mMac = "mac：" + AppUtil.getMacAddress(this);
   }
 
   private void initView() {
-    containLayout = (InfoGroupLayout) findViewById(R.id.contain_layout);
+    mContainLayout = (InfoGroupLayout) findViewById(R.id.contain_layout);
   }
 
 }
