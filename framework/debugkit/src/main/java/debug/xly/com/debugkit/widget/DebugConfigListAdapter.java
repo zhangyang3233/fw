@@ -58,7 +58,7 @@ public class DebugConfigListAdapter extends BaseAdapter {
   public View getView(int position, View convertView, ViewGroup parent) {
     ViewHolder holder = null;
     if (convertView == null) {
-      convertView = mInflater.inflate(R.layout.debug_info_list_item_view, null);
+      convertView = mInflater.inflate(R.layout.debugkit_info_list_item_view, null);
       if (convertView != null) {
         holder = loadViewHolder(convertView);
         convertView.setTag(holder);

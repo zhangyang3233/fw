@@ -113,8 +113,8 @@ public class WithEditListPrefernce extends DialogPreference {
   private View getCustomView() {
     LayoutInflater inflater = LayoutInflater.from(getContext());
     mListAdapter = new DebugConfigListAdapter(getContext(), getEntryValues(), getEntries());
-    root = inflater.inflate(R.layout.edit_single_choose_dialog_layout, null, false);
-    foot = inflater.inflate(R.layout.debug_custom_view, null, false);
+    root = inflater.inflate(R.layout.debugkit_edit_single_choose_dialog_layout, null, false);
+    foot = inflater.inflate(R.layout.debugkit_debug_custom_view, null, false);
     editText = (EditText) foot.findViewById(R.id.debug_custome_info);
     list = (ListView) root.findViewById(R.id.debug_info_listview);
     list.addFooterView(foot);

@@ -37,7 +37,7 @@
                 android:maxLines="1"
                 android:gravity="center_vertical"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_h1"
+                android:textSize="@dimen/text_h2"
                 tools:text="味千拉面" />
 
             <RelativeLayout
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h2"
+                    android:textSize="@dimen/text_h3"
                     tools:text="悬赏人数：500人" />
 
                 <TextView
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_h2"
+                    android:textSize="@dimen/text_h3"
                     tools:text="平均节省：50分钟" />
             </RelativeLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:textColor="@color/text_gray_light"
-                android:textSize="@dimen/text_h2"
+                android:textSize="@dimen/text_h3"
                 tools:text="距离您：1000米内" />
         </LinearLayout>
     </LinearLayout>

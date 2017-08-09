@@ -51,7 +51,7 @@ public class InfoItemView extends RelativeLayout implements View.OnClickListener
 
   public static InfoItemView newInstance(Context context) {
     LayoutInflater inflater = LayoutInflater.from(context);
-    InfoItemView item = (InfoItemView) inflater.inflate(R.layout.info_item_layout, null, false);
+    InfoItemView item = (InfoItemView) inflater.inflate(R.layout.debugkit_info_item_layout, null, false);
     item.init();
     return item;
   }

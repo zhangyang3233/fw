@@ -1,9 +1,11 @@
 package debug.xly.com.debugkit.kit;
 
+import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
@@ -25,16 +27,17 @@ import debug.xly.com.debugkit.widget.InfoGroupLayout;
  */
 
 public class BaseInfoActivity extends AppCompatActivity {
+
   public static final String TYPE = "type";
   public static final int TYPE_DEVICE = 0;
   public static final int TYPE_APP = 1;
   InfoGroupLayout mContainLayout;
 
   // 屏幕
-  String mDensity;// 密度
-  String mDensityX;// 精确密度
-  String mResolution;// 分辨率
-  String mSize;// 屏幕尺寸
+  String mDensity; // 密度
+  String mDensityX; // 精确密度
+  String mResolution; // 分辨率
+  String mSize; // 屏幕尺寸
 
   // 系统
   String mSdkInfo;
@@ -83,7 +86,7 @@ public class BaseInfoActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.base_info_layout);
+    setContentView(R.layout.debugkit_base_info_layout);
     initView();
     if (isShowDeviceInfo()) {
       getDeviceInfos();
@@ -209,7 +212,6 @@ public class BaseInfoActivity extends AppCompatActivity {
       } catch (Exception e) {}
     }
 
-
     // 网络
     mNetwork = "网络：" + AppUtil.getNetworkType(this);
     String ip = IPUtils.getIp(this);
@@ -219,6 +221,18 @@ public class BaseInfoActivity extends AppCompatActivity {
 
   private void initView() {
     mContainLayout = (InfoGroupLayout) findViewById(R.id.contain_layout);
+  }
+
+  private boolean checkPermission(String permission) {
+    return (ContextCompat.checkSelfPermission(this,
+        permission) != PackageManager.PERMISSION_GRANTED);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, String[] permissions,
+      int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
   }
 
 }

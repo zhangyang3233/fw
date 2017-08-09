@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <PreferenceCategory android:title="@string/app_base_info_tip">
 
@@ -17,9 +19,9 @@
             android:dialogTitle="@string/pre_api_select"
             android:key="list_preference"
             android:title="@string/pre_api_select"
-            android:entries="@array/api_names"
-            android:entryValues="@array/api_select"
-            android:summary="http://api.test3.com" />
+            app:edit_list_entries="@array/api_names"
+            app:edit_list_entryValues="@array/api_select"
+            app:edit_list_summary="http://api.test3.com" />
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/print_log"
@@ -42,7 +44,7 @@
 
         <Preference
             android:key="@string/clear_sp"
-            android:layout="@layout/preference"
+            android:layout="@layout/debugkit_preference"
             android:title="@string/pre_clear_tip" />
 
         <Preference

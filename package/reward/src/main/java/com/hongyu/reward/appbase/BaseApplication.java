@@ -30,7 +30,10 @@ public class BaseApplication extends Application {
     initLog();
     startCoreService();
     InitPushManager.getInstance().register();
-    DebugKit.init(this);
+    if(BuildConfig.IS_DEBUG){
+      DebugKit.init(this);
+    }
+
   }
 
   private void initLeakCanary() {
