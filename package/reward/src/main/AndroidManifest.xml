@@ -226,6 +226,9 @@
             android:name=".ui.activity.PreViewActivity"
             android:theme="@style/AppTheme.Detail"></activity>
         <activity
+            android:name=".ui.activity.XCHDActivity"
+            android:theme="@style/AppTheme.Detail"></activity>
+        <activity
             android:name="com.hongyu.reward.wxapi.WXEntryActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

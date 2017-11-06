@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.hongyu.reward.R;
 import com.hongyu.reward.model.AdModel;
 import com.hongyu.reward.ui.activity.BrowserActivity;
+import com.hongyu.reward.ui.activity.XCHDActivity;
 import com.hongyu.reward.widget.NetImageView;
 
 import java.util.ArrayList;
@@ -39,7 +40,9 @@ public class BannerPagerAdapter extends PagerAdapter {
   }
 
   public static void gelleryToPage(Context context, AdModel adModel) {
-    if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http")) {
+    if(adModel.getPosition_id() == 7){// 喜茶活动
+      XCHDActivity.launch(context);
+    }else if (!TextUtils.isEmpty(adModel.position_url) && adModel.position_url.startsWith("http")) {
       BrowserActivity.launch(context, adModel.position_url, adModel.getPosition_text());
     }
   }

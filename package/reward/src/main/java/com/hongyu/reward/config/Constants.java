@@ -274,6 +274,9 @@ public final class Constants {
     public static final String API_PAY_SIGN = "/pay/sign";
 
 
+    public static final String API_XICHA_TRY_JOIN = "/promotion/tryJoin";
+    public static final String API_XICHA_JOIN = "/promotion/join";
+
     // 退出登录
     public static final String API_LOGOUT = "";
     public static final String API_UPLOAD_LOCATION = "/member/uploadlocation";

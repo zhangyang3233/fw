@@ -26,7 +26,6 @@ import com.hongyu.reward.utils.DoubleClickUtil;
 import com.hongyu.reward.utils.T;
 import com.hongyu.reward.widget.AppLoadingView;
 import com.hongyu.reward.widget.BottomBar;
-import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -66,7 +65,7 @@ public class TabHostActivity extends FragmentActivity {
     setContentView(R.layout.activity_classic);
     initView();
     setView();
-    PgyUpdateManager.register(this);
+//    PgyUpdateManager.register(this);
     ScreenManager.getScreenManager().pushActivity(this);
     EventBus.getDefault().register(this);
     Log.v("activity生命周期", getClass().getSimpleName() + " --> onCreate");

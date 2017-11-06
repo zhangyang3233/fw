@@ -32,4 +32,6 @@ public class ResultCode {
     public static final int code_4003 = 4003;// 超出账户可提现金额
     public static final int code_4004 = 4004;// 申请体现失败
     public static final int code_4005 = 4005;// 只能周五提现
+    public static final int code_403 = 403;// 已法再次参与活动,请确认!
+    public static final int code_406 = 406;// 活动太火爆,无多余库存,敬请谅解!
 }
