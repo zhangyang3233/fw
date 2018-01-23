@@ -1,4 +1,4 @@
-include ':external:image:imageblur'
+include ':external:image:imageblur', ':circle'
 include ':external:PushSDK'
 include ':external:beecloudsdk'
 include ':external:refreshable'

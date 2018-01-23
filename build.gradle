@@ -32,6 +32,10 @@ ext.buildToolsVersion = latestBuildToolsAvailable("22")
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -48,5 +52,9 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
